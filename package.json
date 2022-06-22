@@ -1,0 +1,80 @@
+{
+  "name": "react-typescript-yarn-lerna-monorepo-eslint-prettier-boilerplate",
+  "author": {
+    "name": "Michiel Bouw",
+    "url": "http://michielbouw.nl"
+  },
+  "private": true,
+  "license": "Proprietary",
+  "scripts": {
+    "start": "lerna run start --parallel",
+    "build": "lerna run build --parallel",
+    "test": "CI=true lerna run test --parallel",
+    "typecheck": "lerna run typecheck --parallel",
+    "lint": "lerna run lint --parallel",
+    "lint:fix": "lerna run lint:fix --parallel",
+    "start:www": "lerna run start --scope=\"@administrator/subscription\" --scope=\"@web/utils\" --scope=\"@administrator/integrated\" --parallel",
+    "build:www": "lerna run build --scope=\"@administrator/subscription\" --scope=\"@web/utils\" --scope=\"@administrator/integrated\" --parallel",
+    "test:www": "CI=true lerna run test --scope=\"@administrator/subscription\" --scope=\"@web/utils\" --scope=\"@administrator/integrated\" --parallel",
+    "lint:www": "lerna run lint --scope=\"@administrator/subscription\" --scope=\"@web/utils\" --scope=\"@administrator/integrated\" --parallel",
+    "lint:fix:www": "lerna run lint:fix --scope=\"@administrator/subscription\" --scope=\"@web/utils\" --scope=\"@administrator/integrated\" --parallel",
+    "clean": "lerna clean",
+    "clean:update": "lerna clean && lerna bootstrap"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.4",
+    "axios": "^0.27.2",
+    "i18next": "^21.8.10",
+    "i18next-browser-languagedetector": "^6.1.4",
+    "jotai": "^1.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.17.2",
+    "react-router-dom": "^6.3.0",
+    "typescript": "^4.7.4",
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.0.0-rc.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/eslint-parser": "7.18.2",
+    "@babel/plugin-syntax-flow": "^7.17.12",
+    "@babel/plugin-transform-react-jsx": "^7.17.12",
+    "@testing-library/dom": "^8.14.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.1",
+    "@types/jest": "^28.1.2",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-testing-library": "^5.5.1",
+    "eslint-webpack-plugin": "^3.1.1",
+
+    "lerna": "^5.1.4",
+    "prettier": "^2.7.1",
+    "react-scripts": "5.0.1",
+    "webpack": "5.73.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
