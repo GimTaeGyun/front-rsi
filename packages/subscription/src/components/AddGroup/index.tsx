@@ -122,11 +122,11 @@ const styles = {
         height:"36px",
         borderColor: "#284AD5",
         backgroundColor:"#284AD5",
-        boxShadow:"none",
+        boxShadow:"0px 3px 3px #0000002E",
         ":hover":{
             borderColor:"#0615B2",
             backgroundColor:"#0615B2",
-            boxShadow:"none"
+            boxShadow:"0px 3px 3px #0000002E"
         }
     },
     btn_close:{

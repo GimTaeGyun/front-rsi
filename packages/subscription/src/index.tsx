@@ -4,7 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import AddGroup from './components/Admin/AddGroup';
+import AddGroup from './components/AddGroup';
+import GroupAlert from './components/AddGroup/GroupAlert';
 import ManagementList from './components/Admin/ManagementList';
 import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
@@ -33,6 +34,10 @@ root.render(
               element={<ManagementList />}
             ></Route>
             <Route path="/admin/add_group" element={<AddGroup />}></Route>
+            <Route
+              path="/admin/add_groupalert"
+              element={<GroupAlert />}
+            ></Route>
           </Routes>
         </BrowserRouter>
       </React.Suspense>
