@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Typography } from '@mui/material';
-=======
-import React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { Typography } from "@mui/material";
->>>>>>> eda20e97444188a2b1a05961911acf9d59377552
 
 const ListItems = () => {
   return (
