@@ -1,9 +1,9 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
-import { ReactComponent as AccountCircleIcon } from "../../../../assets/images/account_circle.svg";
+import * as React from "react";
+
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,7 +25,7 @@ const ProfileMenu = () => {
         }}
         onClick={handleMenu}
       >
-        <AccountCircleIcon />
+        <Box component="img" src="assets/images/account_circle.svg" />
         <Typography ml="5px" fontSize="14px">admin</Typography>
       </Box>
       <Menu

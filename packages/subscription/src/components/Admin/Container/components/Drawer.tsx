@@ -1,13 +1,12 @@
-import React from 'react';
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
-import DesktopMacIcon from "@mui/icons-material/DesktopMac";
-
-import LogoImage from "../../../../assets/images/logo_bfly.png";
 import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
+import React from "react";
+
 import AdminDrawerMenuItem from "./DrawerMenuItem";
 
 const menuItems = [
@@ -71,7 +70,7 @@ const AdminDrawer = (props: { drawerWidth: number; open: boolean }) => {
       open={open}
     >
       <Toolbar sx={{ mt: "64px" }}>
-        <Box component="img" alt="logo" src={LogoImage} />
+        <Box component="img" alt="logo" src="/assets/images/logo_bfly.png" />
       </Toolbar>
       <Box sx={{ overflow: "auto" }}>
         {menuItems.map((menuItem, index) => (
