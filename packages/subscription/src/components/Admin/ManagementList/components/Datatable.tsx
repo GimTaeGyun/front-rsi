@@ -58,6 +58,7 @@ const columns: GridColDef[] = [
     width: 200,
     headerAlign: 'center',
     align: 'center',
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontFamily="NotoSansKRMEdium">
         {params.colDef.headerName}
@@ -70,6 +71,7 @@ const columns: GridColDef[] = [
     width: 89,
     headerAlign: 'center',
     align: 'center',
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontFamily="NotoSansKRMEdium">
         {params.colDef.headerName}
@@ -84,6 +86,7 @@ const columns: GridColDef[] = [
     headerName: '추가 내용',
     width: 140,
     headerAlign: 'center',
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontFamily="NotoSansKRMEdium">
         {params.colDef.headerName}
@@ -96,6 +99,7 @@ const columns: GridColDef[] = [
     width: 159,
     headerAlign: 'center',
     align: 'center',
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontFamily="NotoSansKRMEdium">
         {params.colDef.headerName}
@@ -108,6 +112,7 @@ const columns: GridColDef[] = [
     width: 89,
     headerAlign: 'center',
     align: 'center',
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontFamily="NotoSansKRMEdium">
         {params.colDef.headerName}
@@ -269,7 +274,7 @@ const DataTable = () => {
                 }}
                 startAdornment={
                   <InputAdornment position="start">
-                    <IconButton>
+                    <IconButton sx={{ color: "#000000DE" }}>
                       <SearchOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
@@ -298,6 +303,8 @@ const DataTable = () => {
           components={{
             Footer: DatatableFooter,
           }}
+          sortModel={[{ field: 'name', sort: 'asc' }, { field: "phone", sort: "desc" }]}
+          
         />
       </Card>
     </Box>

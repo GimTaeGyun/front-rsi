@@ -93,13 +93,13 @@ const Sidebar = () => {
           <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
             <Button
               variant="outlined"
-              sx={{ minWidth: '32px', height: '32px', p: '4px', mr: '8px', borderColor: "#284AD5" }}
+              sx={{ minWidth: '32px', height: '32px', p: '4px', mr: '8px', color: "#000000DE", borderColor: "#0000002E" }}
             >
               <ExpandLess />
             </Button>
             <Button
               variant="outlined"
-              sx={{ minWidth: '32px', height: '32px', p: '4px', borderColor: "#284AD5" }}
+              sx={{ minWidth: '32px', height: '32px', p: '4px', color: "#000000DE", borderColor: "#0000002E" }}
             >
               <ExpandMore />
             </Button>

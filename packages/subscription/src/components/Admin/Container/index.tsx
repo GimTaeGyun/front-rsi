@@ -1,16 +1,17 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import { styled } from "@mui/material/styles";
-import ProfileMenu from "./components/ProfileMenu";
-import Button from "@mui/material/Button";
+import * as React from "react";
+
 import AdminDrawer from "./components/Drawer";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
+import ProfileMenu from "./components/ProfileMenu";
 
 const drawerWidth = 350;
 
@@ -18,7 +19,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
+  padding: "38px",
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen
