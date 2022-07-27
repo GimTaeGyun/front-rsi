@@ -1,46 +1,63 @@
-import React from 'react';
-import {Box,Button,OutlinedInput} from "@mui/material";
+import * as React from 'react';
+import {Box,Button,OutlinedInput,Modal} from "@mui/material";
 import DataTable from "./Datatable";
 
 const AddGroup = ()=>{
+    const [open, setOpen] = React.useState(true);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
     return (
-        <Box sx={styles.popup_outer}>
-            <Box sx={styles.popup_header}>
-                <Box component="h3" sx={styles.popup_title}>운영자 그룹 추가</Box>
-                <Box component="img" src="/assets/images/popup_close.png" sx={styles.close_btn}></Box>
-            </Box>
-            <Box sx={styles.popup_content}>
-                <Box component="div" sx={styles.inputfield_outer}>
-                    <Box sx={styles.input_label}>그룹명<Box component="span" sx={styles.req_field}></Box></Box>
-                    <Box sx={{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"}}>
-                        <Box component="span" sx={{width:"348px","border":"0 solid #000"}}>
-                            <OutlinedInput fullWidth id="group-name" placeholder="생성할 그룹명을 입력해 주세요." sx={styles.inputfield} />
+        <>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+            >
+                <Box sx={styles.popup_outer}>
+                    <Box sx={styles.popup_header}>
+                        <Box component="h3" sx={styles.popup_title}>운영자 그룹 추가</Box>
+                        <Box component="img" src="/assets/images/popup_close.png" sx={styles.close_btn} onClick={handleClose}></Box>
+                    </Box>
+                    <Box sx={styles.popup_content}>
+                        <Box component="div" sx={styles.inputfield_outer}>
+                            <Box sx={styles.input_label}>그룹명<Box component="span" sx={styles.req_field}></Box></Box>
+                            <Box sx={{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"}}>
+                                <Box component="span" sx={{width:"348px","border":"0 solid #000"}}>
+                                    <OutlinedInput fullWidth id="group-name" placeholder="생성할 그룹명을 입력해 주세요." sx={styles.inputfield} />
+                                </Box>
+                                <Box component="span" sx={{display:"inline-block"}}>
+                                    <Button color="primary" variant="contained" sx={styles.btn_check}>중복확인</Button>
+                                </Box>
+                            </Box>
                         </Box>
-                        <Box component="span" sx={{display:"inline-block"}}>
-                            <Button color="primary" variant="contained" sx={styles.btn_check}>중복확인</Button>
+                        <Box component="div" sx={styles.inputfield_outer}>
+                            <Box sx={styles.input_label}>그룹 설명</Box>
+                            <Box component="div" sx={{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"}}>
+                                <Box component="span" sx={{width:"100%","border":"0 solid #000"}}>
+                                    <OutlinedInput fullWidth id="group-desc" placeholder="그룹설명을 입력해 주세요." sx={styles.inputfield} />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box component="div" sx={styles.inputfield_outer}>
+                            <Box sx={styles.input_label}>그룹 역할 설정<Box component="span" sx={styles.req_field}></Box></Box>
+                            <Box component="div" sx={{position:"relative"}}>
+                                <DataTable />
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
-                <Box component="div" sx={styles.inputfield_outer}>
-                    <Box sx={styles.input_label}>그룹 설명</Box>
-                    <Box component="div" sx={{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"}}>
-                        <Box component="span" sx={{width:"100%","border":"0 solid #000"}}>
-                            <OutlinedInput fullWidth id="group-desc" placeholder="그룹설명을 입력해 주세요." sx={styles.inputfield} />
-                        </Box>
+                    <Box sx={styles.popup_footer}>
+                        <Button sx={styles.btn_close} onClick={handleClose}>취소</Button>
+                        <Button color="primary" variant="contained" sx={styles.btn_submit}>저장</Button>
                     </Box>
                 </Box>
-                <Box component="div" sx={styles.inputfield_outer}>
-                    <Box sx={styles.input_label}>그룹 역할 설정<Box component="span" sx={styles.req_field}></Box></Box>
-                    <Box component="div" sx={{position:"relative"}}>
-                        <DataTable />
-                    </Box>
-                </Box>
-            </Box>
-            <Box sx={styles.popup_footer}>
-                <Button sx={styles.btn_close}>취소</Button>
-                <Button color="primary" variant="contained" sx={styles.btn_submit}>저장</Button>
-            </Box>
-        </Box>
+            </Modal>
+        </>
     );
 }
 
@@ -119,14 +136,27 @@ const styles = {
             backgroundColor:"unset"
         }
     },
-    popup_outer:{display:"block",m:"0 auto",width:"500px",height:"660px",border:"1px solid #000"},
+    popup_outer:{
+        display:"block",
+        m:"0 auto",
+        width:"500px",
+        height:"660px",
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        bgcolor: '#fff',
+        border: 'none',
+        boxShadow: "0px 1px 5px #0000002E",
+        borderRadius:"6px"
+    },
     popup_header:{
         p:"0 15px",
         display:"flex",alignItems:"center",justifyContent:"space-between",
         width:"100%",height:"56px",
         borderBottom:"1px solid #eee"
     },
-    close_btn:{width:"24px",height:"24px"},
+    close_btn:{width:"24px",height:"24px",cursor:"pointer"},
     popup_title:{
         fontSize:"16px",fontColor:"#000000DE",fontFamily:"NotoSansKRMedium"
     },
