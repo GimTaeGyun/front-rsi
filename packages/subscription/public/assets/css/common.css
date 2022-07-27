@@ -1,0 +1,308 @@
+* {
+    font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
+}
+
+pre {
+    margin: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.header-logo {
+    margin-right: 55px;
+}
+
+.menu-1 {
+    margin-right: 60px !important;
+}
+
+.menu-2 {
+    margin-right: 60px !important;
+}
+
+.menu-3 {}
+
+button.menu {
+    width: auto;
+    text-transform: none;
+}
+
+button.menu:before {
+    width: 0;
+    position: absolute;
+    content: '';
+    height: 4px;
+    background: #284AD5;
+    bottom: 0;
+    left: 50%;
+    -webkit-transition-duration: .3s;
+    -moz-transition-duration: .3s;
+    -o-transition-duration: .3s;
+    transition-duration: .3s;
+}
+
+button.menu:hover {
+    color: #284AD5;
+}
+
+button.menu:hover::before {
+    width: 100%;
+    left: 0;
+}
+
+button.btn-menu3 .MuiButton-startIcon {
+    margin: 0;
+}
+
+button.FooterLinksTop {
+    color: #9E9E9E;
+    font-family: 'NotoSansKRMedium';
+    font-size: 15px;
+    letter-spacing: -0.3px;
+}
+
+button.FooterLinksTop:hover {
+    color: #fff;
+}
+
+
+
+
+/*Login page*/
+
+.login-logo {
+    width: 180px;
+    display: block;
+    margin: 0 auto;
+}
+
+.member-title {
+    letter-spacing: -0.55px;
+    color: #000000;
+    font-size: 22px;
+    font-weight: 500;
+    font-family: 'NotoSansKRMedium';
+    text-align: center;
+    margin: 0;
+}
+
+.top-sign {
+    margin-bottom: 30px;
+}
+
+div.login-container {
+    background: url(../images/login_bg_shape.png) no-repeat 71.7% -30px;
+}
+
+
+/*terms page*/
+
+div.outlined-multiline-static textarea:disabled {
+    -webkit-text-fill-color: unset;
+}
+
+div.outlined-multiline-static fieldset.MuiOutlinedInput-notchedOutline {
+    border: 1px solid #ccc !important;
+    border-radius: 6px;
+}
+
+div.outlined-multiline-static.error fieldset.MuiOutlinedInput-notchedOutline {
+    border: 1px solid #E50012 !important;
+}
+
+
+/* Works on Firefox */
+
+textarea:disabled {
+    scrollbar-width: 4px;
+    scrollbar-color: #CCCCCC none;
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+
+textarea:disabled::-webkit-scrollbar {
+    width: 4px;
+}
+
+textarea:disabled::-webkit-scrollbar-track {
+    background: none;
+}
+
+textarea:disabled::-webkit-scrollbar-thumb {
+    background-color: #CCCCCC;
+    height: 80px;
+    border-radius: 5px;
+}
+
+div.subMenuItem span {
+    font-size: 17px !important;
+}
+
+
+/* Sign */
+
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.login-container {
+    background: url(../images/login_bg_shape.png) no-repeat 71.7% -30px;
+}
+
+.sign-section {
+    background-color: #f4f5f7;
+    padding: 0 0 80px;
+}
+
+.card-space {
+    margin-top: 10px !important;
+    margin-bottom: 20px;
+}
+
+.label-dot {
+    color: #284ad5;
+    font-size: 20px;
+    line-height: 0;
+}
+
+.form-and {
+    font-size: 16px;
+    color: #555555;
+    font-family: 'NotoSansKRRegular';
+    padding: 0 8px;
+}
+
+.choose-group label {
+    display: inline-block !important;
+    border: 1px solid #EEEEEE;
+    border-radius: 6px;
+    margin-right: 15px;
+    flex: 1;
+    padding: 8px;
+}
+
+.choose-group {
+    flex-direction: row !important;
+}
+
+.choose-group label:last-child {
+    margin-right: 0;
+}
+
+.contact-body .choose-group .Mui-checked .css-hyxlzm {
+    color: #284AD5;
+}
+
+.contact-body label span {
+    margin-left: 5px;
+}
+
+#demo-radio-buttons-group-label svg {
+    font-size: 20px;
+    vertical-align: bottom;
+    margin-left: 5px;
+}
+
+.choose-group label .MuiTypography-root {
+    /* color: #333; */
+    font-weight: 500;
+    font-family: 'NotoSansKRMedium';
+    font-size: 16px;
+    padding-right: 15px;
+}
+
+.switch-card .MuiRadio-root {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+}
+
+.switch-card {
+    position: relative;
+}
+
+.switch-card .MuiGrid-item {
+    position: relative;
+}
+
+.switch-card .MuiRadio-root:hover {
+    background: transparent;
+}
+
+.switch-card .MuiRadio-root .css-hyxlzm {
+    visibility: hidden;
+}
+
+
+/* 
+.switch-card .MuiRadio-root:before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc' focusable='false' aria-hidden='true' viewBox='0 0 24 24' data-testid='CheckCircleIcon' fill='%23284ad5'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'%3E%3C/path%3E%3C/svg%3E");
+    width: 30px;
+    height: 30px;
+    display: block;
+    opacity: 0;
+} 
+
+.switch-card .MuiRadio-root.Mui-checked:before {
+    opacity: 1;
+}
+*/
+
+
+/* .theme-dark-outline {
+    border-color: #3a4b60;
+    color: #212831;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 15px;
+}
+
+.theme-dark-outline:hover {
+    background: #212831;
+    color: #fff;
+    border-color: #212831;
+} */
+
+
+/* .theme-input fieldset {
+    border-color: #ccc !important;
+} */
+
+.MuiOutlinedInput-root.Mui-error fieldset {
+    box-shadow: 0px 1px 6px #E500121F;
+}
+
+@media (min-width: 720px) {
+    .cstm-container {
+        max-width: 728px !important;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    img.footer-logo {
+        display: block;
+        margin: 0 auto 20px auto!important;
+    }
+}
