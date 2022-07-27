@@ -45,6 +45,7 @@ const SidebarListItemSub = (props: {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {item.items.map(subMenu => (
+            // eslint-disable-next-line react/jsx-key
             <ListItemButton sx={{ pl: '50px' }} onClick={handleClickSub}>
               <ArrowRight />
               <ListItemText

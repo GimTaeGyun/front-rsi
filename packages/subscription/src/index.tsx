@@ -2,7 +2,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Provider } from 'jotai';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route,Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AddGroup from './components/Admin/AddGroup';
 import ManagementList from './components/Admin/ManagementList';
@@ -36,7 +36,7 @@ ReactDOM.render(
       </React.Suspense>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
