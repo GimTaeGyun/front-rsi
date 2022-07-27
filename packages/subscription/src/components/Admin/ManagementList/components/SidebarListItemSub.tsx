@@ -1,13 +1,15 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import { MoreVertOutlined } from "@mui/icons-material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForwardIos";
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { Popper } from '@mui/material';
+import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
-import { ArrowRight } from '@mui/icons-material';
-import { Popper } from '@mui/material';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import React from 'react';
+
 import ListItems from './ListItems';
 
 const SidebarListItemSub = (props: {
@@ -29,7 +31,7 @@ const SidebarListItemSub = (props: {
 
   return (
     <Box>
-      <ListItemButton sx={{ pl: '30px' }} onClick={handleClick}>
+      <ListItemButton sx={{ pl: '30px', height: "44px" }} onClick={handleClick}>
         {open ? <ExpandLess /> : <ExpandMore />}
         <ListItemText
           sx={{
@@ -45,8 +47,8 @@ const SidebarListItemSub = (props: {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {item.items.map((subMenu, index) => (
-            <ListItemButton key={`list-sub-menu-${index}`} sx={{ pl: '50px' }} onClick={handleClickSub}>
-              <ArrowRight />
+            <ListItemButton key={`list-sub-menu-${index}`} sx={{ pl: '50px', pr: "10px", height: "44px" }} onClick={handleClickSub}>
+              
               <ListItemText
                 sx={{
                   '& .MuiListItemText-primary': {
@@ -55,8 +57,10 @@ const SidebarListItemSub = (props: {
                   },
                 }}
               >
+                <ArrowForwardIcon sx={{ fontSize: "14px" }} />
                 {subMenu.title}
               </ListItemText>
+              <MoreVertOutlined sx={{ fontSize: "16px" }} />
             </ListItemButton>
           ))}
           <Popper open={opensub} anchorEl={anchorEl} placement="right">

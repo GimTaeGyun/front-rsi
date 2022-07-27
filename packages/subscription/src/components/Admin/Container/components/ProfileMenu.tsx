@@ -25,7 +25,7 @@ const ProfileMenu = () => {
         }}
         onClick={handleMenu}
       >
-        <Box component="img" src="assets/images/account_circle.svg" />
+        <Box component="img" src="/assets/images/account_circle.svg" />
         <Typography ml="5px" fontSize="14px">admin</Typography>
       </Box>
       <Menu
