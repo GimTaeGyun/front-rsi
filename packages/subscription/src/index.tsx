@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
 
-import AddGroup from './components/Admin/AddGroup';
+import AddGroup from './components/AddGroup';
 import ManagementList from './components/Admin/ManagementList';
 import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
