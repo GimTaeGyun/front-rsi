@@ -7,7 +7,9 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import React from 'react';
+import { title } from 'process';
+import React, { useState } from 'react';
+import ListItems from './ListItems';
 
 import SidebarListItem from './SidebarListItem';
 
@@ -68,7 +70,12 @@ const Sidebar = () => {
         <Divider />
         <CardContent>
           <List
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+            sx={{
+              width: '100%',
+              maxWidth: 360,
+              bgcolor: 'background.paper',
+              height: '44px',
+            }}
             component="nav"
             aria-labelledby="nested-list-subheader"
           >
@@ -93,13 +100,26 @@ const Sidebar = () => {
           <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
             <Button
               variant="outlined"
-              sx={{ minWidth: '32px', height: '32px', p: '4px', mr: '8px', color: "#000000DE", borderColor: "#0000002E" }}
+              sx={{
+                minWidth: '32px',
+                height: '32px',
+                p: '4px',
+                mr: '8px',
+                color: '#000000DE',
+                borderColor: '#0000002E',
+              }}
             >
               <ExpandLess />
             </Button>
             <Button
               variant="outlined"
-              sx={{ minWidth: '32px', height: '32px', p: '4px', color: "#000000DE", borderColor: "#0000002E" }}
+              sx={{
+                minWidth: '32px',
+                height: '32px',
+                p: '4px',
+                color: '#000000DE',
+                borderColor: '#0000002E',
+              }}
             >
               <ExpandMore />
             </Button>
