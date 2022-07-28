@@ -1,8 +1,8 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { Provider } from 'jotai';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route,Routes } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AddGroup from './components/AddGroup';
 import ManagementList from './components/Admin/ManagementList';
@@ -17,7 +17,10 @@ export { default as Login } from './container/Login';
 export { default as ClientArea } from './components/ClientArea';
 export { default as AppFrame } from './container/AppFrame';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+root.render(
   <React.StrictMode>
     <Provider>
       <React.Suspense fallback={<div>Loading...</div>}>
@@ -36,7 +39,6 @@ ReactDOM.render(
       </React.Suspense>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
