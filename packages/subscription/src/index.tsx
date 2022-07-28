@@ -5,12 +5,13 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AddGroup from './components/AddGroup';
+import GroupAlert from './components/AddGroup/GroupAlert';
+import GroupAlert2 from './components/AddGroup/GroupAlert2';
 import ManagementList from './components/Admin/ManagementList';
+import PaymentList from './components/PaymentList';
 import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
-
-// const root = ReactDOM.render(<AppFrame />, document.getElementById('root'));
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
@@ -34,6 +35,16 @@ root.render(
               element={<ManagementList />}
             ></Route>
             <Route path="/admin/add_group" element={<AddGroup />}></Route>
+            <Route path="/admin/add_group2" element={<AddGroup />}></Route>
+            <Route
+              path="/admin/add_groupalert"
+              element={<GroupAlert />}
+            ></Route>
+            <Route
+              path="/admin/add_groupalert2"
+              element={<GroupAlert2 />}
+            ></Route>
+            <Route path="/admin/payments" element={<PaymentList />}></Route>
           </Routes>
         </BrowserRouter>
       </React.Suspense>

@@ -9,10 +9,10 @@ const columns: GridColDef[] = [
 
 const rows = [
   { id: 1, roleName: '슈퍼바이저', roleDesc: '슈퍼바이저 굿' },
-  { id: 2, roleName: '슈퍼바이저', roleDesc: '슈퍼바이저 굿' },
-  { id: 3, roleName: '슈퍼바이저', roleDesc: '슈퍼바이저 굿' },
-  { id: 4, roleName: '슈퍼바이저', roleDesc: '슈퍼바이저 굿' },
-  { id: 5, roleName: '슈퍼바이저', roleDesc: '슈퍼바이저 굿' }
+  { id: 2, roleName: '개발자', roleDesc: '개발 test' },
+  { id: 3, roleName: '통합관리자어드민', roleDesc: '-' },
+  { id: 4, roleName: '재무회계담당자', roleDesc: '-' },
+  { id: 5, roleName: '영업담당자', roleDesc: '-' },
 ];
 
 const DataTable = () => {
@@ -36,13 +36,19 @@ const DataTable = () => {
 
 const styles = {
   dg_styles:{
-    /*
-    "& .MuiDataGrid-columnHeaders":{
-        height:"45px !important",maxHeight:"45px !important",minHeight:"45px !important",
+    "& .MuiDataGrid-row:hover":{
+      backgroundColor:"unset",
+      cursor:"pointer"
     },
-    "& .MuiDataGrid-columnHeadersInner":{
-      height:"45px !important",maxHeight:"45px !important",minHeight:"45px !important",
-    }*/
+    "& .MuiDataGrid-row.Mui-selected:hover":{
+      backgroundColor:"unset"
+    },
+    "& .MuiDataGrid-row.Mui-selected":{
+      backgroundColor:"unset"
+    },
+    "& .MuiDataGrid-cell:focus":{
+      outline:"none"
+    }
   }
 }
 

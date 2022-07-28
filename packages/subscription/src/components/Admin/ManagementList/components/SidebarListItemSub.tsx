@@ -1,37 +1,38 @@
-import { MoreVertOutlined } from "@mui/icons-material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForwardIos";
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Popper } from '@mui/material';
+import React from 'react';
 import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import React from 'react';
-
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import { ArrowRight, Height } from '@mui/icons-material';
+import { IconButton, Popper } from '@mui/material';
 import ListItems from './ListItems';
+import { GridMoreVertIcon } from '@mui/x-data-grid';
 
 const SidebarListItemSub = (props: {
-  item: { title: string; items: Array<any> };
+  item: { title: string; id: number; items: Array<any> };
 }) => {
   const { item } = props;
-
   const [open, setOpen] = React.useState(true);
   const [opensub, setOpensub] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
 
   const handleClick = () => {
     setOpen(!open);
   };
 
+  const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
   return (
     <Box>
-      <ListItemButton sx={{ pl: '30px', height: "44px" }} onClick={handleClick}>
+      <ListItemButton
+        sx={{ pl: '30px', float: 'left', width: '220px' }}
+        onClick={handleClick}
+      >
         {open ? <ExpandLess /> : <ExpandMore />}
         <ListItemText
           sx={{
@@ -44,28 +45,49 @@ const SidebarListItemSub = (props: {
           {item.title}
         </ListItemText>
       </ListItemButton>
+      <Box sx={{ zIndex: 1, float: 'right' }}>
+        <IconButton
+          aria-label="more"
+          id="long-button"
+          aria-haspopup="true"
+          onClick={handleClickSub}
+        >
+          <GridMoreVertIcon />
+        </IconButton>
+        <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />
+      </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {item.items.map((subMenu, index) => (
-            <ListItemButton key={`list-sub-menu-${index}`} sx={{ pl: '50px', pr: "10px", height: "44px" }} onClick={handleClickSub}>
-              
-              <ListItemText
-                sx={{
-                  '& .MuiListItemText-primary': {
-                    fontSize: '15px',
-                    color: '#000000DE',
-                  },
-                }}
+            <Box key={`list-sub-menu-${index}`}>
+              <ListItemButton
+                sx={{ pl: '50px', height: '44px', float: 'left' }}
               >
-                <ArrowForwardIcon sx={{ fontSize: "14px" }} />
-                {subMenu.title}
-              </ListItemText>
-              <MoreVertOutlined sx={{ fontSize: "16px" }} />
-            </ListItemButton>
+                <ArrowRight />
+                <ListItemText
+                  sx={{
+                    '& .MuiListItemText-primary': {
+                      fontSize: '15px',
+                      color: '#000000DE',
+                    },
+                  }}
+                >
+                  {subMenu.title}
+                </ListItemText>
+              </ListItemButton>
+              <Box sx={{ float: 'right' }}>
+                <IconButton
+                  aria-label="more"
+                  id="long-button"
+                  aria-haspopup="true"
+                  onClick={handleClickSub}
+                >
+                  <GridMoreVertIcon />
+                </IconButton>
+                <ListItems opensub={opensub} anchorEl={anchorEl} id={index} />
+              </Box>
+            </Box>
           ))}
-          <Popper open={opensub} anchorEl={anchorEl} placement="right">
-            <ListItems />
-          </Popper>
         </List>
       </Collapse>
     </Box>

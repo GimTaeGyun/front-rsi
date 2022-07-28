@@ -2,6 +2,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import React from 'react';
 
+import AddOperatorPopup from './AddOperatorPopup';
+
 const buttonStyle = {
   p: '5px 10px',
   height: '30px',
@@ -10,41 +12,50 @@ const buttonStyle = {
 };
 
 const DatatableFooter = () => {
+  const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
+
   return (
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      p="10px"
-      borderTop="1px solid rgba(224, 224, 224, 1)"
-    >
-      <Box>
-        <Button
-          variant="contained"
-          sx={{
-            ...buttonStyle,
-            mr: '8px',            
-          }}
-        >
-          리스트 저장
-        </Button>
+    <>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        p="10px"
+        borderTop="1px solid rgba(224, 224, 224, 1)"
+      >
+        <Box>
+          <Button
+            variant="contained"
+            sx={{
+              ...buttonStyle,
+              mr: '8px',
+            }}
+          >
+            리스트 저장
+          </Button>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => setOpenOperatorPopup(true)}
+          >
+            운영자 추가
+          </Button>
+        </Box>
         <Button
           variant="outlined"
+          startIcon={
+            <Box component="img" src="/assets/images/microsoftexcel.svg" />
+          }
           sx={buttonStyle}
         >
-          운영자 추가
+          엑셀 다운로드
         </Button>
       </Box>
-      <Button
-        variant="outlined"
-        startIcon={
-          <Box component="img" src="/assets/images/microsoftexcel.svg" />
-        }
-        sx={buttonStyle}
-      >
-        엑셀 다운로드
-      </Button>
-    </Box>
+      <AddOperatorPopup
+        open={openOperatorPopup}
+        handleClose={() => setOpenOperatorPopup(false)}
+      />
+    </>
   );
 };
 
