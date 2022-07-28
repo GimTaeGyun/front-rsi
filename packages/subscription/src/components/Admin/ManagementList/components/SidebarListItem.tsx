@@ -12,13 +12,12 @@ import { IconButton } from '@mui/material';
 import { GridMoreVertIcon } from '@mui/x-data-grid';
 
 const SidebarListItem = (props: {
-  item: { title: string; items: Array<any> };
+  item: { title: string; id: number; items: Array<any> };
 }) => {
   const { item } = props;
   const [open, setOpen] = React.useState(true);
   const [opensub, setOpensub] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const numbers = 1;
 
   const handleClick = () => {
     setOpen(!open);
@@ -26,13 +25,19 @@ const SidebarListItem = (props: {
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-  const onChange = (e: any) => {
-    e.target.defaultValue === 1 ? setOpensub(false) : setOpensub(true);
-  };
 
   return (
-    <Box>
-      <ListItemButton sx={{ pl: 0, height: '44px' }} onClick={handleClick}>
+    <Box sx={{ height: '41px' }}>
+      <ListItemButton
+        sx={{
+          pl: 0,
+          height: '40px',
+          float: 'left',
+          width: '220px',
+          display: 'outline',
+        }}
+        onClick={handleClick}
+      >
         {open ? <ExpandLess /> : <ExpandMore />}
         <ListItemText
           sx={{
@@ -44,20 +49,13 @@ const SidebarListItem = (props: {
         >
           {item.title}
         </ListItemText>
-        <Box sx={{ zIndex: 1, alignContent: 'right' }}>
-          <IconButton
-            onChange={onChange}
-            aria-label="more"
-            id="long-button"
-            aria-haspopup="true"
-            onClick={handleClickSub}
-            defaultValue={numbers}
-          >
-            <GridMoreVertIcon />
-          </IconButton>
-          <ListItems opensub={opensub} anchorEl={anchorEl} />
-        </Box>
       </ListItemButton>
+      <Box sx={{ float: 'right' }}>
+        <IconButton aria-label="more" id="long-button" onClick={handleClickSub}>
+          <GridMoreVertIcon />
+        </IconButton>
+        <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />
+      </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" sx={{ height: '44px' }} disablePadding>
           {item.items.map(

@@ -12,12 +12,14 @@ import { title } from 'process';
 const ListItems = (props: {
   opensub: boolean;
   anchorEl: null | HTMLElement;
+  id: number;
 }) => {
   const { opensub } = props;
   const { anchorEl } = props;
+  const { id } = props;
 
   return (
-    <Popper open={opensub} anchorEl={anchorEl} placement="right">
+    <Popper open={opensub} anchorEl={anchorEl} placement="right" key={id}>
       <List sx={{ transform: 'translate(px, 0)' }}>
         <ListItem disablePadding>
           <ListItemButton
