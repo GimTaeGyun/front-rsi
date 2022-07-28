@@ -14,6 +14,7 @@ const AddGroup = ()=>{
     return (
         <>
             <Modal
+                sx={styles.modal}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="parent-modal-title"
@@ -62,6 +63,11 @@ const AddGroup = ()=>{
 }
 
 const styles = {
+    modal:{
+        "& .MuiBox-root:focus-visible":{
+            outline:"unset"
+        }
+    },
     req_field:{
         ml:"5px",
         display:"inline-block",
