@@ -86,7 +86,7 @@ const AdminDrawer = (props: { drawerWidth: number; open: boolean }) => {
         />
       </Toolbar>
       <Box sx={{ overflow: 'auto' }}>
-        {menuItems.map((menuItem, index) => (
+        {menuItems.map(index => (
           <List key={`list-item-${index}`}>
             {/*
             <AdminDrawerMenuItem
