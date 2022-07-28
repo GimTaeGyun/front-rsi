@@ -23,7 +23,9 @@ const AddGroup = ()=>{
                 <Box sx={styles.popup_outer}>
                     <Box sx={styles.popup_header}>
                         <Box component="h3" sx={styles.popup_title}>운영자 그룹 추가</Box>
-                        <Box component="img" src="/assets/images/popup_close.png" sx={styles.close_btn} onClick={handleClose}></Box>
+                        <Box component="img" 
+                        src={require('@administrator/subscription/public/assets/images/popup_close.png')}
+                        sx={styles.close_btn} onClick={handleClose}></Box>
                     </Box>
                     <Box sx={styles.popup_content}>
                         <Box component="div" sx={styles.inputfield_outer}>
