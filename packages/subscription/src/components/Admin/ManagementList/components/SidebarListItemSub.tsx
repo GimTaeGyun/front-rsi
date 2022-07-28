@@ -59,9 +59,8 @@ const SidebarListItemSub = (props: {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {item.items.map((subMenu, index) => (
-            <Box>
+            <Box key={`list-sub-menu-${index}`}>
               <ListItemButton
-                key={`list-sub-menu-${index}`}
                 sx={{ pl: '50px', height: '44px', float: 'left' }}
               >
                 <ArrowRight />
