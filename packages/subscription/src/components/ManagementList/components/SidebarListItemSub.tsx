@@ -6,7 +6,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
-import { ArrowRight, Height } from '@mui/icons-material';
+import { ArrowForwardIos } from '@mui/icons-material';
 import { IconButton, Popper } from '@mui/material';
 import ListItems from './ListItems';
 import { GridMoreVertIcon } from '@mui/x-data-grid';
@@ -63,7 +63,7 @@ const SidebarListItemSub = (props: {
               <ListItemButton
                 sx={{ pl: '50px', height: '44px', float: 'left' }}
               >
-                <ArrowRight />
+                <ArrowForwardIos sx={{ fontSize: "16px" }} />
                 <ListItemText
                   sx={{
                     '& .MuiListItemText-primary': {

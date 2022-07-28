@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddGroup from './components/AddGroup';
 import GroupAlert from './components/AddGroup/GroupAlert';
 import GroupAlert2 from './components/AddGroup/GroupAlert2';
-import ManagementList from './components/Admin/ManagementList';
+import ManagementList from './components/ManagementList';
 import PaymentList from './components/PaymentList';
 import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
@@ -29,7 +29,6 @@ root.render(
         <CssBaseline />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<AppFrame />}></Route>
             <Route path="/admin/login" element={<AdminLogin />}></Route>
             <Route
               path="/admin/management-list"
