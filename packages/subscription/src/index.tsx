@@ -11,6 +11,7 @@ import ManagementList from './components/Admin/ManagementList';
 import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
+import PaymentList from './components/PaymentList';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
@@ -20,7 +21,6 @@ export { default as AppFrame } from './container/AppFrame';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-
 root.render(
   <React.StrictMode>
     <Provider>
@@ -44,6 +44,7 @@ root.render(
               path="/admin/add_groupalert2"
               element={<GroupAlert2 />}
             ></Route>
+            <Route path="/admin/payments" element={<PaymentList />}></Route>
           </Routes>
         </BrowserRouter>
       </React.Suspense>
