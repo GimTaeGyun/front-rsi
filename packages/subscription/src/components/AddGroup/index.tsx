@@ -93,15 +93,9 @@ const styles = {
             color: "#00000099",
             opacity:"1"
         },
-        "& .MuiOutlinedInput-root": {
-            height:"45px",m:"0",p:"0",
-            "& input": {
-                m:"0",
-                height:"45px",
-            },
-            "& fieldset": {
-                height:"45px"
-            }
+        "&.MuiOutlinedInput-root.Mui-focused fieldset":{
+            borderColor:"#284AD5",
+            borderWidth:"1px"
         }
     },
     input_outer:{
@@ -122,7 +116,7 @@ const styles = {
         }
     },
     input_label:{
-        mb:"7px",color: "#333",fontSize:"14px",fontFamily:"NotoSansKRMedium",letterSpacing:"-0.35px",
+        mb:"9px",color: "#333",fontSize:"14px",fontFamily:"NotoSansKRMedium",letterSpacing:"-0.35px",
     },
     btn_submit:{
         color: "#fff",
