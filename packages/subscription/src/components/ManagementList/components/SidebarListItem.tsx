@@ -18,12 +18,16 @@ const SidebarListItem = (props: {
   const [open, setOpen] = React.useState(true);
   const [opensub, setOpensub] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [realNum, setRealNum] = React.useState(0);
 
   const handleClick = () => {
     setOpen(!open);
   };
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
+    console.log(realNum);
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setRealNum(item.id);
+    console.log(realNum);
   };
 
   return (
@@ -51,15 +55,26 @@ const SidebarListItem = (props: {
         </ListItemText>
       </ListItemButton>
       <Box sx={{ float: 'right' }}>
-        <IconButton aria-label="more" id="long-button" onClick={handleClickSub}>
+        <IconButton
+          aria-label="more"
+          id="long-button"
+          onClick={handleClickSub}
+          sx={{ overflow: 'hidden' }}
+        >
           <GridMoreVertIcon />
         </IconButton>
-        <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />
+        <ListItems anchorEl={anchorEl} id={item.id} realNum={realNum} />
       </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" sx={{ height: '44px' }} disablePadding>
           {item.items.map(
-            (subMenu, index) => subMenu.items && <SidebarListItemSub key={`parent-submenu-list-${index}`} item={subMenu} />,
+            (subMenu, index) =>
+              subMenu.items && (
+                <SidebarListItemSub
+                  key={`parent-submenu-list-${index}`}
+                  item={subMenu}
+                />
+              ),
           )}
         </List>
       </Collapse>

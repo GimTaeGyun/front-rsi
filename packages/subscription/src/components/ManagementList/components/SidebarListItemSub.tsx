@@ -18,13 +18,18 @@ const SidebarListItemSub = (props: {
   const [open, setOpen] = React.useState(true);
   const [opensub, setOpensub] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [realNum, setRealNum] = React.useState(1);
 
   const handleClick = () => {
     setOpen(!open);
   };
 
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
+    console.log(realNum);
+    console.log(anchorEl);
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setRealNum(item.id);
+    console.log(realNum);
   };
 
   return (
@@ -54,7 +59,7 @@ const SidebarListItemSub = (props: {
         >
           <GridMoreVertIcon />
         </IconButton>
-        <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />
+        <ListItems realNum={realNum} anchorEl={anchorEl} id={item.id} />
       </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
@@ -63,7 +68,7 @@ const SidebarListItemSub = (props: {
               <ListItemButton
                 sx={{ pl: '50px', height: '44px', float: 'left' }}
               >
-                <ArrowForwardIos sx={{ fontSize: "16px" }} />
+                <ArrowForwardIos sx={{ fontSize: '16px' }} />
                 <ListItemText
                   sx={{
                     '& .MuiListItemText-primary': {
@@ -84,7 +89,7 @@ const SidebarListItemSub = (props: {
                 >
                   <GridMoreVertIcon />
                 </IconButton>
-                <ListItems opensub={opensub} anchorEl={anchorEl} id={index} />
+                <ListItems realNum={realNum} anchorEl={anchorEl} id={index} />
               </Box>
             </Box>
           ))}
