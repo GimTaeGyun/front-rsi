@@ -71,36 +71,16 @@ const Sidebar = () => {
   };
   return (
     <Box sx={{ width: '350px', height: '682px' }}>
-      <Card
-        sx={{
-          boxShadow: '0px 1px 5px #0000002E',
-          borderRadius: '6px',
-          color: '#000000DE',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          width: '300px',
-        }}
-      >
+      <Card sx={styles.box_card}>
         <CardHeader
           component="div"
           title="그룹 (4)"
-          sx={{
-            '& .MuiTypography-root': {
-              fontSize: '16px',
-              fontFamily: 'NotoSansKRMedium',
-            },
-          }}
+          sx={styles.box_cardHeader}
         />
         <Divider />
         <CardContent>
           <List
-            sx={{
-              width: '100%',
-              maxWidth: 360,
-              bgcolor: 'background.paper',
-              height: '44px',
-            }}
+            sx={styles.cardContent_list}
             component="nav"
             aria-labelledby="nested-list-subheader"
           >
@@ -108,23 +88,12 @@ const Sidebar = () => {
               return (
                 <Box sx={{ height: '41px' }}>
                   <ListItemButton
-                    sx={{
-                      pl: 0,
-                      height: '40px',
-                      float: 'left',
-                      width: '220px',
-                      display: 'outline',
-                    }}
+                    sx={styles.cardContent_list_listItemButton}
                     onClick={handleClick}
                   >
                     {open ? <ExpandLess /> : <ExpandMore />}
                     <ListItemText
-                      sx={{
-                        '& .MuiListItemText-primary': {
-                          fontSize: '15px',
-                          color: '#000000DE',
-                        },
-                      }}
+                      sx={styles.cardContent_list_listItemButton_text}
                     >
                       {item.title}
                     </ListItemText>
@@ -151,25 +120,18 @@ const Sidebar = () => {
                       disablePadding
                     >
                       {item.items.map(
-                        (subMenu, index) =>
+                        subMenu =>
                           subMenu.items && (
                             <Box>
                               <ListItemButton
-                                sx={{
-                                  pl: '30px',
-                                  float: 'left',
-                                  width: '220px',
-                                }}
+                                sx={styles.item_items_box_listButton}
                                 onClick={handleClick}
                               >
                                 {open ? <ExpandLess /> : <ExpandMore />}
                                 <ListItemText
-                                  sx={{
-                                    '& .MuiListItemText-primary': {
-                                      fontSize: '15px',
-                                      color: '#000000DE',
-                                    },
-                                  }}
+                                  sx={
+                                    styles.cardContent_list_listItemButton_text
+                                  }
                                 >
                                   {item.title}
                                 </ListItemText>
@@ -194,22 +156,15 @@ const Sidebar = () => {
                                   {item.items.map((subMenu, index) => (
                                     <Box key={`list-sub-menu-${index}`}>
                                       <ListItemButton
-                                        sx={{
-                                          pl: '50px',
-                                          height: '44px',
-                                          float: 'left',
-                                        }}
+                                        sx={styles.collapse_listItemButton}
                                       >
                                         <ArrowForwardIos
                                           sx={{ fontSize: '16px' }}
                                         />
                                         <ListItemText
-                                          sx={{
-                                            '& .MuiListItemText-primary': {
-                                              fontSize: '15px',
-                                              color: '#000000DE',
-                                            },
-                                          }}
+                                          sx={
+                                            styles.collapse_listItembutton_atext
+                                          }
                                         >
                                           {subMenu.title}
                                         </ListItemText>
@@ -243,37 +198,13 @@ const Sidebar = () => {
             })}
           </List>
         </CardContent>
-        <Box
-          sx={{
-            marginTop: 'auto',
-            height: '49px',
-          }}
-        >
+        <Box sx={styles.realBox}>
           <Divider />
           <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
-            <Button
-              variant="outlined"
-              sx={{
-                minWidth: '32px',
-                height: '32px',
-                p: '4px',
-                mr: '8px',
-                color: '#000000DE',
-                borderColor: '#0000002E',
-              }}
-            >
+            <Button variant="outlined" sx={styles.box2_button}>
               <ExpandLess />
             </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                minWidth: '32px',
-                height: '32px',
-                p: '4px',
-                color: '#000000DE',
-                borderColor: '#0000002E',
-              }}
-            >
+            <Button variant="outlined" sx={styles.box2_button2}>
               <ExpandMore />
             </Button>
           </Box>
@@ -281,6 +212,78 @@ const Sidebar = () => {
       </Card>
     </Box>
   );
+};
+
+const styles = {
+  box_card: {
+    boxShadow: '0px 1px 5px #0000002E',
+    borderRadius: '6px',
+    color: '#000000DE',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '300px',
+  },
+  box_cardHeader: {
+    '& .MuiTypography-root': {
+      fontSize: '16px',
+      fontFamily: 'NotoSansKRMedium',
+    },
+  },
+  cardContent_list: {
+    width: '100%',
+    maxWidth: 360,
+    bgcolor: 'background.paper',
+    height: '44px',
+  },
+  cardContent_list_listItemButton: {
+    pl: 0,
+    height: '40px',
+    float: 'left',
+    width: '220px',
+    display: 'outline',
+  },
+  cardContent_list_listItemButton_text: {
+    '& .MuiListItemText-primary': {
+      fontSize: '15px',
+      color: '#000000DE',
+    },
+  },
+  item_items_box_listButton: {
+    pl: '30px',
+    float: 'left',
+    width: '220px',
+  },
+  collapse_listItemButton: {
+    pl: '50px',
+    height: '44px',
+    float: 'left',
+  },
+  collapse_listItembutton_atext: {
+    '& .MuiListItemText-primary': {
+      fontSize: '15px',
+      color: '#000000DE',
+    },
+  },
+  realBox: {
+    marginTop: 'auto',
+    height: '49px',
+  },
+  box2_button: {
+    minWidth: '32px',
+    height: '32px',
+    p: '4px',
+    mr: '8px',
+    color: '#000000DE',
+    borderColor: '#0000002E',
+  },
+  box2_button2: {
+    minWidth: '32px',
+    height: '32px',
+    p: '4px',
+    color: '#000000DE',
+    borderColor: '#0000002E',
+  },
 };
 
 export default Sidebar;
