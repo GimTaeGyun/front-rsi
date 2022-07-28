@@ -1,5 +1,5 @@
 {
-  "extends": "./administrator/packages/subscription/.eslintrc.json",
+  "extends": "./administrator/packages/subscription",
   "parserOptions": {
     "project": "./tsconfig.json",
     "ecmaFeatures": {
