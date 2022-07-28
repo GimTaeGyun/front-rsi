@@ -49,6 +49,9 @@ const styles = {
     },
     "& .MuiDataGrid-cell:focus":{
       outline:"none"
+    },
+    "& .MuiDataGrid-columnHeader:focus":{
+      outline:"none"
     }
   }
 }
