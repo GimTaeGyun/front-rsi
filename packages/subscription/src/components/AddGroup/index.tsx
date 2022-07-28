@@ -30,8 +30,8 @@ const AddGroup = ()=>{
                     <Box sx={styles.popup_content}>
                         <Box component="div" sx={styles.inputfield_outer}>
                             <Box sx={styles.input_label}>그룹명<Box component="span" sx={styles.req_field}></Box></Box>
-                            <Box sx={{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"}}>
-                                <Box component="span" sx={{width:"348px","border":"0 solid #000"}}>
+                            <Box sx={styles.checkfield_outer}>
+                                <Box component="span" sx={{width:"348px"}}>
                                     <OutlinedInput fullWidth id="group-name" placeholder="생성할 그룹명을 입력해 주세요." sx={styles.inputfield} />
                                 </Box>
                                 <Box component="span" sx={{display:"inline-block"}}>
@@ -41,8 +41,8 @@ const AddGroup = ()=>{
                         </Box>
                         <Box component="div" sx={styles.inputfield_outer}>
                             <Box sx={styles.input_label}>그룹 설명</Box>
-                            <Box component="div" sx={{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"}}>
-                                <Box component="span" sx={{width:"100%","border":"0 solid #000"}}>
+                            <Box sx={styles.checkfield_outer}>
+                                <Box component="span" sx={{width:"100%"}}>
                                     <OutlinedInput fullWidth id="group-desc" placeholder="그룹설명을 입력해 주세요." sx={styles.inputfield} />
                                 </Box>
                             </Box>
@@ -84,6 +84,7 @@ const styles = {
     inputfield_outer:{
         mb:"13px"
     },
+    checkfield_outer:{display:"flex",width:"100%",height:"42px",alignItems:"center",justifyContent:"space-between"},
     inputfield:{
         fontFamily:"NotoSansKRRegular",
         fontSize:"14px",
