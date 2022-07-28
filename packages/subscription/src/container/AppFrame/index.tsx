@@ -7,8 +7,8 @@ import Topbar from '../../components/Topbar';
 
 const drawerWidth = 350;
 
-const AppFrame = (props: { children: JSX.Element, title: string }): ReactElement => {
-  const { children, title } = props;
+const AppFrame = (props: { children?: JSX.Element, title?: string }): ReactElement => {
+  const { children = <Box />, title = "" } = props;
 
   // Handle drawer toggle
   const [open, setOpen] = React.useState(true);
