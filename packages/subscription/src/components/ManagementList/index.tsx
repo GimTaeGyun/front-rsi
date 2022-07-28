@@ -12,18 +12,40 @@ const ManagementList = () => {
   const [open, setOpen] = useAtom(openSettingsAtom);
 
   return (
-    <AppFrame title="운영자 관리">
-      <>
-        <Box display="flex">
-          <Sidebar />
-          <Box sx={{ ml: '30px', width: '100%' }}>
-            <DataTable />
+    <>
+      <AppFrame title="운영자 관리">
+        <>
+          <Box display="flex">
+            <Sidebar />
+            <Box sx={{ ml: '30px', width: '100%' }}>
+              <DataTable />
+            </Box>
           </Box>
-        </Box>
-        <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
-      </>
-    </AppFrame>
+          <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
+        </>
+      </AppFrame>
+
+      <Box
+        sx={{
+          width: '100%',
+          height: '400px',
+          zIndex: 300,
+          backgroundColor: 'white',
+          position: 'absolute',
+        }}
+      ></Box>
+    </>
   );
 };
+<>
+  <AppFrame title="운영자 관리">
+    <Box display="flex">
+      <Sidebar />
+      <Box sx={{ ml: '30px', width: '100%' }}>
+        <DataTable />
+      </Box>
+    </Box>
+  </AppFrame>
+</>;
 
 export default ManagementList;

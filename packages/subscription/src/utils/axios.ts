@@ -30,6 +30,9 @@ Axios.interceptors.response.use(response=>{return response},
         return Promise.reject(error);//await Axios.request(originalRequest);
       }
       }catch(error){
+        localStorage.removeItem('access-token');
+        localStorage.removeItem('refresh-token');
+        localStorage.removeItem('usrId');
       }
       
       return Promise.reject(error);

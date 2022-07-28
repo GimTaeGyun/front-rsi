@@ -49,6 +49,18 @@ const styles = {
     },
     "& .MuiDataGrid-cell:focus":{
       outline:"none"
+    },
+    "& .MuiDataGrid-columnHeader:focus":{
+      outline:"none"
+    },
+    "& .MuiDataGrid-columnHeader:focus-within":{
+      outline:"none"
+    },
+    "& .MuiDataGrid-cell:focus-within":{
+      outline:"none"
+    },
+    "& .MuiCheckbox-root.Mui-checked":{
+      color:"#284AD5"
     }
   }
 }

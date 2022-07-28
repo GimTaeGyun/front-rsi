@@ -26,7 +26,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
           },
         );
         let tempMenuItems = [] as any;
-        for (let menu of menuResult.data.result.subMenu) {
+        for (let menu of menuResult.data.result) {
           let menuItem = { title: menu.menuNm, icon: <></>, items: [] as any };
 
           switch (menu.menuId) {
@@ -43,7 +43,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
 
           for (let subMenu of menu.subMenu) {
             if (subMenu == null) continue;
-            menuItem.items.push({ title: subMenu.menuNm });
+            menuItem.items.push({ title: subMenu[0].menuNm });
           }
           tempMenuItems.push(menuItem);
         }
