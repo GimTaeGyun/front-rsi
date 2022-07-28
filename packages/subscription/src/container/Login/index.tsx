@@ -14,7 +14,6 @@ import {
 import Axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { check } from 'prettier';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');
@@ -37,6 +36,8 @@ const AdminLogin = () => {
       if (fetch.data.code == '0000') {
         localStorage.setItem('access-token', fetch.data.result.accessToken);
         localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
+        Axios.defaults.headers.common['Authorization'] =
+          'bearer ' + fetch.data.result.accessToken;
         setIsLogin(true);
         navigate('/');
       } else {
@@ -97,6 +98,7 @@ const AdminLogin = () => {
               }}
               value={usrId}
             />
+
             <TextField
               error={!isLogin}
               id="password"
@@ -114,6 +116,7 @@ const AdminLogin = () => {
               }}
               value={usrPwd}
             />
+
             <FormGroup sx={styles.checkboxouter}>
               <FormControlLabel
                 control={
@@ -153,9 +156,8 @@ const AdminLogin = () => {
 
 const styles = {
   alert_error: {
-    display: 'none',
     mb: '12px',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: 'white',
     width: '100%',
     fontSize: '15p',
     color: '#F44336',

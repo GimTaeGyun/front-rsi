@@ -274,7 +274,7 @@ const DataTable = () => {
                 }}
                 startAdornment={
                   <InputAdornment position="start">
-                    <IconButton sx={{ color: "#000000DE" }}>
+                    <IconButton sx={{ color: '#000000DE' }}>
                       <SearchOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
@@ -303,8 +303,10 @@ const DataTable = () => {
           components={{
             Footer: DatatableFooter,
           }}
-          sortModel={[{ field: 'name', sort: 'asc' }, { field: "phone", sort: "desc" }]}
-          
+          sortModel={[
+            { field: 'name', sort: 'asc' },
+            { field: 'phone', sort: 'desc' },
+          ]}
         />
       </Card>
     </Box>
