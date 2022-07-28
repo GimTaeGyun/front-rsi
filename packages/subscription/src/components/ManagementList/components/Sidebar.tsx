@@ -151,7 +151,7 @@ const Sidebar = () => {
                       disablePadding
                     >
                       {item.items.map(
-                        (subMenu, index) =>
+                        subMenu =>
                           subMenu.items && (
                             <Box>
                               <ListItemButton
