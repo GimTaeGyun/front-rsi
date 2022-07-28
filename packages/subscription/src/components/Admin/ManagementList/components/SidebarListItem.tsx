@@ -59,7 +59,7 @@ const SidebarListItem = (props: {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" sx={{ height: '44px' }} disablePadding>
           {item.items.map(
-            subMenu => subMenu.items && <SidebarListItemSub item={subMenu} />,
+            (subMenu, index) => subMenu.items && <SidebarListItemSub key={`parent-submenu-list-${index}`} item={subMenu} />,
           )}
         </List>
       </Collapse>
