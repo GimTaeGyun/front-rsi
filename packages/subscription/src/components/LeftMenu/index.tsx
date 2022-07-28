@@ -70,7 +70,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
       open={open}
     >
       <Toolbar sx={{ mt: "64px" }}>
-        <Box component="img" alt="logo" src="/assets/images/logo_bfly.png" />
+        <Box component="img" alt="logo" src={require('@administrator/subscription/public/assets/images/logo_bfly.png')} />
       </Toolbar>
       <Box sx={{ overflow: "auto" }}>
         {menuItems.map((menuItem, index) => (

@@ -1,8 +1,18 @@
+import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import MuiMenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+
+const MenuItem = styled(MuiMenuItem)({
+  minWidth: '180px',
+  minHeight: "50x",
+  fontSize: "15px",
+  '&:hover': {
+    backgroundColor: '#F4F5F7',
+  },
+});
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -47,11 +57,19 @@ const ProfileMenu = () => {
           vertical: 'top',
           horizontal: 'right',
         }}
+        sx={{
+          mt: '50px',
+          borderRadius: '6px',
+          '& .MuiList-root': { 
+            borderRadius: '6px', 
+            padding: 0
+          },
+        }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>개인정보 설정</MenuItem>
+        <MenuItem onClick={handleClose}>로그아웃</MenuItem>
       </Menu>
     </Box>
   );
