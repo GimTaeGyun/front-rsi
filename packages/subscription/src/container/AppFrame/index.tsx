@@ -5,6 +5,8 @@ import ClientArea from '../../components/ClientArea';
 import LeftMenu from '../../components/LeftMenu';
 import Topbar from '../../components/Topbar';
 
+import '../../../public/assets/css/fonts.css';
+
 const drawerWidth = 350;
 
 const AppFrame = (props: { children?: JSX.Element, title?: string }): ReactElement => {
