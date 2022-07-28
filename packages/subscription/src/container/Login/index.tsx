@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -13,17 +13,21 @@ import {
 } from '@mui/material';
 import Axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { check } from 'prettier';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');
   const [usrPwd, setUsrPwd] = React.useState('');
   const [isLogin, setIsLogin] = React.useState(true);
+  const [isRemember, setIsRemember] = React.useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['rememberId']);
   const navigate = useNavigate();
 
   const onClick = async () => {
     const params = {
       usrId: usrId,
-      usrPwd: usrPwd,
+      usrPw: usrPwd,
     };
     const fetch = await Axios.post(
       '/management/subscription/admin/login',
@@ -39,10 +43,30 @@ const AdminLogin = () => {
         console.log(usrId);
         console.log(usrPwd);
         console.log(fetch.data.msg);
+        setIsLogin(false);
       }
     } catch (e) {
       console.log(e);
-      setIsLogin(false);
+      setIsLogin(true);
+    }
+  };
+
+  useEffect(() => {
+    if (cookies.rememberId) {
+      setUsrId(cookies.rememberId);
+      setIsRemember(true);
+    }
+  }, [cookies.rememberId]);
+
+  const OnClose = () => {
+    if (!isLogin) {
+      return (
+        <Alert severity="error" icon={false} sx={styles.alert_error}>
+          아이디 또는 비밀번호를 확인해 주세요.
+        </Alert>
+      );
+    } else {
+      return null;
     }
   };
 
@@ -63,6 +87,7 @@ const AdminLogin = () => {
               </Box>
             </Box>
             <TextField
+              error={!isLogin}
               id="username"
               label="아이디"
               variant="outlined"
@@ -73,11 +98,17 @@ const AdminLogin = () => {
               value={usrId}
             />
             <TextField
+              error={!isLogin}
               id="password"
               label="비밀번호"
               type="password"
               variant="outlined"
               sx={styles.input_field}
+              onKeyPress={e => {
+                if (e.key === 'Enter') {
+                  onClick();
+                }
+              }}
               onChange={e => {
                 setUsrPwd(e.target.value);
               }}
@@ -85,16 +116,28 @@ const AdminLogin = () => {
             />
             <FormGroup sx={styles.checkboxouter}>
               <FormControlLabel
-                control={<Checkbox size="small" sx={styles.checkbox} />}
+                control={
+                  <Checkbox
+                    size="small"
+                    sx={styles.checkbox}
+                    checked={isRemember}
+                    onChange={e => {
+                      setIsRemember(e.target.checked);
+                      e.target.checked
+                        ? setCookie('rememberId', usrId, {
+                            maxAge: 200000000,
+                          })
+                        : removeCookie('rememberId');
+                    }}
+                  />
+                }
                 label="아이디 저장"
                 sx={styles.checkboxlabel}
               />
             </FormGroup>
           </CardContent>
           <CardActions sx={styles.loginbutton_outer}>
-            <Alert severity="error" icon={false} sx={styles.alert_error}>
-              아이디 또는 비밀번호를 확인해 주세요.
-            </Alert>
+            <OnClose />
             <Button sx={styles.loginbutton} onClick={onClick}>
               로그인
             </Button>
