@@ -23,7 +23,9 @@ const AddGroup = ()=>{
                 <Box sx={styles.popup_outer}>
                     <Box sx={styles.popup_header}>
                         <Box component="h3" sx={styles.popup_title}>운영자 그룹 추가</Box>
-                        <Box component="img" src="/assets/images/popup_close.png" sx={styles.close_btn} onClick={handleClose}></Box>
+                        <Box component="img" 
+                        src={require('@administrator/subscription/public/assets/images/popup_close.png')}
+                        sx={styles.close_btn} onClick={handleClose}></Box>
                     </Box>
                     <Box sx={styles.popup_content}>
                         <Box component="div" sx={styles.inputfield_outer}>
@@ -91,15 +93,9 @@ const styles = {
             color: "#00000099",
             opacity:"1"
         },
-        "& .MuiOutlinedInput-root": {
-            height:"45px",m:"0",p:"0",
-            "& input": {
-                m:"0",
-                height:"45px",
-            },
-            "& fieldset": {
-                height:"45px"
-            }
+        "&.MuiOutlinedInput-root.Mui-focused fieldset":{
+            borderColor:"#284AD5",
+            borderWidth:"1px"
         }
     },
     input_outer:{
@@ -120,7 +116,7 @@ const styles = {
         }
     },
     input_label:{
-        mb:"7px",color: "#333",fontSize:"14px",fontFamily:"NotoSansKRMedium",letterSpacing:"-0.35px",
+        mb:"9px",color: "#333",fontSize:"14px",fontFamily:"NotoSansKRMedium",letterSpacing:"-0.35px",
     },
     btn_submit:{
         color: "#fff",

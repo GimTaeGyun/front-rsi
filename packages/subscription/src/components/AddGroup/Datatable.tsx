@@ -4,7 +4,7 @@ import * as React from "react";
 
 const columns: GridColDef[] = [
   { field: 'roleName', headerName: '설명', width: 157 },
-  { field: 'roleDesc', headerName: '역할명', width: 220 },
+  { field: 'roleDesc', headerName: '역할명', width: 230 },
 ];
 
 const rows = [
@@ -17,8 +17,9 @@ const rows = [
 
 const DataTable = () => {
   return (
-    <div style={{ height: '285px', width: '100%' }}>
+    <div style={{ height: '273px', width: '100%' }}>
       <DataGrid
+        headerHeight={45}
         rowHeight={45}
         rows={rows}
         columns={columns}
