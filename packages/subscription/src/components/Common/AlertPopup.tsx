@@ -23,7 +23,7 @@ const AlertPopup = (props:{message:string,buttontext:string})=>{
                     <Box component="div" sx={styles.popup_inner}>
                         <Box component="div" sx={styles.popup_message}><Typography component="p" sx={styles.msg}>{props.message}</Typography></Box>
                         <Box component="div" sx={styles.popup_btn}>
-                            <Button color="primary" variant="contained" sx={styles.btn}>{props.buttontext}</Button>
+                            <Button color="primary" variant="contained" sx={styles.btn} onClick={handleClose}>{props.buttontext}</Button>
                         </Box>
                     </Box>
                 </Box>
