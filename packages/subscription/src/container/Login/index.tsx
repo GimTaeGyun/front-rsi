@@ -36,6 +36,7 @@ const AdminLogin = () => {
       if (fetch.data.code == '0000') {
         localStorage.setItem('access-token', fetch.data.result.accessToken);
         localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
+        localStorage.setItem('usrId', usrId);
         Axios.defaults.headers.common['Authorization'] =
           'bearer ' + fetch.data.result.accessToken;
         setIsLogin(true);
@@ -76,7 +77,7 @@ const AdminLogin = () => {
       <Box sx={styles.login_wrapper}>
         <Box
           component="img"
-          src="/assets/images/logo_bfly_adminlogin.png"
+          src={require('@administrator/subscription/public/assets/images/logo_bfly_adminlogin.png')}
           sx={styles.admin_logo}
         ></Box>
         <Card sx={styles.login_content_outer}>

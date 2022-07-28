@@ -1,9 +1,8 @@
-import Box from "@mui/material/Box";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
-
+import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,24 +20,32 @@ const ProfileMenu = () => {
         display="flex"
         alignItems="center"
         sx={{
-            cursor: "pointer"
+          cursor: 'pointer',
         }}
         onClick={handleMenu}
       >
-        <Box component="img" src="/assets/images/account_circle.svg" />
-        <Typography ml="5px" fontSize="14px">admin</Typography>
+        <Box
+          component="img"
+          src={
+            require('@administrator/subscription/public/assets/images/account_circle.svg')
+              .default
+          }
+        />
+        <Typography ml="5px" fontSize="14px">
+          admin
+        </Typography>
       </Box>
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right"
+          vertical: 'top',
+          horizontal: 'right',
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right"
+          vertical: 'top',
+          horizontal: 'right',
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}

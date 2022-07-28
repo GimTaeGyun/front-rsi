@@ -44,7 +44,13 @@ const DatatableFooter = () => {
         <Button
           variant="outlined"
           startIcon={
-            <Box component="img" src="/assets/images/microsoftexcel.svg" />
+            <Box
+              component="img"
+              src={
+                require('@administrator/subscription/public/assets/images/microsoftexcel.svg')
+                  .default
+              }
+            />
           }
           sx={buttonStyle}
         >
