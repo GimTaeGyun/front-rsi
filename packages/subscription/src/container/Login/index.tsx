@@ -14,6 +14,7 @@ import {
 import Axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import '../../../public/assets/css/fonts.css';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');
