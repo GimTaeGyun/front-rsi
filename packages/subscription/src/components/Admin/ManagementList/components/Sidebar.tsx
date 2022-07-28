@@ -8,35 +8,42 @@ import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import { title } from 'process';
-import React, { useState } from 'react';
+import React, { useState, Ref } from 'react';
 import ListItems from './ListItems';
 
 import SidebarListItem from './SidebarListItem';
 
 interface ISidebarMenuItem {
   title: string;
+  id: number;
   items: Array<any>;
 }
 const items: ISidebarMenuItem[] = [
   {
     title: '전체 (4)',
+    id: 1,
     items: [
       {
         title: '연구소 (32)',
+        id: 2,
         items: [
           {
             title: 'AI연구개발실 (30)',
+            id: 3,
           },
           {
             title: '기획팀 (2)',
+            id: 4,
           },
         ],
       },
       {
         title: '영업본부 (1)',
+        id: 5,
         items: [
           {
             title: '디지타이징 (0)',
+            id: 6,
           },
         ],
       },
@@ -55,6 +62,7 @@ const Sidebar = () => {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
+          width: '300px',
         }}
       >
         <CardHeader

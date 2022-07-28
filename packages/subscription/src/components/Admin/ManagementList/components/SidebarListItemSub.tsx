@@ -12,13 +12,12 @@ import ListItems from './ListItems';
 import { GridMoreVertIcon } from '@mui/x-data-grid';
 
 const SidebarListItemSub = (props: {
-  item: { title: string; items: Array<any> };
+  item: { title: string; id: number; items: Array<any> };
 }) => {
   const { item } = props;
   const [open, setOpen] = React.useState(true);
   const [opensub, setOpensub] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const numbers = 1;
 
   const handleClick = () => {
     setOpen(!open);
@@ -27,13 +26,13 @@ const SidebarListItemSub = (props: {
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-  const onChange = (e: any) => {
-    e.target.defaultValue === 1 ? setOpensub(false) : setOpensub(true);
-  };
 
   return (
     <Box>
-      <ListItemButton sx={{ pl: '30px' }} onClick={handleClick}>
+      <ListItemButton
+        sx={{ pl: '30px', float: 'left', width: '220px' }}
+        onClick={handleClick}
+      >
         {open ? <ExpandLess /> : <ExpandMore />}
         <ListItemText
           sx={{
@@ -45,52 +44,50 @@ const SidebarListItemSub = (props: {
         >
           {item.title}
         </ListItemText>
-        <Box sx={{ zIndex: 1, alignContent: 'right' }}>
-          <IconButton
-            onChange={onChange}
-            aria-label="more"
-            id="long-button"
-            aria-haspopup="true"
-            onClick={handleClickSub}
-            defaultValue={numbers}
-          >
-            <GridMoreVertIcon />
-          </IconButton>
-          <ListItems opensub={opensub} anchorEl={anchorEl} />
-        </Box>
       </ListItemButton>
+      <Box sx={{ zIndex: 1, float: 'right' }}>
+        <IconButton
+          aria-label="more"
+          id="long-button"
+          aria-haspopup="true"
+          onClick={handleClickSub}
+        >
+          <GridMoreVertIcon />
+        </IconButton>
+        <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />
+      </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {item.items.map((subMenu, index) => (
-            <ListItemButton
-              key={`list-sub-menu-${index}`}
-              sx={{ pl: '50px', height: '44px' }}
-            >
-              <ArrowRight />
-              <ListItemText
-                sx={{
-                  '& .MuiListItemText-primary': {
-                    fontSize: '15px',
-                    color: '#000000DE',
-                  },
-                }}
+            <Box>
+              <ListItemButton
+                key={`list-sub-menu-${index}`}
+                sx={{ pl: '50px', height: '44px', float: 'left' }}
               >
-                {subMenu.title}
-              </ListItemText>
-              <Box sx={{ zIndex: 1, alignContent: 'right' }}>
+                <ArrowRight />
+                <ListItemText
+                  sx={{
+                    '& .MuiListItemText-primary': {
+                      fontSize: '15px',
+                      color: '#000000DE',
+                    },
+                  }}
+                >
+                  {subMenu.title}
+                </ListItemText>
+              </ListItemButton>
+              <Box sx={{ float: 'right' }}>
                 <IconButton
-                  onChange={onChange}
                   aria-label="more"
                   id="long-button"
                   aria-haspopup="true"
                   onClick={handleClickSub}
-                  defaultValue={numbers}
                 >
                   <GridMoreVertIcon />
                 </IconButton>
-                <ListItems opensub={opensub} anchorEl={anchorEl} />
+                <ListItems opensub={opensub} anchorEl={anchorEl} id={index} />
               </Box>
-            </ListItemButton>
+            </Box>
           ))}
         </List>
       </Collapse>
