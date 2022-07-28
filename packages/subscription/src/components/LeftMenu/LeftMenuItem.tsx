@@ -7,7 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 
-const AdminDrawerMenuItem = (props: {
+const LeftMenuItem = (props: {
   defaultOpen: boolean;
   menuItem: { icon: JSX.Element; title: string; items: Array<any> };
 }) => {
@@ -78,4 +78,4 @@ const AdminDrawerMenuItem = (props: {
   );
 };
 
-export default AdminDrawerMenuItem;
+export default LeftMenuItem;

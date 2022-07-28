@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import MuiSelect from '@mui/material/Select';
-import { MenuItem } from '@mui/material';
+import MuiMenuItem from '@mui/material/MenuItem';
 
 const FormLabel = styled(MuiFormLabel)({
   color: '#333333',
@@ -68,6 +68,12 @@ const Select = styled(MuiSelect)({
     },
   },
 });
+
+const MenuItem = styled(MuiMenuItem)({
+  "&:hover": {
+    backgroundColor: "#ebebeb"
+  }
+})
 
 const AddOperatorPopup = (props: {
   open: boolean;
@@ -190,6 +196,9 @@ const AddOperatorPopup = (props: {
             <FormLabel>유형</FormLabel>
             <Select fullWidth id="category">
               <MenuItem>유형</MenuItem>
+              <MenuItem>슈퍼바이저</MenuItem>
+              <MenuItem>통합관리자 어드민</MenuItem>
+              <MenuItem>재무회계 담당자</MenuItem>
             </Select>
           </Box>
           <Box

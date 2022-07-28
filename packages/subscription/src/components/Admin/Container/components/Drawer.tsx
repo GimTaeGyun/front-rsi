@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import axios from '@administrator/subscription/src/utils/axios';
 
-import AdminDrawerMenuItem from './DrawerMenuItem';
+//import AdminDrawerMenuItem from './DrawerMenuItem';
 
 /*const menuItems = [
   {
@@ -88,10 +88,12 @@ const AdminDrawer = (props: { drawerWidth: number; open: boolean }) => {
       <Box sx={{ overflow: 'auto' }}>
         {menuItems.map((menuItem, index) => (
           <List key={`list-item-${index}`}>
+            {/*
             <AdminDrawerMenuItem
               defaultOpen={index === 0}
               menuItem={menuItem}
             />
+        */}
           </List>
         ))}
       </Box>

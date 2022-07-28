@@ -1,94 +1,86 @@
-//import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import MuiDrawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
-import React, { ReactElement } from 'react';
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Toolbar from "@mui/material/Toolbar";
+import React from "react";
 
-import { mainListItems, secondaryListItems } from './listItems';
+import LeftMenuMenuItem from "./LeftMenuItem";
 
-const drawerWidth = 240;
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: prop => prop !== 'open',
-})(({ theme, open }) => ({
-  '& .MuiDrawer-paper': {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: 'border-box',
-    ...(!open && {
-      overflowX: 'hidden',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
+const menuItems = [
+  {
+    title: "공통 관리",
+    icon: <SettingsIcon />,
+    items: [
+      {
+        title: "운영자 관리"
       },
-    }),
+      {
+        title: "서비스 관리"
+      },
+      {
+        title: "매체 관리"
+      },
+      {
+        title: "공지사항 관리"
+      },
+      {
+        title: "약관 관리"
+      }
+    ]
   },
-}));
+  {
+    title: "고객 / 계약 / 결제 관리",
+    icon: <PersonIcon />,
+    items: [
+      {
+        title: "운영자 관리"
+      }
+    ]
+  },
+  {
+    title: "상품 관리",
+    icon: <DesktopMacIcon />,
+    items: [
+      {
+        title: "운영자 관리"
+      }
+    ]
+  }
+];
 
-const mdTheme = createTheme();
-
-const GnbMenu = (): ReactElement => {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
+  const { drawerWidth, open } = props;
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+    <Drawer
+      variant="persistent"
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+          width: drawerWidth,
+          boxSizing: "border-box",
+          bgcolor: "#284AD5"
+        }
+      }}
+      anchor="left"
+      open={open}
+    >
+      <Toolbar sx={{ mt: "64px" }}>
+        <Box component="img" alt="logo" src="/assets/images/logo_bfly.png" />
+      </Toolbar>
+      <Box sx={{ overflow: "auto" }}>
+        {menuItems.map((menuItem, index) => (
+          <List key={`list-item-${index}`}>
+            <LeftMenuMenuItem defaultOpen={index === 0} menuItem={menuItem} />
           </List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: theme =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-        </Box>
+        ))}
       </Box>
-    </ThemeProvider>
+    </Drawer>
   );
 };
 
-export default GnbMenu;
+export default LeftMenu;
