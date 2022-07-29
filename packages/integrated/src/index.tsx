@@ -18,9 +18,7 @@ root.render(
       <React.Suspense fallback={<div>Loading...</div>}>
         <CssBaseline />
         <BrowserRouter>
-          <Routes>
-            <Subscription />
-          </Routes>
+          <Subscription />
         </BrowserRouter>
       </React.Suspense>
     </Provider>

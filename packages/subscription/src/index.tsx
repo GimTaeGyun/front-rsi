@@ -20,7 +20,7 @@ export { default as AppFrame } from './container/AppFrame';
 
 const Subscription = () => {
   return (
-    <>
+    <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
       <Route path="/admin/management-list" element={<ManagementList />}></Route>
       <Route path="/admin/add_group" element={<AddGroup />}></Route>
@@ -28,7 +28,7 @@ const Subscription = () => {
       <Route path="/admin/add_groupalert" element={<GroupAlert />}></Route>
       <Route path="/admin/add_groupalert2" element={<GroupAlert2 />}></Route>
       <Route path="/admin/payments" element={<PaymentList />}></Route>
-    </>
+    </Routes>
   );
 };
 
