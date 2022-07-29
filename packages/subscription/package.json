@@ -20,6 +20,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@minoru/react-dnd-treeview": "^2.0.2",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.2",
     "@mui/x-data-grid": "^5.14.0",
@@ -29,6 +30,7 @@
     "jotai": "^1.7.2",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
+    "react-dnd": "^16.0.1",
     "react-dnd-treeview": "^0.4.1",
     "react-dom": "^18.2.0",
     "react-i18next": "^11.17.2",

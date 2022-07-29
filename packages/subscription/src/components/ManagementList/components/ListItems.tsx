@@ -15,18 +15,15 @@ const ListItems = (props: {
   id: number;
 }) => {
   const [open, setOpen] = React.useState(false);
-  const { anchorEl } = props;
-  const { id } = props;
-  const { realNum } = props;
+  const { anchorEl, id, realNum } = props;
 
   useEffect(() => {
     id === realNum ? setOpen(false) : setOpen(true);
-    console.log(open);
   }, [realNum]);
 
   return (
     <Popper
-      open={!open}
+      open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       placement="right"
       sx={{ overflow: 'hidden', display: 'inline' }}

@@ -7,6 +7,7 @@ import { openSettingsAtom } from '../Topbar/ProfileMenu';
 import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar from './components/Sidebar';
+import TreeView from './components/TreeView';
 
 const ManagementList = () => {
   const [open, setOpen] = useAtom(openSettingsAtom);
@@ -16,7 +17,7 @@ const ManagementList = () => {
       <AppFrame title="운영자 관리">
         <>
           <Box display="flex">
-            <Sidebar />
+            <TreeView />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable />
             </Box>
