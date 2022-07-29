@@ -13,16 +13,21 @@ const ListItems = (props: {
   anchorEl: null | HTMLElement;
   realNum: number;
   id: number;
+  item: {
+    id: number;
+    title: string;
+  };
 }) => {
   const [open, setOpen] = React.useState(false);
   const { anchorEl } = props;
   const { id } = props;
   const { realNum } = props;
+  const { item } = props;
 
   useEffect(() => {
     id === realNum ? setOpen(false) : setOpen(true);
-    console.log(open);
-  }, [realNum]);
+    console.log(item.title);
+  }, [realNum, item.title]);
 
   return (
     <Popper
