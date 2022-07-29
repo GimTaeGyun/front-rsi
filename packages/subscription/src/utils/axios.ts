@@ -1,6 +1,6 @@
 import axios from 'axios';
 const Axios = axios.create();
-Axios.defaults.baseURL = "http://apidev.bflysoft.com:4000";
+Axios.defaults.baseURL = "http://localhost:4000";
 Axios.defaults.proxy = {host:"localhost",
                         port: 4000};
 

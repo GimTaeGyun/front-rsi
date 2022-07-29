@@ -1,61 +1,26 @@
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import React from 'react';
 import {
-  Collapse,
-  IconButton,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material';
+  Tree,
+  getBackendOptions,
+  MultiBackend,
+} from '@minoru/react-dnd-treeview';
+import { DndProvider } from 'react-dnd';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import { GridMoreVertIcon } from '@mui/x-data-grid';
-import { title } from 'process';
-import React, { useState, Ref } from 'react';
-import ListItems from './ListItems';
-import { ArrowForwardIos } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 
-interface ISidebarMenuItem {
-  title: string;
-  id: number;
-  items: Array<any>;
-}
-const items: ISidebarMenuItem[] = [
-  {
-    title: '전체 (4)',
-    id: 1,
-    items: [
-      {
-        title: '연구소 (32)',
-        id: 2,
-        items: [
-          {
-            title: 'AI연구개발실 (30)',
-            id: 3,
-          },
-          {
-            title: '기획팀 (2)',
-            id: 4,
-          },
-        ],
-      },
-      {
-        title: '영업본부 (1)',
-        id: 5,
-        items: [
-          {
-            title: '디지타이징 (0)',
-            id: 6,
-          },
-        ],
-      },
-    ],
-  },
-];
+import ListItems from './ListItems';
+import Axios from '../../../utils/axios';
 
 const realItem = {
   usrGrpId: 1,
@@ -285,18 +250,73 @@ const realItem = {
   status: 1,
 };
 
-const Sidebar = () => {
-  const [open, setOpen] = React.useState(true);
-  const [opensub, setOpensub] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [realNum, setRealNum] = React.useState(0);
+const items = [
+  {
+    id: 1,
+    text: '전체 (4)',
+    parent: 0,
+  },
+  {
+    text: '연구소 (32)',
+    id: 2,
+    parent: 1,
+  },
+  {
+    text: 'AI연구개발실 (30)',
+    id: 3,
+    parent: 2,
+  },
+  {
+    text: '기획팀 (2)',
+    id: 4,
+    parent: 2,
+  },
+  {
+    text: '영업본부 (1)',
+    id: 5,
+    parent: 1,
+  },
+  {
+    text: '디지타이징 (0)',
+    id: 6,
+    parent: 5,
+  },
+];
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+const Sidebar = () => {
+  const [realNum, setRealNum] = React.useState(0);
+  const [data, setData] = React.useState();
+
+  const [treedata, setTreedata] = React.useState(items);
+
+  const getData = async () =>
+    await Axios.post('/management/subscription/admin/usergroup/inquiry', {
+      usr_grp_id: 1,
+    })
+      .then(res => {
+        console.log(res);
+        setData(res.data);
+      })
+      .catch(err => {
+        // setData([]);
+      });
+
+  React.useEffect(() => {
+    getData();
+  }, []);
+  React.useEffect(() => {
+    if (data) {
+      // Format tree data
+      // setTreedata(items)
+    }
+  }, [data]);
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
+
   return (
     <Box sx={{ width: '350px', height: '682px' }}>
       <Card sx={styles.box_card}>
@@ -306,125 +326,57 @@ const Sidebar = () => {
           sx={styles.box_cardHeader}
         />
         <Divider />
-        <CardContent>
-          <List
-            sx={styles.cardContent_list}
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-          >
-            {items.map(item => {
-              return (
-                <Box sx={{ height: '41px' }}>
-                  <ListItemButton
-                    sx={styles.cardContent_list_listItemButton}
-                    onClick={handleClick}
+        <CardContent sx={styles.cardContent_list}>
+          <DndProvider backend={MultiBackend} options={getBackendOptions()}>
+            <Tree
+              tree={treedata}
+              rootId={0}
+              canDrag={() => false}
+              canDrop={() => false}
+              onDrop={() => {}}
+              render={(node, { depth, isOpen, hasChild, onToggle }) => (
+                <>
+                  <Box
+                    sx={{
+                      ...styles.treeview_item,
+                      paddingLeft: `${depth * 20 + 10}px`,
+                    }}
                   >
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                    <ListItemText
-                      sx={styles.cardContent_list_listItemButton_text}
-                    >
-                      {item.title}
-                    </ListItemText>
-                  </ListItemButton>
-                  <Box sx={{ float: 'right' }}>
-                    <IconButton
-                      aria-label="more"
-                      id="long-button"
-                      onClick={handleClickSub}
-                      sx={{ overflow: 'hidden' }}
-                    >
-                      <GridMoreVertIcon />
-                    </IconButton>
-                    <ListItems
-                      anchorEl={anchorEl}
-                      id={item.id}
-                      realNum={realNum}
-                    />
-                  </Box>
-                  <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List
-                      component="div"
-                      sx={{ height: '44px' }}
-                      disablePadding
-                    >
-                      {item.items.map(
-                        subMenu =>
-                          subMenu.items && (
-                            <Box>
-                              <ListItemButton
-                                sx={styles.item_items_box_listButton}
-                                onClick={handleClick}
-                              >
-                                {open ? <ExpandLess /> : <ExpandMore />}
-                                <ListItemText
-                                  sx={
-                                    styles.cardContent_list_listItemButton_text
-                                  }
-                                >
-                                  {item.title}
-                                </ListItemText>
-                              </ListItemButton>
-                              <Box sx={{ zIndex: 1, float: 'right' }}>
-                                <IconButton
-                                  aria-label="more"
-                                  id="long-button"
-                                  aria-haspopup="true"
-                                  onClick={handleClickSub}
-                                >
-                                  <GridMoreVertIcon />
-                                </IconButton>
-                                <ListItems
-                                  realNum={realNum}
-                                  anchorEl={anchorEl}
-                                  id={item.id}
-                                />
-                              </Box>
-                              <Collapse in={open} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                  {item.items.map((subMenu, index) => (
-                                    <Box key={`list-sub-menu-${index}`}>
-                                      <ListItemButton
-                                        sx={styles.collapse_listItemButton}
-                                      >
-                                        <ArrowForwardIos
-                                          sx={{ fontSize: '16px' }}
-                                        />
-                                        <ListItemText
-                                          sx={
-                                            styles.collapse_listItembutton_atext
-                                          }
-                                        >
-                                          {subMenu.title}
-                                        </ListItemText>
-                                      </ListItemButton>
-                                      <Box sx={{ float: 'right' }}>
-                                        <IconButton
-                                          aria-label="more"
-                                          id="long-button"
-                                          aria-haspopup="true"
-                                          onClick={handleClickSub}
-                                        >
-                                          <GridMoreVertIcon />
-                                        </IconButton>
-                                        <ListItems
-                                          realNum={realNum}
-                                          anchorEl={anchorEl}
-                                          id={index}
-                                        />
-                                      </Box>
-                                    </Box>
-                                  ))}
-                                </List>
-                              </Collapse>
-                            </Box>
-                          ),
+                    <Box>
+                      {isOpen && hasChild ? (
+                        <ExpandMore />
+                      ) : (
+                        <ArrowForwardIos
+                          sx={{ fontSize: '14px' }}
+                          onClick={onToggle}
+                        />
                       )}
-                    </List>
-                  </Collapse>
-                </Box>
-              );
-            })}
-          </List>
+                      <Typography component="span">{node.text}</Typography>
+                    </Box>
+                    <Box>
+                      <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        onClick={handleClickSub}
+                        sx={{
+                          overflow: 'hidden',
+                          '&:hover': { bgcolor: 'transparent' },
+                        }}
+                      >
+                        <MoreVertOutlined />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                  <ListItems
+                    anchorEl={anchorEl}
+                    id={+node.id}
+                    realNum={realNum}
+                  />
+                </>
+              )}
+              initialOpen={[1, 2, 5]}
+            />
+          </DndProvider>
         </CardContent>
         <Box sx={styles.realBox}>
           <Divider />
@@ -459,38 +411,24 @@ const styles = {
     },
   },
   cardContent_list: {
-    width: '100%',
-    maxWidth: 360,
-    bgcolor: 'background.paper',
-    height: '44px',
-  },
-  cardContent_list_listItemButton: {
-    pl: 0,
-    height: '40px',
-    float: 'left',
-    width: '220px',
-    display: 'outline',
-  },
-  cardContent_list_listItemButton_text: {
-    '& .MuiListItemText-primary': {
-      fontSize: '15px',
-      color: '#000000DE',
+    '& ul': {
+      padding: 0,
+      listStyleType: 'none',
     },
   },
-  item_items_box_listButton: {
-    pl: '30px',
-    float: 'left',
-    width: '220px',
-  },
-  collapse_listItemButton: {
-    pl: '50px',
+  treeview_item: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     height: '44px',
-    float: 'left',
-  },
-  collapse_listItembutton_atext: {
-    '& .MuiListItemText-primary': {
-      fontSize: '15px',
-      color: '#000000DE',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: '#F4F5F7',
+      borderRadius: '4px',
+    },
+    '&:focus': {
+      backgroundColor: '#F4F5F7',
+      borderRadius: '4px',
     },
   },
   realBox: {
