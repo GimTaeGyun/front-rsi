@@ -9,8 +9,8 @@ Integrated Administrator에 추가되는 package name은 "@administrator/"을 pr
 
 lerna boilerplate Project는 3개의 프로젝트로 구성
 
-- **Integrated**: 가로형 상단 메뉴에 서비스가 열거된 통합 어드민 메인 모듈
-- **subscription**: 구독서비스 어드민
+- **Integrated**: 가로형 상단 메뉴에 서비스가 열거된 통합 어드민 메인 프레임
+- **subscription**: 구독서비스 어드민에 관련된 페이지 들의 모듈
 - **utils**: 공용 기능 모듈 (사용여부 미정)
 
 ### Project 실행

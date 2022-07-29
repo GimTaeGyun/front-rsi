@@ -1,9 +1,9 @@
-import { Email } from '@mui/icons-material';
+import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import MuiMenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { on } from 'events';
+import { atom, useAtom } from 'jotai';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddOperatorPopupUser from './AddOperatorPopup';
@@ -19,12 +19,31 @@ const data = {
   usrTp: 'DEFAULT',
 };
 
+const MenuItem = styled(MuiMenuItem)({
+  minWidth: '180px',
+  minHeight: '50x',
+  fontSize: '15px',
+  '&:hover': {
+    backgroundColor: '#F4F5F7',
+  },
+});
+
+export const openSettingsAtom = atom(false);
+
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  // Toggle modify settings popup
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useAtom(openSettingsAtom);
+
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleClick = () => {
+    handleClose();
+    setOpen(true);
   };
 
   const handleClose = () => {
@@ -69,18 +88,27 @@ const ProfileMenu = () => {
             admin
           </Typography>
         </Box>
+
         <Menu
-          disableAutoFocusItem
           id="menu-appbar"
+          disableAutoFocusItem
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'right',
           }}
           keepMounted
           transformOrigin={{
             vertical: 'top',
             horizontal: 'right',
+          }}
+          sx={{
+            mt: '50px',
+            borderRadius: '6px',
+            '& .MuiList-root': {
+              borderRadius: '6px',
+              padding: 0,
+            },
           }}
           open={Boolean(anchorEl)}
           onClose={handleClose}

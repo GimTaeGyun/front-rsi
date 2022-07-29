@@ -1,16 +1,10 @@
 import React, { ReactElement } from 'react';
-import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import { styled } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" && prop !== "drawerWidth" })<{
   open?: boolean;
   drawerWidth?: number;
 }>(({ theme, open, drawerWidth }) => ({
