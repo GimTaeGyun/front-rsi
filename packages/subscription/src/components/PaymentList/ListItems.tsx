@@ -1,34 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Popper, Typography, Box, IconButton, Hidden } from '@mui/material';
+import { Popper, Typography, Box, IconButton } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { GridMoreVertIcon } from '@mui/x-data-grid';
 import { isTemplateExpression } from 'typescript';
 import { title } from 'process';
 
 const ListItems = (props: {
+  opensub: boolean;
   anchorEl: null | HTMLElement;
-  realNum: number;
   id: number;
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const { anchorEl, id, realNum } = props;
-
-  useEffect(() => {
-    id === realNum ? setOpen(false) : setOpen(true);
-  }, [realNum]);
+  const { opensub } = props;
+  const { anchorEl } = props;
+  const { id } = props;
 
   return (
-    <Popper
-      open={Boolean(anchorEl)}
-      anchorEl={anchorEl}
-      placement="right"
-      sx={{ overflow: 'hidden', display: 'inline' }}
-    >
-      <List>
+    <Popper open={opensub} anchorEl={anchorEl} placement="right" key={id}>
+      <List sx={{ transform: 'translate(px, 0)' }}>
         <ListItem disablePadding>
           <ListItemButton
             sx={{
@@ -38,18 +30,13 @@ const ListItems = (props: {
               borderTopRightRadius: '6px',
               borderTopLeftRadius: '6px',
               backgroundColor: 'white',
-              overflow: 'hidden',
             }}
           >
             <ListItemText
               disableTypography
               primary={
                 <Typography
-                  sx={{
-                    fontSize: '10pt',
-                    fontFamily: 'NotoSansKRMedium',
-                    overflow: 'hidden',
-                  }}
+                  sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}
                 >
                   하위 그룹 추가
                 </Typography>
@@ -67,18 +54,13 @@ const ListItems = (props: {
               borderTop: '0.5px solid #0000001F',
               borderBottom: '0.5px solid #0000001F',
               backgroundColor: 'white',
-              overflow: 'hidden',
             }}
           >
             <ListItemText
               disableTypography
               primary={
                 <Typography
-                  sx={{
-                    fontSize: '10pt',
-                    fontFamily: 'NotoSansKRMedium',
-                    overflow: 'hidden',
-                  }}
+                  sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}
                 >
                   그룹 수정
                 </Typography>
@@ -97,18 +79,13 @@ const ListItems = (props: {
               borderBottomRightRadius: '6px',
               borderBottomLeftRadius: '6px',
               backgroundColor: 'white',
-              overflow: 'hidden',
             }}
           >
             <ListItemText
               disableTypography
               primary={
                 <Typography
-                  sx={{
-                    fontSize: '10pt',
-                    fontFamily: 'NotoSansKRMedium',
-                    overflow: 'hidden',
-                  }}
+                  sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}
                 >
                   그룹 삭제
                 </Typography>

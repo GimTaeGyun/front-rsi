@@ -42,7 +42,7 @@ const AdminLogin = () => {
         Axios.defaults.headers.common['Authorization'] =
           'bearer ' + fetch.data.result.accessToken;
         setIsLogin(true);
-        navigate('/');
+        navigate('/admin/management-list');
       } else {
         console.log(usrId);
         console.log(usrPwd);
@@ -61,6 +61,15 @@ const AdminLogin = () => {
       setIsRemember(true);
     }
   }, [cookies.rememberId]);
+
+  useEffect(() => {
+    if (
+      localStorage.getItem('access-token') == undefined ||
+      localStorage.getItem('refresh-token') == undefined
+    ) {
+      localStorage.clear();
+    }
+  }, []);
 
   const OnClose = () => {
     if (!isLogin) {

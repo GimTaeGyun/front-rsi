@@ -7,127 +7,11 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
-import {
-  DataGrid,
-  GridColDef,
-  GridColumnHeaderParams,
-  GridRenderCellParams,
-} from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import React from 'react';
 
 import DatatableFooter from './DatatableFooter';
-
-const columns: GridColDef[] = [
-  {
-    field: 'id',
-    headerName: 'ID',
-    width: 140,
-    headerAlign: 'center',
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'name',
-    headerName: '이름',
-    width: 87,
-    headerAlign: 'center',
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'phone',
-    headerName: '전화번호',
-    width: 143,
-    headerAlign: 'center',
-    align: 'center',
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'email',
-    headerName: '이메일',
-    width: 200,
-    headerAlign: 'center',
-    align: 'center',
-    sortable: false,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'situation',
-    headerName: '상태',
-    width: 89,
-    headerAlign: 'center',
-    align: 'center',
-    sortable: false,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: (params: GridRenderCellParams<string>) => (
-      <Typography color="#284AD5">{params.value}</Typography>
-    ),
-  },
-  {
-    field: 'additionalInfo',
-    headerName: '추가 내용',
-    width: 140,
-    headerAlign: 'center',
-    sortable: false,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'modifiedDate',
-    headerName: '최종 수정일',
-    width: 159,
-    headerAlign: 'center',
-    align: 'center',
-    sortable: false,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'management',
-    headerName: '관리',
-    width: 89,
-    headerAlign: 'center',
-    align: 'center',
-    sortable: false,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: () => (
-      <Button
-        variant="outlined"
-        sx={{ p: '5px 10px', minWidth: '44px', height: '30px' }}
-      >
-        수정
-      </Button>
-    ),
-  },
-];
+import { columns } from './DatatableColumns';
 
 const rows = [
   {
@@ -225,17 +109,7 @@ const rows = [
 const DataTable = () => {
   return (
     <Box sx={{ width: '100%' }}>
-      <Card
-        sx={{
-          boxShadow: '0px 1px 5px #0000002E',
-          borderRadius: '6px',
-          color: '#000000DE',
-          height: 682,
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <Card sx={styles.card}>
         <CardHeader
           component="div"
           title={
@@ -245,33 +119,9 @@ const DataTable = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                sx={{
-                  '& .MuiTypography-root': {
-                    fontSize: '16px',
-                    fontFamily: 'NotoSansKRMedium',
-                  },
-                }}
-              >
-                AI연구개발실 (30)
-              </Typography>
+              <Typography sx={styles.card_title}>AI연구개발실 (30)</Typography>
               <OutlinedInput
-                sx={{
-                  width: '194px',
-                  height: '37px',
-                  bgcolor: '#0000000A',
-                  borderRadius: '4px',
-                  pl: 0,
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#0000000A',
-                    '&:hover': {
-                      borderColor: '#0000000A',
-                    },
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#0000000A',
-                  },
-                }}
+                sx={styles.search_input}
                 startAdornment={
                   <InputAdornment position="start">
                     <IconButton sx={{ color: '#000000DE' }}>
@@ -303,14 +153,58 @@ const DataTable = () => {
           components={{
             Footer: DatatableFooter,
           }}
-          sortModel={[
-            { field: 'name', sort: 'asc' },
-            { field: 'phone', sort: 'desc' },
-          ]}
+          initialState={{
+            sorting: {
+              sortModel: [
+                { field: 'name', sort: 'asc' },
+                // { field: 'phone', sort: 'desc' },
+              ]
+            }
+          }}
+          
         />
       </Card>
     </Box>
   );
+};
+
+const styles = {
+  card: {
+    boxShadow: '0px 1px 5px #0000002E',
+    borderRadius: '6px',
+    color: '#000000DE',
+    height: 682,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  card_title: {
+    '& .MuiTypography-root': {
+      fontSize: '16px',
+      fontFamily: 'NotoSansKRMedium',
+    },
+  },
+  search_input: {
+    width: '194px',
+    height: '37px',
+    bgcolor: '#0000000A',
+    borderRadius: '4px',
+    pl: 0,
+    '&.MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#0000000A',
+        borderWidth: '1px',
+      },
+      '&:hover fieldset': {
+        borderColor: '#0000000A',
+        borderWidth: '1px',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#0000000A',
+        borderWidth: '1px',
+      },
+    },
+  },
 };
 
 export default DataTable;
