@@ -1,6 +1,7 @@
-import axios from "../utils/axios";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
+
+import axios from "../utils/axios";
 
 // Agreement
 const AgreementData = atomWithStorage();
@@ -27,7 +28,7 @@ const CheckLoginId = async (data) => {
     return false;
   } else {
     return true;
-  } ;
+  } 
 };
 
 export { SignupData, AgreementData, SignupUser, CheckLoginId };

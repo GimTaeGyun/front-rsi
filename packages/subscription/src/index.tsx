@@ -8,48 +8,31 @@ import AddGroup from './components/AddGroup';
 import GroupAlert from './components/AddGroup/GroupAlert';
 import GroupAlert2 from './components/AddGroup/GroupAlert2';
 import ManagementList from './components/ManagementList';
+import PaymentList from './components/PaymentList';
 import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
-import PaymentList from './components/PaymentList';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
 export { default as ClientArea } from './components/ClientArea';
 export { default as AppFrame } from './container/AppFrame';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
-  <React.StrictMode>
-    <Provider>
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <CssBaseline />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/admin/login" element={<AdminLogin />}></Route>
-            <Route
-              path="/admin/management-list"
-              element={<ManagementList />}
-            ></Route>
-            <Route path="/admin/add_group" element={<AddGroup />}></Route>
-            <Route path="/admin/add_group2" element={<AddGroup />}></Route>
-            <Route
-              path="/admin/add_groupalert"
-              element={<GroupAlert />}
-            ></Route>
-            <Route
-              path="/admin/add_groupalert2"
-              element={<GroupAlert2 />}
-            ></Route>
-            <Route path="/admin/payments" element={<PaymentList />}></Route>
-          </Routes>
-        </BrowserRouter>
-      </React.Suspense>
-    </Provider>
-  </React.StrictMode>,
-);
+const Subscription = () => {
+  return (
+    <>
+      <Route path="/admin/login" element={<AdminLogin />}></Route>
+      <Route path="/admin/management-list" element={<ManagementList />}></Route>
+      <Route path="/admin/add_group" element={<AddGroup />}></Route>
+      <Route path="/admin/add_group2" element={<AddGroup />}></Route>
+      <Route path="/admin/add_groupalert" element={<GroupAlert />}></Route>
+      <Route path="/admin/add_groupalert2" element={<GroupAlert2 />}></Route>
+      <Route path="/admin/payments" element={<PaymentList />}></Route>
+    </>
+  );
+};
+
+export default Subscription;
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

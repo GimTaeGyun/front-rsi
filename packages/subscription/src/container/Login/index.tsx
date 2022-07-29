@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
-import {
-  Box,
-  Card,
-  Button,
-  CardContent,
-  CardActions,
-  TextField,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  Alert,
-} from '@mui/material';
-import Axios from '../../utils/axios';
-import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import '../../../public/assets/css/fonts.css';
+
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+} from '@mui/material';
+import React, { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+
+import Axios from '../../utils/axios';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');

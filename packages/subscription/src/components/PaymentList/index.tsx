@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from 'react';
-import AppFrame from "../../container/AppFrame";
 
+import AppFrame from "../../container/AppFrame";
 import DataTable from "./Datatable";
 import Sidebar from "./Sidebar";
 

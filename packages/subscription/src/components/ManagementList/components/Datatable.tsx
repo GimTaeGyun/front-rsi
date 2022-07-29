@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react';
 
-import DatatableFooter from './DatatableFooter';
 import { columns } from './DatatableColumns';
+import DatatableFooter from './DatatableFooter';
 
 const rows = [
   {

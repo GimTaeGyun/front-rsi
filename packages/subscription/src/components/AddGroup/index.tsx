@@ -1,5 +1,6 @@
+import {Box,Button,Modal,OutlinedInput} from "@mui/material";
 import * as React from 'react';
-import {Box,Button,OutlinedInput,Modal} from "@mui/material";
+
 import DataTable from "./Datatable";
 
 const AddGroup = ()=>{

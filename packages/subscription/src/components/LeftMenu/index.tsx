@@ -7,6 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
+
 import axios from '../../utils/axios';
 import LeftMenuMenuItem from './LeftMenuItem';
 
@@ -17,7 +18,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
   React.useEffect(() => {
     const callMenuApi = async () => {
       try {
-        let menuResult = await axios.post(
+        const menuResult = await axios.post(
           '/management/subscription/admin/menu/inquiry',
           {
             appId: 1,
@@ -25,9 +26,9 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
             usrId: localStorage.getItem('usrId'),
           },
         );
-        let tempMenuItems = [] as any;
-        for (let menu of menuResult.data.result) {
-          let menuItem = { title: menu.menuNm, icon: <></>, items: [] as any };
+        const tempMenuItems = [] as any;
+        for (const menu of menuResult.data.result) {
+          const menuItem = { title: menu.menuNm, icon: <></>, items: [] as any };
 
           switch (menu.menuId) {
             case 1:
@@ -41,7 +42,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
               break;
           }
 
-          for (let subMenu of menu.subMenu) {
+          for (const subMenu of menu.subMenu) {
             if (subMenu == null) continue;
             menuItem.items.push({ title: subMenu[0].menuNm });
           }

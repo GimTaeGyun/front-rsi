@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
 import React from 'react';
+
 import AppFrame from '../../container/AppFrame';
 import { openSettingsAtom } from '../Topbar/ProfileMenu';
-
 import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar from './components/Sidebar';

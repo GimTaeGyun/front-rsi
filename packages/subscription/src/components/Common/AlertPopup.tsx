@@ -1,5 +1,5 @@
+import { Box, Button, Modal, Typography } from '@mui/material';
 import * as React from 'react';
-import { Box, Modal, Button, Typography } from '@mui/material';
 
 const AlertPopup = (props: {
   message: string;

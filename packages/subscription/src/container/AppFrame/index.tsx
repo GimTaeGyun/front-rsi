@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import '../../../public/assets/css/fonts.css';
+
 import Box from '@mui/material/Box';
+import React, { ReactElement } from 'react';
 
 import ClientArea from '../../components/ClientArea';
 import LeftMenu from '../../components/LeftMenu';
 import Topbar from '../../components/Topbar';
-
-import '../../../public/assets/css/fonts.css';
 
 const drawerWidth = 350;
 

@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { atom, useAtom } from 'jotai';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import AddOperatorPopupUser from './AddOperatorPopup';
 
 const data = {

@@ -7,7 +7,7 @@ Axios.defaults.proxy = {host:"localhost",
                         port: 4000};
 
 Axios.interceptors.request.use(config => {
-  let header = localStorage.getItem('access-token') == null ? '' : 'bearer ' + localStorage.getItem('access-token');
+  const header = localStorage.getItem('access-token') == null ? '' : 'bearer ' + localStorage.getItem('access-token');
 
   if( header != '')
     (config.headers as any).Authorization = header;
