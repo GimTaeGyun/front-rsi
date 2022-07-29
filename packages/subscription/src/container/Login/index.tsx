@@ -29,6 +29,7 @@ const AdminLogin = () => {
       usrId: usrId,
       usrPw: usrPwd,
     };
+    localStorage.clear();
     const fetch = await Axios.post(
       '/management/subscription/admin/login',
       params,
