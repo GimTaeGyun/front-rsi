@@ -121,7 +121,7 @@ const TreeView = () => {
                   />
                 </>
               )}
-              initialOpen={[1,2,5]}
+              initialOpen={[1, 2, 5]}
             />
           </DndProvider>
         </CardContent>

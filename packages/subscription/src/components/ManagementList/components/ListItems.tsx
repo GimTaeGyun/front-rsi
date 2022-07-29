@@ -13,10 +13,6 @@ const ListItems = (props: {
   anchorEl: null | HTMLElement;
   realNum: number;
   id: number;
-  item: {
-    id: number;
-    title: string;
-  };
 }) => {
   const [open, setOpen] = React.useState(false);
   const { anchorEl, id, realNum } = props;

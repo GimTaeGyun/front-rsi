@@ -339,7 +339,6 @@ const Sidebar = () => {
                       anchorEl={anchorEl}
                       id={item.id}
                       realNum={realNum}
-                      item={item}
                     />
                   </Box>
                   <Collapse in={open} timeout="auto" unmountOnExit>
@@ -362,7 +361,7 @@ const Sidebar = () => {
                                     styles.cardContent_list_listItemButton_text
                                   }
                                 >
-                                  {subMenu.title}
+                                  {item.title}
                                 </ListItemText>
                               </ListItemButton>
                               <Box sx={{ zIndex: 1, float: 'right' }}>
@@ -377,13 +376,12 @@ const Sidebar = () => {
                                 <ListItems
                                   realNum={realNum}
                                   anchorEl={anchorEl}
-                                  id={subMenu.id}
-                                  item={subMenu}
+                                  id={item.id}
                                 />
                               </Box>
                               <Collapse in={open} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
-                                  {item.items.map((subMenus, index) => (
+                                  {item.items.map((subMenu, index) => (
                                     <Box key={`list-sub-menu-${index}`}>
                                       <ListItemButton
                                         sx={styles.collapse_listItemButton}
@@ -396,7 +394,7 @@ const Sidebar = () => {
                                             styles.collapse_listItembutton_atext
                                           }
                                         >
-                                          {subMenus.title}
+                                          {subMenu.title}
                                         </ListItemText>
                                       </ListItemButton>
                                       <Box sx={{ float: 'right' }}>
@@ -412,7 +410,6 @@ const Sidebar = () => {
                                           realNum={realNum}
                                           anchorEl={anchorEl}
                                           id={index}
-                                          item={subMenus}
                                         />
                                       </Box>
                                     </Box>
