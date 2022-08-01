@@ -95,7 +95,7 @@ const AddOperatorPopup = (props: {
   useEffect(() => {
     setPopupData(
       value
-        ? { ...value, action: 'mod' }
+        ? { ...value, action: 'mod', usrGrpId: ['1', '2', '3'] }
         : {
             action: 'mod',
             email: '',
@@ -149,7 +149,10 @@ const AddOperatorPopup = (props: {
   // 저장 버튼 클릭이벤트
   const saveBtn = () => {
     axios
-      .post('/management/subscription/admin/user/update', popupData)
+      .post('/management/subscription/admin/user/update', {
+        ...popupData,
+        usrPw: '',
+      })
       .then(res => {
         if (res.data.code == '0000') {
           setPopupMsg(getPopupMsg(2));
@@ -159,6 +162,25 @@ const AddOperatorPopup = (props: {
       .catch(() => {});
   };
 
+  // 비밀번호 변경 클릭이벤트
+  const chnagePw = () => {
+    axios
+      .post('/management/subscription/admin/userpw/update', {
+        usrId: popupData.usrId,
+        usrPw: popupData.usrPw,
+      })
+      .then(res => {
+        console.log(res);
+        if (res.data.code == '0000') {
+          setPopupMsg(getPopupMsg(1));
+          setIsOpenPopup(true);
+          return;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   return (
     <Box component="div" sx={{ width: '500px' }}>
       {isOpenPopup && (
@@ -222,6 +244,8 @@ const AddOperatorPopup = (props: {
               <TextField
                 id="operator_id"
                 placeholder="아이디"
+                className="Mui-disabled"
+                disabled
                 onChange={handleChange}
                 name="usrId"
                 value={popupData.usrId}
@@ -246,6 +270,7 @@ const AddOperatorPopup = (props: {
               <TextField
                 fullWidth
                 id="password"
+                type="password"
                 placeholder="비밀번호"
                 sx={{ mr: '10px', flex: '1' }}
                 name="usrPw"
@@ -260,6 +285,7 @@ const AddOperatorPopup = (props: {
                   fontSize: '14px',
                   p: '11px 16px',
                 }}
+                onClick={chnagePw}
               >
                 변경
               </Button>

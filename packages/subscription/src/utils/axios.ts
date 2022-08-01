@@ -17,8 +17,13 @@ Axios.interceptors.request.use(config => {
 
 Axios.interceptors.response.use(response=>{return response},
   async (error) => {
-    if( error.response.status != 200){
+    if( error.response.status == 401){
       localStorage.removeItem('access-token');
+      if( localStorage.getItem('refresh-token') == null || localStorage.getItem('refresh-token') == undefined){
+        location.href = '/admin/login';
+        localStorage.clear();
+        return;
+      }
       try{
       const originalRequest = error.config;
       const res = await Axios.post("/management/keycloak/refreshtoken", 
@@ -38,6 +43,10 @@ Axios.interceptors.response.use(response=>{return response},
       
       return Promise.reject(error);
     }
-    return Promise.reject(error);
+    else if(error.response.status != 200){
+      //localStorage.clear();
+      //location.href = '/admin/login';
+      return Promise.reject(error);
+    }
 });
 export default Axios;
