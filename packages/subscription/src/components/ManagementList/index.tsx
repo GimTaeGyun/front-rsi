@@ -9,6 +9,7 @@ import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
 import AlertPopup from '../../components/Common/AlertPopup';
+import AddGroup from '../AddGroup';
 
 const ManagementList = () => {
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
@@ -26,6 +27,7 @@ const ManagementList = () => {
     usrTp: 'DEFAULT',
     description: '',
   });
+
   const [alertPopup, setAlertPopup] = React.useState({
     visible: false,
     message: '',
@@ -36,6 +38,8 @@ const ManagementList = () => {
     leftText: '',
     rightText: '',
   });
+
+  const [addGroupOpen, setAddGroupOpen] = React.useState(false);
 
   const cellClickEvent = (params: any) => {
     if (params.field === 'management') {
@@ -56,7 +60,15 @@ const ManagementList = () => {
     }
   };
 
-  const treeMoreIconCallback = [() => {}, () => {}, () => {}];
+  const treeMoreIconCallback = [
+    () => {
+      setAddGroupOpen(true);
+    },
+    () => {
+      setAddGroupOpen(true);
+    },
+    () => {},
+  ];
 
   return (
     <>
@@ -69,9 +81,7 @@ const ManagementList = () => {
               rightButtonText={alertPopup.rightText}
               rightCallback={alertPopup.rightCallback}
             />
-          ) : (
-            ''
-          )}
+          ) : undefined}
           <Box display="flex">
             <Sidebar
               onSelect={item => setSelectedTreeitem(item)}
@@ -102,6 +112,10 @@ const ManagementList = () => {
           position: 'absolute',
         }}
       ></Box>
+      <AddGroup
+        open={addGroupOpen}
+        handleClose={() => setAddGroupOpen(false)}
+      />
     </>
   );
 };

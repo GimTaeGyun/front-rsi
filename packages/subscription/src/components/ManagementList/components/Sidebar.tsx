@@ -273,8 +273,9 @@ const Sidebar = (props: {
   treeMoreIconCallback?: Function[];
 }) => {
   const { onSelect, treeMoreIconCallback } = props;
+
   const [realNum, setRealNum] = React.useState(0);
-  const [data, setData] = React.useState<IUsrGrp>(realItem);
+  const [data, setData] = React.useState<IUsrGrp>();
 
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
@@ -284,7 +285,6 @@ const Sidebar = (props: {
       usr_grp_id: 1,
     })
       .then(res => {
-        console.log(res);
         setData(res.data.result);
       })
       .catch(err => {
@@ -326,12 +326,9 @@ const Sidebar = (props: {
 
   React.useEffect(() => {
     if (data) {
-      let treeItems: Array<ITreeItem> = [];
-
       // Format tree data
-      if (data) {
-        treeItems = formatTreedataItems(data);
-      }
+      const treeItems = formatTreedataItems(data);
+
       handleSelectedTreeitem(treeItems[0]);
       setTreedata(treeItems);
     }
@@ -348,14 +345,8 @@ const Sidebar = (props: {
     console.log('onDrop');
   };
 
-  const onClick = (
-    treeItem: any,
-    isOpen: boolean,
-    hasChild: boolean,
-    onToggle: () => void,
-  ) => {
+  const onClick = (treeItem: any, onToggle: () => void) => {
     onToggle();
-    console.log({ isOpen, hasChild });
     handleSelectedTreeitem(treeItem);
   };
 
@@ -364,7 +355,7 @@ const Sidebar = (props: {
       <Card sx={styles.box_card}>
         <CardHeader
           component="div"
-          title={`${data.usrGrpNm} (${data.users?.length})`}
+          title={`${data?.usrGrpNm} (${data?.users?.length})`}
           sx={styles.box_cardHeader}
         />
         <Divider />
@@ -385,11 +376,7 @@ const Sidebar = (props: {
                         paddingLeft: `${depth * 20 + 10}px`,
                       }}
                     >
-                      <Box
-                        onClick={() =>
-                          onClick(node, isOpen, hasChild, onToggle)
-                        }
-                      >
+                      <Box onClick={() => onClick(node, onToggle)}>
                         {isOpen && hasChild ? (
                           <ExpandMore />
                         ) : (
