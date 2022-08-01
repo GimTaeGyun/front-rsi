@@ -274,6 +274,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
   const [data, setData] = React.useState<IUsrGrp>(realItem);
 
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
+  const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
 
   const getData = async () =>
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
@@ -292,7 +293,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
     getData();
   }, []);
 
-  const formatTreedataItems = (subGrp: IUsrGrp) => {
+  const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
     let treeItems: Array<ITreeItem> = [];
 
     if (subGrp?.subGrp !== undefined) {
@@ -316,6 +317,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
   };
 
   const handleSelectedTreeitem = (treeItem: ITreeItem) => {
+    setSelectedTreeitem(treeItem);
     onSelect(treeItem);
   };
 
@@ -324,7 +326,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
       let treeItems: Array<ITreeItem> = [];
 
       // Format tree data
-      if (data.subGrp) {
+      if (data) {
         treeItems = formatTreedataItems(data);
       }
       handleSelectedTreeitem(treeItems[0]);
@@ -411,6 +413,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                     anchorEl={anchorEl}
                     id={+node.id}
                     realNum={realNum}
+                    treeItem={selectedTreeitem}
                   />
                 </>
               )}
