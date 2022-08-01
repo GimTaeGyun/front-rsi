@@ -1,27 +1,33 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Box, Hidden,IconButton, Popper, Typography } from '@mui/material';
+import { Popper, Typography } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { GridMoreVertIcon } from '@mui/x-data-grid';
-import { title } from 'process';
 import React, { useEffect } from 'react';
-import { isTemplateExpression } from 'typescript';
+import AddGroup from '../../AddGroup';
+import { ITreeItem } from './Sidebar';
 
 const ListItems = (props: {
   anchorEl: null | HTMLElement;
   realNum: number;
   id: number;
+  treeItem?: ITreeItem
 }) => {
   const [open, setOpen] = React.useState(false);
+  const [openPopup, setOpenPopup] = React.useState(false);
+
   const { anchorEl, id, realNum } = props;
 
   useEffect(() => {
     id === realNum ? setOpen(false) : setOpen(true);
   }, [realNum]);
 
+  const handleOpenPopup = () => setOpenPopup(true);
+
+  const handleClosePopup = () => setOpenPopup(false);
+
   return (
+    <>
     <Popper
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
@@ -40,6 +46,7 @@ const ListItems = (props: {
               backgroundColor: 'white',
               overflow: 'hidden',
             }}
+            onClick={handleOpenPopup}
           >
             <ListItemText
               disableTypography
@@ -69,6 +76,7 @@ const ListItems = (props: {
               backgroundColor: 'white',
               overflow: 'hidden',
             }}
+            onClick={handleOpenPopup}
           >
             <ListItemText
               disableTypography
@@ -118,6 +126,8 @@ const ListItems = (props: {
         </ListItem>
       </List>
     </Popper>
+    <AddGroup open={openPopup} handleClose={handleClosePopup} />
+    </>
   );
 };
 
