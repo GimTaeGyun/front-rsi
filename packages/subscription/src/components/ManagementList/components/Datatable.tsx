@@ -19,8 +19,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -28,8 +28,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -37,8 +37,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -46,8 +46,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -55,8 +55,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -64,8 +64,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -73,8 +73,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -82,8 +82,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -91,8 +91,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -100,13 +100,14 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
 ];
 
-const DataTable = () => {
+const DataTable = (props: any) => {
+  const { cellClickEvent } = props;
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={styles.card}>
@@ -158,10 +159,12 @@ const DataTable = () => {
               sortModel: [
                 { field: 'name', sort: 'asc' },
                 // { field: 'phone', sort: 'desc' },
-              ]
-            }
+              ],
+            },
           }}
-          
+          onCellClick={(params, event) => {
+            cellClickEvent(params, event);
+          }}
         />
       </Card>
     </Box>

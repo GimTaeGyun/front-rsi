@@ -17,7 +17,7 @@ Axios.interceptors.request.use(config => {
 
 Axios.interceptors.response.use(response=>{return response},
   async (error) => {
-    if( error.response.status == 401){
+    if( error.response.status != 200){
       localStorage.removeItem('access-token');
       try{
       const originalRequest = error.config;
@@ -29,14 +29,12 @@ Axios.interceptors.response.use(response=>{return response},
         localStorage.setItem('access-token',res.data["access_token"]);
         localStorage.setItem('refresh-token', res.data["refresh_token"]);
         (originalRequest.headers as any).Authorization = 'bearer ' + res.data.accessToken;
-        return Promise.reject(error);//await Axios.request(originalRequest);
+        return await Axios.request(originalRequest);
       }
       }catch(error){
-        localStorage.removeItem('access-token');
-        localStorage.removeItem('refresh-token');
-        localStorage.removeItem('usrId');
+        localStorage.clear();
+        location.href = '/admin/login';
       }
-      localStorage.clear();
       
       return Promise.reject(error);
     }
