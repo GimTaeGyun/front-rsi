@@ -108,13 +108,13 @@ const mockRows = [
 ];
 
 const DataTable = (props: any) => {
-  const { data, cellClickEvent } = props;
+  const { treeItem, cellClickEvent } = props;
 
   const [rows, setRows] = React.useState<any>([]);
 
   React.useEffect(() => {
-    if(data) {
-      const users = data.users ?? [];
+    if(treeItem) {
+      const users: any = treeItem.data?.users ?? [];
 
       const tableRows = users.map((user: any) => ({
         id: user.usrId,
@@ -125,10 +125,10 @@ const DataTable = (props: any) => {
         status: user.status,
         description: ''
       }));
-      console.log(data, tableRows)
+
       setRows(tableRows);
     }
-  }, [data]);
+  }, [treeItem]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -142,7 +142,7 @@ const DataTable = (props: any) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography sx={styles.card_title}>{`${data?.text} (${data?.users?.length})`}</Typography>
+              <Typography sx={styles.card_title}>{`${treeItem?.text} (${treeItem?.data?.users.length})`}</Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 startAdornment={
@@ -180,7 +180,6 @@ const DataTable = (props: any) => {
             sorting: {
               sortModel: [
                 { field: 'name', sort: 'asc' },
-                // { field: 'phone', sort: 'desc' },
               ],
             },
           }}

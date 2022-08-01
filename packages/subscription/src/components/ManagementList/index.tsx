@@ -53,7 +53,7 @@ const ManagementList = () => {
           <Box display="flex">
             <Sidebar onSelect={(item) => setSelectedTreeitem(item)} />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <DataTable cellClickEvent={cellClickEvent} data={selectedTreeitem} />
+              <DataTable cellClickEvent={cellClickEvent} treeItem={selectedTreeitem} />
             </Box>
           </Box>
           <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
