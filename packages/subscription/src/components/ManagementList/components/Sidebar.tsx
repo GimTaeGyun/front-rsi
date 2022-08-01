@@ -309,11 +309,11 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
         parent: subGrp?.uppUsrGrpId ?? 0,
         data: {
           description: subGrp.description,
-          users: subGrp.users ?? []
-        }
-      }
-    ]
-  }
+          users: subGrp.users ?? [],
+        },
+      },
+    ];
+  };
 
   const handleSelectedTreeitem = (treeItem: ITreeItem) => {
     onSelect(treeItem);
@@ -380,15 +380,15 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                         paddingLeft: `${depth * 20 + 10}px`,
                       }}
                     >
-                      <Box 
-                        onClick={() => onClick(node, isOpen, hasChild, onToggle)}
-                      > 
+                      <Box
+                        onClick={() =>
+                          onClick(node, isOpen, hasChild, onToggle)
+                        }
+                      >
                         {isOpen && hasChild ? (
                           <ExpandMore />
                         ) : (
-                          <ArrowForwardIos
-                            sx={{ fontSize: '14px' }}
-                          />
+                          <ArrowForwardIos sx={{ fontSize: '14px' }} />
                         )}
                         <Typography component="span">{`${node.text} (${node?.data.users.length})`}</Typography>
                       </Box>

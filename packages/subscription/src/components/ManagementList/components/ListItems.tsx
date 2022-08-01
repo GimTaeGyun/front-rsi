@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Box, Hidden,IconButton, Popper, Typography } from '@mui/material';
+import { Box, Hidden, IconButton, Popper, Typography } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -13,6 +13,9 @@ const ListItems = (props: {
   anchorEl: null | HTMLElement;
   realNum: number;
   id: number;
+  firstCallback?: Function;
+  secondCallback?: Function;
+  thirdCallback?: Function;
 }) => {
   const [open, setOpen] = React.useState(false);
   const { anchorEl, id, realNum } = props;
@@ -20,6 +23,16 @@ const ListItems = (props: {
   useEffect(() => {
     id === realNum ? setOpen(false) : setOpen(true);
   }, [realNum]);
+
+  const firstCallback = () => {
+    props.firstCallback ? props.firstCallback() : '';
+  };
+  const secondCallback = () => {
+    props.secondCallback ? props.secondCallback() : '';
+  };
+  const thirdCallback = () => {
+    props.thirdCallback ? props.thirdCallback() : '';
+  };
 
   return (
     <Popper
@@ -31,6 +44,7 @@ const ListItems = (props: {
       <List>
         <ListItem disablePadding>
           <ListItemButton
+            onClick={firstCallback}
             sx={{
               border: '1px solid #0000001F',
               borderBottom: '0.5px',
@@ -59,6 +73,7 @@ const ListItems = (props: {
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton
+            onClick={secondCallback}
             component="a"
             href="#simple-list"
             sx={{
@@ -88,6 +103,7 @@ const ListItems = (props: {
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton
+            onClick={thirdCallback}
             component="a"
             href="#simple-list"
             sx={{
