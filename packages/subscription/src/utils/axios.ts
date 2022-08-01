@@ -18,7 +18,7 @@ Axios.interceptors.response.use(
     return response;
   },
   async error => {
-    if (error.response.status !== 200) {
+    if (error.response.status == 401) {
       localStorage.removeItem('access-token');
       try {
         const originalRequest = error.config;
@@ -40,7 +40,10 @@ Axios.interceptors.response.use(
 
       return Promise.reject(error);
     }
-    return Promise.reject(error);
-  }
-);
+    else{
+      localStorage.clear();
+      location.href = '/admin/login';
+      return Promise.reject(error);
+    }
+});
 export default Axios;

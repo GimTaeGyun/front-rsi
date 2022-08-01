@@ -281,7 +281,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
     })
       .then(res => {
         console.log(res);
-        setData(res.data);
+        setData(res.data.result);
       })
       .catch(err => {
         console.log(err);
@@ -295,13 +295,10 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
   const formatTreedataItems = (subGrp: IUsrGrp) => {
     let treeItems: Array<ITreeItem> = [];
 
-    if(subGrp?.subGrp !== undefined) {
+    if (subGrp?.subGrp !== undefined) {
       subGrp.subGrp.forEach(subGrp => {
-        treeItems = [
-          ...treeItems,
-          ...formatTreedataItems(subGrp)
-        ];
-      });    
+        treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
+      });
     }
 
     return [
@@ -320,18 +317,18 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
 
   const handleSelectedTreeitem = (treeItem: ITreeItem) => {
     onSelect(treeItem);
-  }
+  };
 
   React.useEffect(() => {
     if (data) {
       let treeItems: Array<ITreeItem> = [];
 
       // Format tree data
-      if(data.subGrp) {
+      if (data.subGrp) {
         treeItems = formatTreedataItems(data);
       }
       handleSelectedTreeitem(treeItems[0]);
-      setTreedata(treeItems)
+      setTreedata(treeItems);
     }
   }, [data]);
 
@@ -343,14 +340,19 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
   };
 
   const onDrop = () => {
-    console.log('onDrop')
-  }
+    console.log('onDrop');
+  };
 
-  const onClick = (treeItem: any, isOpen: boolean, hasChild: boolean, onToggle: () => void ) => {
+  const onClick = (
+    treeItem: any,
+    isOpen: boolean,
+    hasChild: boolean,
+    onToggle: () => void,
+  ) => {
     onToggle();
-    console.log({ isOpen, hasChild })
+    console.log({ isOpen, hasChild });
     handleSelectedTreeitem(treeItem);
-  }
+  };
 
   return (
     <Box sx={{ width: '350px', height: '682px' }}>

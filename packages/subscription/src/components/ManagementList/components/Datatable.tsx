@@ -231,4 +231,4 @@ const styles = {
   },
 };
 
-export default DataTable;
+export default React.memo(DataTable);
