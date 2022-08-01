@@ -6,19 +6,8 @@ import Typography from '@mui/material/Typography';
 import { atom, useAtom } from 'jotai';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import AddOperatorPopupUser from './AddOperatorPopup';
-
-const data = {
-  usremail: 'bfly@bflysoft.com',
-  usrphone: '010-0000-0000',
-  status: 1,
-  usrGrpId: ['1', '2', '3'],
-  usrId: 'g9soft',
-  usrNm: '지구소프트',
-  usrPw: 'g9soft',
-  usrTp: 'DEFAULT',
-};
+import UpdateOperatorPopupUser from './UdateOperatorPopup';
+import Axios from '../../utils/axios';
 
 const MenuItem = styled(MuiMenuItem)({
   minWidth: '180px',
@@ -29,18 +18,40 @@ const MenuItem = styled(MuiMenuItem)({
   },
 });
 
-export const openSettingsAtom = atom(false);
-
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   // Toggle modify settings popup
   const navigate = useNavigate();
-  const [open, setOpen] = useAtom(openSettingsAtom);
+  const [open, setOpen] = React.useState(false);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const [user, setUser] = React.useState('');
+
+  React.useEffect(() => {
+    const userApi = async () => {
+      try {
+        const response = await Axios.post(
+          '/management/subscription/admin/userinfo/inquiry',
+          {
+            usrId: 'g5soft',
+          },
+        );
+        if (response.data.code == '0000') {
+          setUser(response.data.result);
+        } else {
+          navigate('/admin/login');
+        }
+      } catch (e) {
+        console.log(e);
+        navigate('/admin/login');
+      }
+    };
+    userApi();
+  }, []);
 
   const handleClick = () => {
     handleClose();
@@ -49,6 +60,7 @@ const ProfileMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setOpen(false);
   };
 
   const onClickButton = () => {
@@ -58,6 +70,10 @@ const ProfileMenu = () => {
   const logout = () => {
     localStorage.clear();
     navigate('/admin/login');
+  };
+
+  const datas = {
+    usrId: localStorage.getItem('usrID'),
   };
 
   return (
@@ -71,12 +87,10 @@ const ProfileMenu = () => {
           }}
           onClick={handleMenu}
         >
-          <AddOperatorPopupUser
+          <UpdateOperatorPopupUser
             open={open}
-            handleClose={() => {
-              setOpen(false);
-            }}
-            data={data}
+            handleClose={handleClose}
+            data={user}
           />
           <Box
             component="img"

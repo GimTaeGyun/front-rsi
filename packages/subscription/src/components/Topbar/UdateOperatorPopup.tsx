@@ -18,29 +18,21 @@ import React, { useEffect, useState } from 'react';
 import Axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
 
-4;
-
-const AddOperatorPopupUser = (props: {
+const UpdateOperatorPopupUser = (props: {
   open: boolean;
   handleClose: React.MouseEventHandler<HTMLButtonElement>;
-  data: {
-    usremail: string;
-    usrphone: string;
-    status: number;
-    usrGrpId: Array<any>;
-    usrId: string;
-    usrNm: string;
-    usrPw: string;
-    usrTp: string;
-  };
+  data: any;
 }) => {
   const { open, handleClose } = props;
   const { data } = props;
-  const [pwd, setPwd] = React.useState(data.usrPw);
+  const [pwd, setPwd] = React.useState('');
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpenPassword, setIsOpenPassword] = React.useState(false);
   const [name, setName] = React.useState(data.usrNm);
-  const [rphone, setRphone] = React.useState(data.usrphone);
-  const [mails, setMails] = React.useState(data.usremail);
+  const [rphone, setRphone] = React.useState(data.phone);
+  const [mails, setMails] = React.useState(data.email);
 
+  console.log();
   const onClickUpdatePassword = async () => {
     console.log(data);
     const userPasswordParam = {
@@ -52,12 +44,11 @@ const AddOperatorPopupUser = (props: {
         '/management/subscription/admin/userpw/update',
         userPasswordParam,
       );
-      alert(
-        AlertPopup({
-          message: '비밀번호가 변경되었습니다.',
-          buttontext: '확인',
-        }),
-      );
+      if (fetch.data.msg == '성공') {
+        setIsOpenPassword(true);
+      } else {
+        setIsOpenPassword(false);
+      }
     } catch (e) {
       alert(
         <AlertPopup message="비밀번호가 변경되었습니다.X" buttontext="확인" />,
@@ -67,15 +58,15 @@ const AddOperatorPopupUser = (props: {
 
   const onClickUpdateUser = async () => {
     const userParam = {
-      action: 'add',
+      action: 'mod',
       description: '사용자 설명입니다.',
-      email: mails,
-      phone: rphone,
+      email: mails == undefined ? data.email : mails,
+      phone: rphone == undefined ? data.phone : rphone,
       status: data.status,
-      usrGrpId: data.usrGrpId,
+      usrGrpId: ['1', '2', '3'],
       usrId: data.usrId,
-      usrNm: name,
-      usrPw: pwd,
+      usrNm: name == undefined ? data.usrNm : name,
+      usrPw: '',
       usrTp: data.usrTp,
     };
 
@@ -85,13 +76,8 @@ const AddOperatorPopupUser = (props: {
         '/management/subscription/admin/user/update',
         userParam,
       );
-      if (userParam) {
-        return (
-          <AlertPopup
-            message="모든 변동사항이 저장되었습니다."
-            buttontext="확인"
-          />
-        );
+      if (fetch.data.code == '0000') {
+        setIsOpen(true);
       }
     } catch (e) {
       return console.log(e);
@@ -144,7 +130,7 @@ const AddOperatorPopupUser = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>아이디</FormLabel>
+            <FormLabel required>아이디</FormLabel>
             <TextField
               disabled
               fullWidth
@@ -153,7 +139,7 @@ const AddOperatorPopupUser = (props: {
               sx={{ mt: '5px' }}
             />
           </Box>
-          <FormLabel>비밀번호</FormLabel>
+          <FormLabel required>비밀번호</FormLabel>
           <Box
             sx={{
               display: 'flex',
@@ -191,10 +177,11 @@ const AddOperatorPopupUser = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>이름</FormLabel>
+            <FormLabel required>이름</FormLabel>
             <TextField
               fullWidth
               type="text"
+              defaultValue={data.usrNm}
               value={name}
               onChange={e => {
                 setName(e.target.value);
@@ -207,10 +194,11 @@ const AddOperatorPopupUser = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>핸드폰</FormLabel>
+            <FormLabel required>핸드폰</FormLabel>
             <TextField
               fullWidth
               type="text"
+              defaultValue={data.phone}
               value={rphone}
               onChange={e => {
                 setRphone(e.target.value);
@@ -223,10 +211,11 @@ const AddOperatorPopupUser = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>이메일</FormLabel>
+            <FormLabel required>이메일</FormLabel>
             <TextField
               fullWidth
               type="text"
+              defaultValue={data.email}
               value={mails}
               onChange={e => {
                 setMails(e.target.value);
@@ -241,8 +230,9 @@ const AddOperatorPopupUser = (props: {
           >
             <FormControl fullWidth>
               <FormLabel>유형</FormLabel>
-              <Select disabled defaultValue={10}>
-                <option value={10}>{data.usrTp}</option>
+              <Select disabled defaultValue={data.usrTp}>
+                <option value="DEFAULT">기본</option>
+                <option value="SYSUSER">시스템사용자</option>
               </Select>
             </FormControl>
           </Box>
@@ -253,8 +243,8 @@ const AddOperatorPopupUser = (props: {
           >
             <FormControl fullWidth>
               <FormLabel>상태</FormLabel>
-              <Select disabled defaultValue={10}>
-                <option value={10}>{data.status}</option>
+              <Select disabled defaultValue={data.status}>
+                <option value={1}>사용</option>
               </Select>
             </FormControl>
           </Box>
@@ -267,6 +257,24 @@ const AddOperatorPopupUser = (props: {
           </Button>
         </DialogActions>
       </Dialog>
+      {isOpen ? (
+        <AlertPopup
+          message="모든 변동사항이 저장되었습니다."
+          buttontext="확인"
+          closeCallback={onClickUpdateUser}
+        />
+      ) : (
+        ' '
+      )}
+      {isOpenPassword ? (
+        <AlertPopup
+          message="비밀번호가 변경되었습니다."
+          buttontext="확인"
+          closeCallback={onClickUpdatePassword}
+        />
+      ) : (
+        ' '
+      )}
     </Box>
   );
 };
@@ -332,4 +340,4 @@ const MenuItem = styled(MuiMenuItem)({
   },
 });
 
-export default AddOperatorPopupUser;
+export default UpdateOperatorPopupUser;
