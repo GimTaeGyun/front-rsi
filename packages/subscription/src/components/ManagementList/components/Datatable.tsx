@@ -12,8 +12,9 @@ import React from 'react';
 
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
+import { ITreeItem } from './Sidebar';
 
-const rows = [
+const mockRows = [
   {
     id: 'bflysoft1',
     name: '김철수',
@@ -107,7 +108,28 @@ const rows = [
 ];
 
 const DataTable = (props: any) => {
-  const { cellClickEvent } = props;
+  const { data, cellClickEvent } = props;
+
+  const [rows, setRows] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    if(data) {
+      const users = data.users ?? [];
+
+      const tableRows = users.map((user: any) => ({
+        id: user.usrId,
+        name: user.usrNm,
+        phone: user.phone,
+        email: user.email,
+        modifiedDate: user.mod_at,
+        status: user.status,
+        description: ''
+      }));
+      console.log(data, tableRows)
+      setRows(tableRows);
+    }
+  }, [data]);
+
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={styles.card}>
@@ -120,7 +142,7 @@ const DataTable = (props: any) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography sx={styles.card_title}>AI연구개발실 (30)</Typography>
+              <Typography sx={styles.card_title}>{`${data?.text} (${data?.users?.length})`}</Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 startAdornment={

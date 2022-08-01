@@ -6,12 +6,13 @@ import AppFrame from '../../container/AppFrame';
 import { openSettingsAtom } from '../Topbar/ProfileMenu';
 import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
-import Sidebar from './components/Sidebar';
+import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
 
 const ManagementList = () => {
   const [open, setOpen] = useAtom(openSettingsAtom);
+  const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
 
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [updateOperValue, setUpdateOperValue] = React.useState({
@@ -27,7 +28,7 @@ const ManagementList = () => {
     description: '',
   });
   const cellClickEvent = (params: any) => {
-    if (params.field == 'management') {
+    if (params.field === 'management') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
           usrId: 'sysadm', //params.id,
@@ -50,9 +51,9 @@ const ManagementList = () => {
       <AppFrame title="운영자 관리">
         <>
           <Box display="flex">
-            <Sidebar />
+            <Sidebar onSelect={(item) => setSelectedTreeitem(item)} />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <DataTable cellClickEvent={cellClickEvent} />
+              <DataTable cellClickEvent={cellClickEvent} data={selectedTreeitem} />
             </Box>
           </Box>
           <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
