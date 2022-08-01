@@ -3,7 +3,6 @@ import { atom, useAtom } from 'jotai';
 import React from 'react';
 
 import AppFrame from '../../container/AppFrame';
-import { openSettingsAtom } from '../Topbar/ProfileMenu';
 import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
@@ -11,9 +10,8 @@ import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
 
 const ManagementList = () => {
-  const [open, setOpen] = useAtom(openSettingsAtom);
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
-
+  const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [updateOperValue, setUpdateOperValue] = React.useState({
     action: 'mod',
@@ -51,9 +49,12 @@ const ManagementList = () => {
       <AppFrame title="운영자 관리">
         <>
           <Box display="flex">
-            <Sidebar onSelect={(item) => setSelectedTreeitem(item)} />
+            <Sidebar onSelect={item => setSelectedTreeitem(item)} />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <DataTable cellClickEvent={cellClickEvent} treeItem={selectedTreeitem} />
+              <DataTable
+                cellClickEvent={cellClickEvent}
+                treeItem={selectedTreeitem}
+              />
             </Box>
           </Box>
           <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
