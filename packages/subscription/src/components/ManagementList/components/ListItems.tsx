@@ -16,7 +16,6 @@ const ListItems = (props: {
   treeItem?: ITreeItem;
 }) => {
   const [open, setOpen] = React.useState(false);
-  const [openPopup, setOpenPopup] = React.useState(false);
 
   const { anchorEl, id, realNum } = props;
 
@@ -27,10 +26,6 @@ const ListItems = (props: {
   const clickCallback = (index: any) => {
     props.clickCallback ? props.clickCallback[index]() : '';
   };
-
-  const handleOpenPopup = () => setOpenPopup(true);
-
-  const handleClosePopup = () => setOpenPopup(false);
 
   return (
     <>
@@ -52,6 +47,7 @@ const ListItems = (props: {
                 borderTopLeftRadius: '6px',
                 backgroundColor: 'white',
                 overflow: 'hidden',
+                '&:hover': { bgcolor: '#fff' }
               }}
             >
               <ListItemText
@@ -82,6 +78,7 @@ const ListItems = (props: {
                 borderBottom: '0.5px solid #0000001F',
                 backgroundColor: 'white',
                 overflow: 'hidden',
+                '&:hover': { bgcolor: '#fff' }
               }}
             >
               <ListItemText
@@ -113,6 +110,7 @@ const ListItems = (props: {
                 borderBottomLeftRadius: '6px',
                 backgroundColor: 'white',
                 overflow: 'hidden',
+                '&:hover': { bgcolor: '#fff' }
               }}
             >
               <ListItemText
@@ -133,7 +131,6 @@ const ListItems = (props: {
           </ListItem>
         </List>
       </Popper>
-      <AddGroup open={openPopup} handleClose={handleClosePopup} />
     </>
   );
 };

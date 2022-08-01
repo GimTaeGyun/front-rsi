@@ -268,20 +268,24 @@ const realItem: IUsrGrp = {
   status: 1,
 };
 
-const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
-  const { onSelect } = props;
+const Sidebar = (props: { handleOpenGroupModal: () => void , onSelect: (treeItem: ITreeItem) => void }) => {
+  const { handleOpenGroupModal, onSelect } = props;
   const [realNum, setRealNum] = React.useState(0);
-  const [data, setData] = React.useState<IUsrGrp>(realItem);
+  const [data, setData] = React.useState<IUsrGrp>();
 
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
+
+  const clickCallback = [
+    handleOpenGroupModal,
+    handleOpenGroupModal,
+  ]
 
   const getData = async () =>
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
       usr_grp_id: 1,
     })
       .then(res => {
-        console.log(res);
         setData(res.data.result);
       })
       .catch(err => {
@@ -323,12 +327,9 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
 
   React.useEffect(() => {
     if (data) {
-      let treeItems: Array<ITreeItem> = [];
-
       // Format tree data
-      if (data) {
-        treeItems = formatTreedataItems(data);
-      }
+      const  treeItems = formatTreedataItems(data);
+      
       handleSelectedTreeitem(treeItems[0]);
       setTreedata(treeItems);
     }
@@ -347,12 +348,9 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
 
   const onClick = (
     treeItem: any,
-    isOpen: boolean,
-    hasChild: boolean,
     onToggle: () => void,
   ) => {
     onToggle();
-    console.log({ isOpen, hasChild });
     handleSelectedTreeitem(treeItem);
   };
 
@@ -361,7 +359,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
       <Card sx={styles.box_card}>
         <CardHeader
           component="div"
-          title={`${data.usrGrpNm} (${data.users?.length})`}
+          title={`${data?.usrGrpNm} (${data?.users?.length})`}
           sx={styles.box_cardHeader}
         />
         <Divider />
@@ -384,7 +382,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                     >
                       <Box
                         onClick={() =>
-                          onClick(node, isOpen, hasChild, onToggle)
+                          onClick(node, onToggle)
                         }
                       >
                         {isOpen && hasChild ? (
@@ -414,6 +412,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                     id={+node.id}
                     realNum={realNum}
                     treeItem={selectedTreeitem}
+                    clickCallback={clickCallback}
                   />
                 </>
               )}

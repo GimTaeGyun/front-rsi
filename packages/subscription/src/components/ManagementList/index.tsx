@@ -8,6 +8,7 @@ import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
+import AddGroup from '../AddGroup';
 
 const ManagementList = () => {
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
@@ -25,6 +26,7 @@ const ManagementList = () => {
     usrTp: 'DEFAULT',
     description: '',
   });
+  const [addGroupOpen, setAddGroupOpen] = React.useState(false);
   const cellClickEvent = (params: any) => {
     if (params.field === 'management') {
       axios
@@ -49,7 +51,10 @@ const ManagementList = () => {
       <AppFrame title="운영자 관리">
         <>
           <Box display="flex">
-            <Sidebar onSelect={item => setSelectedTreeitem(item)} />
+            <Sidebar 
+              onSelect={item => setSelectedTreeitem(item)} 
+              handleOpenGroupModal={() => setAddGroupOpen(true)} 
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
                 cellClickEvent={cellClickEvent}
@@ -75,6 +80,7 @@ const ManagementList = () => {
           position: 'absolute',
         }}
       ></Box>
+      <AddGroup open={addGroupOpen} handleClose={() => setAddGroupOpen(false)} />
     </>
   );
 };
