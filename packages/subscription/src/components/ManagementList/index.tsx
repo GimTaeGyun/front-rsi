@@ -12,6 +12,7 @@ import AlertPopup from '../../components/Common/AlertPopup';
 import AddGroup from '../AddGroup';
 
 const ManagementList = () => {
+  const [addGroupTitle, setAddGroupTitle] = React.useState("");
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
@@ -62,9 +63,11 @@ const ManagementList = () => {
 
   const treeMoreIconCallback = [
     () => {
+      setAddGroupTitle('하위 그룹 추가');
       setAddGroupOpen(true);
     },
     () => {
+      setAddGroupTitle("그룹 수정");
       setAddGroupOpen(true);
     },
     () => {},
@@ -113,7 +116,9 @@ const ManagementList = () => {
         }}
       ></Box>
       <AddGroup
+        title={addGroupTitle}
         open={addGroupOpen}
+        treeItem={selectedTreeitem}
         handleClose={() => setAddGroupOpen(false)}
       />
     </>

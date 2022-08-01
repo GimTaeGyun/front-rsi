@@ -8,14 +8,18 @@ const columns: GridColDef[] = [
 ];
 
 const rows = [
-  { id: 1, roleName: '슈퍼바이저', roleDesc: '슈퍼바이저 굿' },
-  { id: 2, roleName: '개발자', roleDesc: '개발 test' },
-  { id: 3, roleName: '통합관리자어드민', roleDesc: '-' },
-  { id: 4, roleName: '재무회계담당자', roleDesc: '-' },
-  { id: 5, roleName: '영업담당자', roleDesc: '-' },
+  { id: 1, roleName: 'SUPERVISOR', roleDesc: '슈퍼바이저' },
+  { id: 2, roleName: 'DEVELOPMENT', roleDesc: '개발자' },
+  { id: 3, roleName: 'SALES', roleDesc: '영업담당자' },
+  { id: 4, roleName: 'FINANCE', roleDesc: '재무회계담당자' },
+  { id: 5, roleName: 'ADMIN', roleDesc: '통합관리자어드민 ' },
 ];
 
-const DataTable = () => {
+const DataTable = (props: { onChange: any }) => {
+
+  const onSelectionChange = (values: any[]) => {
+    props.onChange(values.map(value => rows.find(row => row.id === value)?.roleName))
+  }
   return (
     <div style={{ height: '273px', width: '100%' }}>
       <DataGrid
@@ -30,6 +34,7 @@ const DataTable = () => {
           Footer: ()=>{return (<Box></Box>);},
         }}
         sx={styles.dg_styles}
+        onSelectionModelChange={onSelectionChange}
       />
     </div>
   );
