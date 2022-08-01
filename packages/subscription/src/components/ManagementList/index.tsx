@@ -8,6 +8,7 @@ import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
+import AlertPopup from '../../components/Common/AlertPopup';
 
 const ManagementList = () => {
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
@@ -25,6 +26,17 @@ const ManagementList = () => {
     usrTp: 'DEFAULT',
     description: '',
   });
+  const [alertPopup, setAlertPopup] = React.useState({
+    visible: false,
+    message: '',
+    leftCallback: () => {
+      alertPopup.visible = false;
+    },
+    rightCallback: () => {},
+    leftText: '',
+    rightText: '',
+  });
+
   const cellClickEvent = (params: any) => {
     if (params.field === 'management') {
       axios
@@ -44,12 +56,27 @@ const ManagementList = () => {
     }
   };
 
+  const treeMoreIconCallback = [() => {}, () => {}, () => {}];
+
   return (
     <>
       <AppFrame title="운영자 관리">
         <>
+          {alertPopup.visible ? (
+            <AlertPopup
+              message={alertPopup.message}
+              buttontext="취소"
+              rightButtonText={alertPopup.rightText}
+              rightCallback={alertPopup.rightCallback}
+            />
+          ) : (
+            ''
+          )}
           <Box display="flex">
-            <Sidebar onSelect={item => setSelectedTreeitem(item)} />
+            <Sidebar
+              onSelect={item => setSelectedTreeitem(item)}
+              treeMoreIconCallback={treeMoreIconCallback}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
                 cellClickEvent={cellClickEvent}

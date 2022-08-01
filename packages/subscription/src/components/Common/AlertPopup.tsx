@@ -4,9 +4,9 @@ import * as React from 'react';
 const AlertPopup = (props: {
   message: string;
   buttontext: string;
-  okButtonText?: string;
+  rightButtonText?: string;
   closeCallback?: Function;
-  okCallback?: Function;
+  rightCallback?: Function;
 }) => {
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => {
@@ -16,9 +16,9 @@ const AlertPopup = (props: {
     setOpen(false);
     props.closeCallback ? props.closeCallback() : '';
   };
-  const handleOk = () => {
+  const handleRight = () => {
     setOpen(false);
-    props.okCallback ? props.okCallback() : '';
+    props.rightCallback ? props.rightCallback() : '';
   };
 
   return (
@@ -46,14 +46,14 @@ const AlertPopup = (props: {
               >
                 {props.buttontext}
               </Button>
-              {props.okButtonText ? (
+              {props.rightButtonText ? (
                 <Button
                   color="primary"
                   variant="contained"
                   sx={styles.btn}
-                  onClick={handleOk}
+                  onClick={handleRight}
                 >
-                  {props.buttontext}
+                  {props.rightButtonText}
                 </Button>
               ) : (
                 ''

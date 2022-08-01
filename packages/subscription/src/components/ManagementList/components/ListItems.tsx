@@ -25,7 +25,7 @@ const ListItems = (props: {
   }, [realNum]);
 
   const clickCallback = (index: any) => {
-    props.clickCallback ? props.clickCallback[index]() : '';
+    props.clickCallback ? props.clickCallback[index](props) : '';
   };
 
   const handleOpenPopup = () => setOpenPopup(true);

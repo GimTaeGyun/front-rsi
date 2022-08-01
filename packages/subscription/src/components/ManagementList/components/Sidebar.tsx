@@ -268,8 +268,11 @@ const realItem: IUsrGrp = {
   status: 1,
 };
 
-const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
-  const { onSelect } = props;
+const Sidebar = (props: {
+  onSelect: (treeItem: ITreeItem) => void;
+  treeMoreIconCallback?: Function[];
+}) => {
+  const { onSelect, treeMoreIconCallback } = props;
   const [realNum, setRealNum] = React.useState(0);
   const [data, setData] = React.useState<IUsrGrp>(realItem);
 
@@ -414,6 +417,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                     id={+node.id}
                     realNum={realNum}
                     treeItem={selectedTreeitem}
+                    clickCallback={treeMoreIconCallback}
                   />
                 </>
               )}
