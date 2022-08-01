@@ -1,29 +1,46 @@
+import {
+  getBackendOptions,
+  MultiBackend,
+  Tree,
+} from '@minoru/react-dnd-treeview';
 import { ArrowForwardIos } from '@mui/icons-material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import React from 'react';
-import {
-  Tree,
-  getBackendOptions,
-  MultiBackend,
-} from '@minoru/react-dnd-treeview';
-import { DndProvider } from 'react-dnd';
-
+import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
-
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
+import React from 'react';
+import { DndProvider } from 'react-dnd';
 
-import ListItems from './ListItems';
 import Axios from '../../../utils/axios';
+import ListItems from './ListItems';
 
-const realItem = {
+interface IUsrGrp {
+  usrGrpId: number;
+  description: string;
+  sort: number;
+  usrGrpNm: string;
+  status: number;
+  uppUsrGrpId?: number;
+  users?: Array<any>;
+  subGrp?: Array<IUsrGrp>;
+}
+
+export interface ITreeItem {
+  id: number;
+  text: string;
+  parent: number;
+  data?: any;
+}
+
+const realItem: IUsrGrp = {
   usrGrpId: 1,
   description: '최상위 ROOT 그룹',
   sort: 1,
@@ -102,7 +119,7 @@ const realItem = {
           status: 1,
         },
         {
-          usrId: 'dflysoft',
+          usrId: 'dflysoft2',
           usrNm: '디플라이',
           phone: '010-0000-0000',
           email: 'bfly@bflysoft.com',
@@ -110,7 +127,7 @@ const realItem = {
           status: 1,
         },
         {
-          usrId: 'hflysoft',
+          usrId: 'hflysoft3',
           usrNm: '에이치플라이',
           phone: '010-0000-0000',
           email: 'bfly@bflysoft.com',
@@ -224,7 +241,7 @@ const realItem = {
       status: 1,
     },
     {
-      usrId: 'aflysoft',
+      usrId: 'aflysoft1',
       usrNm: '씨플라이',
       phone: '010-0000-0000',
       email: 'bfly@bflysoft.com',
@@ -232,7 +249,7 @@ const realItem = {
       status: 1,
     },
     {
-      usrId: 'dflysoft',
+      usrId: 'dflysoft2',
       usrNm: '디플라이',
       phone: '010-0000-0000',
       email: 'bfly@bflysoft.com',
@@ -240,7 +257,7 @@ const realItem = {
       status: 1,
     },
     {
-      usrId: 'hflysoft',
+      usrId: 'hflysoft3',
       usrNm: '에이치플라이',
       phone: '010-0000-0000',
       email: 'bfly@bflysoft.com',
@@ -251,44 +268,12 @@ const realItem = {
   status: 1,
 };
 
-const items = [
-  {
-    id: 1,
-    text: '전체 (4)',
-    parent: 0,
-  },
-  {
-    text: '연구소 (32)',
-    id: 2,
-    parent: 1,
-  },
-  {
-    text: 'AI연구개발실 (30)',
-    id: 3,
-    parent: 2,
-  },
-  {
-    text: '기획팀 (2)',
-    id: 4,
-    parent: 2,
-  },
-  {
-    text: '영업본부 (1)',
-    id: 5,
-    parent: 1,
-  },
-  {
-    text: '디지타이징 (0)',
-    id: 6,
-    parent: 5,
-  },
-];
-
-const Sidebar = () => {
+const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
+  const { onSelect } = props;
   const [realNum, setRealNum] = React.useState(0);
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState<IUsrGrp>(realItem);
 
-  const [treedata, setTreedata] = React.useState(items);
+  const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
 
   const getData = async () =>
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
@@ -296,7 +281,7 @@ const Sidebar = () => {
     })
       .then(res => {
         console.log(res);
-        setData(res.data);
+        setData(res.data.result);
       })
       .catch(err => {
         console.log(err);
@@ -306,17 +291,67 @@ const Sidebar = () => {
   React.useEffect(() => {
     getData();
   }, []);
+
+  const formatTreedataItems = (subGrp: IUsrGrp) => {
+    let treeItems: Array<ITreeItem> = [];
+
+    if (subGrp?.subGrp !== undefined) {
+      subGrp.subGrp.forEach(subGrp => {
+        treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
+      });
+    }
+
+    return [
+      ...treeItems,
+      {
+        id: subGrp.usrGrpId,
+        text: subGrp.usrGrpNm,
+        parent: subGrp?.uppUsrGrpId ?? 0,
+        data: {
+          description: subGrp.description,
+          users: subGrp.users ?? []
+        }
+      }
+    ]
+  }
+
+  const handleSelectedTreeitem = (treeItem: ITreeItem) => {
+    onSelect(treeItem);
+  };
+
   React.useEffect(() => {
     if (data) {
+      let treeItems: Array<ITreeItem> = [];
+
       // Format tree data
-      // setTreedata(items)
+      if (data.subGrp) {
+        treeItems = formatTreedataItems(data);
+      }
+      handleSelectedTreeitem(treeItems[0]);
+      setTreedata(treeItems);
     }
   }, [data]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const onDrop = () => {
+    console.log('onDrop');
+  };
+
+  const onClick = (
+    treeItem: any,
+    isOpen: boolean,
+    hasChild: boolean,
+    onToggle: () => void,
+  ) => {
+    onToggle();
+    console.log({ isOpen, hasChild });
+    handleSelectedTreeitem(treeItem);
   };
 
   return (
@@ -324,7 +359,7 @@ const Sidebar = () => {
       <Card sx={styles.box_card}>
         <CardHeader
           component="div"
-          title="그룹 (4)"
+          title={`${data.usrGrpNm} (${data.users?.length})`}
           sx={styles.box_cardHeader}
         />
         <Divider />
@@ -335,40 +370,43 @@ const Sidebar = () => {
               rootId={0}
               canDrag={() => false}
               canDrop={() => false}
-              onDrop={() => {}}
+              onDrop={onDrop}
               render={(node, { depth, isOpen, hasChild, onToggle }) => (
                 <>
-                  <Box
-                    sx={{
-                      ...styles.treeview_item,
-                      paddingLeft: `${depth * 20 + 10}px`,
-                    }}
-                  >
-                    <Box>
-                      {isOpen && hasChild ? (
-                        <ExpandMore />
-                      ) : (
-                        <ArrowForwardIos
-                          sx={{ fontSize: '14px' }}
-                          onClick={onToggle}
-                        />
-                      )}
-                      <Typography component="span">{node.text}</Typography>
+                  <Tooltip title={node.data.description} sx={{ p: 0 }} arrow>
+                    <Box
+                      sx={{
+                        ...styles.treeview_item,
+                        paddingLeft: `${depth * 20 + 10}px`,
+                      }}
+                    >
+                      <Box 
+                        onClick={() => onClick(node, isOpen, hasChild, onToggle)}
+                      > 
+                        {isOpen && hasChild ? (
+                          <ExpandMore />
+                        ) : (
+                          <ArrowForwardIos
+                            sx={{ fontSize: '14px' }}
+                          />
+                        )}
+                        <Typography component="span">{`${node.text} (${node?.data.users.length})`}</Typography>
+                      </Box>
+                      <Box>
+                        <IconButton
+                          aria-label="more"
+                          id="long-button"
+                          onClick={handleClickSub}
+                          sx={{
+                            overflow: 'hidden',
+                            '&:hover': { bgcolor: 'transparent' },
+                          }}
+                        >
+                          <MoreVertOutlined />
+                        </IconButton>
+                      </Box>
                     </Box>
-                    <Box>
-                      <IconButton
-                        aria-label="more"
-                        id="long-button"
-                        onClick={handleClickSub}
-                        sx={{
-                          overflow: 'hidden',
-                          '&:hover': { bgcolor: 'transparent' },
-                        }}
-                      >
-                        <MoreVertOutlined />
-                      </IconButton>
-                    </Box>
-                  </Box>
+                  </Tooltip>
                   <ListItems
                     anchorEl={anchorEl}
                     id={+node.id}
@@ -376,7 +414,7 @@ const Sidebar = () => {
                   />
                 </>
               )}
-              initialOpen={[1, 2, 5]}
+              initialOpen={true}
             />
           </DndProvider>
         </CardContent>

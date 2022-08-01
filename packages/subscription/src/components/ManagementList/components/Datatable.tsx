@@ -12,15 +12,16 @@ import React from 'react';
 
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
+import { ITreeItem } from './Sidebar';
 
-const rows = [
+const mockRows = [
   {
     id: 'bflysoft1',
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -28,8 +29,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -37,8 +38,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -46,8 +47,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -55,8 +56,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -64,8 +65,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -73,8 +74,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -82,8 +83,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -91,8 +92,8 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
   {
@@ -100,13 +101,35 @@ const rows = [
     name: '김철수',
     phone: '010-0000-0000',
     email: 'bflysoft1@bflysoft.com',
-    situation: '사용',
-    additionalInfo: '',
+    status: '사용',
+    description: '',
     modifiedDate: '2022-10-31 12:00',
   },
 ];
 
-const DataTable = () => {
+const DataTable = (props: any) => {
+  const { treeItem, cellClickEvent } = props;
+
+  const [rows, setRows] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    if(treeItem) {
+      const users: any = treeItem.data?.users ?? [];
+
+      const tableRows = users.map((user: any) => ({
+        id: user.usrId,
+        name: user.usrNm,
+        phone: user.phone,
+        email: user.email,
+        modifiedDate: user.mod_at,
+        status: user.status,
+        description: ''
+      }));
+
+      setRows(tableRows);
+    }
+  }, [treeItem]);
+
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={styles.card}>
@@ -119,7 +142,7 @@ const DataTable = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography sx={styles.card_title}>AI연구개발실 (30)</Typography>
+              <Typography sx={styles.card_title}>{`${treeItem?.text} (${treeItem?.data?.users.length})`}</Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 startAdornment={
@@ -157,11 +180,12 @@ const DataTable = () => {
             sorting: {
               sortModel: [
                 { field: 'name', sort: 'asc' },
-                // { field: 'phone', sort: 'desc' },
-              ]
-            }
+              ],
+            },
           }}
-          
+          onCellClick={(params, event) => {
+            cellClickEvent(params, event);
+          }}
         />
       </Card>
     </Box>
@@ -207,4 +231,4 @@ const styles = {
   },
 };
 
-export default DataTable;
+export default React.memo(DataTable);
