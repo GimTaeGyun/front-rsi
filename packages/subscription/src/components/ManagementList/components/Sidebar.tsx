@@ -313,7 +313,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
     })
       .then(res => {
         console.log(res);
-        setData(res.data);
+        setData(res.data.result);
       })
       .catch(err => {
         console.log(err);
@@ -327,13 +327,10 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
   const formatTreedataItems = (subGrp: IUsrGrp) => {
     let treeItems: Array<ITreeItem> = [];
 
-    if(subGrp?.subGrp !== undefined) {
+    if (subGrp?.subGrp !== undefined) {
       subGrp.subGrp.forEach(subGrp => {
-        treeItems = [
-          ...treeItems,
-          ...formatTreedataItems(subGrp)
-        ];
-      });    
+        treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
+      });
     }
 
     return [
@@ -342,25 +339,25 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
         id: subGrp.usrGrpId,
         text: subGrp.usrGrpNm,
         parent: subGrp?.uppUsrGrpId ?? 0,
-        users: subGrp.users ?? []
-      }
-    ]
-  }
+        users: subGrp.users ?? [],
+      },
+    ];
+  };
 
   const handleSelectedTreeitem = (treeItem: ITreeItem) => {
     onSelect(treeItem);
-  }
+  };
 
   React.useEffect(() => {
     if (data) {
       let treeItems: Array<ITreeItem> = [];
 
       // Format tree data
-      if(data.subGrp) {
+      if (data.subGrp) {
         treeItems = formatTreedataItems(data);
       }
       handleSelectedTreeitem(treeItems[0]);
-      setTreedata(treeItems)
+      setTreedata(treeItems);
     }
   }, [data]);
 
@@ -372,14 +369,19 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
   };
 
   const onDrop = () => {
-    console.log('onDrop')
-  }
+    console.log('onDrop');
+  };
 
-  const onClick = (treeItem: any, isOpen: boolean, hasChild: boolean, onToggle: () => void ) => {
+  const onClick = (
+    treeItem: any,
+    isOpen: boolean,
+    hasChild: boolean,
+    onToggle: () => void,
+  ) => {
     onToggle();
-    console.log({ isOpen, hasChild })
+    console.log({ isOpen, hasChild });
     handleSelectedTreeitem(treeItem);
-  }
+  };
 
   return (
     <Box sx={{ width: '350px', height: '682px' }}>
@@ -406,15 +408,13 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                       paddingLeft: `${depth * 20 + 10}px`,
                     }}
                   >
-                    <Box 
+                    <Box
                       onClick={() => onClick(node, isOpen, hasChild, onToggle)}
-                    > 
+                    >
                       {isOpen && hasChild ? (
                         <ExpandMore />
                       ) : (
-                        <ArrowForwardIos
-                          sx={{ fontSize: '14px' }}
-                        />
+                        <ArrowForwardIos sx={{ fontSize: '14px' }} />
                       )}
                       <Typography component="span">{node.text}</Typography>
                     </Box>
