@@ -10,7 +10,7 @@ import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
 import AlertPopup from '../../components/Common/AlertPopup';
 import AddGroup from '../AddGroup';
-import { GetSidebarData } from '../../data/atoms';
+import { GetSidebarData, AlertPopupData } from '../../data/atoms';
 
 const ManagementList = () => {
   const [addGroupTitle, setAddGroupTitle] = React.useState('');
@@ -31,14 +31,7 @@ const ManagementList = () => {
     description: '',
   });
 
-  const [alertPopup, setAlertPopup] = React.useState({
-    visible: false,
-    message: '',
-    leftCallback: () => {},
-    rightCallback: () => {},
-    leftText: '',
-    rightText: '',
-  });
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   const [addGroupOpen, setAddGroupOpen] = React.useState(false);
 

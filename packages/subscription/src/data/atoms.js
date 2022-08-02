@@ -32,4 +32,12 @@ const CheckLoginId = async (data) => {
 };
 
 const GetSidebarData = atom();
-export { SignupData, AgreementData, SignupUser, CheckLoginId, GetSidebarData };
+const AlertPopupData = atom({    
+  visible: false,
+  message: '',
+  leftCallback: () => {},
+  rightCallback: () => {},
+  leftText: '',
+  rightText: '',
+});
+export { SignupData, AgreementData, SignupUser, CheckLoginId, GetSidebarData, AlertPopupData };
