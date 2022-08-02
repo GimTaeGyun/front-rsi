@@ -105,6 +105,20 @@ const ManagementList = () => {
     },
   ];
 
+  const search = (value: any) => {
+    axios
+      .post('/management/subscription/admin/user/inquiry', {
+        status: 1,
+        usrId: value,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <AppFrame title="운영자 관리">
@@ -127,6 +141,7 @@ const ManagementList = () => {
               <DataTable
                 cellClickEvent={cellClickEvent}
                 treeItem={selectedTreeitem}
+                searchCallback={search}
               />
             </Box>
           </Box>

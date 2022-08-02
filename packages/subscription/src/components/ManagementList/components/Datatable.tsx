@@ -108,12 +108,13 @@ const mockRows = [
 ];
 
 const DataTable = (props: any) => {
-  const { treeItem, cellClickEvent } = props;
+  const { treeItem, cellClickEvent, searchCallback } = props;
 
   const [rows, setRows] = React.useState<any>([]);
+  const [searchTxt, setSearchTxt] = React.useState('');
 
   React.useEffect(() => {
-    if(treeItem) {
+    if (treeItem) {
       const users: any = treeItem.data?.users ?? [];
 
       const tableRows = users.map((user: any) => ({
@@ -123,7 +124,7 @@ const DataTable = (props: any) => {
         email: user.email,
         modifiedDate: user.mod_at,
         status: user.status,
-        description: ''
+        description: '',
       }));
 
       setRows(tableRows);
@@ -142,12 +143,25 @@ const DataTable = (props: any) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography sx={styles.card_title}>{`${treeItem?.text} (${treeItem?.data?.users.length})`}</Typography>
+              <Typography
+                sx={styles.card_title}
+              >{`${treeItem?.text} (${treeItem?.data?.users.length})`}</Typography>
               <OutlinedInput
                 sx={styles.search_input}
+                onChange={e => {
+                  setSearchTxt(e.target.value);
+                }}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') searchCallback(searchTxt);
+                }}
                 startAdornment={
                   <InputAdornment position="start">
-                    <IconButton sx={{ color: '#000000DE' }}>
+                    <IconButton
+                      sx={{ color: '#000000DE' }}
+                      onClick={() => {
+                        searchCallback(searchTxt);
+                      }}
+                    >
                       <SearchOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
@@ -178,9 +192,7 @@ const DataTable = (props: any) => {
           }}
           initialState={{
             sorting: {
-              sortModel: [
-                { field: 'name', sort: 'asc' },
-              ],
+              sortModel: [{ field: 'name', sort: 'asc' }],
             },
           }}
           onCellClick={(params, event) => {

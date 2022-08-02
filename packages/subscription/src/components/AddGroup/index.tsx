@@ -46,6 +46,20 @@ const AddGroup = (props: {
       .post('/management/subscription/admin/usergroup/update', groupData)
       .then(res => {
         console.log(res);
+        if (res.data.code === '0000')
+          setAlertPopupData({
+            visible: true,
+            message:
+              groupData.action === 'mod'
+                ? '운영자 그룹 수정이 완료되었습니다'
+                : '새로운 운영자 그룹이 추가되었습니다',
+            leftCallback: () => {
+              setAlertPopupData({ ...alertPopupData, visible: false });
+            },
+            rightCallback: () => {},
+            leftText: '확인',
+            rightText: '',
+          });
       })
       .catch(err => {
         handleClose();
