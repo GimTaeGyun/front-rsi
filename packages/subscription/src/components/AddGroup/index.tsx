@@ -1,13 +1,47 @@
 import { Box, Button, Modal, OutlinedInput } from '@mui/material';
 import * as React from 'react';
+import axios from '../../utils/axios';
+import { ITreeItem } from '../ManagementList/components/Sidebar';
 
 import DataTable from './Datatable';
 
 const AddGroup = (props: {
+  title: string;
   open: boolean;
+  treeItem?: ITreeItem;
   handleClose: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
 }) => {
-  const { open, handleClose } = props;
+  const { title, open, treeItem, handleClose } = props;
+  const [formData, setFormData] = React.useState({
+    usrGrpNm: "",
+    description: "",
+    usrRoleId: []
+  });
+
+  const addGroup = () => {
+    const updateData = {
+      action: 'mod', // (update : “mod” , add : null)
+      description: formData.description,
+      uppUsrGrpId: treeItem?.data?.uppUsrGrpId, // (parent grpId if root then null)
+      usrGrpId: treeItem?.id, // (selected item grpId)
+      usrGrpNm: formData.usrGrpNm,
+      usrRoleId: formData.usrRoleId,
+    };
+
+    axios
+      .post('/management/subscription/admin/usergroup/update', updateData)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  const onRowsSelect = (values: any) => setFormData({ ...formData, usrRoleId: values })
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => 
+    setFormData({ ...formData, [event.target.name]: event.target.value })
 
   return (
     <>
@@ -21,7 +55,7 @@ const AddGroup = (props: {
         <Box sx={styles.popup_outer}>
           <Box sx={styles.popup_header}>
             <Box component="h3" sx={styles.popup_title}>
-              운영자 그룹 추가
+              {title}
             </Box>
             <Box
               component="img"
@@ -42,6 +76,9 @@ const AddGroup = (props: {
                     id="group-name"
                     placeholder="생성할 그룹명을 입력해 주세요."
                     sx={styles.inputfield}
+                    name="usrGrpNm"
+                    value={formData.usrGrpNm}
+                    onChange={handleChange}
                   />
                 </Box>
                 <Box component="span" sx={{ display: 'inline-block' }}>
@@ -64,6 +101,9 @@ const AddGroup = (props: {
                     id="group-desc"
                     placeholder="그룹설명을 입력해 주세요."
                     sx={styles.inputfield}
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
                   />
                 </Box>
               </Box>
@@ -73,7 +113,7 @@ const AddGroup = (props: {
                 그룹 역할 설정<Box component="span" sx={styles.req_field}></Box>
               </Box>
               <Box component="div" sx={{ position: 'relative' }}>
-                <DataTable />
+                <DataTable onChange={onRowsSelect} />
               </Box>
             </Box>
           </Box>
@@ -81,7 +121,12 @@ const AddGroup = (props: {
             <Button sx={styles.btn_close} onClick={handleClose}>
               취소
             </Button>
-            <Button color="primary" variant="contained" sx={styles.btn_submit}>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={styles.btn_submit}
+              onClick={addGroup}
+            >
               저장
             </Button>
           </Box>

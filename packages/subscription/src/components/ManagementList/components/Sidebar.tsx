@@ -315,6 +315,7 @@ const Sidebar = (props: {
         data: {
           description: subGrp.description,
           users: subGrp.users ?? [],
+          uppUsrGrpId: subGrp.uppUsrGrpId ?? null
         },
       },
     ];
