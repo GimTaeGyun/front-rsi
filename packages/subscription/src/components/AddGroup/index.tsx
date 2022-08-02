@@ -63,8 +63,6 @@ const AddGroup = (props: {
         })
         .then(res => {
           setErrors({ ...errors, usrGrpNm: res.data.code !== '0000' });
-<<<<<<< HEAD
-=======
           setAlertPopupData({
             visible: true,
             message:
@@ -78,7 +76,6 @@ const AddGroup = (props: {
             leftText: '확인',
             rightText: '',
           });
->>>>>>> 7205af7bad817579199a9dca97d4019139162cc4
         })
         .catch(err => {
           setErrors({ ...errors, usrGrpNm: true });

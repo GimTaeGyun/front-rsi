@@ -1,10 +1,19 @@
 import { Alert } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import {
+  GridCsvExportOptions,
+  GridCsvGetRowsToExportParams,
+  GridToolbarContainer,
+  useGridApiContext,
+} from '@mui/x-data-grid';
 import React from 'react';
-
 import AlertPopup from '../../Common/AlertPopup';
 import AddOperatorPopup from './AddOperatorPopup';
+import { useDemoData } from '@mui/x-data-grid-generator';
+import { text } from 'stream/consumers';
+import { gridSortedRowIdsSelector } from '@mui/x-data-grid';
+import { BADFAMILY } from 'dns';
 
 const buttonStyle = {
   p: '5px 10px',
@@ -13,8 +22,24 @@ const buttonStyle = {
   lineHeight: 'normal',
 };
 
+export const ExportCustomToolbar = () => {
+  const { data, loading } = useDemoData({
+    dataSet: 'Employee',
+    rowLength: 100,
+    maxColumns: 10,
+  });
+};
+
+const getUnfilteredRows = ({ apiRef }: GridCsvGetRowsToExportParams) =>
+  gridSortedRowIdsSelector(apiRef);
+
 const DatatableFooter = () => {
   const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
+
+  const apiRef = useGridApiContext();
+
+  const handleExport = (options: GridCsvExportOptions) =>
+    apiRef.current.exportDataAsCsv(options);
 
   return (
     <>
@@ -43,21 +68,29 @@ const DatatableFooter = () => {
             운영자 추가
           </Button>
         </Box>
-        <Button
-          variant="outlined"
-          startIcon={
-            <Box
-              component="img"
-              src={
-                require('@administrator/subscription/public/assets/images/microsoftexcel.svg')
-                  .default
-              }
-            />
-          }
-          sx={buttonStyle}
-        >
-          엑셀 다운로드
-        </Button>
+        <GridToolbarContainer>
+          <Button
+            onClick={() =>
+              handleExport({
+                getRowsToExport: getUnfilteredRows,
+                utf8WithBom: true,
+              })
+            }
+            variant="outlined"
+            startIcon={
+              <Box
+                component="img"
+                src={
+                  require('@administrator/subscription/public/assets/images/microsoftexcel.svg')
+                    .default
+                }
+              />
+            }
+            sx={buttonStyle}
+          >
+            엑셀 다운로드
+          </Button>
+        </GridToolbarContainer>
       </Box>
       <AddOperatorPopup
         open={openOperatorPopup}
