@@ -62,7 +62,7 @@ const AddGroup = (props: {
           });
       })
       .catch(err => {
-        handleClose();
+        handleClose(err);
       });
   };
 
@@ -93,6 +93,7 @@ const AddGroup = (props: {
         })
         .catch(err => {
           setErrors({ ...errors, usrGrpNm: true });
+          console.error(err);
         });
     }
   };
