@@ -8,8 +8,11 @@ import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
+import AlertPopup from '../../components/Common/AlertPopup';
+import AddGroup from '../AddGroup';
 
 const ManagementList = () => {
+  const [addGroupTitle, setAddGroupTitle] = React.useState("");
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
@@ -25,6 +28,18 @@ const ManagementList = () => {
     usrTp: 'DEFAULT',
     description: '',
   });
+
+  const [alertPopup, setAlertPopup] = React.useState({
+    visible: false,
+    message: '',
+    leftCallback: () => {},
+    rightCallback: () => {},
+    leftText: '',
+    rightText: '',
+  });
+
+  const [addGroupOpen, setAddGroupOpen] = React.useState(false);
+
   const cellClickEvent = (params: any) => {
     if (params.field === 'management') {
       axios
@@ -44,12 +59,77 @@ const ManagementList = () => {
     }
   };
 
+  // 사이드바 트리 아이콘의 ...icon 클릭 이벨트
+  const treeMoreIconCallback = [
+    () => {
+      setAddGroupTitle('하위 그룹 추가');
+      setAddGroupOpen(true);
+    },
+    () => {
+      setAddGroupTitle("그룹 수정");
+      setAddGroupOpen(true);
+    },
+    (selectedMoreIcon: any) => {
+      console.log(selectedMoreIcon);
+      selectedMoreIcon = selectedMoreIcon.treeItem;
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        message: '운영자그룹을 삭제하시겠습니까?',
+        leftText: '취소',
+        rightText: '삭제',
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        rightCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+          console.log(selectedMoreIcon);
+          if (selectedMoreIcon) {
+            axios
+              .post('/management/subscription/admin/usergroup/update', {
+                action: 'del',
+                uppUsrGrpId:
+                  selectedMoreIcon.parent == 1 ? null : selectedMoreIcon.parent,
+                usrGrpId: selectedMoreIcon.id,
+                usrGrpNm: selectedMoreIcon.text,
+              })
+              .then(() => {
+                setAlertPopup({
+                  ...alertPopup,
+                  visible: true,
+                  message: '운영자 그룹 삭제가 완료되었습니다',
+                  rightText: '',
+                  leftText: '확인',
+                  leftCallback: () => {
+                    React.useEffect(() => {});
+                  },
+                });
+              })
+              .catch(() => {});
+          }
+        },
+      });
+    },
+  ];
+
   return (
     <>
       <AppFrame title="운영자 관리">
         <>
+          {alertPopup.visible ? (
+            <AlertPopup
+              message={alertPopup.message}
+              buttontext={alertPopup.leftText}
+              rightButtonText={alertPopup.rightText}
+              rightCallback={alertPopup.rightCallback}
+              closeCallback={alertPopup.leftCallback}
+            />
+          ) : undefined}
           <Box display="flex">
-            <Sidebar onSelect={item => setSelectedTreeitem(item)} />
+            <Sidebar
+              onSelect={item => setSelectedTreeitem(item)}
+              treeMoreIconCallback={treeMoreIconCallback}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
                 cellClickEvent={cellClickEvent}
@@ -75,6 +155,12 @@ const ManagementList = () => {
           position: 'absolute',
         }}
       ></Box>
+      <AddGroup
+        title={addGroupTitle}
+        open={addGroupOpen}
+        treeItem={selectedTreeitem}
+        handleClose={() => setAddGroupOpen(false)}
+      />
     </>
   );
 };

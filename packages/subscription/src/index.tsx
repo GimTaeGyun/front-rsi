@@ -23,8 +23,6 @@ const Subscription = () => {
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
       <Route path="/admin/management-list" element={<ManagementList />}></Route>
-      <Route path="/admin/add_group" element={<AddGroup />}></Route>
-      <Route path="/admin/add_group2" element={<AddGroup />}></Route>
       <Route path="/admin/add_groupalert" element={<GroupAlert />}></Route>
       <Route path="/admin/add_groupalert2" element={<GroupAlert2 />}></Route>
       <Route path="/admin/payments" element={<PaymentList />}></Route>

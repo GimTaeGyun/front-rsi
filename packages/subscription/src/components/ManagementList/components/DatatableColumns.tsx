@@ -68,7 +68,9 @@ export const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params: GridRenderCellParams<string>) => (
-      <Typography color="#284AD5">{params.value}</Typography>
+      <Typography color="#284AD5">
+        {(params.value as any) == 1 ? '사용' : '미사용'}
+      </Typography>
     ),
   },
   {

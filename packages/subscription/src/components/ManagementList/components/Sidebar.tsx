@@ -268,19 +268,24 @@ const realItem: IUsrGrp = {
   status: 1,
 };
 
-const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
-  const { onSelect } = props;
+const Sidebar = (props: {
+  onSelect: (treeItem: ITreeItem) => void;
+  treeMoreIconCallback?: Function[];
+}) => {
+  const { onSelect, treeMoreIconCallback } = props;
+
   const [realNum, setRealNum] = React.useState(0);
-  const [data, setData] = React.useState<IUsrGrp>(realItem);
+  const [data, setData] = React.useState<IUsrGrp>();
 
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
+  const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
+  const [clickedTreeItem, setClickedTreeItem] = React.useState<any>();
 
   const getData = async () =>
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
       usr_grp_id: 1,
     })
       .then(res => {
-        console.log(res);
         setData(res.data.result);
       })
       .catch(err => {
@@ -292,7 +297,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
     getData();
   }, []);
 
-  const formatTreedataItems = (subGrp: IUsrGrp) => {
+  const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
     let treeItems: Array<ITreeItem> = [];
 
     if (subGrp?.subGrp !== undefined) {
@@ -309,24 +314,23 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
         parent: subGrp?.uppUsrGrpId ?? 0,
         data: {
           description: subGrp.description,
-          users: subGrp.users ?? []
-        }
-      }
-    ]
-  }
+          users: subGrp.users ?? [],
+          uppUsrGrpId: subGrp.uppUsrGrpId ?? null
+        },
+      },
+    ];
+  };
 
   const handleSelectedTreeitem = (treeItem: ITreeItem) => {
+    setSelectedTreeitem(treeItem);
     onSelect(treeItem);
   };
 
   React.useEffect(() => {
     if (data) {
-      let treeItems: Array<ITreeItem> = [];
-
       // Format tree data
-      if (data.subGrp) {
-        treeItems = formatTreedataItems(data);
-      }
+      const treeItems = formatTreedataItems(data);
+
       handleSelectedTreeitem(treeItems[0]);
       setTreedata(treeItems);
     }
@@ -343,14 +347,8 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
     console.log('onDrop');
   };
 
-  const onClick = (
-    treeItem: any,
-    isOpen: boolean,
-    hasChild: boolean,
-    onToggle: () => void,
-  ) => {
+  const onClick = (treeItem: any, onToggle: () => void) => {
     onToggle();
-    console.log({ isOpen, hasChild });
     handleSelectedTreeitem(treeItem);
   };
 
@@ -359,7 +357,7 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
       <Card sx={styles.box_card}>
         <CardHeader
           component="div"
-          title={`${data.usrGrpNm} (${data.users?.length})`}
+          title={`${data?.usrGrpNm} (${data?.users?.length})`}
           sx={styles.box_cardHeader}
         />
         <Divider />
@@ -380,15 +378,11 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                         paddingLeft: `${depth * 20 + 10}px`,
                       }}
                     >
-                      <Box 
-                        onClick={() => onClick(node, isOpen, hasChild, onToggle)}
-                      > 
+                      <Box onClick={() => onClick(node, onToggle)}>
                         {isOpen && hasChild ? (
                           <ExpandMore />
                         ) : (
-                          <ArrowForwardIos
-                            sx={{ fontSize: '14px' }}
-                          />
+                          <ArrowForwardIos sx={{ fontSize: '14px' }} />
                         )}
                         <Typography component="span">{`${node.text} (${node?.data.users.length})`}</Typography>
                       </Box>
@@ -396,7 +390,10 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                         <IconButton
                           aria-label="more"
                           id="long-button"
-                          onClick={handleClickSub}
+                          onClick={e => {
+                            handleClickSub(e);
+                            setClickedTreeItem(node);
+                          }}
                           sx={{
                             overflow: 'hidden',
                             '&:hover': { bgcolor: 'transparent' },
@@ -411,6 +408,8 @@ const Sidebar = (props: { onSelect: (treeItem: ITreeItem) => void }) => {
                     anchorEl={anchorEl}
                     id={+node.id}
                     realNum={realNum}
+                    treeItem={clickedTreeItem}
+                    clickCallback={treeMoreIconCallback}
                   />
                 </>
               )}

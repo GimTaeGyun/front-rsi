@@ -7,7 +7,7 @@ Axios.defaults.proxy = { host: 'localhost', port: 4000 };
 
 Axios.interceptors.request.use(config => {
   const header = localStorage.getItem('access-token') == null ? '' : `bearer ${  localStorage.getItem('access-token')}`;
-
+  
   if (header !== '') {(config.headers as any).Authorization = header;}
 
   return config;
@@ -21,6 +21,12 @@ Axios.interceptors.response.use(
     if (error.response.status == 401) {
       localStorage.removeItem('access-token');
       try {
+        if( localStorage.getItem('refresh-token') == null ||
+        localStorage.getItem('refresh-token') == undefined){
+          localStorage.clear();
+          location.href = '/admin/login';
+          return;
+        }
         const originalRequest = error.config;
         const res = await Axios.post('/management/keycloak/refreshtoken', {
           refreshToken: localStorage.getItem('refresh-token')
