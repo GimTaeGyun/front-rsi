@@ -37,12 +37,13 @@ const UpdateOperatorPopupUser = (props: {
   const [isOpenPassword, setIsOpenPassword] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState(false);
 
+  /* change password */
   const onClickUpdatePassword = async () => {
     const userPasswordParam = {
       usrId: data.usrId,
       usrPw: pwd,
     };
-    if (pwd.length >= 2 && pwd.length <= 18) {
+    if (pwd.length >= 6 && pwd.length <= 16) {
       try {
         const fetch = await Axios.post(
           '/management/subscription/admin/userpw/update',
@@ -61,7 +62,9 @@ const UpdateOperatorPopupUser = (props: {
       setErrorPassword(true);
     }
   };
+  /* change password end */
 
+  /* change user and valid */
   const validationSchema = Yup.object().shape({
     custNm: Yup.string().max(10, '잘못된 이름입니다.').nullable(true),
     email: Yup.string().email('잘못된 E-mail입니다.').nullable(true),
@@ -112,6 +115,8 @@ const UpdateOperatorPopupUser = (props: {
   });
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
+
+  /* change user and valid end*/
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
@@ -147,6 +152,7 @@ const UpdateOperatorPopupUser = (props: {
           </Box>
         </DialogTitle>
         <Divider />
+        {/* change user form */}
         <form onSubmit={handleSubmit}>
           <DialogContent sx={{ padding: '30px' }}>
             <Box
@@ -168,6 +174,7 @@ const UpdateOperatorPopupUser = (props: {
                 sx={{ mt: '5px' }}
               />
             </Box>
+            {/* change user password form */}
             <FormLabel required>비밀번호</FormLabel>
             <Box
               sx={{
@@ -200,6 +207,7 @@ const UpdateOperatorPopupUser = (props: {
               >
                 변경
               </Button>
+              {/* change password form end */}
             </Box>
             <Box
               sx={{
@@ -244,14 +252,6 @@ const UpdateOperatorPopupUser = (props: {
                   (e.target as HTMLInputElement).value = (
                     e.target as HTMLInputElement
                   ).value.slice(0, 16);
-                }}
-                InputProps={{
-                  endAdornment:
-                    errors.phone !== undefined ? (
-                      <span>{errors.phone}</span>
-                    ) : (
-                      <span />
-                    ),
                 }}
               />
             </Box>
@@ -319,6 +319,7 @@ const UpdateOperatorPopupUser = (props: {
             </Button>
           </DialogActions>
         </form>
+        {/* change user form end */}
       </Dialog>
       {isOpen ? (
         <AlertPopup
