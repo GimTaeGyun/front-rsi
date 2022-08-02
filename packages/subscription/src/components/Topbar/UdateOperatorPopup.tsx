@@ -58,6 +58,7 @@ const UpdateOperatorPopupUser = (props: {
       } catch (e) {
         console.error(e);
       }
+      setErrorPassword(false);
     } else {
       setErrorPassword(true);
     }
@@ -69,8 +70,10 @@ const UpdateOperatorPopupUser = (props: {
     custNm: Yup.string().max(10, '잘못된 이름입니다.').nullable(true),
     email: Yup.string().email('잘못된 E-mail입니다.').nullable(true),
     phone: Yup.string()
-      .matches(/^\+?[1-9][0-9]{7,14}$/, '잘못된 번호 입니다.')
-      .nullable(true),
+      .nullable(true)
+      .matches(
+        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      ),
   });
 
   const formik = useFormik({
@@ -165,7 +168,13 @@ const UpdateOperatorPopupUser = (props: {
                 mb: '15px',
               }}
             >
-              <FormLabel required>아이디</FormLabel>
+              <FormLabel>
+                아이디{' '}
+                <span className="label-dot" style={{ color: '#284AD5' }}>
+                  {' '}
+                  •
+                </span>{' '}
+              </FormLabel>
               <TextField
                 disabled
                 fullWidth
@@ -175,7 +184,13 @@ const UpdateOperatorPopupUser = (props: {
               />
             </Box>
             {/* change user password form */}
-            <FormLabel required>비밀번호</FormLabel>
+            <FormLabel>
+              비밀번호{' '}
+              <span className="label-dot" style={{ color: '#284AD5' }}>
+                {' '}
+                •
+              </span>{' '}
+            </FormLabel>
             <Box
               sx={{
                 display: 'flex',
@@ -214,7 +229,13 @@ const UpdateOperatorPopupUser = (props: {
                 mb: '15px',
               }}
             >
-              <FormLabel required>이름</FormLabel>
+              <FormLabel>
+                이름{' '}
+                <span className="label-dot" style={{ color: '#284AD5' }}>
+                  {' '}
+                  •
+                </span>{' '}
+              </FormLabel>
               <TextField
                 fullWidth
                 type="text"
@@ -237,7 +258,13 @@ const UpdateOperatorPopupUser = (props: {
                 mb: '15px',
               }}
             >
-              <FormLabel required>핸드폰</FormLabel>
+              <FormLabel>
+                핸드폰{' '}
+                <span className="label-dot" style={{ color: '#284AD5' }}>
+                  {' '}
+                  •
+                </span>{' '}
+              </FormLabel>
               <TextField
                 fullWidth
                 type="text"
@@ -260,7 +287,13 @@ const UpdateOperatorPopupUser = (props: {
                 mb: '15px',
               }}
             >
-              <FormLabel required>이메일</FormLabel>
+              <FormLabel>
+                이메일{' '}
+                <span className="label-dot" style={{ color: '#284AD5' }}>
+                  {' '}
+                  •
+                </span>{' '}
+              </FormLabel>
               <TextField
                 fullWidth
                 type="text"

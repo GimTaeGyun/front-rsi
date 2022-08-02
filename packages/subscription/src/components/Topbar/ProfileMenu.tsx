@@ -51,11 +51,6 @@ const ProfileMenu = () => {
     userApi();
   }, []);
 
-  const handleClick = () => {
-    handleClose();
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
