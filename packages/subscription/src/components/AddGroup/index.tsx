@@ -3,6 +3,8 @@ import * as React from 'react';
 import axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
 import { ITreeItem } from '../ManagementList/components/Sidebar';
+import { AlertPopupData } from '../../data/atoms';
+import { useAtom } from 'jotai';
 
 import DataTable from './Datatable';
 
@@ -22,7 +24,7 @@ const AddGroup = (props: {
     usrGrpNm: false,
   });
   const [submitted, setSubmitted] = React.useState(false);
-
+  const [alertPopupData, setAlertPopupData] = useAtom(AlertPopupData);
   const addGroup = () => {
     setSubmitted(true);
 
@@ -61,6 +63,22 @@ const AddGroup = (props: {
         })
         .then(res => {
           setErrors({ ...errors, usrGrpNm: res.data.code !== '0000' });
+<<<<<<< HEAD
+=======
+          setAlertPopupData({
+            visible: true,
+            message:
+              res.data.code === '0000'
+                ? '사용할 수 있는 그룹명입니다'
+                : '사용할 수 없는 그룹명입니다',
+            leftCallback: () => {
+              setAlertPopupData({ ...alertPopupData, visible: false });
+            },
+            rightCallback: () => {},
+            leftText: '확인',
+            rightText: '',
+          });
+>>>>>>> 7205af7bad817579199a9dca97d4019139162cc4
         })
         .catch(err => {
           setErrors({ ...errors, usrGrpNm: true });

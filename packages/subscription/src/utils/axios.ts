@@ -41,14 +41,12 @@ Axios.interceptors.response.use(
         }
       } catch (error) {
         localStorage.clear();
-        location.href = '/admin/login';
       }
 
       return Promise.reject(error);
     }
     else{
       localStorage.clear();
-      location.href = '/admin/login';
       return Promise.reject(error);
     }
 });

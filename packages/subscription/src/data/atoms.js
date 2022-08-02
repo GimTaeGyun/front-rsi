@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 import axios from "../utils/axios";
@@ -31,4 +31,13 @@ const CheckLoginId = async (data) => {
   } 
 };
 
-export { SignupData, AgreementData, SignupUser, CheckLoginId };
+const GetSidebarData = atom();
+const AlertPopupData = atom({    
+  visible: false,
+  message: '',
+  leftCallback: () => {},
+  rightCallback: () => {},
+  leftText: '',
+  rightText: '',
+});
+export { SignupData, AgreementData, SignupUser, CheckLoginId, GetSidebarData, AlertPopupData };
