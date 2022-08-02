@@ -10,12 +10,14 @@ import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
 import AlertPopup from '../../components/Common/AlertPopup';
 import AddGroup from '../AddGroup';
+import { GetSidebarData } from '../../data/atoms';
 
 const ManagementList = () => {
-  const [addGroupTitle, setAddGroupTitle] = React.useState("");
+  const [addGroupTitle, setAddGroupTitle] = React.useState('');
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
+  const [refreshSidbar] = useAtom(GetSidebarData);
   const [updateOperValue, setUpdateOperValue] = React.useState({
     action: 'mod',
     email: '',
@@ -66,7 +68,7 @@ const ManagementList = () => {
       setAddGroupOpen(true);
     },
     () => {
-      setAddGroupTitle("그룹 수정");
+      setAddGroupTitle('그룹 수정');
       setAddGroupOpen(true);
     },
     (selectedMoreIcon: any) => {
@@ -100,9 +102,7 @@ const ManagementList = () => {
                   message: '운영자 그룹 삭제가 완료되었습니다',
                   rightText: '',
                   leftText: '확인',
-                  leftCallback: () => {
-                    React.useEffect(() => {});
-                  },
+                  leftCallback: refreshSidbar.refresh,
                 });
               })
               .catch(() => {});

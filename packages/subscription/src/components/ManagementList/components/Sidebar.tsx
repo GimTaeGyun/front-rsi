@@ -3,6 +3,8 @@ import {
   MultiBackend,
   Tree,
 } from '@minoru/react-dnd-treeview';
+import { GetSidebarData } from '../../../data/atoms';
+import { useAtom } from 'jotai';
 import { ArrowForwardIos } from '@mui/icons-material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -40,234 +42,6 @@ export interface ITreeItem {
   data?: any;
 }
 
-const realItem: IUsrGrp = {
-  usrGrpId: 1,
-  description: '최상위 ROOT 그룹',
-  sort: 1,
-  usrGrpNm: 'ROOT',
-  subGrp: [
-    {
-      usrGrpId: 2,
-      usrGrpNm: '시스템그룹',
-      uppUsrGrpId: 1,
-      sort: 1,
-      description: '시스템관리용 그룹',
-      status: 1,
-      users: [
-        {
-          usrId: 'sysadm',
-          usrNm: '시스템어드민',
-          phone: '070-4463-7542',
-          email: 'daekoon.kong@bflysoft.com',
-          mod_at: '2022-07-11T14:01:55.29749',
-          status: 1,
-        },
-        {
-          usrId: 'sysadm90',
-          usrNm: '시스템어드민',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-25T01:39:33.989117',
-          status: 1,
-        },
-        {
-          usrId: 'gtgyun',
-          usrNm: '김태군',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-19T17:05:40.732381',
-          status: 1,
-        },
-        {
-          usrId: 'test111',
-          usrNm: '비플맨',
-          phone: '010-4578-5647',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-26T11:09:01.644389',
-          status: 1,
-        },
-        {
-          usrId: 'g6soft',
-          usrNm: '지구소프트',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T10:28:54.871324',
-          status: 1,
-        },
-        {
-          usrId: 'g5soft',
-          usrNm: '지구소프트',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T10:30:11.807044',
-          status: 1,
-        },
-        {
-          usrId: 'cflysoft',
-          usrNm: '씨플라이',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T14:19:34.759278',
-          status: 1,
-        },
-        {
-          usrId: 'aflysoft',
-          usrNm: '씨플라이',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T14:19:52.931692',
-          status: 1,
-        },
-        {
-          usrId: 'dflysoft2',
-          usrNm: '디플라이',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T14:20:26.810646',
-          status: 1,
-        },
-        {
-          usrId: 'hflysoft3',
-          usrNm: '에이치플라이',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T15:04:56.527067',
-          status: 1,
-        },
-      ],
-    },
-    {
-      usrGrpId: 3,
-      usrGrpNm: '연구소',
-      uppUsrGrpId: 1,
-      sort: 2,
-      description: '연구소용 그룹',
-      status: 1,
-      users: [
-        {
-          usrId: 'sysadm90',
-          usrNm: '시스템어드민',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-25T01:39:33.989117',
-          status: 1,
-        },
-        {
-          usrId: 'test111',
-          usrNm: '비플맨',
-          phone: '010-4578-5647',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-26T11:09:01.644389',
-          status: 1,
-        },
-        {
-          usrId: 'sysadm',
-          usrNm: '시스템어드민',
-          phone: '070-4463-7542',
-          email: 'daekoon.kong@bflysoft.com',
-          mod_at: '2022-07-11T14:01:55.29749',
-          status: 1,
-        },
-        {
-          usrId: 'dflysoft',
-          usrNm: '디플라이',
-          phone: '010-0000-0000',
-          email: 'bfly@bflysoft.com',
-          mod_at: '2022-07-20T14:20:26.810646',
-          status: 1,
-        },
-      ],
-    },
-    {
-      usrGrpId: 4,
-      usrGrpNm: '영업본부',
-      uppUsrGrpId: 1,
-      sort: 3,
-      description: '영업본부 그룹',
-      status: 1,
-      subGrp: [
-        {
-          usrGrpId: 5,
-          usrGrpNm: '어드민그룹',
-          uppUsrGrpId: 4,
-          sort: 1,
-          description: '영업본부 아이서퍼 운영어드민 그룹',
-          status: 1,
-        },
-        {
-          usrGrpId: 7,
-          usrGrpNm: '영업사원그룹',
-          uppUsrGrpId: 4,
-          sort: 2,
-          description: '영업본부 내 영업사원 그룹',
-          status: 1,
-        },
-      ],
-    },
-    {
-      usrGrpId: 6,
-      usrGrpNm: '경영전략본부',
-      uppUsrGrpId: 1,
-      sort: 5,
-      description: '경영전략본부 그룹',
-      status: 1,
-      subGrp: [
-        {
-          usrGrpId: 15,
-          usrGrpNm: '회계팀',
-          uppUsrGrpId: 6,
-          sort: 1,
-          description: '회계팀 입니다.',
-          status: 1,
-        },
-      ],
-    },
-  ],
-  users: [
-    {
-      usrId: 'sysadm90',
-      usrNm: '시스템어드민',
-      phone: '010-0000-0000',
-      email: 'bfly@bflysoft.com',
-      mod_at: '2022-07-25T01:39:33.989117',
-      status: 1,
-    },
-    {
-      usrId: 'test111',
-      usrNm: '비플맨',
-      phone: '010-4578-5647',
-      email: 'bfly@bflysoft.com',
-      mod_at: '2022-07-26T11:09:01.644389',
-      status: 1,
-    },
-    {
-      usrId: 'aflysoft1',
-      usrNm: '씨플라이',
-      phone: '010-0000-0000',
-      email: 'bfly@bflysoft.com',
-      mod_at: '2022-07-20T14:19:52.931692',
-      status: 1,
-    },
-    {
-      usrId: 'dflysoft2',
-      usrNm: '디플라이',
-      phone: '010-0000-0000',
-      email: 'bfly@bflysoft.com',
-      mod_at: '2022-07-20T14:20:26.810646',
-      status: 1,
-    },
-    {
-      usrId: 'hflysoft3',
-      usrNm: '에이치플라이',
-      phone: '010-0000-0000',
-      email: 'bfly@bflysoft.com',
-      mod_at: '2022-07-20T15:04:56.527067',
-      status: 1,
-    },
-  ],
-  status: 1,
-};
-
 const Sidebar = (props: {
   onSelect: (treeItem: ITreeItem) => void;
   treeMoreIconCallback?: Function[];
@@ -276,7 +50,7 @@ const Sidebar = (props: {
 
   const [realNum, setRealNum] = React.useState(0);
   const [data, setData] = React.useState<IUsrGrp>();
-
+  const [, setRefreshSidbar] = useAtom(GetSidebarData);
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
   const [clickedTreeItem, setClickedTreeItem] = React.useState<any>();
@@ -292,9 +66,9 @@ const Sidebar = (props: {
         console.log(err);
         // setData([]);
       });
-
   React.useEffect(() => {
     getData();
+    setRefreshSidbar({ refresh: getData });
   }, []);
 
   const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
@@ -315,7 +89,7 @@ const Sidebar = (props: {
         data: {
           description: subGrp.description,
           users: subGrp.users ?? [],
-          uppUsrGrpId: subGrp.uppUsrGrpId ?? null
+          uppUsrGrpId: subGrp.uppUsrGrpId ?? null,
         },
       },
     ];
