@@ -1,6 +1,7 @@
 import { Box, Button, Modal, OutlinedInput } from '@mui/material';
 import * as React from 'react';
 import axios from '../../utils/axios';
+import AlertPopup from '../Common/AlertPopup';
 import { ITreeItem } from '../ManagementList/components/Sidebar';
 
 import DataTable from './Datatable';
@@ -13,38 +14,78 @@ const AddGroup = (props: {
 }) => {
   const { title, open, treeItem, handleClose } = props;
   const [formData, setFormData] = React.useState({
-    usrGrpNm: "",
-    description: "",
-    usrRoleId: []
+    usrGrpNm: '',
+    description: '',
+    usrRoleId: [],
   });
+  const [errors, setErrors] = React.useState({
+    usrGrpNm: false
+  });
+  const [submitted, setSubmitted] = React.useState(false);
 
   const addGroup = () => {
-    const updateData = {
-      action: 'mod', // (update : “mod” , add : null)
+    setSubmitted(true);
+
+    // If name has error
+    if(errors?.usrGrpNm) {
+      return;
+    }
+
+    const groupData = {
+      action: 'add',
       description: formData.description,
-      uppUsrGrpId: treeItem?.data?.uppUsrGrpId, // (parent grpId if root then null)
-      usrGrpId: treeItem?.id, // (selected item grpId)
+      uppUsrGrpId: treeItem?.data?.uppUsrGrpId,
+      usrGrpId: treeItem?.id,
       usrGrpNm: formData.usrGrpNm,
       usrRoleId: formData.usrRoleId,
     };
 
     axios
-      .post('/management/subscription/admin/usergroup/update', updateData)
+      .post('/management/subscription/admin/usergroup/update', groupData)
       .then(res => {
         console.log(res);
       })
       .catch(err => {
-        console.log(err);
+        handleClose();
       });
+  };
+
+  const checkGroupName = () => {
+    setSubmitted(false);
+
+    if(formData.usrGrpNm !== "" ) {
+      axios
+        .post('/management/subscription/admin/usergroup/check', {
+          field: 'grpNmCheck',
+          value1: formData.usrGrpNm,
+        })
+        .then(res => {
+          setErrors({ ...errors, usrGrpNm: res.data.code !== "0000" });
+        })
+        .catch(err => {
+          setErrors({ ...errors, usrGrpNm: true });
+        });
+    }
   }
 
-  const onRowsSelect = (values: any) => setFormData({ ...formData, usrRoleId: values })
+  const onRowsSelect = (values: any) =>
+    setFormData({ ...formData, usrRoleId: values });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => 
-    setFormData({ ...formData, [event.target.name]: event.target.value })
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+   
+    setSubmitted(false);
+
+    if(name === 'usrGrpNm') {
+      setErrors({ ...errors, usrGrpNm: true });
+    }
+
+    setFormData({ ...formData, [name]: value });
+  }
 
   return (
     <>
+      {(submitted && errors.usrGrpNm) && <AlertPopup message="그룹 이름 확인." buttontext="확인" />}
       <Modal
         sx={styles.modal}
         open={open}
@@ -86,6 +127,7 @@ const AddGroup = (props: {
                     color="primary"
                     variant="contained"
                     sx={styles.btn_check}
+                    onClick={checkGroupName}
                   >
                     중복확인
                   </Button>
