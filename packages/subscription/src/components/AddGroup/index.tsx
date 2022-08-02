@@ -19,7 +19,7 @@ const AddGroup = (props: {
     usrRoleId: [],
   });
   const [errors, setErrors] = React.useState({
-    usrGrpNm: false
+    usrGrpNm: false,
   });
   const [submitted, setSubmitted] = React.useState(false);
 
@@ -27,7 +27,7 @@ const AddGroup = (props: {
     setSubmitted(true);
 
     // If name has error
-    if(errors?.usrGrpNm) {
+    if (errors?.usrGrpNm) {
       return;
     }
 
@@ -46,46 +46,49 @@ const AddGroup = (props: {
         console.log(res);
       })
       .catch(err => {
-        handleClose();
+        handleClose(err);
       });
   };
 
   const checkGroupName = () => {
     setSubmitted(false);
 
-    if(formData.usrGrpNm !== "" ) {
+    if (formData.usrGrpNm !== '') {
       axios
         .post('/management/subscription/admin/usergroup/check', {
           field: 'grpNmCheck',
           value1: formData.usrGrpNm,
         })
         .then(res => {
-          setErrors({ ...errors, usrGrpNm: res.data.code !== "0000" });
+          setErrors({ ...errors, usrGrpNm: res.data.code !== '0000' });
         })
         .catch(err => {
           setErrors({ ...errors, usrGrpNm: true });
+          console.error(err);
         });
     }
-  }
+  };
 
   const onRowsSelect = (values: any) =>
     setFormData({ ...formData, usrRoleId: values });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-   
+
     setSubmitted(false);
 
-    if(name === 'usrGrpNm') {
+    if (name === 'usrGrpNm') {
       setErrors({ ...errors, usrGrpNm: true });
     }
 
     setFormData({ ...formData, [name]: value });
-  }
+  };
 
   return (
     <>
-      {(submitted && errors.usrGrpNm) && <AlertPopup message="그룹 이름 확인." buttontext="확인" />}
+      {submitted && errors.usrGrpNm && (
+        <AlertPopup message="그룹 이름 확인." buttontext="확인" />
+      )}
       <Modal
         sx={styles.modal}
         open={open}
