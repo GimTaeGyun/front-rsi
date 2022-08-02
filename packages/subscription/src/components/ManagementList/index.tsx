@@ -31,9 +31,7 @@ const ManagementList = () => {
   const [alertPopup, setAlertPopup] = React.useState({
     visible: false,
     message: '',
-    leftCallback: () => {
-      alertPopup.visible = false;
-    },
+    leftCallback: () => {},
     rightCallback: () => {},
     leftText: '',
     rightText: '',
@@ -60,6 +58,7 @@ const ManagementList = () => {
     }
   };
 
+  // 사이드바 트리 아이콘의 ...icon 클릭 이벨트
   const treeMoreIconCallback = [
     () => {
       setAddGroupOpen(true);
@@ -67,7 +66,47 @@ const ManagementList = () => {
     () => {
       setAddGroupOpen(true);
     },
-    () => {},
+    (selectedMoreIcon: any) => {
+      console.log(selectedMoreIcon);
+      selectedMoreIcon = selectedMoreIcon.treeItem;
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        message: '운영자그룹을 삭제하시겠습니까?',
+        leftText: '취소',
+        rightText: '삭제',
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        rightCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+          console.log(selectedMoreIcon);
+          if (selectedMoreIcon) {
+            axios
+              .post('/management/subscription/admin/usergroup/update', {
+                action: 'del',
+                uppUsrGrpId:
+                  selectedMoreIcon.parent == 1 ? null : selectedMoreIcon.parent,
+                usrGrpId: selectedMoreIcon.id,
+                usrGrpNm: selectedMoreIcon.text,
+              })
+              .then(() => {
+                setAlertPopup({
+                  ...alertPopup,
+                  visible: true,
+                  message: '운영자 그룹 삭제가 완료되었습니다',
+                  rightText: '',
+                  leftText: '확인',
+                  leftCallback: () => {
+                    React.useEffect(() => {});
+                  },
+                });
+              })
+              .catch(() => {});
+          }
+        },
+      });
+    },
   ];
 
   return (
@@ -77,9 +116,10 @@ const ManagementList = () => {
           {alertPopup.visible ? (
             <AlertPopup
               message={alertPopup.message}
-              buttontext="취소"
+              buttontext={alertPopup.leftText}
               rightButtonText={alertPopup.rightText}
               rightCallback={alertPopup.rightCallback}
+              closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
           <Box display="flex">

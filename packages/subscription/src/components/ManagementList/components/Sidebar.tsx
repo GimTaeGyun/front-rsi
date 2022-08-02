@@ -279,6 +279,7 @@ const Sidebar = (props: {
 
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
+  const [clickedTreeItem, setClickedTreeItem] = React.useState<any>();
 
   const getData = async () =>
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
@@ -388,7 +389,10 @@ const Sidebar = (props: {
                         <IconButton
                           aria-label="more"
                           id="long-button"
-                          onClick={handleClickSub}
+                          onClick={e => {
+                            handleClickSub(e);
+                            setClickedTreeItem(node);
+                          }}
                           sx={{
                             overflow: 'hidden',
                             '&:hover': { bgcolor: 'transparent' },
@@ -403,7 +407,7 @@ const Sidebar = (props: {
                     anchorEl={anchorEl}
                     id={+node.id}
                     realNum={realNum}
-                    treeItem={selectedTreeitem}
+                    treeItem={clickedTreeItem}
                     clickCallback={treeMoreIconCallback}
                   />
                 </>
