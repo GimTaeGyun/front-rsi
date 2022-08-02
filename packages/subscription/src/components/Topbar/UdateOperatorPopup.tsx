@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import { FormControl, InputLabel, NativeSelect } from '@mui/material';
+import {
+  FormControl,
+  IconButton,
+  InputLabel,
+  NativeSelect,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -13,10 +18,12 @@ import MuiMenuItem from '@mui/material/MenuItem';
 import MuiSelect from '@mui/material/Select';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
+import { Formik, useFormik } from 'formik';
 import Axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
+import * as Yup from 'yup';
+import { ErrorSharp } from '@mui/icons-material';
 
 const UpdateOperatorPopupUser = (props: {
   open: boolean;
@@ -28,60 +35,88 @@ const UpdateOperatorPopupUser = (props: {
   const [pwd, setPwd] = React.useState('');
   const [isOpen, setIsOpen] = React.useState(false);
   const [isOpenPassword, setIsOpenPassword] = React.useState(false);
-  const [name, setName] = React.useState(data.usrNm);
-  const [rphone, setRphone] = React.useState(data.phone);
-  const [mails, setMails] = React.useState(data.email);
+  const [errorPassword, setErrorPassword] = React.useState(false);
 
-  console.log();
+  /* change password */
   const onClickUpdatePassword = async () => {
-    console.log(data);
     const userPasswordParam = {
       usrId: data.usrId,
       usrPw: pwd,
     };
-    try {
-      const fetch = await Axios.post(
-        '/management/subscription/admin/userpw/update',
-        userPasswordParam,
-      );
-      if (fetch.data.msg == '성공') {
-        setIsOpenPassword(true);
+    if (pwd.length >= 6 && pwd.length <= 16) {
+      try {
+        const fetch = await Axios.post(
+          '/management/subscription/admin/userpw/update',
+          userPasswordParam,
+        );
+        if (fetch.data.msg == '성공') {
+          setIsOpenPassword(true);
+        } else {
+          setIsOpenPassword(false);
+        }
+        console.log(fetch);
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      setErrorPassword(true);
+    }
+  };
+  /* change password end */
+
+  /* change user and valid */
+  const validationSchema = Yup.object().shape({
+    custNm: Yup.string().max(10, '잘못된 이름입니다.').nullable(true),
+    email: Yup.string().email('잘못된 E-mail입니다.').nullable(true),
+    phone: Yup.string()
+      .matches(/^\+?[1-9][0-9]{7,14}$/, '잘못된 번호 입니다.')
+      .nullable(true),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      custNm: data.usrNm,
+      email: data.email,
+      phone: data.phone,
+    },
+    validationSchema: validationSchema,
+    validateOnChange: false,
+    onSubmit: async values => {
+      if (formik.isValid) {
+        const userParam = {
+          action: 'mod',
+          description: data.description,
+          email: values.email == undefined ? data.email : values.email,
+          phone: values.phone == undefined ? data.phone : values.phone,
+          status: data.status,
+          usrGrpId: ['1', '2', '3'],
+          usrId: data.usrId,
+          usrNm: values.custNm == undefined ? data.usrNm : values.custNm,
+          usrPw: '',
+          usrTp: data.usrTp,
+        };
+
+        console.log(userParam);
+        try {
+          const fetch = await Axios.post(
+            '/management/subscription/admin/user/update',
+            userParam,
+          );
+          if (fetch.data.code == '0000') {
+            setIsOpen(true);
+          }
+        } catch (e) {
+          return console.log(e);
+        }
       } else {
-        setIsOpenPassword(false);
+        console.log(errors);
       }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+    },
+  });
 
-  const onClickUpdateUser = async () => {
-    const userParam = {
-      action: 'mod',
-      description: '사용자 설명입니다.',
-      email: mails == undefined ? data.email : mails,
-      phone: rphone == undefined ? data.phone : rphone,
-      status: data.status,
-      usrGrpId: ['1', '2', '3'],
-      usrId: data.usrId,
-      usrNm: name == undefined ? data.usrNm : name,
-      usrPw: '',
-      usrTp: data.usrTp,
-    };
+  const { errors, touched, values, handleChange, handleSubmit } = formik;
 
-    console.log(userParam);
-    try {
-      const fetch = await Axios.post(
-        '/management/subscription/admin/user/update',
-        userParam,
-      );
-      if (fetch.data.code == '0000') {
-        setIsOpen(true);
-      }
-    } catch (e) {
-      return console.log(e);
-    }
-  };
-
+  /* change user and valid end*/
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
@@ -117,143 +152,174 @@ const UpdateOperatorPopupUser = (props: {
           </Box>
         </DialogTitle>
         <Divider />
-        <DialogContent sx={{ padding: '30px' }}>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          ></Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel required>아이디</FormLabel>
-            <TextField
-              disabled
-              fullWidth
-              id="operator_id"
-              defaultValue={data.usrId}
-              sx={{ mt: '5px' }}
-            />
-          </Box>
-          <FormLabel required>비밀번호</FormLabel>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              mt: '5px',
-            }}
-          >
-            <TextField
-              type="password"
-              id="password"
-              value={pwd}
-              placeholder="비밀번호"
-              onChange={e => {
-                setPwd(e.target.value);
-                console.log(pwd);
-              }}
-              sx={{ mr: '10px', flex: '1' }}
-            />
-            <Button
-              variant="contained"
-              onClick={onClickUpdatePassword}
+        {/* change user form */}
+        <form onSubmit={handleSubmit}>
+          <DialogContent sx={{ padding: '30px' }}>
+            <Box
               sx={{
-                height: '42px',
-                minWidth: '50px',
-                fontSize: '14px',
-                p: '11px 16px',
+                mb: '15px',
+              }}
+            ></Box>
+            <Box
+              sx={{
+                mb: '15px',
               }}
             >
-              변경
+              <FormLabel required>아이디</FormLabel>
+              <TextField
+                disabled
+                fullWidth
+                id="operator_id"
+                defaultValue={data.usrId}
+                sx={{ mt: '5px' }}
+              />
+            </Box>
+            {/* change user password form */}
+            <FormLabel required>비밀번호</FormLabel>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mt: '5px',
+              }}
+            >
+              <TextField
+                type="password"
+                id="password"
+                value={pwd}
+                error={errorPassword}
+                onChange={e => {
+                  setPwd(e.target.value);
+                  console.log(pwd);
+                }}
+                sx={{ mr: '10px', flex: '1' }}
+              ></TextField>
+              <Button
+                variant="contained"
+                onClick={onClickUpdatePassword}
+                sx={{
+                  height: '42px',
+                  minWidth: '50px',
+                  fontSize: '14px',
+                  p: '11px 16px',
+                }}
+              >
+                변경
+              </Button>
+              {/* change password form end */}
+            </Box>
+            <Box
+              sx={{
+                mb: '15px',
+              }}
+            >
+              <FormLabel required>이름</FormLabel>
+              <TextField
+                fullWidth
+                type="text"
+                name="custNm"
+                error={errors.custNm !== undefined}
+                defaultValue={data.usrNm}
+                value={values?.custNm}
+                onChange={handleChange}
+                sx={{ mt: '5px' }}
+                onInput={e => {
+                  if ((e.target as HTMLInputElement).value.length == 0) return;
+                  (e.target as HTMLInputElement).value = (
+                    e.target as HTMLInputElement
+                  ).value.slice(0, 10);
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                mb: '15px',
+              }}
+            >
+              <FormLabel required>핸드폰</FormLabel>
+              <TextField
+                fullWidth
+                type="text"
+                defaultValue={data.phone}
+                value={values?.phone}
+                name="phone"
+                error={errors.phone !== undefined}
+                onChange={handleChange}
+                sx={{ mt: '5px' }}
+                onInput={e => {
+                  if ((e.target as HTMLInputElement).value.length == 0) return;
+                  (e.target as HTMLInputElement).value = (
+                    e.target as HTMLInputElement
+                  ).value.slice(0, 16);
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                mb: '15px',
+              }}
+            >
+              <FormLabel required>이메일</FormLabel>
+              <TextField
+                fullWidth
+                type="text"
+                defaultValue={data.email}
+                value={values?.email}
+                name="email"
+                error={errors.email !== undefined}
+                onChange={handleChange}
+                sx={{ mt: '5px' }}
+                onInput={e => {
+                  if ((e.target as HTMLInputElement).value.length == 0) return;
+                  (e.target as HTMLInputElement).value = (
+                    e.target as HTMLInputElement
+                  ).value.slice(0, 32);
+                }}
+                InputProps={{
+                  endAdornment: touched.email ? (
+                    <IconButton></IconButton>
+                  ) : (
+                    <span />
+                  ),
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                mb: '15px',
+              }}
+            >
+              <FormControl fullWidth>
+                <FormLabel>유형</FormLabel>
+                <Select disabled defaultValue={data.usrTp}>
+                  <option value="DEFAULT">기본</option>
+                  <option value="SYSUSER">시스템사용자</option>
+                </Select>
+              </FormControl>
+            </Box>
+            <Box
+              sx={{
+                mb: '15px',
+              }}
+            >
+              <FormControl fullWidth>
+                <FormLabel>상태</FormLabel>
+                <Select disabled defaultValue={data.status}>
+                  <option value={1}>사용</option>
+                </Select>
+              </FormControl>
+            </Box>
+          </DialogContent>
+          <Divider />
+          <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
+            <Button onClick={handleClose}>취소</Button>
+            <Button variant="contained" type="submit">
+              저장
             </Button>
-          </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel required>이름</FormLabel>
-            <TextField
-              fullWidth
-              type="text"
-              defaultValue={data.usrNm}
-              value={name}
-              onChange={e => {
-                setName(e.target.value);
-              }}
-              sx={{ mt: '5px' }}
-            />
-          </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel required>핸드폰</FormLabel>
-            <TextField
-              fullWidth
-              type="text"
-              defaultValue={data.phone}
-              value={rphone}
-              onChange={e => {
-                setRphone(e.target.value);
-              }}
-              sx={{ mt: '5px' }}
-            />
-          </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel required>이메일</FormLabel>
-            <TextField
-              fullWidth
-              type="text"
-              defaultValue={data.email}
-              value={mails}
-              onChange={e => {
-                setMails(e.target.value);
-              }}
-              sx={{ mt: '5px' }}
-            />
-          </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormControl fullWidth>
-              <FormLabel>유형</FormLabel>
-              <Select disabled defaultValue={data.usrTp}>
-                <option value="DEFAULT">기본</option>
-                <option value="SYSUSER">시스템사용자</option>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormControl fullWidth>
-              <FormLabel>상태</FormLabel>
-              <Select disabled defaultValue={data.status}>
-                <option value={1}>사용</option>
-              </Select>
-            </FormControl>
-          </Box>
-        </DialogContent>
-        <Divider />
-        <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-          <Button onClick={handleClose}>취소</Button>
-          <Button variant="contained" onClick={onClickUpdateUser}>
-            저장
-          </Button>
-        </DialogActions>
+          </DialogActions>
+        </form>
+        {/* change user form end */}
       </Dialog>
       {isOpen ? (
         <AlertPopup
