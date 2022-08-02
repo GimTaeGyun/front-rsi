@@ -30,8 +30,8 @@ interface IUsrGrp {
   sort: number;
   usrGrpNm: string;
   status: number;
-  uppUsrGrpId?: number;
-  users?: Array<any>;
+  uppUsrGrpId: number;
+  cnt: number;
   subGrp?: Array<IUsrGrp>;
 }
 
@@ -42,6 +42,131 @@ export interface ITreeItem {
   data?: any;
 }
 
+const mockResult = {
+  code: '0000',
+  msg: '성공',
+  result: [
+    {
+      usrGrpId: 2,
+      usrGrpNm: '시스템그룹',
+      uppUsrGrpId: 1,
+      sort: 1,
+      description: '시스템관리용 그룹',
+      status: 1,
+      cnt: 12,
+    },
+    {
+      usrGrpId: 3,
+      usrGrpNm: '연구소',
+      uppUsrGrpId: 1,
+      sort: 2,
+      description: '연구소용 그룹',
+      status: 1,
+      cnt: 7,
+    },
+    {
+      usrGrpId: 4,
+      usrGrpNm: '영업본부',
+      uppUsrGrpId: 1,
+      sort: 3,
+      description: '영업본부 그룹',
+      status: 1,
+      subGrp: [
+        {
+          usrGrpId: 5,
+          usrGrpNm: '어드민그룹',
+          uppUsrGrpId: 4,
+          sort: 1,
+          description: '영업본부 아이서퍼 운영어드민 그룹',
+          status: 1,
+          subGrp: [
+            {
+              usrGrpId: 33,
+              usrGrpNm: '영업공통어드민그룹',
+              uppUsrGrpId: 5,
+              sort: 1,
+              description: '어드민 그룹 공통 그룹',
+              status: 1,
+              cnt: 0,
+            },
+            ,
+          ],
+          cnt: 1,
+        },
+        ,
+        {
+          usrGrpId: 7,
+          usrGrpNm: '영업사원그룹',
+          uppUsrGrpId: 4,
+          sort: 2,
+          description: '영업본부 내 영업사원 그룹',
+          status: 1,
+          cnt: 0,
+        },
+        ,
+      ],
+      cnt: 0,
+    },
+    {
+      usrGrpId: 6,
+      usrGrpNm: 'test1',
+      uppUsrGrpId: 1,
+      sort: 5,
+      description: 'test1',
+      status: 1,
+      subGrp: [
+        {
+          usrGrpId: 15,
+          usrGrpNm: '회계팀',
+          uppUsrGrpId: 6,
+          sort: 1,
+          description: '회계팀 입니다.',
+          status: 1,
+          cnt: 0,
+        },
+        ,
+      ],
+      cnt: 0,
+    },
+    {
+      usrGrpId: 27,
+      usrGrpNm: 'Test groupp',
+      uppUsrGrpId: 1,
+      sort: 1,
+      description: 'Test',
+      status: 1,
+      cnt: 0,
+    },
+    {
+      usrGrpId: 29,
+      usrGrpNm: 'test2',
+      uppUsrGrpId: 1,
+      sort: 1,
+      description: 'test2',
+      status: 1,
+      cnt: 0,
+    },
+    {
+      usrGrpId: 31,
+      usrGrpNm: 'test23',
+      uppUsrGrpId: 1,
+      sort: 1,
+      description: 'test2',
+      status: 1,
+      cnt: 0,
+    },
+    {
+      usrGrpId: 32,
+      usrGrpNm: 'ROOT',
+      uppUsrGrpId: 1,
+      sort: 1,
+      description: 'ROOT',
+      status: 1,
+      cnt: 0,
+    },
+  ] as IUsrGrp[],
+};
+
 const Sidebar = (props: {
   onSelect: (treeItem: ITreeItem) => void;
   treeMoreIconCallback?: Function[];
@@ -49,23 +174,26 @@ const Sidebar = (props: {
   const { onSelect, treeMoreIconCallback } = props;
 
   const [realNum, setRealNum] = React.useState(0);
-  const [data, setData] = React.useState<IUsrGrp>();
+  const [data, setData] = React.useState<IUsrGrp[]>();
   const [, setRefreshSidbar] = useAtom(GetSidebarData);
   const [treedata, setTreedata] = React.useState<ITreeItem[]>([]);
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
   const [clickedTreeItem, setClickedTreeItem] = React.useState<any>();
 
-  const getData = async () =>
+  const getData = async () => {
+    setData(mockResult.result);
+  }; /*
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
       usr_grp_id: 1,
     })
       .then(res => {
+        res.data = mockResult;
         setData(res.data.result);
       })
       .catch(err => {
         console.log(err);
         // setData([]);
-      });
+      });*/
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
@@ -75,7 +203,7 @@ const Sidebar = (props: {
     let treeItems: Array<ITreeItem> = [];
 
     if (subGrp?.subGrp !== undefined) {
-      subGrp.subGrp.forEach(subGrp => {
+      subGrp?.subGrp.forEach(subGrp => {
         treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
       });
     }
@@ -85,11 +213,12 @@ const Sidebar = (props: {
       {
         id: subGrp.usrGrpId,
         text: subGrp.usrGrpNm,
-        parent: subGrp?.uppUsrGrpId ?? 0,
+        parent: subGrp?.uppUsrGrpId == 1 ? 0 : subGrp?.uppUsrGrpId,
         data: {
           description: subGrp.description,
-          users: subGrp.users ?? [],
+          //users: subGrp.users ?? [],
           uppUsrGrpId: subGrp.uppUsrGrpId ?? null,
+          cnt: subGrp.cnt,
         },
       },
     ];
@@ -103,7 +232,14 @@ const Sidebar = (props: {
   React.useEffect(() => {
     if (data) {
       // Format tree data
-      const treeItems = formatTreedataItems(data);
+      let treeItems: Array<ITreeItem> = [];
+      if (data !== undefined) {
+        console.log('if 안', treeItems);
+        data.forEach(subGrp => {
+          treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
+        });
+      }
+      console.log('if 밖', treeItems);
 
       handleSelectedTreeitem(treeItems[0]);
       setTreedata(treeItems);
@@ -126,12 +262,18 @@ const Sidebar = (props: {
     handleSelectedTreeitem(treeItem);
   };
 
+  const getCnt = () => {
+    let sum = 0;
+    data?.forEach(item => (sum += item.cnt));
+    return sum;
+  };
+
   return (
     <Box sx={{ width: '350px', height: '682px' }}>
       <Card sx={styles.box_card}>
         <CardHeader
           component="div"
-          title={`${data?.usrGrpNm} (${data?.users?.length})`}
+          title={'전체 (' + getCnt() + ')'}
           sx={styles.box_cardHeader}
         />
         <Divider />
@@ -155,10 +297,14 @@ const Sidebar = (props: {
                       <Box onClick={() => onClick(node, onToggle)}>
                         {isOpen && hasChild ? (
                           <ExpandMore />
-                        ) : (
+                        ) : hasChild ? (
                           <ArrowForwardIos sx={{ fontSize: '14px' }} />
+                        ) : (
+                          <ArrowForwardIos
+                            sx={{ fontSize: '14px', color: '#00000042' }}
+                          />
                         )}
-                        <Typography component="span">{`${node.text} (${node?.data.users.length})`}</Typography>
+                        <Typography component="span">{`${node.text} (${node?.data.cnt})`}</Typography>
                       </Box>
                       <Box>
                         <IconButton

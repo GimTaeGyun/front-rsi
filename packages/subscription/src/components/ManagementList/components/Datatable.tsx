@@ -115,7 +115,7 @@ const DataTable = (props: any) => {
 
   React.useEffect(() => {
     if (treeItem) {
-      const users: any = treeItem.data?.users ?? [];
+      /*const users: any = treeItem.data?.users ?? [];
 
       const tableRows = users.map((user: any) => ({
         id: user.usrId,
@@ -126,8 +126,8 @@ const DataTable = (props: any) => {
         status: user.status,
         description: '',
       }));
-
-      setRows(tableRows);
+      
+      setRows(tableRows);*/
     }
   }, [treeItem]);
 
@@ -145,7 +145,7 @@ const DataTable = (props: any) => {
             >
               <Typography
                 sx={styles.card_title}
-              >{`${treeItem?.text} (${treeItem?.data?.users.length})`}</Typography>
+              >{`${treeItem?.text} (${treeItem?.data.cnt})`}</Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 onChange={e => {

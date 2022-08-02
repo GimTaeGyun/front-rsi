@@ -46,8 +46,11 @@ Axios.interceptors.response.use(
 
       return Promise.reject(error);
     }
-    else{
+    else if(error.config.url === '/management/keycloak/refreshtoken'){
       localStorage.clear();
+      location.href = '/admin/login';
+      return Promise.reject(error);
+    }else{
       return Promise.reject(error);
     }
 });
