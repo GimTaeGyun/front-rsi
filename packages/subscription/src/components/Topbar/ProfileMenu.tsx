@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MuiMenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { atom, useAtom } from 'jotai';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import UpdateOperatorPopupUser from './UdateOperatorPopup';
@@ -21,7 +20,6 @@ const MenuItem = styled(MuiMenuItem)({
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  // Toggle modify settings popup
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
 
@@ -37,7 +35,7 @@ const ProfileMenu = () => {
         const response = await Axios.post(
           '/management/subscription/admin/userinfo/inquiry',
           {
-            usrId: 'g5soft',
+            usrId: localStorage.getItem('usrId'),
           },
         );
         if (response.data.code == '0000') {
