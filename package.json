@@ -8,7 +8,7 @@
   "license": "Proprietary",
   "scripts": {
     "start": "lerna run start --parallel",
-    "build": "lerna run build --parallel",
+    "build": "lerna run build --scope=\"@web/utils\" && lerna run build --scope=\"@administrator/subscription\" && lerna run build --scope=\"@administrator/integrated\" ",
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
     "lint": "lerna run lint --parallel",
