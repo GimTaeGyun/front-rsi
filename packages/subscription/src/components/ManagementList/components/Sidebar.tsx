@@ -42,131 +42,6 @@ export interface ITreeItem {
   data?: any;
 }
 
-const mockResult = {
-  code: '0000',
-  msg: '성공',
-  result: [
-    {
-      usrGrpId: 2,
-      usrGrpNm: '시스템그룹',
-      uppUsrGrpId: 1,
-      sort: 1,
-      description: '시스템관리용 그룹',
-      status: 1,
-      cnt: 12,
-    },
-    {
-      usrGrpId: 3,
-      usrGrpNm: '연구소',
-      uppUsrGrpId: 1,
-      sort: 2,
-      description: '연구소용 그룹',
-      status: 1,
-      cnt: 7,
-    },
-    {
-      usrGrpId: 4,
-      usrGrpNm: '영업본부',
-      uppUsrGrpId: 1,
-      sort: 3,
-      description: '영업본부 그룹',
-      status: 1,
-      subGrp: [
-        {
-          usrGrpId: 5,
-          usrGrpNm: '어드민그룹',
-          uppUsrGrpId: 4,
-          sort: 1,
-          description: '영업본부 아이서퍼 운영어드민 그룹',
-          status: 1,
-          subGrp: [
-            {
-              usrGrpId: 33,
-              usrGrpNm: '영업공통어드민그룹',
-              uppUsrGrpId: 5,
-              sort: 1,
-              description: '어드민 그룹 공통 그룹',
-              status: 1,
-              cnt: 0,
-            },
-            ,
-          ],
-          cnt: 1,
-        },
-        ,
-        {
-          usrGrpId: 7,
-          usrGrpNm: '영업사원그룹',
-          uppUsrGrpId: 4,
-          sort: 2,
-          description: '영업본부 내 영업사원 그룹',
-          status: 1,
-          cnt: 0,
-        },
-        ,
-      ],
-      cnt: 0,
-    },
-    {
-      usrGrpId: 6,
-      usrGrpNm: 'test1',
-      uppUsrGrpId: 1,
-      sort: 5,
-      description: 'test1',
-      status: 1,
-      subGrp: [
-        {
-          usrGrpId: 15,
-          usrGrpNm: '회계팀',
-          uppUsrGrpId: 6,
-          sort: 1,
-          description: '회계팀 입니다.',
-          status: 1,
-          cnt: 0,
-        },
-        ,
-      ],
-      cnt: 0,
-    },
-    {
-      usrGrpId: 27,
-      usrGrpNm: 'Test groupp',
-      uppUsrGrpId: 1,
-      sort: 1,
-      description: 'Test',
-      status: 1,
-      cnt: 0,
-    },
-    {
-      usrGrpId: 29,
-      usrGrpNm: 'test2',
-      uppUsrGrpId: 1,
-      sort: 1,
-      description: 'test2',
-      status: 1,
-      cnt: 0,
-    },
-    {
-      usrGrpId: 31,
-      usrGrpNm: 'test23',
-      uppUsrGrpId: 1,
-      sort: 1,
-      description: 'test2',
-      status: 1,
-      cnt: 0,
-    },
-    {
-      usrGrpId: 32,
-      usrGrpNm: 'ROOT',
-      uppUsrGrpId: 1,
-      sort: 1,
-      description: 'ROOT',
-      status: 1,
-      cnt: 0,
-    },
-  ] as IUsrGrp[],
-};
-
 const Sidebar = (props: {
   onSelect: (treeItem: ITreeItem) => void;
   treeMoreIconCallback?: Function[];
@@ -238,7 +113,16 @@ const Sidebar = (props: {
         });
       }
 
-      handleSelectedTreeitem(treeItems[0]);
+      if (selectedTreeitem == null) {
+        let cnt = getCnt();
+        console.log(cnt);
+        handleSelectedTreeitem({
+          id: 0,
+          text: '전체',
+          parent: 0,
+          data: { cnt: cnt },
+        });
+      }
       setTreedata(treeItems);
     }
   }, [data]);
