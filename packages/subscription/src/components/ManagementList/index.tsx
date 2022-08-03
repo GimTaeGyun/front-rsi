@@ -30,20 +30,21 @@ const ManagementList = () => {
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
-  const [updateOperValue, setUpdateOperValue] = React.useState({
-    action: 'mod',
-    email: '',
-    phone: '',
-    status: 1,
-    usrId: '',
-    usrNm: '',
-    usrPw: '',
-    usrTp: 'DEFAULT',
-    description: '',
-  });
+
   const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
+  // alertPopup 메시지
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
 
   const [addGroupOpen, setAddGroupOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
@@ -52,20 +53,18 @@ const ManagementList = () => {
   const [openAddOperPopup, setAddOpenOperPopup] = React.useState(false); // 운영자 추가 팝업 on/off
   // 운영자 추가 팝업 ID 중복확인
   const [isCheckedId, setIsCheckedId] = React.useState(false);
-  // 운영자 추가/수정 API REQUESTBODY
+  // 운영자 추가/수정 API REQUESTBODY 및 form data
   const [operPopupData, setOperPopupData] =
     React.useState(defaultOperPopupData);
+
   // 운영자 추가 팝업 저장 버튼 클릭이벤트
   const operPopupSaveBtn = () => {
     if (!isCheckedId) {
       setAlertPopup({
-        visible: true,
-        leftText: '확인',
+        ...defaultAlertPopup,
         leftCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
         },
-        rightCallback: () => {},
-        rightText: '',
         message: '사용할 수 없는 아이디입니다',
       });
     } else {
@@ -73,17 +72,15 @@ const ManagementList = () => {
         .post('/management/subscription/admin/user/update', operPopupData)
         .then(res => {
           if (res.data.code == '0000') {
+            //setRows());
             setAlertPopup({
-              visible: true,
-              leftText: '확인',
+              ...defaultAlertPopup,
               leftCallback: () => {
                 setAlertPopup({ ...alertPopup, visible: false });
                 setAddOpenOperPopup(false);
                 setIsCheckedId(false);
                 setOperPopupData(defaultOperPopupData);
               },
-              rightCallback: () => {},
-              rightText: '',
               message: '새로운 운영자 추가가 완료되었습니다',
             });
           }
@@ -91,12 +88,14 @@ const ManagementList = () => {
         .catch(() => {});
     }
   };
+
   // 운영자 추가 수정 form 값 변경이벤트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setOperPopupData({ ...operPopupData, [name]: value });
     if (name == 'usrId') setIsCheckedId(false);
   };
+
   // 운영자 추가 ID 중복확인 버튼 클릭이벤트
   const handleExistBtn = () => {
     axios
@@ -106,25 +105,19 @@ const ManagementList = () => {
       .then(res => {
         if (res.data.code == '0000') {
           setAlertPopup({
-            visible: true,
-            leftText: '확인',
+            ...defaultAlertPopup,
             leftCallback: () => {
               setAlertPopup({ ...alertPopup, visible: false });
             },
-            rightCallback: () => {},
-            rightText: '',
             message: '사용할 수 있는 아이디입니다',
           });
           setIsCheckedId(true);
         } else {
           setAlertPopup({
-            visible: true,
-            leftText: '확인',
+            ...defaultAlertPopup,
             leftCallback: () => {
               setAlertPopup({ ...alertPopup, visible: false });
             },
-            rightCallback: () => {},
-            rightText: '',
             message: '사용할 수 없는 아이디입니다',
           });
           setIsCheckedId(false);
@@ -133,6 +126,62 @@ const ManagementList = () => {
       .catch(e => {
         console.log(e);
       });
+  };
+
+  // 운영자 수정 비밀번호 변경 버튼 클릭이벤트
+  const chnagePw = (pw: string) => {
+    axios
+      .post('/management/subscription/admin/userpw/update', {
+        usrId: operPopupData.usrId,
+        usrPw: pw,
+      })
+      .then(res => {
+        console.log(res);
+        if (res.data.code == '0000') {
+          setAlertPopup({
+            ...defaultAlertPopup,
+            message: '비밀번호가 변경되었습니다',
+          });
+          return;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  // 운영자 수정 저장 버튼 클릭이벤트
+  const operUpdateSaveBtn = (data: any) => {
+    axios
+      .post('/management/subscription/admin/user/update', {
+        ...data,
+        usrPw: '',
+      })
+      .then(res => {
+        if (res.data.code == '0000') {
+          let tmpRows: any = rows;
+          tmpRows = tmpRows.map((item: any) => {
+            if (item.usrId == data.usrId) {
+              return {
+                ...item,
+                name: data.usrNm,
+                phone: data.phone,
+                email: data.email,
+                status: data.status,
+                usrTp: data.usrTp,
+                description: data.description,
+              };
+            } else return item;
+          });
+          setRows(tmpRows);
+          setAlertPopup({
+            ...defaultAlertPopup,
+            message: '모든 변동사항이 저장되었습니다',
+          });
+          setUpdateOperOpen(false);
+        }
+      })
+      .catch(() => {});
   };
   /* 팝업 끝 */
 
@@ -172,7 +221,7 @@ const ManagementList = () => {
           usrId: params.id,
         })
         .then(res => {
-          setUpdateOperValue({
+          setOperPopupData({
             ...res.data.result,
             description: params.row.description,
           });
@@ -246,9 +295,7 @@ const ManagementList = () => {
               .then(() => {
                 setAlertPopup({
                   ...alertPopup,
-                  visible: true,
                   message: '운영자 그룹 삭제가 완료되었습니다',
-                  rightText: '',
                   leftText: '확인',
                   leftCallback: refreshSidbar.refresh,
                 });
@@ -319,10 +366,35 @@ const ManagementList = () => {
             </Box>
           </Box>
           <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
+          {/* 운영자 수정 팝업 */}
           <UpdateOperatorPopup
             open={updateOperOpen}
             handleClose={() => setUpdateOperOpen(false)}
-            value={updateOperValue}
+            handleMiddle={chnagePw}
+            handleOk={operUpdateSaveBtn}
+            value={operPopupData}
+          />
+          {/* 운영자 추가 팝업 */}
+          <AddOperatorPopup
+            open={openAddOperPopup}
+            handleMiddle={handleExistBtn}
+            handleClose={() => {
+              setAddOpenOperPopup(false);
+              setIsCheckedId(false);
+              setOperPopupData(defaultOperPopupData);
+            }}
+            handleOk={operPopupSaveBtn}
+            handleChange={(e: any) => {
+              handleChange(e);
+              setOperPopupData({ ...operPopupData, action: 'add' });
+            }}
+          />
+          {/* 그룹 추가 팝업 */}
+          <AddGroup
+            title={addGroupTitle}
+            open={addGroupOpen}
+            treeItem={selectedTreeitem}
+            handleClose={() => setAddGroupOpen(false)}
           />
         </>
       </AppFrame>
@@ -335,25 +407,6 @@ const ManagementList = () => {
           position: 'absolute',
         }}
       ></Box>
-      /* 운영자 추가 팝업 */
-      <AddOperatorPopup
-        open={openAddOperPopup}
-        handleMiddle={handleExistBtn}
-        handleClose={() => {
-          setAddOpenOperPopup(false);
-          setIsCheckedId(false);
-          setOperPopupData(defaultOperPopupData);
-        }}
-        handleOk={operPopupSaveBtn}
-        handleChange={handleChange}
-      />
-      /* 그룹 추가 팝업 */
-      <AddGroup
-        title={addGroupTitle}
-        open={addGroupOpen}
-        treeItem={selectedTreeitem}
-        handleClose={() => setAddGroupOpen(false)}
-      />
     </>
   );
 };

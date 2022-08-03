@@ -83,114 +83,49 @@ const MenuItem = styled(MuiMenuItem)({
     backgroundColor: '#ebebeb',
   },
 });
+const defaultValue = {
+  action: 'mod',
+  email: '',
+  phone: '',
+  status: 1,
+  usrId: '',
+  usrNm: '',
+  usrPw: '',
+  usrTp: 'DEFAULT',
+  description: '',
+};
 
-const AddOperatorPopup = (props: {
+const UpdateOperatorPopup = (props: {
   open: boolean;
   handleClose: Function;
-  value?: any;
+  handleMiddle: Function;
+  handleOk: Function;
+  value: any;
 }) => {
-  const { open, handleClose, value } = props;
+  const {
+    open,
+    handleClose,
+    handleMiddle = () => {},
+    handleOk = () => {},
+    value = defaultValue,
+  } = props;
 
   // 열고 닫을 때마다 초기화
   useEffect(() => {
-    setPopupData(
-      value
-        ? { ...value, action: 'mod' }
-        : {
-            action: 'mod',
-            email: '',
-            phone: '',
-            status: 1,
-            usrId: '',
-            usrNm: '',
-            usrPw: '',
-            usrTp: 'DEFAULT',
-            description: '',
-          },
-    );
-    setIsOpenPopup(false);
+    setPopupData({ ...value, action: 'mod' });
   }, [open]);
 
-  // 저장 API REQUESTBODY
-  const [popupData, setPopupData] = React.useState({
-    action: 'add',
-    email: '',
-    phone: '',
-    status: 1,
-    usrId: '',
-    usrNm: '',
-    usrPw: '',
-    usrTp: 'DEFAULT',
-    description: '',
-  });
+  // API REQUESTBODY
+  const [popupData, setPopupData] = React.useState(defaultValue);
 
-  // form 값 변경이벤트
+  // 운영자 추가 수정 form 값 변경이벤트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPopupData({ ...popupData, [name]: value });
   };
 
-  const [popupMsg, setPopupMsg] = React.useState('');
-  const [isOpenPopup, setIsOpenPopup] = React.useState(false); // 팝업 온/오프
-
-  const getPopupMsg = (type: any) => {
-    switch (type) {
-      case 1:
-        return '비밀번호가 변경되었습니다';
-      case 2:
-        return '모든 변동사항이 저장되었습니다';
-      default:
-        return '';
-    }
-  };
-
-  // 저장 버튼 클릭이벤트
-  const saveBtn = () => {
-    axios
-      .post('/management/subscription/admin/user/update', {
-        ...popupData,
-        usrPw: '',
-      })
-      .then(res => {
-        if (res.data.code == '0000') {
-          setPopupMsg(getPopupMsg(2));
-          setIsOpenPopup(true);
-        }
-      })
-      .catch(() => {});
-  };
-
-  // 비밀번호 변경 클릭이벤트
-  const chnagePw = () => {
-    axios
-      .post('/management/subscription/admin/userpw/update', {
-        usrId: popupData.usrId,
-        usrPw: popupData.usrPw,
-      })
-      .then(res => {
-        console.log(res);
-        if (res.data.code == '0000') {
-          setPopupMsg(getPopupMsg(1));
-          setIsOpenPopup(true);
-          return;
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
   return (
     <Box component="div" sx={{ width: '500px' }}>
-      {isOpenPopup && (
-        <AlertPopup
-          message={popupMsg}
-          buttontext="확인"
-          closeCallback={() => {
-            setIsOpenPopup(false);
-            if (popupMsg === '모든 변동사항이 저장되었습니다') handleClose();
-          }}
-        />
-      )}
       <Dialog
         open={open}
         onClose={() => handleClose()}
@@ -246,7 +181,7 @@ const AddOperatorPopup = (props: {
                 disabled
                 onChange={handleChange}
                 name="usrId"
-                value={popupData.usrId}
+                value={popupData.usrId || ''}
                 sx={{ mr: '10px', flex: '1' }}
               />
             </Box>
@@ -272,7 +207,7 @@ const AddOperatorPopup = (props: {
                 placeholder="비밀번호"
                 sx={{ mr: '10px', flex: '1' }}
                 name="usrPw"
-                value={popupData.usrPw}
+                value={popupData.usrPw || ''}
                 onChange={handleChange}
               />
               <Button
@@ -283,7 +218,7 @@ const AddOperatorPopup = (props: {
                   fontSize: '14px',
                   p: '11px 16px',
                 }}
-                onClick={chnagePw}
+                onClick={() => handleMiddle(popupData.usrPw)}
               >
                 변경
               </Button>
@@ -301,7 +236,7 @@ const AddOperatorPopup = (props: {
               placeholder="이름"
               sx={{ mt: '5px' }}
               name="usrNm"
-              value={popupData.usrNm}
+              value={popupData.usrNm || ''}
               onChange={handleChange}
             />
           </Box>
@@ -317,7 +252,7 @@ const AddOperatorPopup = (props: {
               placeholder="전화번호"
               sx={{ mt: '5px' }}
               name="phone"
-              value={popupData.phone}
+              value={popupData.phone || ''}
               onChange={handleChange}
             />
           </Box>
@@ -333,7 +268,7 @@ const AddOperatorPopup = (props: {
               placeholder="이메일 주소"
               sx={{ mt: '5px' }}
               name="email"
-              value={popupData.email}
+              value={popupData.email || ''}
               onChange={handleChange}
             />
           </Box>
@@ -346,7 +281,7 @@ const AddOperatorPopup = (props: {
             <Select
               fullWidth
               id="category"
-              value={popupData.usrTp ? popupData.usrTp : 'DEFAULT'}
+              value={popupData.usrTp || ''}
               name="usrTp"
               onChange={e => {
                 setPopupData({ ...popupData, usrTp: e.target.value as string });
@@ -365,7 +300,7 @@ const AddOperatorPopup = (props: {
             <Select
               fullWidth
               id="status"
-              value={popupData.status ? popupData.status : 1}
+              value={popupData.status || ''}
               onChange={e => {
                 setPopupData({
                   ...popupData,
@@ -389,7 +324,7 @@ const AddOperatorPopup = (props: {
               placeholder="운영자 설명"
               sx={{ mt: '5px' }}
               name="description"
-              value={popupData.description}
+              value={popupData.description || ''}
               onChange={handleChange}
             />
           </Box>
@@ -397,7 +332,7 @@ const AddOperatorPopup = (props: {
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button onClick={() => handleClose()}>취소</Button>
-          <Button variant="contained" onClick={() => saveBtn()}>
+          <Button variant="contained" onClick={() => handleOk(popupData)}>
             저장
           </Button>
         </DialogActions>
@@ -406,4 +341,4 @@ const AddOperatorPopup = (props: {
   );
 };
 
-export default AddOperatorPopup;
+export default UpdateOperatorPopup;

@@ -97,7 +97,7 @@ const DataTable = (props: any) => {
           columns={columns}
           pageSize={rowData.length}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          disableSelectionOnClick
           sx={{
             borderRadius: 0,
             fontSize: '14px',
@@ -110,7 +110,10 @@ const DataTable = (props: any) => {
           }}
           initialState={{
             sorting: {
-              sortModel: [{ field: 'name', sort: 'asc' }],
+              sortModel: [
+                { field: 'checked', sort: 'asc' },
+                { field: 'name', sort: 'asc' },
+              ],
             },
           }}
           onCellClick={(params, event) => {
