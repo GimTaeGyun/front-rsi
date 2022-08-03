@@ -20,6 +20,7 @@ const DataTable = (props: any) => {
     searchCallback,
     rowData,
     checkboxSelectedIds,
+	setCheckboxSelectedIds
   } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
@@ -115,6 +116,9 @@ const DataTable = (props: any) => {
             cellClickEvent(params, event);
           }}
           selectionModel={props.checkboxSelectedIds}
+          onSelectionModelChange={(newSelectionModel) => {
+            props.setCheckboxSelectedIds(newSelectionModel);
+          }}
         />
       </Card>
     </Box>
