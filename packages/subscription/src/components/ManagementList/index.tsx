@@ -67,7 +67,12 @@ const ManagementList = () => {
         if (res.data.code === '0000') {
           setRows(
             res.data.result.map((item: any) => {
-              return { ...item, id: item.usrId, name: item.usrNm, modifiedDate:item.recentModDate };
+              return {
+                ...item,
+                id: item.usrId,
+                name: item.usrNm,
+                modifiedDate: item.recentModDate,
+              };
             }),
           );
         }
@@ -136,8 +141,14 @@ const ManagementList = () => {
       .then(res => {
         setRows(
           res.data.result.map((item: any) => {
-            return { ...item, id: item.usrId, name:item.usrNm, modifiedDate:item.modAt };
+            return {
+              ...item,
+              id: item.usrId,
+              name: item.usrNm,
+              modifiedDate: item.modAt,
+            };
           }),
+        );
       })
       .catch(err => {
         console.log(err);

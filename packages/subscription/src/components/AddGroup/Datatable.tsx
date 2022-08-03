@@ -1,10 +1,10 @@
-import {Box} from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import * as React from "react";
+import { Box } from '@mui/material';
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import * as React from 'react';
 
 const columns: GridColDef[] = [
-  { field: 'roleName', headerName: '설명', width: 157 },
-  { field: 'roleDesc', headerName: '역할명', width: 230 },
+  { field: 'roleName', headerName: '역할명', width: 157 },
+  { field: 'roleDesc', headerName: '설명', width: 230 },
 ];
 
 const rows = [
@@ -16,10 +16,11 @@ const rows = [
 ];
 
 const DataTable = (props: { onChange: any }) => {
-
   const onSelectionChange = (values: any[]) => {
-    props.onChange(values.map(value => rows.find(row => row.id === value)?.roleDesc))
-  }
+    props.onChange(
+      values.map(value => rows.find(row => row.id === value)?.roleDesc),
+    );
+  };
   return (
     <div style={{ height: '273px', width: '100%' }}>
       <DataGrid
@@ -31,43 +32,45 @@ const DataTable = (props: { onChange: any }) => {
         rowsPerPageOptions={[5]}
         checkboxSelection
         components={{
-          Footer: ()=>{return (<Box></Box>);},
+          Footer: () => {
+            return <Box></Box>;
+          },
         }}
         sx={styles.dg_styles}
         onSelectionModelChange={onSelectionChange}
       />
     </div>
   );
-}
+};
 
 const styles = {
-  dg_styles:{
-    "& .MuiDataGrid-row:hover":{
-      backgroundColor:"unset",
-      cursor:"pointer"
+  dg_styles: {
+    '& .MuiDataGrid-row:hover': {
+      backgroundColor: 'unset',
+      cursor: 'pointer',
     },
-    "& .MuiDataGrid-row.Mui-selected:hover":{
-      backgroundColor:"unset"
+    '& .MuiDataGrid-row.Mui-selected:hover': {
+      backgroundColor: 'unset',
     },
-    "& .MuiDataGrid-row.Mui-selected":{
-      backgroundColor:"unset"
+    '& .MuiDataGrid-row.Mui-selected': {
+      backgroundColor: 'unset',
     },
-    "& .MuiDataGrid-cell:focus":{
-      outline:"none"
+    '& .MuiDataGrid-cell:focus': {
+      outline: 'none',
     },
-    "& .MuiDataGrid-columnHeader:focus":{
-      outline:"none"
+    '& .MuiDataGrid-columnHeader:focus': {
+      outline: 'none',
     },
-    "& .MuiDataGrid-columnHeader:focus-within":{
-      outline:"none"
+    '& .MuiDataGrid-columnHeader:focus-within': {
+      outline: 'none',
     },
-    "& .MuiDataGrid-cell:focus-within":{
-      outline:"none"
+    '& .MuiDataGrid-cell:focus-within': {
+      outline: 'none',
     },
-    "& .MuiCheckbox-root.Mui-checked":{
-      color:"#284AD5"
-    }
-  }
-}
+    '& .MuiCheckbox-root.Mui-checked': {
+      color: '#284AD5',
+    },
+  },
+};
 
 export default DataTable;
