@@ -31,11 +31,38 @@ const ManagementList = () => {
     usrTp: 'DEFAULT',
     description: '',
   });
+  const [checkboxSelectedIds, setcheckboxSelectedIds] = React.useState([]);
 
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   const [addGroupOpen, setAddGroupOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
+
+  const treeItemClickEvent = (params: any) => {
+    console.log(params);
+    if(typeof(params.id)=="undefined" || typeof(params.id)==null){
+      return false;
+    }
+    axios
+    .post('/management/subscription/admin/usergroup/userlist/inquiry', {
+      usr_grp_id: params.id,
+    })
+    .then(res => {
+      if (res.data.code === '0000') {
+        if(res.data.result.length==0){
+          setcheckboxSelectedIds([]);
+        }else{
+          setcheckboxSelectedIds(
+            res.data.result.map((item: any) => {
+              return item.usrId;
+            }),
+          );
+        }
+      }
+    })
+    .catch(() => {});
+    return;
+  }
 
   // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
@@ -172,6 +199,7 @@ const ManagementList = () => {
             <Sidebar
               onSelect={item => setSelectedTreeitem(item)}
               treeMoreIconCallback={treeMoreIconCallback}
+              treeItemClickEvent={treeItemClickEvent}
             />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
@@ -179,6 +207,7 @@ const ManagementList = () => {
                 cellClickEvent={cellClickEvent}
                 treeItem={selectedTreeitem}
                 searchCallback={search}
+                checkboxSelectedIds={checkboxSelectedIds}
               />
             </Box>
           </Box>
