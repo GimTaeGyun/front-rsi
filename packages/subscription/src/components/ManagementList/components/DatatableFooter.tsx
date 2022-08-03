@@ -1,16 +1,11 @@
-import { Alert } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { GridToolbarContainer, useGridApiContext } from '@mui/x-data-grid';
 import React from 'react';
-import AlertPopup from '../../Common/AlertPopup';
 import AddOperatorPopup from './AddOperatorPopup';
-import { useDemoData } from '@mui/x-data-grid-generator';
-import { GridExcelExportOptions } from '@mui/x-data-grid-premium';
-import { GridExporter } from '@devexpress/dx-react-grid-export';
-import saveAs from 'file-saver';
 import * as XLSX from 'xlsx';
 import FileSaver from 'file-saver';
+import { createInputFiles } from 'typescript';
+import useFileDialog from 'use-file-dialog';
 
 const buttonStyle = {
   p: '5px 10px',
@@ -26,6 +21,7 @@ const DatatableFooter = (props: { rowData: any }) => {
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const excelFileExtension = '.xlsx';
   const excelFileName = '작성자';
+  const { files, openFileDialog } = useFileDialog();
 
   const excelDownload = () => {
     const ws = XLSX.utils.aoa_to_sheet([
@@ -53,7 +49,15 @@ const DatatableFooter = (props: { rowData: any }) => {
     const wb: any = { Sheets: { data: ws }, SheetNames: ['data'] };
     const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const excelFile = new Blob([excelButter], { type: excelFileType });
+    files(excelFile);
     FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
+  };
+
+  const onDownload = () => {
+    const link = document.createElement('a');
+    link.download = `download.txt`;
+    link.href = './download.txt';
+    link.click();
   };
 
   return (
@@ -85,7 +89,7 @@ const DatatableFooter = (props: { rowData: any }) => {
         </Box>
         <Button
           variant="outlined"
-          onClick={excelDownload}
+          onClick={openFileDialog}
           startIcon={
             <Box
               component="img"
