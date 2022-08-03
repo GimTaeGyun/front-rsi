@@ -1,19 +1,16 @@
 import { Alert } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {
-  GridCsvExportOptions,
-  GridCsvGetRowsToExportParams,
-  GridToolbarContainer,
-  useGridApiContext,
-} from '@mui/x-data-grid';
+import { GridToolbarContainer, useGridApiContext } from '@mui/x-data-grid';
 import React from 'react';
 import AlertPopup from '../../Common/AlertPopup';
 import AddOperatorPopup from './AddOperatorPopup';
 import { useDemoData } from '@mui/x-data-grid-generator';
-import { text } from 'stream/consumers';
-import { gridSortedRowIdsSelector } from '@mui/x-data-grid';
-import { BADFAMILY } from 'dns';
+import { GridExcelExportOptions } from '@mui/x-data-grid-premium';
+import { GridExporter } from '@devexpress/dx-react-grid-export';
+import saveAs from 'file-saver';
+import * as XLSX from 'xlsx';
+import FileSaver from 'file-saver';
 
 const buttonStyle = {
   p: '5px 10px',
@@ -22,24 +19,42 @@ const buttonStyle = {
   lineHeight: 'normal',
 };
 
-export const ExportCustomToolbar = () => {
-  const { data, loading } = useDemoData({
-    dataSet: 'Employee',
-    rowLength: 100,
-    maxColumns: 10,
-  });
-};
-
-const getUnfilteredRows = ({ apiRef }: GridCsvGetRowsToExportParams) =>
-  gridSortedRowIdsSelector(apiRef);
-
-const DatatableFooter = () => {
+const DatatableFooter = (props: { rowData: any }) => {
+  const { rowData } = props;
   const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
+  const excelFileType =
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const excelFileExtension = '.xlsx';
+  const excelFileName = '작성자';
 
-  const apiRef = useGridApiContext();
-
-  const handleExport = (options: GridCsvExportOptions) =>
-    apiRef.current.exportDataAsCsv(options);
+  const excelDownload = () => {
+    const ws = XLSX.utils.aoa_to_sheet([
+      ['ID', '이름', '전화번호', '이메일', '상태', '추가 내용', '최종 수정일'],
+    ]);
+    rowData.map((data: any) => {
+      XLSX.utils.sheet_add_aoa(
+        ws,
+        [
+          [
+            data.usrId,
+            data.usrNm,
+            data.phone,
+            data.email,
+            data.status,
+            data.description,
+            data.modifiedDate,
+          ],
+        ],
+        { origin: -1 },
+      );
+      ws['!cols'] = [{ wpx: 200 }, { wpx: 200 }];
+      return false;
+    });
+    const wb: any = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const excelFile = new Blob([excelButter], { type: excelFileType });
+    FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
+  };
 
   return (
     <>
@@ -68,29 +83,22 @@ const DatatableFooter = () => {
             운영자 추가
           </Button>
         </Box>
-        <GridToolbarContainer>
-          <Button
-            onClick={() =>
-              handleExport({
-                getRowsToExport: getUnfilteredRows,
-                utf8WithBom: true,
-              })
-            }
-            variant="outlined"
-            startIcon={
-              <Box
-                component="img"
-                src={
-                  require('@administrator/subscription/public/assets/images/microsoftexcel.svg')
-                    .default
-                }
-              />
-            }
-            sx={buttonStyle}
-          >
-            엑셀 다운로드
-          </Button>
-        </GridToolbarContainer>
+        <Button
+          variant="outlined"
+          onClick={excelDownload}
+          startIcon={
+            <Box
+              component="img"
+              src={
+                require('@administrator/subscription/public/assets/images/microsoftexcel.svg')
+                  .default
+              }
+            />
+          }
+          sx={buttonStyle}
+        >
+          엑셀 다운로드
+        </Button>
       </Box>
       <AddOperatorPopup
         open={openOperatorPopup}

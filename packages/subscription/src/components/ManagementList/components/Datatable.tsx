@@ -9,7 +9,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react';
-
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
@@ -18,6 +17,7 @@ const DataTable = (props: any) => {
   const { treeItem, cellClickEvent, searchCallback, rowData } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
+  console.log(rowData);
 
   React.useEffect(() => {
     if (treeItem) {
@@ -95,6 +95,9 @@ const DataTable = (props: any) => {
           }}
           components={{
             Footer: DatatableFooter,
+          }}
+          componentsProps={{
+            footer: { rowData: rowData },
           }}
           initialState={{
             sorting: {
