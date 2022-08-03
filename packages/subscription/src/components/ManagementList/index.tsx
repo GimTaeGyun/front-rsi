@@ -31,7 +31,7 @@ const ManagementList = () => {
     usrTp: 'DEFAULT',
     description: '',
   });
-  const [checkboxSelectedIds, setcheckboxSelectedIds] = React.useState([]);
+  const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
@@ -50,14 +50,16 @@ const ManagementList = () => {
     .then(res => {
       if (res.data.code === '0000') {
         if(res.data.result.length==0){
-          setcheckboxSelectedIds([]);
+          setCheckboxSelectedIds([]);
         }else{
-          setcheckboxSelectedIds(
+          setCheckboxSelectedIds(
             res.data.result.map((item: any) => {
               return item.usrId;
             }),
           );
         }
+      }else{
+        setCheckboxSelectedIds([]);
       }
     })
     .catch(() => {});
