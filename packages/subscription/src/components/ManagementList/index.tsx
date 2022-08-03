@@ -213,6 +213,7 @@ const ManagementList = () => {
                 treeItem={selectedTreeitem}
                 searchCallback={search}
                 checkboxSelectedIds={checkboxSelectedIds}
+                setCheckboxSelectedIds={setCheckboxSelectedIds}
               />
             </Box>
           </Box>

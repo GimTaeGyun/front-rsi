@@ -15,7 +15,7 @@ import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
 
 const DataTable = (props: any) => {
-  const { treeItem, cellClickEvent, searchCallback, rowData, checkboxSelectedIds } = props;
+  const { treeItem, cellClickEvent, searchCallback, rowData, checkboxSelectedIds, setCheckboxSelectedIds } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
   
@@ -105,6 +105,9 @@ const DataTable = (props: any) => {
             cellClickEvent(params, event);
           }}
           selectionModel={props.checkboxSelectedIds}
+          onSelectionModelChange={(newSelectionModel) => {
+            props.setCheckboxSelectedIds(newSelectionModel);
+          }}
         />
       </Card>
     </Box>
