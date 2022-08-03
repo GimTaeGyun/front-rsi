@@ -60,8 +60,10 @@ const ManagementList = () => {
   // 테이블 데이터 가져오기
   React.useEffect(() => {
     axios
-      .post('/management/subscription/admin/usergroup/userlist/inquiry', {
-        usr_grp_id: 1,
+      .post('/management/subscription/admin/user/inquiry', {
+        status: null,
+        usrId: null,
+        usrNm: null,
       })
       .then(res => {
         if (res.data.code === '0000') {
@@ -71,7 +73,7 @@ const ManagementList = () => {
                 ...item,
                 id: item.usrId,
                 name: item.usrNm,
-                modifiedDate: item.recentModDate,
+                modifiedDate: item.modAt,
               };
             }),
           );
@@ -135,7 +137,7 @@ const ManagementList = () => {
   const search = (value: any) => {
     axios
       .post('/management/subscription/admin/user/inquiry', {
-        status: 1,
+        status: null,
         usrId: value,
       })
       .then(res => {
@@ -149,6 +151,7 @@ const ManagementList = () => {
             };
           }),
         );
+        console.log(rows);
       })
       .catch(err => {
         console.log(err);

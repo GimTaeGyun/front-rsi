@@ -115,7 +115,6 @@ const Sidebar = (props: {
 
       if (selectedTreeitem == null) {
         let cnt = getCnt();
-        console.log(cnt);
         handleSelectedTreeitem({
           id: 0,
           text: '전체',
