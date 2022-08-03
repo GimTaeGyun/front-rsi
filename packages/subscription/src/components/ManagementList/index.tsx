@@ -11,6 +11,7 @@ import axios from '../../utils/axios';
 import AlertPopup from '../../components/Common/AlertPopup';
 import AddGroup from '../AddGroup';
 import { GetSidebarData, AlertPopupData } from '../../data/atoms';
+import { ItemTypes } from '@minoru/react-dnd-treeview';
 
 const ManagementList = () => {
   const [addGroupTitle, setAddGroupTitle] = React.useState('');
@@ -34,7 +35,9 @@ const ManagementList = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   const [addGroupOpen, setAddGroupOpen] = React.useState(false);
+  const [rows, setRows] = React.useState([]);
 
+  // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
     if (params.field === 'management') {
       axios
@@ -53,6 +56,24 @@ const ManagementList = () => {
         });
     }
   };
+
+  // 테이블 데이터 가져오기
+  React.useEffect(() => {
+    axios
+      .post('/management/subscription/admin/usergroup/userlist/inquiry', {
+        usr_grp_id: 1,
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          setRows(
+            res.data.result.map((item: any) => {
+              return { ...item, id: item.usrId };
+            }),
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // 사이드바 트리 아이콘의 ...icon 클릭 이벨트
   const treeMoreIconCallback = [
@@ -139,6 +160,7 @@ const ManagementList = () => {
             />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
+                rowData={rows}
                 cellClickEvent={cellClickEvent}
                 treeItem={selectedTreeitem}
                 searchCallback={search}

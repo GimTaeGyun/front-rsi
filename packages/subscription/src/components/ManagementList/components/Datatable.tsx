@@ -14,103 +14,9 @@ import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
 
-const mockRows = [
-  {
-    id: 'bflysoft1',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft2',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft3',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft4',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft5',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft6',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft7',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft8',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft9',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-  {
-    id: 'bflysoft10',
-    name: '김철수',
-    phone: '010-0000-0000',
-    email: 'bflysoft1@bflysoft.com',
-    status: '사용',
-    description: '',
-    modifiedDate: '2022-10-31 12:00',
-  },
-];
-
 const DataTable = (props: any) => {
-  const { treeItem, cellClickEvent, searchCallback } = props;
-
-  const [rows, setRows] = React.useState<any>([]);
+  const { treeItem, cellClickEvent, searchCallback, rowData } = props;
+  //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
 
   React.useEffect(() => {
@@ -178,7 +84,7 @@ const DataTable = (props: any) => {
           }}
         />
         <DataGrid
-          rows={rows}
+          rows={rowData}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[5]}

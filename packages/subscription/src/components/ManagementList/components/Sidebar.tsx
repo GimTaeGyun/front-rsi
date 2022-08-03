@@ -181,19 +181,18 @@ const Sidebar = (props: {
   const [clickedTreeItem, setClickedTreeItem] = React.useState<any>();
 
   const getData = async () => {
-    setData(mockResult.result);
-  }; /*
     await Axios.post('/management/subscription/admin/usergroup/inquiry', {
       usr_grp_id: 1,
     })
       .then(res => {
-        res.data = mockResult;
         setData(res.data.result);
       })
       .catch(err => {
         console.log(err);
         // setData([]);
-      });*/
+      });
+  };
+
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
@@ -234,12 +233,10 @@ const Sidebar = (props: {
       // Format tree data
       let treeItems: Array<ITreeItem> = [];
       if (data !== undefined) {
-        console.log('if 안', treeItems);
         data.forEach(subGrp => {
           treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
         });
       }
-      console.log('if 밖', treeItems);
 
       handleSelectedTreeitem(treeItems[0]);
       setTreedata(treeItems);

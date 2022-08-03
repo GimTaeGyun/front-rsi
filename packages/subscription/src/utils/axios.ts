@@ -22,7 +22,8 @@ Axios.interceptors.response.use(
       localStorage.removeItem('access-token');
       try {
         if( localStorage.getItem('refresh-token') == null ||
-        localStorage.getItem('refresh-token') == undefined){
+        localStorage.getItem('refresh-token') == "undefined" ||
+        error.config.url === '/management/keycloak/refreshtoken'){
 
           localStorage.clear();
           location.href = '/admin/login';
