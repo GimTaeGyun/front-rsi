@@ -20,39 +20,6 @@ import { DndProvider } from 'react-dnd';
 
 import ListItems from './ListItems';
 
-const items = [
-  {
-    id: 1,
-    text: '전체 (4)',
-    parent: 0,
-  },
-  {
-    text: '연구소 (32)',
-    id: 2,
-    parent: 1,
-  },
-  {
-    text: 'AI연구개발실 (30)',
-    id: 3,
-    parent: 2,
-  },
-  {
-    text: '기획팀 (2)',
-    id: 4,
-    parent: 2,
-  },
-  {
-    text: '영업본부 (1)',
-    id: 5,
-    parent: 1,
-  },
-  {
-    text: '디지타이징 (0)',
-    id: 6,
-    parent: 5,
-  },
-];
-
 const TreeView = () => {
   const [realNum, setRealNum] = React.useState(0);
 

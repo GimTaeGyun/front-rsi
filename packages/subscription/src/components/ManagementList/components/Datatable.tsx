@@ -9,16 +9,22 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react';
-
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
 
 const DataTable = (props: any) => {
-  const { treeItem, cellClickEvent, searchCallback, rowData, checkboxSelectedIds, setCheckboxSelectedIds } = props;
+  const {
+    treeItem,
+    cellClickEvent,
+    searchCallback,
+    rowData,
+    checkboxSelectedIds,
+	setCheckboxSelectedIds
+  } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
-  
+
   React.useEffect(() => {
     if (treeItem) {
       /*const users: any = treeItem.data?.users ?? [];
@@ -49,9 +55,11 @@ const DataTable = (props: any) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                sx={styles.card_title}
-              >{`${treeItem?.text} (${treeItem?.data.cnt})`}</Typography>
+              <Typography sx={styles.card_title}>
+                {treeItem?.text === '전체'
+                  ? '전체 (' + rowData.length + ')'
+                  : `${treeItem?.text} (${treeItem?.data.cnt})`}
+              </Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 onChange={e => {
@@ -95,6 +103,9 @@ const DataTable = (props: any) => {
           }}
           components={{
             Footer: DatatableFooter,
+          }}
+          componentsProps={{
+            footer: { rowData: rowData },
           }}
           initialState={{
             sorting: {

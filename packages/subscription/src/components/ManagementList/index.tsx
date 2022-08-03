@@ -24,7 +24,6 @@ const ManagementList = () => {
     email: '',
     phone: '',
     status: 1,
-    usrGrpId: ['1', '2', '3'],
     usrId: '',
     usrNm: '',
     usrPw: '',
@@ -71,7 +70,7 @@ const ManagementList = () => {
     if (params.field === 'management') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
-          usrId: 'sysadm', //params.id,
+          usrId: params.id,
         })
         .then(res => {
           setUpdateOperValue({
