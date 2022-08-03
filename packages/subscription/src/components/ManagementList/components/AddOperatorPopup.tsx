@@ -94,7 +94,6 @@ const AddOperatorPopup = (props: { open: boolean; handleClose: Function }) => {
       email: '',
       phone: '',
       status: 1,
-      usrGrpId: ['1', '2', '3'],
       usrId: '',
       usrNm: '',
       usrPw: '',
@@ -111,7 +110,6 @@ const AddOperatorPopup = (props: { open: boolean; handleClose: Function }) => {
     email: '',
     phone: '',
     status: 1,
-    usrGrpId: ['1', '2', '3'],
     usrId: '',
     usrNm: '',
     usrPw: '',
@@ -278,6 +276,7 @@ const AddOperatorPopup = (props: { open: boolean; handleClose: Function }) => {
             <TextField
               fullWidth
               id="password"
+              type="password"
               placeholder="비밀번호"
               sx={{ mt: '5px' }}
               name="usrPw"

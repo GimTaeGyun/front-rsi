@@ -14,10 +14,15 @@ import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
 
 const DataTable = (props: any) => {
-  const { treeItem, cellClickEvent, searchCallback, rowData } = props;
+  const {
+    treeItem,
+    cellClickEvent,
+    searchCallback,
+    rowData,
+    checkboxSelectedIds,
+  } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
-  console.log(rowData);
 
   React.useEffect(() => {
     if (treeItem) {
@@ -49,9 +54,11 @@ const DataTable = (props: any) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                sx={styles.card_title}
-              >{`${treeItem?.text} (${treeItem?.data.cnt})`}</Typography>
+              <Typography sx={styles.card_title}>
+                {treeItem?.text === '전체'
+                  ? '전체 (' + rowData.length + ')'
+                  : `${treeItem?.text} (${treeItem?.data.cnt})`}
+              </Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 onChange={e => {
@@ -86,7 +93,7 @@ const DataTable = (props: any) => {
         <DataGrid
           rows={rowData}
           columns={columns}
-          pageSize={10}
+          pageSize={rowData.length}
           rowsPerPageOptions={[5]}
           checkboxSelection
           sx={{
@@ -107,6 +114,7 @@ const DataTable = (props: any) => {
           onCellClick={(params, event) => {
             cellClickEvent(params, event);
           }}
+          selectionModel={props.checkboxSelectedIds}
         />
       </Card>
     </Box>

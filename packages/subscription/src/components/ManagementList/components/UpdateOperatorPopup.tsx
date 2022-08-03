@@ -95,13 +95,12 @@ const AddOperatorPopup = (props: {
   useEffect(() => {
     setPopupData(
       value
-        ? { ...value, action: 'mod', usrGrpId: ['1', '2', '3'] }
+        ? { ...value, action: 'mod' }
         : {
             action: 'mod',
             email: '',
             phone: '',
             status: 1,
-            usrGrpId: ['1', '2', '3'],
             usrId: '',
             usrNm: '',
             usrPw: '',
@@ -118,7 +117,6 @@ const AddOperatorPopup = (props: {
     email: '',
     phone: '',
     status: 1,
-    usrGrpId: ['1', '2', '3'],
     usrId: '',
     usrNm: '',
     usrPw: '',

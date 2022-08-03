@@ -24,25 +24,53 @@ const ManagementList = () => {
     email: '',
     phone: '',
     status: 1,
-    usrGrpId: ['1', '2', '3'],
     usrId: '',
     usrNm: '',
     usrPw: '',
     usrTp: 'DEFAULT',
     description: '',
   });
+  const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   const [addGroupOpen, setAddGroupOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
 
+  const treeItemClickEvent = (params: any) => {
+    console.log(params);
+    if(typeof(params.id)=="undefined" || typeof(params.id)==null){
+      return false;
+    }
+    axios
+    .post('/management/subscription/admin/usergroup/userlist/inquiry', {
+      usr_grp_id: params.id,
+    })
+    .then(res => {
+      if (res.data.code === '0000') {
+        if(res.data.result.length==0){
+          setCheckboxSelectedIds([]);
+        }else{
+          setCheckboxSelectedIds(
+            res.data.result.map((item: any) => {
+              return item.usrId;
+            }),
+          );
+        }
+      }else{
+        setCheckboxSelectedIds([]);
+      }
+    })
+    .catch(() => {});
+    return;
+  }
+
   // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
     if (params.field === 'management') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
-          usrId: 'sysadm', //params.id,
+          usrId: params.id,
         })
         .then(res => {
           setUpdateOperValue({
@@ -60,8 +88,10 @@ const ManagementList = () => {
   // 테이블 데이터 가져오기
   React.useEffect(() => {
     axios
-      .post('/management/subscription/admin/usergroup/userlist/inquiry', {
-        usr_grp_id: 1,
+      .post('/management/subscription/admin/user/inquiry', {
+        status: null,
+        usrId: null,
+        usrNm: null,
       })
       .then(res => {
         if (res.data.code === '0000') {
@@ -71,7 +101,7 @@ const ManagementList = () => {
                 ...item,
                 id: item.usrId,
                 name: item.usrNm,
-                modifiedDate: item.recentModDate,
+                modifiedDate: item.modAt,
               };
             }),
           );
@@ -135,7 +165,7 @@ const ManagementList = () => {
   const search = (value: any) => {
     axios
       .post('/management/subscription/admin/user/inquiry', {
-        status: 1,
+        status: null,
         usrId: value,
       })
       .then(res => {
@@ -149,6 +179,7 @@ const ManagementList = () => {
             };
           }),
         );
+        console.log(rows);
       })
       .catch(err => {
         console.log(err);
@@ -172,6 +203,7 @@ const ManagementList = () => {
             <Sidebar
               onSelect={item => setSelectedTreeitem(item)}
               treeMoreIconCallback={treeMoreIconCallback}
+              treeItemClickEvent={treeItemClickEvent}
             />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
@@ -179,6 +211,7 @@ const ManagementList = () => {
                 cellClickEvent={cellClickEvent}
                 treeItem={selectedTreeitem}
                 searchCallback={search}
+                checkboxSelectedIds={checkboxSelectedIds}
               />
             </Box>
           </Box>
