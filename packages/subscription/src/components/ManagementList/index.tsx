@@ -314,6 +314,7 @@ const ManagementList = () => {
                 footerSecondCallback={() => {
                   setAddOpenOperPopup(true);
                 }}
+                setCheckboxSelectedIds={setCheckboxSelectedIds}
               />
             </Box>
           </Box>

@@ -9,7 +9,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react';
-
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
@@ -22,6 +21,7 @@ const DataTable = (props: any) => {
     rowData,
     checkboxSelectedIds,
     footerSecondCallback,
+    setCheckboxSelectedIds,
   } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
@@ -106,7 +106,7 @@ const DataTable = (props: any) => {
             Footer: DatatableFooter,
           }}
           componentsProps={{
-            footer: { handleSecondBtn: footerSecondCallback },
+            footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
           }}
           initialState={{
             sorting: {
@@ -117,6 +117,9 @@ const DataTable = (props: any) => {
             cellClickEvent(params, event);
           }}
           selectionModel={props.checkboxSelectedIds}
+          onSelectionModelChange={newSelectionModel => {
+            props.setCheckboxSelectedIds(newSelectionModel);
+          }}
         />
       </Card>
     </Box>
