@@ -276,6 +276,7 @@ const AddOperatorPopup = (props: { open: boolean; handleClose: Function }) => {
             <TextField
               fullWidth
               id="password"
+              type="password"
               placeholder="비밀번호"
               sx={{ mt: '5px' }}
               name="usrPw"

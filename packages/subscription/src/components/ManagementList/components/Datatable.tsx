@@ -49,9 +49,11 @@ const DataTable = (props: any) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                sx={styles.card_title}
-              >{`${treeItem?.text} (${treeItem?.data.cnt})`}</Typography>
+              <Typography sx={styles.card_title}>
+                {treeItem?.text === '전체'
+                  ? '전체 (' + rowData.length + ')'
+                  : `${treeItem?.text} (${treeItem?.data.cnt})`}
+              </Typography>
               <OutlinedInput
                 sx={styles.search_input}
                 onChange={e => {
