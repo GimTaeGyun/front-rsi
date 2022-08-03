@@ -118,7 +118,6 @@ const AddOperatorPopup = (props: {
     email: '',
     phone: '',
     status: 1,
-    usrGrpId: ['1', '2', '3'],
     usrId: '',
     usrNm: '',
     usrPw: '',

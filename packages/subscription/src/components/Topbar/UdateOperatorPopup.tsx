@@ -92,7 +92,6 @@ const UpdateOperatorPopupUser = (props: {
           email: values.email == undefined ? data.email : values.email,
           phone: values.phone == undefined ? data.phone : values.phone,
           status: data.status,
-          usrGrpId: ['1', '2', '3'],
           usrId: data.usrId,
           usrNm: values.custNm == undefined ? data.usrNm : values.custNm,
           usrPw: '',

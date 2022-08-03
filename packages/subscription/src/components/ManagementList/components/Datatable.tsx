@@ -86,7 +86,7 @@ const DataTable = (props: any) => {
         <DataGrid
           rows={rowData}
           columns={columns}
-          pageSize={10}
+          pageSize={rowData.length}
           rowsPerPageOptions={[5]}
           checkboxSelection
           sx={{
