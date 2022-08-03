@@ -15,10 +15,17 @@ import DatatableFooter from './DatatableFooter';
 import { ITreeItem } from './Sidebar';
 
 const DataTable = (props: any) => {
-  const { treeItem, cellClickEvent, searchCallback, rowData, checkboxSelectedIds } = props;
+  const {
+    treeItem,
+    cellClickEvent,
+    searchCallback,
+    rowData,
+    checkboxSelectedIds,
+    footerSecondCallback,
+  } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
-  
+
   React.useEffect(() => {
     if (treeItem) {
       /*const users: any = treeItem.data?.users ?? [];
@@ -97,6 +104,9 @@ const DataTable = (props: any) => {
           }}
           components={{
             Footer: DatatableFooter,
+          }}
+          componentsProps={{
+            footer: { handleSecondBtn: footerSecondCallback },
           }}
           initialState={{
             sorting: {

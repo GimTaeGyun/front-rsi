@@ -12,7 +12,18 @@ import AlertPopup from '../../components/Common/AlertPopup';
 import AddGroup from '../AddGroup';
 import { GetSidebarData, AlertPopupData } from '../../data/atoms';
 import { ItemTypes } from '@minoru/react-dnd-treeview';
-
+import AddOperatorPopup from './components/AddOperatorPopup'; // 운영자수정 팝업
+const defaultOperPopupData = {
+  action: 'add',
+  email: '',
+  phone: '',
+  status: 1,
+  usrId: '',
+  usrNm: '',
+  usrPw: '',
+  usrTp: 'DEFAULT',
+  description: '',
+};
 const ManagementList = () => {
   const [addGroupTitle, setAddGroupTitle] = React.useState('');
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
@@ -37,33 +48,121 @@ const ManagementList = () => {
   const [addGroupOpen, setAddGroupOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
 
+  /* 팝업 시작 */
+  const [openAddOperPopup, setAddOpenOperPopup] = React.useState(false); // 운영자 추가 팝업 on/off
+  // 운영자 추가 팝업 ID 중복확인
+  const [isCheckedId, setIsCheckedId] = React.useState(false);
+  // 운영자 추가/수정 API REQUESTBODY
+  const [operPopupData, setOperPopupData] =
+    React.useState(defaultOperPopupData);
+  // 운영자 추가 팝업 저장 버튼 클릭이벤트
+  const operPopupSaveBtn = () => {
+    if (!isCheckedId) {
+      setAlertPopup({
+        visible: true,
+        leftText: '확인',
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        rightCallback: () => {},
+        rightText: '',
+        message: '사용할 수 없는 아이디입니다',
+      });
+    } else {
+      axios
+        .post('/management/subscription/admin/user/update', operPopupData)
+        .then(res => {
+          if (res.data.code == '0000') {
+            setAlertPopup({
+              visible: true,
+              leftText: '확인',
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+                setAddOpenOperPopup(false);
+                setIsCheckedId(false);
+                setOperPopupData(defaultOperPopupData);
+              },
+              rightCallback: () => {},
+              rightText: '',
+              message: '새로운 운영자 추가가 완료되었습니다',
+            });
+          }
+        })
+        .catch(() => {});
+    }
+  };
+  // 운영자 추가 수정 form 값 변경이벤트
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setOperPopupData({ ...operPopupData, [name]: value });
+    if (name == 'usrId') setIsCheckedId(false);
+  };
+  // 운영자 추가 ID 중복확인 버튼 클릭이벤트
+  const handleExistBtn = () => {
+    axios
+      .post('/management/subscription/admin/userid/check', {
+        usrId: operPopupData.usrId,
+      })
+      .then(res => {
+        if (res.data.code == '0000') {
+          setAlertPopup({
+            visible: true,
+            leftText: '확인',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+            rightCallback: () => {},
+            rightText: '',
+            message: '사용할 수 있는 아이디입니다',
+          });
+          setIsCheckedId(true);
+        } else {
+          setAlertPopup({
+            visible: true,
+            leftText: '확인',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+            rightCallback: () => {},
+            rightText: '',
+            message: '사용할 수 없는 아이디입니다',
+          });
+          setIsCheckedId(false);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  /* 팝업 끝 */
+
   const treeItemClickEvent = (params: any) => {
     console.log(params);
-    if(typeof(params.id)=="undefined" || typeof(params.id)==null){
+    if (typeof params.id == 'undefined' || typeof params.id == null) {
       return false;
     }
     axios
-    .post('/management/subscription/admin/usergroup/userlist/inquiry', {
-      usr_grp_id: params.id,
-    })
-    .then(res => {
-      if (res.data.code === '0000') {
-        if(res.data.result.length==0){
+      .post('/management/subscription/admin/usergroup/userlist/inquiry', {
+        usr_grp_id: params.id,
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          if (res.data.result.length == 0) {
+            setCheckboxSelectedIds([]);
+          } else {
+            setCheckboxSelectedIds(
+              res.data.result.map((item: any) => {
+                return item.usrId;
+              }),
+            );
+          }
+        } else {
           setCheckboxSelectedIds([]);
-        }else{
-          setCheckboxSelectedIds(
-            res.data.result.map((item: any) => {
-              return item.usrId;
-            }),
-          );
         }
-      }else{
-        setCheckboxSelectedIds([]);
-      }
-    })
-    .catch(() => {});
+      })
+      .catch(() => {});
     return;
-  }
+  };
 
   // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
@@ -212,6 +311,9 @@ const ManagementList = () => {
                 treeItem={selectedTreeitem}
                 searchCallback={search}
                 checkboxSelectedIds={checkboxSelectedIds}
+                footerSecondCallback={() => {
+                  setAddOpenOperPopup(true);
+                }}
               />
             </Box>
           </Box>
@@ -223,7 +325,6 @@ const ManagementList = () => {
           />
         </>
       </AppFrame>
-
       <Box
         sx={{
           width: '100%',
@@ -233,6 +334,19 @@ const ManagementList = () => {
           position: 'absolute',
         }}
       ></Box>
+      /* 운영자 추가 팝업 */
+      <AddOperatorPopup
+        open={openAddOperPopup}
+        handleMiddle={handleExistBtn}
+        handleClose={() => {
+          setAddOpenOperPopup(false);
+          setIsCheckedId(false);
+          setOperPopupData(defaultOperPopupData);
+        }}
+        handleOk={operPopupSaveBtn}
+        handleChange={handleChange}
+      />
+      /* 그룹 추가 팝업 */
       <AddGroup
         title={addGroupTitle}
         open={addGroupOpen}

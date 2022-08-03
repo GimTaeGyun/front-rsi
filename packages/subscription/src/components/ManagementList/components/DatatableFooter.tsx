@@ -33,9 +33,8 @@ export const ExportCustomToolbar = () => {
 const getUnfilteredRows = ({ apiRef }: GridCsvGetRowsToExportParams) =>
   gridSortedRowIdsSelector(apiRef);
 
-const DatatableFooter = () => {
-  const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
-
+const DatatableFooter = (props: { handleSecondBtn?: Function }) => {
+  const { handleSecondBtn = () => {} } = props;
   const apiRef = useGridApiContext();
 
   const handleExport = (options: GridCsvExportOptions) =>
@@ -63,7 +62,7 @@ const DatatableFooter = () => {
           <Button
             variant="outlined"
             sx={buttonStyle}
-            onClick={() => setOpenOperatorPopup(true)}
+            onClick={e => handleSecondBtn(e)}
           >
             운영자 추가
           </Button>
@@ -92,12 +91,8 @@ const DatatableFooter = () => {
           </Button>
         </GridToolbarContainer>
       </Box>
-      <AddOperatorPopup
-        open={openOperatorPopup}
-        handleClose={() => setOpenOperatorPopup(false)}
-      />
     </>
   );
 };
 
-export default DatatableFooter;
+export default React.memo(DatatableFooter);

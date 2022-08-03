@@ -27,7 +27,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
           },
         );
         const tempMenuItems = [] as any;
-        for (const menu of menuResult.data.result) {
+        for (const menu of menuResult.data.result.subMenu) {
           const menuItem = {
             title: menu.menuNm,
             icon: <></>,
