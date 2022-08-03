@@ -67,7 +67,7 @@ const ManagementList = () => {
         if (res.data.code === '0000') {
           setRows(
             res.data.result.map((item: any) => {
-              return { ...item, id: item.usrId };
+              return { ...item, id: item.usrId, name: item.usrNm, modifiedDate:item.recentModDate };
             }),
           );
         }
@@ -126,6 +126,7 @@ const ManagementList = () => {
     },
   ];
 
+  // 검색 이벤트
   const search = (value: any) => {
     axios
       .post('/management/subscription/admin/user/inquiry', {
@@ -133,7 +134,10 @@ const ManagementList = () => {
         usrId: value,
       })
       .then(res => {
-        console.log(res);
+        setRows(
+          res.data.result.map((item: any) => {
+            return { ...item, id: item.usrId, name:item.usrNm, modifiedDate:item.modAt };
+          }),
       })
       .catch(err => {
         console.log(err);
