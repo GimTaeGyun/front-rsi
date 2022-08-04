@@ -11,6 +11,7 @@ import ManagementList from './components/ManagementList';
 import PaymentList from './components/PaymentList';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
+import moment from 'moment';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
@@ -20,11 +21,13 @@ export { default as AppFrame } from './container/AppFrame';
 const Subscription = () => {
   const navigate = useNavigate();
   React.useEffect(() => {
-    const access = localStorage.getItem('acess-token');
-    if (access == null) {
+    const access = localStorage.getItem('refresh-token');
+    console.log(access);
+    if (access === null) {
       navigate('/admin/login');
     }
   }, []);
+
   return (
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
