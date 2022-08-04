@@ -15,8 +15,11 @@ const buttonStyle = {
   lineHeight: 'normal',
 };
 
-const DatatableFooter = (props: { rowData: any }) => {
-  const { rowData } = props;
+const DatatableFooter = (props: {
+  rowData: any;
+  handleSecondBtn?: Function;
+}) => {
+  const { rowData, handleSecondBtn = () => {} } = props;
   const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
   const dateNow = moment().format('YYYY_MM_DD_HHmm');
   const excelFileType =
@@ -76,7 +79,7 @@ const DatatableFooter = (props: { rowData: any }) => {
           <Button
             variant="outlined"
             sx={buttonStyle}
-            onClick={() => setOpenOperatorPopup(true)}
+            onClick={e => handleSecondBtn(e)}
           >
             운영자 추가
           </Button>
@@ -98,15 +101,8 @@ const DatatableFooter = (props: { rowData: any }) => {
           엑셀 다운로드
         </Button>
       </Box>
-      <AddOperatorPopup
-        open={openOperatorPopup}
-        handleClose={() => setOpenOperatorPopup(false)}
-      />
     </>
   );
 };
 
-export default DatatableFooter;
-function toStringByFormatting(dateNow: Date, arg1: string) {
-  throw new Error('Function not implemented.');
-}
+export default React.memo(DatatableFooter);

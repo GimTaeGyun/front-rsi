@@ -1170,14 +1170,22 @@
 
 "@devexpress/dx-react-grid-export@^3.0.4":
   version "3.0.4"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/@devexpress/dx-react-grid-export/-/dx-react-grid-export-3.0.4.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-export/-/dx-react-grid-export-3.0.4.tgz#39a143e90c34709b22ab313b986dbfc120a4f29d"
+>>>>>>> 5e789c3600bfe40c4bacc6791137ca5bf73de090
   integrity sha512-VotyRGw86CiIB/OFk0jwtCVSVET6l5CfeTKglIkAfGYeH4nq8WAsqRBstioVvivt+3t0Fmxc6il+JD4SBobJog==
   dependencies:
     exceljs "^3.8.1"
 
 "@devexpress/dx-react-grid-material-ui@^3.0.4":
   version "3.0.4"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-3.0.4.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-3.0.4.tgz#bc8207179fd55195f137fcfb2dfdc0541ee331eb"
+>>>>>>> 5e789c3600bfe40c4bacc6791137ca5bf73de090
   integrity sha512-EMQcZOsY4rnJYFw8JXX8Nm/cxUfpAoMKxiixVyr7ShMNEzrB599TalyvnhYe+7i6sw/OpLaOdp51ZRxO+piBeQ==
   dependencies:
     clsx "^1.0.4"
@@ -3804,7 +3812,7 @@ adjust-sourcemap-loader@^4.0.0:
 
 adler-32@~1.3.0:
   version "1.3.1"
-  resolved "https://registry.npmjs.org/adler-32/-/adler-32-1.3.1.tgz"
+  resolved "https://registry.yarnpkg.com/adler-32/-/adler-32-1.3.1.tgz#1dbf0b36dda0012189a32b3679061932df1821e2"
   integrity sha512-ynZ4w/nUUv5rrsR8UUGoe1VC9hZj6V5hU9Qw1HlMDJGEJw5S7TfTErWTjMys6M7vr0YWcPqs3qAr4ss0nDfP+A==
 
 agent-base@6, agent-base@^6.0.2:
@@ -3947,7 +3955,7 @@ archiver-utils@^2.1.0:
 
 archiver@^4.0.1:
   version "4.0.2"
-  resolved "https://registry.npmjs.org/archiver/-/archiver-4.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/archiver/-/archiver-4.0.2.tgz#43c72865eadb4ddaaa2fb74852527b6a450d927c"
   integrity sha512-B9IZjlGwaxF33UN4oPbfBkyA4V1SxNLeIhR1qY8sRXSsbdUkEHrrOvwlYFPx+8uQeCe9M+FG6KgO+imDmQ79CQ==
   dependencies:
     archiver-utils "^2.1.0"
@@ -4644,7 +4652,7 @@ case-sensitive-paths-webpack-plugin@^2.4.0:
 
 cfb@~1.2.1:
   version "1.2.2"
-  resolved "https://registry.npmjs.org/cfb/-/cfb-1.2.2.tgz"
+  resolved "https://registry.yarnpkg.com/cfb/-/cfb-1.2.2.tgz#94e687628c700e5155436dac05f74e08df23bc44"
   integrity sha512-KfdUZsSOw19/ObEWasvBP/Ac4reZvAGauZhs6S/gqNhXhI7cKwvlH7ulj+dOEYnca4bm4SGo8C1bTAQvnTjgQA==
   dependencies:
     adler-32 "~1.3.0"
@@ -4844,7 +4852,8 @@ coa@^2.0.2:
 
 codepage@~1.15.0:
   version "1.15.0"
-  resolved "https://registry.npmjs.org/codepage/-/codepage-1.15.0.tgz"
+  resolv
+  https://registry.yarnpkg.com/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
   integrity sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==
 
 collect-v8-coverage@^1.0.0:
@@ -4966,7 +4975,7 @@ compare-func@^2.0.0:
 
 compress-commons@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npmjs.org/compress-commons/-/compress-commons-3.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/compress-commons/-/compress-commons-3.0.0.tgz#833944d84596e537224dd91cf92f5246823d4f1d"
   integrity sha512-FyDqr8TKX5/X0qo+aVfaZ+PVmNJHJeckFBlq8jZGSJOgnynhfifoyl24qaqdUdDIBe0EVTHByN6NAkqYvE/2Xg==
   dependencies:
     buffer-crc32 "^0.2.13"
@@ -5215,7 +5224,7 @@ crc-32@^1.2.0, crc-32@~1.2.0, crc-32@~1.2.1:
 
 crc32-stream@^3.0.1:
   version "3.0.1"
-  resolved "https://registry.npmjs.org/crc32-stream/-/crc32-stream-3.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/crc32-stream/-/crc32-stream-3.0.1.tgz#cae6eeed003b0e44d739d279de5ae63b171b4e85"
   integrity sha512-mctvpXlbzsvK+6z8kJwSJ5crm7yBwrQMTybJzMw1O4lLGJqjlDCXY2Zw7KheiA6XBEcBmfLx1D88mjRGVJtY9w==
   dependencies:
     crc "^3.4.4"
@@ -5231,7 +5240,11 @@ crc32-stream@^4.0.2:
 
 crc@^3.4.4:
   version "3.8.0"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/crc/-/crc-3.8.0.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/crc/-/crc-3.8.0.tgz#ad60269c2c856f8c299e2c4cc0de4556914056c6"
+>>>>>>> 5e789c3600bfe40c4bacc6791137ca5bf73de090
   integrity sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==
   dependencies:
     buffer "^5.1.0"
@@ -6434,7 +6447,7 @@ events@^3.2.0:
 
 exceljs@^3.8.1:
   version "3.10.0"
-  resolved "https://registry.npmjs.org/exceljs/-/exceljs-3.10.0.tgz"
+  resolved "https://registry.yarnpkg.com/exceljs/-/exceljs-3.10.0.tgz#0660f4a39573941d3b7c8093d74ab1670146cc32"
   integrity sha512-c48puhmEvXOBB/FqX0GLkMr7GLOySTHIbEaDSYiSXjSk0UMMAKwWpYT+VNv9IVnRso3d/8gMKF9k0lBbxUdMaw==
   dependencies:
     archiver "^4.0.1"
@@ -6634,7 +6647,7 @@ file-loader@^6.2.0:
 
 file-saver@^2.0.5:
   version "2.0.5"
-  resolved "https://registry.npmjs.org/file-saver/-/file-saver-2.0.5.tgz"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
   integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
 filelist@^1.0.1:
@@ -6651,7 +6664,7 @@ filesize@^8.0.6:
 
 fill-keys@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.npmjs.org/fill-keys/-/fill-keys-1.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/fill-keys/-/fill-keys-1.0.2.tgz#9a8fa36f4e8ad634e3bf6b4f3c8882551452eb20"
   integrity sha512-tcgI872xXjwFF4xgQmLxi76GnwJG3g/3isB1l4/G5Z4zrbddGpBjqZCO9oEAcB5wX0Hj/5iQB3toxfO7in1hHA==
   dependencies:
     is-object "~1.0.1"
@@ -6801,7 +6814,7 @@ forwarded@0.2.0:
 
 frac@~1.1.2:
   version "1.1.2"
-  resolved "https://registry.npmjs.org/frac/-/frac-1.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/frac/-/frac-1.1.2.tgz#3d74f7f6478c88a1b5020306d747dc6313c74d0b"
   integrity sha512-w/XBfkibaTl3YDqASwfDUqkna4Z2p9cFSr1aHDt0WoMTECnRfBOv2WArlZILlqgWlmdIlALXGpM2AOhEk5W3IA==
 
 fraction.js@^4.2.0:
@@ -7723,7 +7736,7 @@ is-obj@^2.0.0:
 
 is-object@~1.0.1:
   version "1.0.2"
-  resolved "https://registry.npmjs.org/is-object/-/is-object-1.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/is-object/-/is-object-1.0.2.tgz#a56552e1c665c9e950b4a025461da87e72f86fcf"
   integrity sha512-2rRIahhZr2UWb45fIOuvZGpFtz0TyOZLf32KxBbSoUCeZR495zCKlWUKKUByk3geS2eAs7ZAABt0Y/Rx0GiQGA==
 
 is-plain-obj@^1.0.0, is-plain-obj@^1.1.0:
@@ -8558,7 +8571,17 @@ jstransform@^11.0.3:
     array-includes "^3.1.4"
     object.assign "^4.1.2"
 
-jszip@^3.4.0, jszip@^3.5.0:
+jszip@^3.4.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.10.1.tgz#34aee70eb18ea1faec2f589208a157d1feb091c2"
+  integrity sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==
+  dependencies:
+    lie "~3.3.0"
+    pako "~1.0.2"
+    readable-stream "~2.3.6"
+    setimmediate "^1.0.5"
+
+jszip@^3.5.0:
   version "3.10.0"
   resolved "https://registry.npmjs.org/jszip/-/jszip-3.10.0.tgz"
   integrity sha512-LDfVtOLtOxb9RXkYOwPyNBTQDL4eUbqahtoY6x07GiDJHwSYvn8sHHIw8wINImV3MqbMNve2gSuM1DDqEKk09Q==
@@ -9251,13 +9274,8 @@ modify-values@^1.0.0:
 
 module-not-found-error@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npmjs.org/module-not-found-error/-/module-not-found-error-1.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/module-not-found-error/-/module-not-found-error-1.0.1.tgz#cf8b4ff4f29640674d6cdd02b0e3bc523c2bbdc0"
   integrity sha512-pEk4ECWQXV6z2zjhRZUongnLJNUeGQJ3w6OQ5ctGwD+i5o93qjRQUk2Rt6VdNeu3sEP0AB4LcfvdebpxBRVr4g==
-
-moment@^2.29.4:
-  version "2.29.4"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
-  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@2.0.0:
   version "2.0.0"
@@ -10760,7 +10778,7 @@ proxy-addr@~2.0.7:
 
 proxyquire@^2.1.3:
   version "2.1.3"
-  resolved "https://registry.npmjs.org/proxyquire/-/proxyquire-2.1.3.tgz"
+  resolved "https://registry.yarnpkg.com/proxyquire/-/proxyquire-2.1.3.tgz#2049a7eefa10a9a953346a18e54aab2b4268df39"
   integrity sha512-BQWfCqYM+QINd+yawJz23tbBM40VIGXOdDw3X344KcclI/gtBbdWF6SlQ4nK/bYhF9d27KYug9WzljHC6B9Ysg==
   dependencies:
     fill-keys "^1.0.2"
@@ -11958,7 +11976,7 @@ sprintf-js@~1.0.2:
 
 ssf@~0.11.2:
   version "0.11.2"
-  resolved "https://registry.npmjs.org/ssf/-/ssf-0.11.2.tgz"
+  resolved "https://registry.yarnpkg.com/ssf/-/ssf-0.11.2.tgz#0b99698b237548d088fc43cdf2b70c1a7512c06c"
   integrity sha512-+idbmIXoYET47hH+d7dfm2epdOMUDjqcB4648sTZ+t2JwoyBFL/insLfB/racrDmsKB3diwsDA696pZMieAC5g==
   dependencies:
     frac "~1.1.2"
@@ -12795,7 +12813,7 @@ utils-merge@1.0.1:
 
 uuid@^7.0.3:
   version "7.0.3"
-  resolved "https://registry.npmjs.org/uuid/-/uuid-7.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
   integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 uuid@^8.3.0, uuid@^8.3.2:
@@ -13123,7 +13141,7 @@ wide-align@^1.1.5:
 
 wmf@~1.0.1:
   version "1.0.2"
-  resolved "https://registry.npmjs.org/wmf/-/wmf-1.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/wmf/-/wmf-1.0.2.tgz#7d19d621071a08c2bdc6b7e688a9c435298cc2da"
   integrity sha512-/p9K7bEh0Dj6WbXg4JG0xvLQmIadrner1bi45VMJTfnbVHsc7yIajZyoSoK60/dtVBs12Fm6WkUI5/3WAVsNMw==
 
 word-wrap@^1.2.3, word-wrap@~1.2.3:
@@ -13133,7 +13151,7 @@ word-wrap@^1.2.3, word-wrap@~1.2.3:
 
 word@~0.3.0:
   version "0.3.0"
-  resolved "https://registry.npmjs.org/word/-/word-0.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/word/-/word-0.3.0.tgz#8542157e4f8e849f4a363a288992d47612db9961"
   integrity sha512-OELeY0Q61OXpdUfTp+oweA/vtLVg5VDOXh+3he3PNzLGG/y0oylSOC1xRVj0+l4vQ3tj/bB1HVHv1ocXkQceFA==
 
 wordwrap@^1.0.0:
@@ -13396,7 +13414,7 @@ ws@^8.4.2:
 
 xlsx@^0.18.5:
   version "0.18.5"
-  resolved "https://registry.npmjs.org/xlsx/-/xlsx-0.18.5.tgz"
+  resolved "https://registry.yarnpkg.com/xlsx/-/xlsx-0.18.5.tgz#16711b9113c848076b8a177022799ad356eba7d0"
   integrity sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==
   dependencies:
     adler-32 "~1.3.0"
@@ -13498,7 +13516,7 @@ yup@^0.32.11:
 
 zip-stream@^3.0.1:
   version "3.0.1"
-  resolved "https://registry.npmjs.org/zip-stream/-/zip-stream-3.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/zip-stream/-/zip-stream-3.0.1.tgz#cb8db9d324a76c09f9b76b31a12a48638b0b9708"
   integrity sha512-r+JdDipt93ttDjsOVPU5zaq5bAyY+3H19bDrThkvuVxC0xMQzU1PJcS6D+KrP3u96gH9XLomcHPb+2skoDjulQ==
   dependencies:
     archiver-utils "^2.1.0"

@@ -20,7 +20,8 @@ const DataTable = (props: any) => {
     searchCallback,
     rowData,
     checkboxSelectedIds,
-	setCheckboxSelectedIds
+    footerSecondCallback,
+    setCheckboxSelectedIds,
   } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
@@ -96,7 +97,7 @@ const DataTable = (props: any) => {
           columns={columns}
           pageSize={rowData.length}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          disableSelectionOnClick
           sx={{
             borderRadius: 0,
             fontSize: '14px',
@@ -105,18 +106,21 @@ const DataTable = (props: any) => {
             Footer: DatatableFooter,
           }}
           componentsProps={{
-            footer: { rowData: rowData },
+            footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
           }}
           initialState={{
             sorting: {
-              sortModel: [{ field: 'name', sort: 'asc' }],
+              sortModel: [
+                { field: 'checked', sort: 'asc' },
+                { field: 'name', sort: 'asc' },
+              ],
             },
           }}
           onCellClick={(params, event) => {
             cellClickEvent(params, event);
           }}
           selectionModel={props.checkboxSelectedIds}
-          onSelectionModelChange={(newSelectionModel) => {
+          onSelectionModelChange={newSelectionModel => {
             props.setCheckboxSelectedIds(newSelectionModel);
           }}
         />

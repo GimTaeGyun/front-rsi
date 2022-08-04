@@ -4,10 +4,15 @@ import {
   GridColDef,
   GridColumnHeaderParams,
   GridRenderCellParams,
+  GRID_CHECKBOX_SELECTION_COL_DEF,
 } from '@mui/x-data-grid';
 import React from 'react';
 
 export const columns: GridColDef[] = [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    field: 'checked',
+  },
   {
     field: 'id',
     headerName: 'ID',
