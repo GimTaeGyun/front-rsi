@@ -325,7 +325,7 @@ const ManagementList = () => {
             };
           }),
         );
-        console.log(rows);
+        setCheckboxSelectedIds([]);
       })
       .catch(err => {
         console.log(err);
