@@ -1,17 +1,17 @@
 import CssBaseline from '@mui/material/CssBaseline';
+import { access } from 'fs';
 import { Provider } from 'jotai';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import AddGroup from './components/AddGroup';
 import GroupAlert from './components/AddGroup/GroupAlert';
 import GroupAlert2 from './components/AddGroup/GroupAlert2';
 import ManagementList from './components/ManagementList';
 import PaymentList from './components/PaymentList';
-import AppFrame from './container/AppFrame';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
+import moment from 'moment';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
@@ -19,6 +19,16 @@ export { default as ClientArea } from './components/ClientArea';
 export { default as AppFrame } from './container/AppFrame';
 
 const Subscription = () => {
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    const access = localStorage.getItem('refresh-token');
+    if (access === null) {
+      navigate('/admin/login');
+    } else {
+      navigate('/admin/management-list');
+    }
+  }, []);
+
   return (
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>

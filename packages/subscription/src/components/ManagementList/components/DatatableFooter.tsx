@@ -1,10 +1,7 @@
-import { Alert, dialogActionsClasses } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import React from 'react';
-import AddOperatorPopup from './AddOperatorPopup';
 import * as XLSX from 'xlsx';
-import { createInputFiles } from 'typescript';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 
@@ -20,8 +17,7 @@ const DatatableFooter = (props: {
   handleSecondBtn?: Function;
 }) => {
   const { rowData, handleSecondBtn = () => {} } = props;
-  const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
-  const dateNow = moment().format('YYYY_MM_DD_HHmm');
+  const dateNow = moment().format('YYYYMMDDKKmm');
   const excelFileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const excelFileExtension = '.xlsx';

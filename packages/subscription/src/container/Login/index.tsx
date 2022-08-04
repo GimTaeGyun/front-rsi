@@ -65,13 +65,12 @@ const AdminLogin = () => {
   }, [cookies.rememberId]);
 
   useEffect(() => {
-    if (
-      localStorage.getItem('access-token') == undefined ||
-      localStorage.getItem('refresh-token') == undefined
-    ) {
-      localStorage.clear();
-    }
-  }, []);
+    isRemember
+      ? setCookie('rememberId', usrId, {
+          maxAge: 200000000,
+        })
+      : removeCookie('rememberId');
+  }, [isRemember]);
 
   const OnClose = () => {
     if (!isLogin) {
@@ -138,13 +137,8 @@ const AdminLogin = () => {
                     size="small"
                     sx={styles.checkbox}
                     checked={isRemember}
-                    onChange={e => {
-                      setIsRemember(e.target.checked);
-                      e.target.checked
-                        ? setCookie('rememberId', usrId, {
-                            maxAge: 200000000,
-                          })
-                        : removeCookie('rememberId');
+                    onClick={() => {
+                      setIsRemember(!isRemember);
                     }}
                   />
                 }
