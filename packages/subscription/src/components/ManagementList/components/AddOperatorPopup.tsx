@@ -13,6 +13,7 @@ import MuiSelect from '@mui/material/Select';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, { useEffect } from 'react';
+import * as Yup from 'yup';
 
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
@@ -84,6 +85,42 @@ const MenuItem = styled(MuiMenuItem)({
   },
 });
 
+const validationSchema = Yup.object().shape({
+  usrId: Yup.string().required().min(5).max(20),
+  usrNm: Yup.string().required(),
+  email: Yup.string().email().required(),
+  phone: Yup.string().max(13).required(),
+  usrPw: Yup.string()
+    .required()
+    .min(8)
+    .max(16)
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/),
+});
+
+const defaultFormData = {
+  usrId: '',
+  usrPw: '',
+  usrNm: '',
+  phone: '',
+  email: '',
+};
+
+const defaultFormValidation = {
+  usrId: false,
+  usrPw: false,
+  usrNm: false,
+  phone: false,
+  email: false,
+};
+
+const validationMsg = {
+  usrId: '5~20 자 입력해주세요',
+  usrPw: '대소문자, 숫자, 특수문자 포함 8~16 글자 입력해주세요',
+  usrNm: '필수입력',
+  phone: '필수입력',
+  email: '정확한 이메일을 입력해주세요',
+};
+
 const AddOperatorPopup = (props: {
   open: boolean;
   handleClose?: Function;
@@ -98,6 +135,15 @@ const AddOperatorPopup = (props: {
     handleMiddle = () => {},
     handleChange = () => {},
   } = props;
+
+  const [popupData, setPopupData] = React.useState(defaultFormData);
+  const [dataValid, setDataValid] = React.useState(defaultFormValidation);
+
+  // 열고 닫을 때마다 리셋
+  React.useEffect(() => {
+    setPopupData(defaultFormData);
+    setDataValid(defaultFormValidation);
+  }, [open]);
 
   return (
     <Box component="div" sx={{ width: '500px' }}>
@@ -140,7 +186,9 @@ const AddOperatorPopup = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>아이디</FormLabel>
+            <FormLabel>
+              아이디 <span style={styles.label_dot}>•</span>{' '}
+            </FormLabel>
             <Box
               sx={{
                 display: 'flex',
@@ -152,7 +200,13 @@ const AddOperatorPopup = (props: {
               <TextField
                 id="operator_id"
                 placeholder="아이디"
-                onChange={e => handleChange(e)}
+                error={dataValid.usrId}
+                label={dataValid.usrId ? validationMsg.usrId : ''}
+                onChange={e => {
+                  e.target.value = e.target.value.substring(0, 20);
+                  handleChange(e);
+                  setPopupData({ ...popupData, usrId: e.target.value });
+                }}
                 name="usrId"
                 sx={{ mr: '10px', flex: '1' }}
               />
@@ -175,15 +229,23 @@ const AddOperatorPopup = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>비밀번호</FormLabel>
+            <FormLabel>
+              비밀번호 <span style={styles.label_dot}>•</span>{' '}
+            </FormLabel>
             <TextField
               fullWidth
               id="password"
               type="password"
               placeholder="비밀번호"
+              error={dataValid.usrPw}
+              label={dataValid.usrPw ? validationMsg.usrPw : ''}
               sx={{ mt: '5px' }}
               name="usrPw"
-              onChange={e => handleChange(e)}
+              onChange={e => {
+                e.target.value = e.target.value.substring(0, 16);
+                handleChange(e);
+                setPopupData({ ...popupData, usrPw: e.target.value });
+              }}
             />
           </Box>
           <Box
@@ -191,14 +253,21 @@ const AddOperatorPopup = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>이름</FormLabel>
+            <FormLabel>
+              이름 <span style={styles.label_dot}>•</span>{' '}
+            </FormLabel>
             <TextField
               fullWidth
               id="name"
               placeholder="이름"
               sx={{ mt: '5px' }}
               name="usrNm"
-              onChange={e => handleChange(e)}
+              error={dataValid.usrNm}
+              label={dataValid.usrNm ? validationMsg.usrNm : ''}
+              onChange={e => {
+                handleChange(e);
+                setPopupData({ ...popupData, usrNm: e.target.value });
+              }}
             />
           </Box>
           <Box
@@ -206,14 +275,22 @@ const AddOperatorPopup = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>전화번호</FormLabel>
+            <FormLabel>
+              전화번호 <span style={styles.label_dot}>•</span>{' '}
+            </FormLabel>
             <TextField
               fullWidth
               id="phone"
               placeholder="전화번호"
               sx={{ mt: '5px' }}
               name="phone"
-              onChange={e => handleChange(e)}
+              error={dataValid.phone}
+              label={dataValid.phone ? validationMsg.phone : ''}
+              onChange={e => {
+                e.target.value = e.target.value.substring(0, 13);
+                handleChange(e);
+                setPopupData({ ...popupData, phone: e.target.value });
+              }}
             />
           </Box>
           <Box
@@ -221,14 +298,21 @@ const AddOperatorPopup = (props: {
               mb: '15px',
             }}
           >
-            <FormLabel>이메일</FormLabel>
+            <FormLabel>
+              이메일 <span style={styles.label_dot}>•</span>{' '}
+            </FormLabel>
             <TextField
               fullWidth
               id="email"
               placeholder="이메일 주소"
               sx={{ mt: '5px' }}
               name="email"
-              onChange={e => handleChange(e)}
+              error={dataValid.email}
+              label={dataValid.email ? validationMsg.email : ''}
+              onChange={e => {
+                handleChange(e);
+                setPopupData({ ...popupData, email: e.target.value });
+              }}
             />
           </Box>
           <Box
@@ -285,7 +369,32 @@ const AddOperatorPopup = (props: {
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button onClick={e => handleClose(e)}>취소</Button>
-          <Button variant="contained" onClick={e => handleOk(e)}>
+          <Button
+            variant="contained"
+            onClick={async e => {
+              if (await validationSchema.isValid(popupData)) {
+                handleOk(e);
+              } else {
+                setDataValid({
+                  usrId: !(await validationSchema.fields.usrId.isValid(
+                    popupData.usrId,
+                  )),
+                  usrPw: !(await validationSchema.fields.usrPw.isValid(
+                    popupData.usrPw,
+                  )),
+                  usrNm: !(await validationSchema.fields.usrNm.isValid(
+                    popupData.usrNm,
+                  )),
+                  email: !(await validationSchema.fields.email.isValid(
+                    popupData.email,
+                  )),
+                  phone: !(await validationSchema.fields.phone.isValid(
+                    popupData.phone,
+                  )),
+                });
+              }
+            }}
+          >
             저장
           </Button>
         </DialogActions>
@@ -295,3 +404,7 @@ const AddOperatorPopup = (props: {
 };
 
 export default AddOperatorPopup;
+
+const styles = {
+  label_dot: { color: '#284ad5', fontSize: '20px', lineHeight: 0 },
+};

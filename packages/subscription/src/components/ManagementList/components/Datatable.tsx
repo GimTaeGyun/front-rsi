@@ -113,9 +113,9 @@ const DataTable = (props: any) => {
           onCellClick={(params, event) => {
             cellClickEvent(params, event);
           }}
-          selectionModel={props.checkboxSelectedIds}
+          selectionModel={checkboxSelectedIds}
           onSelectionModelChange={newSelectionModel => {
-            props.setCheckboxSelectedIds(newSelectionModel);
+            setCheckboxSelectedIds(newSelectionModel);
           }}
         />
       </Card>

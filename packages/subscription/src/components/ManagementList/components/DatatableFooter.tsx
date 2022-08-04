@@ -64,15 +64,6 @@ const DatatableFooter = (props: {
       >
         <Box>
           <Button
-            variant="contained"
-            sx={{
-              ...buttonStyle,
-              mr: '8px',
-            }}
-          >
-            리스트 저장
-          </Button>
-          <Button
             variant="outlined"
             sx={buttonStyle}
             onClick={e => handleSecondBtn(e)}

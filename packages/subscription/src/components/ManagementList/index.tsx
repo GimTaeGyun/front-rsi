@@ -230,6 +230,9 @@ const ManagementList = () => {
         .catch(err => {
           console.log(err);
         });
+    } else if (params.field === '__check__') {
+      // 여기에 리스트 체크박스 API 구현
+      console.log(selectedTreeitem?.id);
     }
   };
 
@@ -325,7 +328,6 @@ const ManagementList = () => {
             };
           }),
         );
-        setCheckboxSelectedIds([]);
       })
       .catch(err => {
         console.log(err);
