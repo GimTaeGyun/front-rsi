@@ -111,8 +111,6 @@ const DataTable = (props: any) => {
           }}
           sortModel={[{ field: '__check__', sort: 'desc' }]}
           onCellClick={(params, event) => {
-            console.log(params);
-            console.log(event);
             cellClickEvent(params, event);
           }}
           selectionModel={props.checkboxSelectedIds}
