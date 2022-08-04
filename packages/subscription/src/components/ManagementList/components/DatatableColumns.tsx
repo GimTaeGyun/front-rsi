@@ -10,11 +10,6 @@ import React from 'react';
 
 export const columns: GridColDef[] = [
   {
-    ...GRID_CHECKBOX_SELECTION_COL_DEF,
-    sortable: true,
-    hideSortIcons: true,
-  },
-  {
     field: 'id',
     headerName: 'ID',
     width: 140,
