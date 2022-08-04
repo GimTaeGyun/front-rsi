@@ -22,9 +22,10 @@ const Subscription = () => {
   const navigate = useNavigate();
   React.useEffect(() => {
     const access = localStorage.getItem('refresh-token');
-    console.log(access);
     if (access === null) {
       navigate('/admin/login');
+    } else {
+      navigate('/admin/management-list');
     }
   }, []);
 
