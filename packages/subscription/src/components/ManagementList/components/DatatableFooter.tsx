@@ -1,11 +1,12 @@
+import { Alert, dialogActionsClasses } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import React from 'react';
 import AddOperatorPopup from './AddOperatorPopup';
 import * as XLSX from 'xlsx';
-import FileSaver from 'file-saver';
 import { createInputFiles } from 'typescript';
-import useFileDialog from 'use-file-dialog';
+import FileSaver from 'file-saver';
+import moment from 'moment';
 
 const buttonStyle = {
   p: '5px 10px',
@@ -17,11 +18,11 @@ const buttonStyle = {
 const DatatableFooter = (props: { rowData: any }) => {
   const { rowData } = props;
   const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
+  const dateNow = moment().format('YYYY_MM_DD_HHmm');
   const excelFileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const excelFileExtension = '.xlsx';
-  const excelFileName = '작성자';
-  const { files, openFileDialog } = useFileDialog();
+  const excelFileName = dateNow;
 
   const excelDownload = () => {
     const ws = XLSX.utils.aoa_to_sheet([
@@ -49,15 +50,8 @@ const DatatableFooter = (props: { rowData: any }) => {
     const wb: any = { Sheets: { data: ws }, SheetNames: ['data'] };
     const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const excelFile = new Blob([excelButter], { type: excelFileType });
-    files(excelFile);
-    FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
-  };
 
-  const onDownload = () => {
-    const link = document.createElement('a');
-    link.download = `download.txt`;
-    link.href = './download.txt';
-    link.click();
+    FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
   };
 
   return (
@@ -89,7 +83,7 @@ const DatatableFooter = (props: { rowData: any }) => {
         </Box>
         <Button
           variant="outlined"
-          onClick={openFileDialog}
+          onClick={excelDownload}
           startIcon={
             <Box
               component="img"
@@ -113,3 +107,6 @@ const DatatableFooter = (props: { rowData: any }) => {
 };
 
 export default DatatableFooter;
+function toStringByFormatting(dateNow: Date, arg1: string) {
+  throw new Error('Function not implemented.');
+}

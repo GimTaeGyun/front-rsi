@@ -41,7 +41,7 @@ const TreeView = () => {
         <CardContent sx={styles.cardContent_list}>
           <DndProvider backend={MultiBackend} options={getBackendOptions()}>
             <Tree
-              tree={items}
+              tree={[]}
               rootId={0}
               canDrag={() => false}
               canDrop={() => false}
