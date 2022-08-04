@@ -98,6 +98,7 @@ const DataTable = (props: any) => {
           pageSize={rowData.length}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
+          checkboxSelection
           sx={{
             borderRadius: 0,
             fontSize: '14px',
