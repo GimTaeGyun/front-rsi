@@ -109,15 +109,10 @@ const DataTable = (props: any) => {
           componentsProps={{
             footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
           }}
-          initialState={{
-            sorting: {
-              sortModel: [
-                { field: 'checked', sort: 'asc' },
-                { field: 'name', sort: 'asc' },
-              ],
-            },
-          }}
+          sortModel={[{ field: '__check__', sort: 'desc' }]}
           onCellClick={(params, event) => {
+            console.log(params);
+            console.log(event);
             cellClickEvent(params, event);
           }}
           selectionModel={props.checkboxSelectedIds}
