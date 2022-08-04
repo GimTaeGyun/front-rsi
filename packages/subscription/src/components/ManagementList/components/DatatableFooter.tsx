@@ -17,7 +17,7 @@ const DatatableFooter = (props: {
   handleSecondBtn?: Function;
 }) => {
   const { rowData, handleSecondBtn = () => {} } = props;
-  const dateNow = moment().format('YYYYMMDDKKmm');
+  const dateNow = moment().format('YYYYMMDDkkmm');
   const excelFileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const excelFileExtension = '.xlsx';

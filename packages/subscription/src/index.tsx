@@ -24,8 +24,6 @@ const Subscription = () => {
     const access = localStorage.getItem('refresh-token');
     if (access === null) {
       navigate('/admin/login');
-    } else {
-      navigate('/admin/management-list');
     }
   }, []);
 
