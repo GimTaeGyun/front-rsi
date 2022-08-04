@@ -1170,14 +1170,22 @@
 
 "@devexpress/dx-react-grid-export@^3.0.4":
   version "3.0.4"
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/@devexpress/dx-react-grid-export/-/dx-react-grid-export-3.0.4.tgz"
+=======
   resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-export/-/dx-react-grid-export-3.0.4.tgz#39a143e90c34709b22ab313b986dbfc120a4f29d"
+>>>>>>> 5e789c3600bfe40c4bacc6791137ca5bf73de090
   integrity sha512-VotyRGw86CiIB/OFk0jwtCVSVET6l5CfeTKglIkAfGYeH4nq8WAsqRBstioVvivt+3t0Fmxc6il+JD4SBobJog==
   dependencies:
     exceljs "^3.8.1"
 
 "@devexpress/dx-react-grid-material-ui@^3.0.4":
   version "3.0.4"
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-3.0.4.tgz"
+=======
   resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-3.0.4.tgz#bc8207179fd55195f137fcfb2dfdc0541ee331eb"
+>>>>>>> 5e789c3600bfe40c4bacc6791137ca5bf73de090
   integrity sha512-EMQcZOsY4rnJYFw8JXX8Nm/cxUfpAoMKxiixVyr7ShMNEzrB599TalyvnhYe+7i6sw/OpLaOdp51ZRxO+piBeQ==
   dependencies:
     clsx "^1.0.4"
@@ -3237,7 +3245,7 @@
 
 "@types/file-saver@^2.0.5":
   version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-2.0.5.tgz#9ee342a5d1314bb0928375424a2f162f97c310c7"
+  resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.5.tgz"
   integrity sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==
 
 "@types/format-util@^1.0.2":
@@ -4844,7 +4852,8 @@ coa@^2.0.2:
 
 codepage@~1.15.0:
   version "1.15.0"
-  resolved "https://registry.yarnpkg.com/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
+  resolv
+  https://registry.yarnpkg.com/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
   integrity sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==
 
 collect-v8-coverage@^1.0.0:
@@ -5231,7 +5240,11 @@ crc32-stream@^4.0.2:
 
 crc@^3.4.4:
   version "3.8.0"
+<<<<<<< HEAD
+  resolved "https://registry.npmjs.org/crc/-/crc-3.8.0.tgz"
+=======
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.8.0.tgz#ad60269c2c856f8c299e2c4cc0de4556914056c6"
+>>>>>>> 5e789c3600bfe40c4bacc6791137ca5bf73de090
   integrity sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==
   dependencies:
     buffer "^5.1.0"
@@ -12762,6 +12775,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-file-dialog@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/use-file-dialog/-/use-file-dialog-1.0.0.tgz"
+  integrity sha512-tPTEGAWXEnfpuAqVQSGpOfMAIFI9cD7QC7iNDN2ju2ntOGRYp562niTChyxjmBJucwwXKrZodiIUv1nbUgvUdQ==
 
 use-sync-external-store@1.1.0:
   version "1.1.0"

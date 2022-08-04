@@ -1,16 +1,12 @@
-import { Alert } from '@mui/material';
+import { Alert, dialogActionsClasses } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { GridToolbarContainer, useGridApiContext } from '@mui/x-data-grid';
 import React from 'react';
-import AlertPopup from '../../Common/AlertPopup';
 import AddOperatorPopup from './AddOperatorPopup';
-import { useDemoData } from '@mui/x-data-grid-generator';
-import { GridExcelExportOptions } from '@mui/x-data-grid-premium';
-import { GridExporter } from '@devexpress/dx-react-grid-export';
-import saveAs from 'file-saver';
 import * as XLSX from 'xlsx';
+import { createInputFiles } from 'typescript';
 import FileSaver from 'file-saver';
+import moment from 'moment';
 
 const buttonStyle = {
   p: '5px 10px',
@@ -25,10 +21,11 @@ const DatatableFooter = (props: {
 }) => {
   const { rowData, handleSecondBtn = () => {} } = props;
   const [openOperatorPopup, setOpenOperatorPopup] = React.useState(false);
+  const dateNow = moment().format('YYYY_MM_DD_HHmm');
   const excelFileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const excelFileExtension = '.xlsx';
-  const excelFileName = '작성자';
+  const excelFileName = dateNow;
 
   const excelDownload = () => {
     const ws = XLSX.utils.aoa_to_sheet([
@@ -56,6 +53,7 @@ const DatatableFooter = (props: {
     const wb: any = { Sheets: { data: ws }, SheetNames: ['data'] };
     const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const excelFile = new Blob([excelButter], { type: excelFileType });
+
     FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
   };
 
