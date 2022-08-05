@@ -107,7 +107,10 @@ const DataTable = (props: any) => {
             Footer: DatatableFooter,
           }}
           componentsProps={{
-            footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
+            footer: {
+              handleSecondBtn: footerSecondCallback,
+              rowDataId: treeItem,
+            },
           }}
           sortModel={[{ field: '__check__', sort: 'desc' }]}
           onCellClick={(params, event) => {
