@@ -4,7 +4,6 @@ import React from 'react';
 import * as XLSX from 'xlsx';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import Axios from '../../../utils/axios';
 
 const buttonStyle = {
   p: '5px 10px',
@@ -14,38 +13,17 @@ const buttonStyle = {
 };
 
 const DatatableFooter = (props: {
-  rowDataId: any;
+  rowData: any;
   handleSecondBtn?: Function;
 }) => {
-  const { rowDataId, handleSecondBtn = () => {} } = props;
+  const { rowData, handleSecondBtn = () => {} } = props;
   const dateNow = moment().format('YYYYMMDDkkmm');
-  const [rowData, setRowData] = React.useState([]);
   const excelFileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const excelFileExtension = '.xlsx';
   const excelFileName = dateNow;
-  React.useEffect(() => {
-    const api = async () => {
-      const param = {
-        usr_grp_id: rowDataId.data.uppUsrGrpId,
-      };
-      try {
-        const response = await Axios.post(
-          '/management/subscription/admin/usergroup/userlist/inquiry',
-          param,
-        );
-        setRowData(response.data.result);
-        console.log(response);
-      } catch (e) {
-        console.log('errror');
-      }
-    };
-    api();
-  }, [rowDataId]);
 
   const excelDownload = () => {
-    console.log(rowDataId.data.uppUsrGrpId);
-
     const ws = XLSX.utils.aoa_to_sheet([
       ['ID', '이름', '전화번호', '이메일', '상태', '추가 내용', '최종 수정일'],
     ]);
