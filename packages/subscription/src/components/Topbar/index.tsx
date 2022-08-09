@@ -1,3 +1,4 @@
+import { NoEncryption } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -57,11 +58,15 @@ const Topbar = (props: {
               mr: '10px',
               display: 'block',
               bgcolor: '#284AD5',
+              fontFamily: 'NotoSansKRMedium',
               fontSize: '13px',
               height: '25px',
               padding: '2px 5px',
+              boxShadow: 'none',
               '&:hover': {
                 bgcolor: '#284AD5',
+                pointerEvents: 'none',
+                boxShadow: 'none',
               },
             }}
             variant="contained"
@@ -75,6 +80,8 @@ const Topbar = (props: {
               color: '#AAAAAA',
               bgcolor: '#EEEEEE',
               borderColor: '#DEDEDE',
+              border: '1px solid #DEDEDE',
+              fontFamily: 'NotoSansKRMedium',
               fontSize: '13px',
               height: '25px',
               padding: '2px 5px',

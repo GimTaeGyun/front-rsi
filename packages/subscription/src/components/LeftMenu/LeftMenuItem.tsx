@@ -1,11 +1,11 @@
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Collapse from "@mui/material/Collapse";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import React from "react";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import React from 'react';
 
 const LeftMenuItem = (props: {
   defaultOpen: boolean;
@@ -20,23 +20,26 @@ const LeftMenuItem = (props: {
         onClick={() => setOpen(!open)}
         sx={{
           ...(open && {
-            bgcolor: "#3e5cd9"
+            bgcolor: '#3e5cd9',
           }),
-          color: "#fff",
-          fontFamily: "NotoSansKRMedium",
-          pl: "8px",
-          "&:hover": {
-              bgcolor: "#3e5cd9"
-          }
+          color: '#fff',
+          fontFamily: 'NotoSansKRMedium',
+
+          borderTop: '1px solid #ffffff1f',
+          borderBottom: '1px solid #ffffff1f',
+          pl: '8px',
+          '&:hover': {
+            bgcolor: '#3e5cd9',
+          },
         }}
         button
       >
         <ListItemIcon
           sx={{
-            color: "#FFFFFF99",
-            fontSize: "16px",
-            minWidth: "24px",
-            mr: "8px"
+            color: '#FFFFFF99',
+            fontSize: '16px',
+            minWidth: '24px',
+            mr: '8px',
           }}
         >
           {menuItem.icon}
@@ -45,29 +48,40 @@ const LeftMenuItem = (props: {
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
+        <List
+          component="div"
+          disablePadding
+          sx={{ marginTop: '10px', maginBottom: '30px' }}
+        >
           {menuItem.items.map((child, key) => (
             <ListItem
               key={key}
               sx={{
-                pl: "40px",
-                "&:hover": {
-                  bgcolor: "transparent"
-                }
+                height: '30px',
+                pl: '40px',
+                '&:hover': {
+                  bgcolor: 'transparent',
+                },
+                '&:click': {
+                  bgcolor: 'transparent',
+                },
               }}
               button
             >
               <ListItemText
                 primary={child.title}
                 sx={{
-                  "& .MuiListItemText-primary": {
-                    color: "#FFFFFF99",
-                    fontSize: "15px",
-                    "&:hover": {
-                      color: "#fff",
-                      fontFamily: "NotoSansKRMedium"
-                    }
-                  }
+                  height: '23px',
+                  lineHeight: 'normal',
+                  '& .MuiListItemText-primary': {
+                    color: '#FFFFFF99',
+                    fontFamily: 'NotoSansKRMedium',
+                    fontSize: '15px',
+                    height: '15px',
+                    '&:hover': {
+                      color: '#fff',
+                    },
+                  },
                 }}
               />
             </ListItem>
