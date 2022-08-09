@@ -6,8 +6,8 @@ Axios.defaults.baseURL = 'http://apidev.bflysoft.com:4000';
 Axios.defaults.proxy = { host: 'localhost', port: 4000 };
 
 Axios.interceptors.request.use(config => {
-  const header = localStorage.getItem('access-token') == null ||
-                localStorage.getItem('access-token') == "undefined" ? 
+  const header = (localStorage.getItem('access-token') == null ||
+                localStorage.getItem('access-token') == "undefined") ? 
                 '' : `bearer ${  localStorage.getItem('access-token')}`;
   
   if (header !== '') {(config.headers as any).Authorization = header;}
@@ -24,8 +24,7 @@ Axios.interceptors.response.use(
       localStorage.removeItem('access-token');
       try {
         if( localStorage.getItem('refresh-token') == null ||
-        localStorage.getItem('refresh-token') == "undefined" ||
-        error.config.url === '/management/keycloak/refreshtoken'){
+        localStorage.getItem('refresh-token') == "undefined"){
           localStorage.clear();
           location.href = '/admin/login';
           return;

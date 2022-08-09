@@ -19,14 +19,6 @@ export { default as ClientArea } from './components/ClientArea';
 export { default as AppFrame } from './container/AppFrame';
 
 const Subscription = () => {
-  const navigate = useNavigate();
-  React.useEffect(() => {
-    const access = localStorage.getItem('refresh-token');
-    if (access === null) {
-      navigate('/admin/login');
-    }
-  }, []);
-
   return (
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
