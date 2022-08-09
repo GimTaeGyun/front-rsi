@@ -90,9 +90,12 @@ const ManagementList = () => {
   };
 
   // 운영자 추가 수정 form 값 변경이벤트
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string,
+  ) => {
     const { name, value } = e.target;
-    setOperPopupData({ ...operPopupData, [name]: value });
+    setOperPopupData({ ...operPopupData, [name]: value, action: type });
     if (name == 'usrId') setIsCheckedId(false);
   };
 
@@ -387,8 +390,7 @@ const ManagementList = () => {
             }}
             handleOk={operPopupSaveBtn}
             handleChange={(e: any) => {
-              handleChange(e);
-              setOperPopupData({ ...operPopupData, action: 'add' });
+              handleChange(e, 'add');
             }}
           />
           {/* 그룹 추가 팝업 */}
