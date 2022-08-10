@@ -2,7 +2,7 @@ import { Box, Button, Modal, OutlinedInput } from '@mui/material';
 import * as React from 'react';
 import axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
-import { ITreeItem } from '../ManagementList/components/Sidebar';
+import { ITreeItem } from '../CommonMenu/components/Sidebar';
 import { AlertPopupData } from '../../data/atoms';
 import { useAtom } from 'jotai';
 

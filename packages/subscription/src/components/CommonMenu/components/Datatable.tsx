@@ -104,6 +104,9 @@ const DataTable = (props: any) => {
             borderRadius: 0,
             fontSize: '14px',
             fontFamily: 'NotoSansKRMedium',
+            '	.MuiDataGrid-selectedRowCount': {
+              bgcolor: '#284ad5',
+            },
           }}
           components={{
             Footer: DatatableFooter,

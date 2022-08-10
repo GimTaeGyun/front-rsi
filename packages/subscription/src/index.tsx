@@ -1,6 +1,3 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import { access } from 'fs';
-import { Provider } from 'jotai';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { useNavigate, Route, Routes } from 'react-router-dom';
@@ -12,7 +9,11 @@ import CustomersManagementList from './components/CustomersManagement';
 import PaymentList from './components/PaymentList';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
-import moment from 'moment';
+import CustomerIndex from './components/CCPMenu/customer/index';
+import CustomerDetail from './components/CCPMenu/customer/detail';
+import CustomerOrder from './components/CCPMenu/customer/order';
+import CustomerContact from './components/CCPMenu/customer/contact';
+import CustomerUser from './components/CCPMenu/customer/user';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
@@ -23,10 +24,14 @@ const Subscription = () => {
   return (
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
-      <Route path="/admin/management-list" element={<ManagementList />}></Route>
-      <Route path="/admin/add_groupalert" element={<GroupAlert />}></Route>
-      <Route path="/admin/add_groupalert2" element={<GroupAlert2 />}></Route>
-      <Route path="/admin/customers" element={<CustomersManagementList />}></Route>
+      <Route path="/admin/common/admin" element={<AdminMenu />}></Route>
+      <Route path="/admin/ccp/customer" element={<CustomerIndex />}>
+        <Route path="detail" element={<CustomerDetail />} />
+        <Route path="order" element={<CustomerOrder />} />
+        <Route path="user" element={<CustomerUser />} />
+        <Route path="contact" element={<CustomerContact />} />
+		<Route path="/admin/customers" element={<CustomersManagementList />}></Route>
+      </Route>
     </Routes>
   );
 };

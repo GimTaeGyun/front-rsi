@@ -1,7 +1,7 @@
-import { atom, useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { atom, useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-import axios from "../utils/axios";
+import axios from '../utils/axios';
 
 // Agreement
 const AgreementData = atomWithStorage();
@@ -9,35 +9,44 @@ const AgreementData = atomWithStorage();
 // SignUp
 const SignupData = atom();
 
-const SignupUser = async (data) => {
+const SignupUser = async data => {
   const response = await axios.post(
     '/management/subscription/customer/signup',
-    data
+    data,
   );
 
   return response.data;
 };
 
-const CheckLoginId = async (data) => {
+const CheckLoginId = async data => {
   const response = await axios.post(
     '/management/subscription/customer/check',
-    data
+    data,
   );
 
-  if (response.data.code !== "0000") {
+  if (response.data.code !== '0000') {
     return false;
   } else {
     return true;
-  } 
+  }
 };
 
 const GetSidebarData = atom();
-const AlertPopupData = atom({    
+
+export const DefaultAlertPopupData = {
   visible: false,
   message: '',
   leftCallback: () => {},
   rightCallback: () => {},
   leftText: '',
   rightText: '',
-});
-export { SignupData, AgreementData, SignupUser, CheckLoginId, GetSidebarData, AlertPopupData };
+};
+const AlertPopupData = atom(DefaultAlertPopupData);
+export {
+  SignupData,
+  AgreementData,
+  SignupUser,
+  CheckLoginId,
+  GetSidebarData,
+  AlertPopupData,
+};
