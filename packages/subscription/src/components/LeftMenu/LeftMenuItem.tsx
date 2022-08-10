@@ -1,5 +1,7 @@
+import { NoEncryption } from '@mui/icons-material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box } from '@mui/material';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -24,10 +26,10 @@ const LeftMenuItem = (props: {
           }),
           color: '#fff',
           fontFamily: 'NotoSansKRMedium',
-
           borderTop: '1px solid #ffffff1f',
           borderBottom: '1px solid #ffffff1f',
           pl: '8px',
+          height: '55px',
           '&:hover': {
             bgcolor: '#3e5cd9',
           },
@@ -51,7 +53,9 @@ const LeftMenuItem = (props: {
         <List
           component="div"
           disablePadding
-          sx={{ marginTop: '10px', maginBottom: '30px' }}
+          sx={{
+            bgcolor: '#2544C4',
+          }}
         >
           {menuItem.items.map((child, key) => (
             <ListItem
@@ -79,6 +83,9 @@ const LeftMenuItem = (props: {
                     fontSize: '15px',
                     height: '15px',
                     '&:hover': {
+                      color: '#fff',
+                    },
+                    '&:click': {
                       color: '#fff',
                     },
                   },
