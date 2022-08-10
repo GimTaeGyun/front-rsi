@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import UpdateOperatorPopupUser from './UdateOperatorPopup';
 import Axios from '../../utils/axios';
+import { borderBottom, height } from '@mui/system';
 
 const MenuItem = styled(MuiMenuItem)({
   minWidth: '180px',
@@ -111,6 +112,7 @@ const ProfileMenu = () => {
             horizontal: 'right',
           }}
           sx={{
+            minheight: '100px',
             mt: '50px',
             borderRadius: '6px',
             '& .MuiList-root': {
@@ -123,11 +125,19 @@ const ProfileMenu = () => {
         >
           <MenuItem
             onClick={onClickButton}
-            sx={{ fontFamily: 'NotoSansKRMedium' }}
+            sx={{
+              fontFamily: 'NotoSansKRMedium',
+              height: '49px',
+              borderBottom: '1px solid',
+              borderColor: '#0000001F',
+            }}
           >
             개인정보 설정
           </MenuItem>
-          <MenuItem onClick={logout} sx={{ fontFamily: 'NotoSansKRMedium' }}>
+          <MenuItem
+            onClick={logout}
+            sx={{ fontFamily: 'NotoSansKRMedium', height: '49px' }}
+          >
             로그아웃
           </MenuItem>
         </Menu>

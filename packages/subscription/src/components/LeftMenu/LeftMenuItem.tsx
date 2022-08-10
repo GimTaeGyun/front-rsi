@@ -85,9 +85,6 @@ const LeftMenuItem = (props: {
                     '&:hover': {
                       color: '#fff',
                     },
-                    '&:click': {
-                      color: '#fff',
-                    },
                   },
                 }}
               />

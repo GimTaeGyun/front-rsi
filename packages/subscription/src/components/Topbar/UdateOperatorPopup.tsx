@@ -23,7 +23,7 @@ import { Formik, useFormik } from 'formik';
 import Axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
 import * as Yup from 'yup';
-import { ErrorSharp } from '@mui/icons-material';
+import { BorderBottom, ErrorSharp } from '@mui/icons-material';
 
 const UpdateOperatorPopupUser = (props: {
   open: boolean;
@@ -133,18 +133,19 @@ const UpdateOperatorPopupUser = (props: {
         <DialogTitle sx={{ height: '56px', p: '16px' }}>
           <Box
             sx={{
-              display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ fontFamily: 'NotoSansKRMedium' }}>
-              내 정보
+            <Typography sx={{ fontFamily: 'NotoSansKRMedium', float: 'left' }}>
+              개인정보 설정
             </Typography>
             <Button
               sx={{
                 bgcolor: 'transparent',
                 color: '#000000DE',
+                float: 'right',
+                padding: '0 0 0 0',
                 '&:focus, &:hover': { bgcolor: 'transparent' },
               }}
               onClick={handleClose}
@@ -167,28 +168,49 @@ const UpdateOperatorPopupUser = (props: {
                 mb: '15px',
               }}
             >
-              <FormLabel>
+              <FormLabel sx={{ fontFamily: 'NotoSansKRMedium' }}>
                 아이디{' '}
-                <span className="label-dot" style={{ color: '#284AD5' }}>
-                  {' '}
+                <span
+                  className="label-dot"
+                  style={{
+                    color: '#284AD5',
+                    fontFamily: 'NotoSansKRMedium',
+                    minHeight: '3px',
+                    position: 'absolute',
+                    top: '-4px',
+                    right: '-10px',
+                  }}
+                >
                   •
-                </span>{' '}
+                </span>
               </FormLabel>
               <TextField
                 disabled
                 fullWidth
                 id="operator_id"
                 defaultValue={data.usrId}
-                sx={{ mt: '5px' }}
+                sx={{
+                  mt: '5px',
+                  height: '42px',
+                  fontFamily: 'NotoSansKRMedium',
+                }}
               />
             </Box>
             {/* change user password form */}
             <FormLabel>
               비밀번호{' '}
-              <span className="label-dot" style={{ color: '#284AD5' }}>
-                {' '}
+              <span
+                className="label-dot"
+                style={{
+                  color: '#284AD5',
+                  fontFamily: 'NotoSansKRMedium',
+                  position: 'absolute',
+                  top: '-4px',
+                  right: '-10px',
+                }}
+              >
                 •
-              </span>{' '}
+              </span>
             </FormLabel>
             <Box
               sx={{
@@ -207,16 +229,24 @@ const UpdateOperatorPopupUser = (props: {
                   setPwd(e.target.value);
                   console.log(pwd);
                 }}
-                sx={{ mr: '10px', flex: '1' }}
+                sx={{
+                  mr: '10px',
+                  flex: '1',
+                  width: '348px',
+                  height: '42px',
+                  fontFamily: 'NotoSansKRMedium',
+                }}
               ></TextField>
               <Button
                 variant="contained"
                 onClick={onClickUpdatePassword}
                 sx={{
                   height: '42px',
-                  minWidth: '50px',
+                  minWidth: '82px',
                   fontSize: '14px',
                   p: '11px 16px',
+                  bgcolor: '#284AD5',
+                  fontFamily: 'NotoSansKRMedium',
                 }}
               >
                 변경
@@ -225,15 +255,23 @@ const UpdateOperatorPopupUser = (props: {
             </Box>
             <Box
               sx={{
-                mb: '15px',
+                mt: '15px',
               }}
             >
-              <FormLabel>
+              <FormLabel sx={{ fontFamily: 'NotoSansKRMedium' }}>
                 이름{' '}
-                <span className="label-dot" style={{ color: '#284AD5' }}>
-                  {' '}
+                <span
+                  className="label-dot"
+                  style={{
+                    color: '#284AD5',
+                    fontFamily: 'NotoSansKRMedium',
+                    position: 'absolute',
+                    top: '-4px',
+                    right: '-10px',
+                  }}
+                >
                   •
-                </span>{' '}
+                </span>
               </FormLabel>
               <TextField
                 fullWidth
@@ -243,7 +281,11 @@ const UpdateOperatorPopupUser = (props: {
                 defaultValue={data.usrNm}
                 value={values?.custNm}
                 onChange={handleChange}
-                sx={{ mt: '5px' }}
+                sx={{
+                  mt: '5px',
+                  height: '42px',
+                  fontFamily: 'NotoSansKRMedium',
+                }}
                 onInput={e => {
                   if ((e.target as HTMLInputElement).value.length == 0) return;
                   (e.target as HTMLInputElement).value = (
@@ -254,15 +296,23 @@ const UpdateOperatorPopupUser = (props: {
             </Box>
             <Box
               sx={{
-                mb: '15px',
+                mt: '15px',
               }}
             >
-              <FormLabel>
-                핸드폰{' '}
-                <span className="label-dot" style={{ color: '#284AD5' }}>
-                  {' '}
+              <FormLabel sx={{ fontFamily: 'NotoSansKRMedium' }}>
+                전화번호{' '}
+                <span
+                  className="label-dot"
+                  style={{
+                    color: '#284AD5',
+                    fontFamily: 'NotoSansKRMedium',
+                    position: 'absolute',
+                    top: '-4px',
+                    right: '-10px',
+                  }}
+                >
                   •
-                </span>{' '}
+                </span>
               </FormLabel>
               <TextField
                 fullWidth
@@ -272,7 +322,11 @@ const UpdateOperatorPopupUser = (props: {
                 name="phone"
                 error={errors.phone !== undefined}
                 onChange={handleChange}
-                sx={{ mt: '5px' }}
+                sx={{
+                  mt: '5px',
+                  height: '42px',
+                  fontFamily: 'NotoSansKRMedium',
+                }}
                 onInput={e => {
                   if ((e.target as HTMLInputElement).value.length == 0) return;
                   (e.target as HTMLInputElement).value = (
@@ -283,15 +337,27 @@ const UpdateOperatorPopupUser = (props: {
             </Box>
             <Box
               sx={{
-                mb: '15px',
+                mt: '15px',
               }}
             >
-              <FormLabel>
+              <FormLabel
+                sx={{
+                  fontFamily: 'NotoSansKRMedium',
+                }}
+              >
                 이메일{' '}
-                <span className="label-dot" style={{ color: '#284AD5' }}>
-                  {' '}
+                <span
+                  className="label-dot"
+                  style={{
+                    color: '#284AD5',
+                    fontFamily: 'NotoSansKRMedium',
+                    position: 'absolute',
+                    top: '-4px',
+                    right: '-10px',
+                  }}
+                >
                   •
-                </span>{' '}
+                </span>
               </FormLabel>
               <TextField
                 fullWidth
@@ -301,7 +367,11 @@ const UpdateOperatorPopupUser = (props: {
                 name="email"
                 error={errors.email !== undefined}
                 onChange={handleChange}
-                sx={{ mt: '5px' }}
+                sx={{
+                  mt: '5px',
+                  height: '42px',
+                  fontFamily: 'NotoSansKRMedium',
+                }}
                 onInput={e => {
                   if ((e.target as HTMLInputElement).value.length == 0) return;
                   (e.target as HTMLInputElement).value = (
@@ -319,12 +389,26 @@ const UpdateOperatorPopupUser = (props: {
             </Box>
             <Box
               sx={{
-                mb: '15px',
+                mt: '15px',
               }}
             >
               <FormControl fullWidth>
-                <FormLabel>유형</FormLabel>
-                <Select disabled defaultValue={data.usrTp}>
+                <FormLabel sx={{ fontFamily: 'NotoSansKRMedium' }}>
+                  유형
+                </FormLabel>
+                <Select
+                  disabled
+                  defaultValue={data.usrTp}
+                  sx={{
+                    height: '42px',
+                    fontFamily: 'NotoSansKRMedium',
+                    fontSize: '14px',
+                    color: '#666666',
+                    borderStyle: 'dotted',
+                    bgcolor: '#F9F9F9',
+                    borderColor: '#0000003B',
+                  }}
+                >
                   <option value="DEFAULT">기본</option>
                   <option value="SYSUSER">시스템사용자</option>
                 </Select>
@@ -332,12 +416,27 @@ const UpdateOperatorPopupUser = (props: {
             </Box>
             <Box
               sx={{
+                mt: '15px',
                 mb: '15px',
               }}
             >
               <FormControl fullWidth>
-                <FormLabel>상태</FormLabel>
-                <Select disabled defaultValue={data.status}>
+                <FormLabel sx={{ fontFamily: 'NotoSansKRMedium' }}>
+                  상태
+                </FormLabel>
+                <Select
+                  disabled
+                  defaultValue={data.status}
+                  sx={{
+                    height: '42px',
+                    fontFamily: 'NotoSansKRMedium',
+                    fontSize: '14px',
+                    color: '#666666',
+                    borderStyle: 'dotted',
+                    bgcolor: '#F9F9F9',
+                    borderColor: '#0000003B',
+                  }}
+                >
                   <option value={1}>사용</option>
                 </Select>
               </FormControl>
@@ -345,8 +444,17 @@ const UpdateOperatorPopupUser = (props: {
           </DialogContent>
           <Divider />
           <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-            <Button onClick={handleClose}>취소</Button>
-            <Button variant="contained" type="submit">
+            <Button
+              onClick={handleClose}
+              sx={{ fontFamily: 'NotoSansKRMedium', color: '#284AD5' }}
+            >
+              취소
+            </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ fontFamily: 'NotoSansKRMedium', bgcolor: '#284AD5' }}
+            >
               저장
             </Button>
           </DialogActions>
@@ -417,19 +525,19 @@ const Select = styled(MuiSelect)({
   '&.MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: '#0000001F',
-      borderWidth: '1px',
+      borderWidth: '0 0 0 0',
     },
     '&:hover fieldset': {
       borderColor: '#0000001F',
-      borderWidth: '1px',
+      borderWidth: '0 0 0 0',
     },
     '&.Mui-focused fieldset': {
       borderColor: '#0000001F',
-      borderWidth: '1px',
+      borderWidth: '0 0 0 0',
     },
     '&.Mui-error fieldset': {
       borderColor: '#E50012',
-      borderWidth: '1px',
+      borderWidth: '0 0 0 0',
     },
   },
 });
