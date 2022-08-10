@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { BorderBottom, ErrorSharp } from '@mui/icons-material';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import {
   FormControl,
@@ -18,12 +19,12 @@ import MuiMenuItem from '@mui/material/MenuItem';
 import MuiSelect from '@mui/material/Select';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { Formik, useFormik } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
+
 import Axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
-import * as Yup from 'yup';
-import { BorderBottom, ErrorSharp } from '@mui/icons-material';
 
 const UpdateOperatorPopupUser = (props: {
   open: boolean;

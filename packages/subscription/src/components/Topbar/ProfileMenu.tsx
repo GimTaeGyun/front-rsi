@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MuiMenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import { borderBottom, height } from '@mui/system';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import UpdateOperatorPopupUser from './UdateOperatorPopup';
+
 import Axios from '../../utils/axios';
-import { borderBottom, height } from '@mui/system';
+import UpdateOperatorPopupUser from './UdateOperatorPopup';
 
 const MenuItem = styled(MuiMenuItem)({
   minWidth: '180px',

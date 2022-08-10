@@ -3,8 +3,6 @@ import {
   MultiBackend,
   Tree,
 } from '@minoru/react-dnd-treeview';
-import { GetSidebarData } from '../../../data/atoms';
-import { useAtom } from 'jotai';
 import { ArrowForwardIos } from '@mui/icons-material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -18,9 +16,11 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useAtom } from 'jotai';
 import React from 'react';
 import { DndProvider } from 'react-dnd';
 
+import { GetSidebarData } from '../../../data/atoms';
 import Axios from '../../../utils/axios';
 import ListItems from './ListItems';
 
@@ -116,7 +116,7 @@ const Sidebar = (props: {
       }
 
       if (selectedTreeitem == null) {
-        let cnt = getCnt();
+        const cnt = getCnt();
         handleSelectedTreeitem({
           id: 0,
           text: '전체',

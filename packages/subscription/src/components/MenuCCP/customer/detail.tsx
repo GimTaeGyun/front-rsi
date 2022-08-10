@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
+import { useAtom } from 'jotai';
 import React from 'react';
 
 import AppFrame from '../../../container/AppFrame';
-import axios from '../../../utils/axios';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import { useAtom } from 'jotai';
+import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 const Admin = () => {
   // alertPopup object

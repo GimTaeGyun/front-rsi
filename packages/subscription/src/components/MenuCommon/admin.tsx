@@ -1,18 +1,18 @@
+import { ItemTypes } from '@minoru/react-dnd-treeview';
 import { Box } from '@mui/material';
 import { atom, useAtom } from 'jotai';
 import React from 'react';
 
 import AppFrame from '../../container/AppFrame';
+import { AlertPopupData,GetSidebarData } from '../../data/atoms';
+import axios from '../../utils/axios';
+import AddGroup from '../AddGroup';
+import AlertPopup from '../Common/AlertPopup';
+import AddOperatorPopup from './components/AddOperatorPopup'; // 운영자수정 팝업
 import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
-import axios from '../../utils/axios';
-import AlertPopup from '../Common/AlertPopup';
-import AddGroup from '../AddGroup';
-import { GetSidebarData, AlertPopupData } from '../../data/atoms';
-import { ItemTypes } from '@minoru/react-dnd-treeview';
-import AddOperatorPopup from './components/AddOperatorPopup'; // 운영자수정 팝업
 const defaultOperPopupData = {
   action: 'add',
   email: '',

@@ -1,10 +1,10 @@
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {
+  GRID_CHECKBOX_SELECTION_COL_DEF,
   GridColDef,
   GridColumnHeaderParams,
   GridRenderCellParams,
-  GRID_CHECKBOX_SELECTION_COL_DEF,
 } from '@mui/x-data-grid';
 import React from 'react';
 

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+
+import CustomerContact from './components/MenuCCP/customer/contact';
+import CustomerDetail from './components/MenuCCP/customer/detail';
+import CustomerIndex from './components/MenuCCP/customer/index';
+import CustomerOrder from './components/MenuCCP/customer/order';
+import CustomerUser from './components/MenuCCP/customer/user';
 import AdminMenu from './components/MenuCommon/admin';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
-import CustomerIndex from './components/MenuCCP/customer/index';
-import CustomerDetail from './components/MenuCCP/customer/detail';
-import CustomerOrder from './components/MenuCCP/customer/order';
-import CustomerContact from './components/MenuCCP/customer/contact';
-import CustomerUser from './components/MenuCCP/customer/user';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
