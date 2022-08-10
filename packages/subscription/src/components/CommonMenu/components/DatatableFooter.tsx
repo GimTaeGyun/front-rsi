@@ -10,6 +10,9 @@ const buttonStyle = {
   height: '30px',
   fontSize: '13px',
   lineHeight: 'normal',
+  fontFamily: 'NotoSansKRMedium',
+  color: '#284AD5',
+  borderColor: '#284AD5',
 };
 
 const DatatableFooter = (props: {

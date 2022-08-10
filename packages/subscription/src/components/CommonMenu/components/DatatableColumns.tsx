@@ -14,8 +14,11 @@ export const columns: GridColDef[] = [
     headerName: 'ID',
     width: 140,
     headerAlign: 'center',
+    sortable: false,
+    disableColumnMenu: true,
+
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -25,8 +28,9 @@ export const columns: GridColDef[] = [
     headerName: '이름',
     width: 87,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -37,8 +41,11 @@ export const columns: GridColDef[] = [
     width: 143,
     headerAlign: 'center',
     align: 'center',
+
+    hideSortIcons: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -48,10 +55,10 @@ export const columns: GridColDef[] = [
     headerName: '이메일',
     width: 200,
     headerAlign: 'center',
-    align: 'center',
     sortable: false,
+    hideSortIcons: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -63,14 +70,22 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
     renderCell: (params: GridRenderCellParams<string>) => (
-      <Typography color="#284AD5">
-        {(params.value as any) == 1 ? '사용' : '미사용'}
+      <Typography
+        fontFamily="NotoSansKRMedium"
+        fontSize="14px"
+        sx={{
+          ...((params.value as any) == 1 && { color: '#284AD5' }),
+          ...((params.value as any) != 1 && { color: '#999999' }),
+        }}
+      >
+        {(params.value as any) == 1 ? '사용' : '종료'}
       </Typography>
     ),
   },
@@ -80,8 +95,9 @@ export const columns: GridColDef[] = [
     width: 140,
     headerAlign: 'center',
     sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -93,8 +109,9 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -106,15 +123,28 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium">
+      <Typography
+        fontFamily="NotoSansKRMEdium"
+        fontSize="14px"
+        borderRight="none"
+      >
         {params.colDef.headerName}
       </Typography>
     ),
     renderCell: () => (
       <Button
         variant="outlined"
-        sx={{ p: '5px 10px', minWidth: '44px', height: '30px' }}
+        sx={{
+          p: '5px 10px',
+          Width: '44px',
+          height: '30px',
+          fontSize: '13px',
+          fontFamily: 'NotoSansKRMedium',
+          borderColor: '#284AD5',
+          color: '#284AD5',
+        }}
       >
         수정
       </Button>
