@@ -12,7 +12,13 @@ const Admin = () => {
 
   return (
     <>
-      <AppFrame title="고객 관리">
+      <AppFrame
+        title="고객 관리"
+        breadcrumbs={[
+          { name: '고객/계약/결제 관리', link: '/admin/ccp/customer' },
+          { name: '고객 관리', link: '/admin/ccp/customer' },
+        ]}
+      >
         {alertPopup.visible ? (
           <AlertPopup
             message={alertPopup.message}

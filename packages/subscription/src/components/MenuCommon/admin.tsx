@@ -339,7 +339,13 @@ const Admin = () => {
 
   return (
     <>
-      <AppFrame title="운영자 관리">
+      <AppFrame
+        title="운영자 관리"
+        breadcrumbs={[
+          { name: '공통관리', link: '/admin/common/admin' },
+          { name: '운영자 관리', link: '/admin/common/admin' },
+        ]}
+      >
         <>
           {alertPopup.visible ? (
             <AlertPopup

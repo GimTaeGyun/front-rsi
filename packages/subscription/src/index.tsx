@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AdminMenu from './components/CommonMenu/admin';
+import AdminMenu from './components/MenuCommon/admin';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
-import CustomerIndex from './components/CCPMenu/customer/index';
-import CustomerDetail from './components/CCPMenu/customer/detail';
-import CustomerOrder from './components/CCPMenu/customer/order';
-import CustomerContact from './components/CCPMenu/customer/contact';
-import CustomerUser from './components/CCPMenu/customer/user';
+import CustomerIndex from './components/MenuCCP/customer/index';
+import CustomerDetail from './components/MenuCCP/customer/detail';
+import CustomerOrder from './components/MenuCCP/customer/order';
+import CustomerContact from './components/MenuCCP/customer/contact';
+import CustomerUser from './components/MenuCCP/customer/user';
 
 export { default as Header } from './Header';
 export { default as Login } from './container/Login';
@@ -19,11 +19,12 @@ const Subscription = () => {
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
       <Route path="/admin/common/admin" element={<AdminMenu />}></Route>
-      <Route path="/admin/ccp/customer" element={<CustomerIndex />}>
+      <Route path="/admin/ccp/customer">
         <Route path="detail" element={<CustomerDetail />} />
         <Route path="order" element={<CustomerOrder />} />
         <Route path="user" element={<CustomerUser />} />
         <Route path="contact" element={<CustomerContact />} />
+        <Route path="" element={<CustomerIndex />} />
       </Route>
     </Routes>
   );
