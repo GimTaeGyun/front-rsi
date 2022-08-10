@@ -337,9 +337,13 @@ const ManagementList = () => {
       });
   };
 
+  const breadcrumb_links = [
+    {text:"공통 관리",href:"/"},
+    {text:"운영자 관리",href:null},
+  ]
   return (
     <>
-      <AppFrame title="운영자 관리">
+      <AppFrame title="운영자 관리" links={breadcrumb_links}>
         <>
           {alertPopup.visible ? (
             <AlertPopup

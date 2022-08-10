@@ -32,23 +32,27 @@ const ClientArea = (props: {
   open: boolean;
   title: string;
   children: JSX.Element;
+  links: Array<Object>
 }): ReactElement => {
   const { drawerWidth, open, title, children } = props;
 
-  return (
-    <Main open={open} drawerWidth={drawerWidth}>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link
+  const LinksDiv = props.links.map( (item:any)=>{
+    if(item.href!=null && item.href!=''){
+      return(
+      <Link
           underline="hover"
           sx={{
             color: '#00000099',
             fontSize: '14px',
             fontFamily: 'NotoSansKRMedium',
           }}
-          href="/"
+          href={item.href}
         >
-          공통 관리
+          {item.text}
         </Link>
+      );
+    }else{
+      return (
         <Typography
           sx={{
             color: '#000000DE',
@@ -56,18 +60,26 @@ const ClientArea = (props: {
             fontFamily: 'NotoSansKRMedium',
           }}
         >
-          운영자 관리
+          {item.text}
         </Typography>
+      );
+    }
+  });
+
+  return (
+    <Main open={open} drawerWidth={drawerWidth}>
+      <Breadcrumbs aria-label="breadcrumb">
+        {LinksDiv}
       </Breadcrumbs>
       <Typography
-        sx={{
-          color: '#000000',
-          fontSize: '35px',
-          fontFamily: 'NotoSansKRMedium',
-          mt: '15px',
-          mb: '30px',
-        }}
-      >
+          sx={{
+            color: '#000000',
+            fontSize: '35px',
+            fontFamily: 'NotoSansKRMedium',
+            mt: '15px',
+            mb: '30px',
+          }}
+        >
         {title}
       </Typography>
       {children}

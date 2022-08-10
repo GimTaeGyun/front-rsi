@@ -8,6 +8,7 @@ import AddGroup from './components/AddGroup';
 import GroupAlert from './components/AddGroup/GroupAlert';
 import GroupAlert2 from './components/AddGroup/GroupAlert2';
 import ManagementList from './components/ManagementList';
+import CustomersManagementList from './components/CustomersManagement';
 import PaymentList from './components/PaymentList';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
@@ -25,7 +26,7 @@ const Subscription = () => {
       <Route path="/admin/management-list" element={<ManagementList />}></Route>
       <Route path="/admin/add_groupalert" element={<GroupAlert />}></Route>
       <Route path="/admin/add_groupalert2" element={<GroupAlert2 />}></Route>
-      <Route path="/admin/payments" element={<PaymentList />}></Route>
+      <Route path="/admin/customers" element={<CustomersManagementList />}></Route>
     </Routes>
   );
 };

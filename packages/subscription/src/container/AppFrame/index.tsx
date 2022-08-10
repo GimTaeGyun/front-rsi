@@ -12,6 +12,7 @@ const drawerWidth = 350;
 const AppFrame = (props: {
   children?: JSX.Element;
   title?: string;
+  links: Array<Object>
 }): ReactElement => {
   const { children = <Box />, title = '' } = props;
 
@@ -24,7 +25,7 @@ const AppFrame = (props: {
     <Box sx={{ display: 'flex' }}>
       <Topbar handleToggle={handleToggle} />
       <LeftMenu open={open} drawerWidth={drawerWidth} />
-      <ClientArea open={open} drawerWidth={drawerWidth} title={title}>
+      <ClientArea open={open} drawerWidth={drawerWidth} title={title} links={props.links}>
         {children}
       </ClientArea>
     </Box>

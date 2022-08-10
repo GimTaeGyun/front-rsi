@@ -7,7 +7,7 @@ const App = (): ReactElement => {
   return (
     <div className="App">
       <TopMenu />
-      <AppFrame />
+      <AppFrame links={[]} />
     </div>
   );
 };
