@@ -350,7 +350,12 @@ const ManagementList = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
-          <Box display="flex">
+          <Box
+            display="flex"
+            sx={{
+              fontFamily: 'NotoSansKRMedium',
+            }}
+          >
             <Sidebar
               onSelect={item => setSelectedTreeitem(item)}
               treeMoreIconCallback={treeMoreIconCallback}
