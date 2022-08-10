@@ -148,7 +148,6 @@ const AdminLogin = () => {
             </FormGroup>
           </CardContent>
           <CardActions sx={styles.loginbutton_outer}>
-            <OnClose />
             <Button sx={styles.loginbutton} onClick={onClick}>
               로그인
             </Button>
@@ -164,10 +163,10 @@ const AdminLogin = () => {
 
 const styles = {
   alert_error: {
-    mb: '12px',
     backgroundColor: 'white',
+    fontFamily: 'Noto Sans KR',
     width: '100%',
-    fontSize: '15p',
+    fontSize: '15px',
     color: '#F44336',
     border: 'none',
     borderRadius: '0',
@@ -283,7 +282,7 @@ const styles = {
     width: '100%',
     height: '100%',
     backgroundColor: '#F2F3F6',
-    backgroundImage: 'url(/assets/images/admin_bkg.png)',
+    backgroundImage: '../../../public/assets/images/logo_bfly_adminlogin.jpg',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100%',
     backgroundPositionX: 'center',

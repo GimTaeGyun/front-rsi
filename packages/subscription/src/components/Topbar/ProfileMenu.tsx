@@ -92,7 +92,7 @@ const ProfileMenu = () => {
                 .default
             }
           />
-          <Typography ml="5px" fontSize="14px">
+          <Typography ml="5px" fontSize="14px" fontFamily="NotoSansKRMedium">
             admin
           </Typography>
         </Box>
@@ -121,8 +121,15 @@ const ProfileMenu = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={onClickButton}>개인정보 설정</MenuItem>
-          <MenuItem onClick={logout}>로그아웃</MenuItem>
+          <MenuItem
+            onClick={onClickButton}
+            sx={{ fontFamily: 'NotoSansKRMedium' }}
+          >
+            개인정보 설정
+          </MenuItem>
+          <MenuItem onClick={logout} sx={{ fontFamily: 'NotoSansKRMedium' }}>
+            로그아웃
+          </MenuItem>
         </Menu>
       </Box>
     </>
