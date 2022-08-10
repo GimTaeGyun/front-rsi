@@ -183,7 +183,10 @@ const Sidebar = (props: {
                           <ArrowForwardIos sx={{ fontSize: '14px' }} />
                         ) : (
                           <ArrowForwardIos
-                            sx={{ fontSize: '14px', color: '#00000042' }}
+                            sx={{
+                              fontSize: '14px',
+                              color: '#00000042',
+                            }}
                           />
                         )}
                         <Typography component="span">{`${node.text} (${node?.data.cnt})`}</Typography>
