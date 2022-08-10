@@ -180,16 +180,28 @@ const Sidebar = (props: {
                         {isOpen && hasChild ? (
                           <ExpandMore />
                         ) : hasChild ? (
-                          <ArrowForwardIos sx={{ fontSize: '14px' }} />
+                          <ArrowForwardIos
+                            sx={{
+                              fontSize: '14px',
+                              fontFamily: 'NotoSansKRMedium',
+                            }}
+                          />
                         ) : (
                           <ArrowForwardIos
                             sx={{
                               fontSize: '14px',
                               color: '#00000042',
+
+                              fontFamily: 'NotoSansKRMedium',
                             }}
                           />
                         )}
-                        <Typography component="span">{`${node.text} (${node?.data.cnt})`}</Typography>
+                        <Typography
+                          component="span"
+                          sx={{
+                            fontFamily: 'NotoSansKRMedium',
+                          }}
+                        >{`${node.text} (${node?.data.cnt})`}</Typography>
                       </Box>
                       <Box>
                         <IconButton

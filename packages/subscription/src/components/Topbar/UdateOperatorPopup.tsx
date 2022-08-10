@@ -190,7 +190,7 @@ const UpdateOperatorPopupUser = (props: {
                 id="operator_id"
                 defaultValue={data.usrId}
                 sx={{
-                  mt: '5px',
+                  mt: '10px',
                   height: '42px',
                   fontFamily: 'NotoSansKRMedium',
                 }}
@@ -230,6 +230,7 @@ const UpdateOperatorPopupUser = (props: {
                   console.log(pwd);
                 }}
                 sx={{
+                  mt: '10px',
                   mr: '10px',
                   flex: '1',
                   width: '348px',
@@ -241,6 +242,7 @@ const UpdateOperatorPopupUser = (props: {
                 variant="contained"
                 onClick={onClickUpdatePassword}
                 sx={{
+                  mt: '10px',
                   height: '42px',
                   minWidth: '82px',
                   fontSize: '14px',
@@ -282,7 +284,7 @@ const UpdateOperatorPopupUser = (props: {
                 value={values?.custNm}
                 onChange={handleChange}
                 sx={{
-                  mt: '5px',
+                  mt: '10px',
                   height: '42px',
                   fontFamily: 'NotoSansKRMedium',
                 }}
@@ -323,7 +325,7 @@ const UpdateOperatorPopupUser = (props: {
                 error={errors.phone !== undefined}
                 onChange={handleChange}
                 sx={{
-                  mt: '5px',
+                  mt: '10px',
                   height: '42px',
                   fontFamily: 'NotoSansKRMedium',
                 }}
@@ -368,7 +370,7 @@ const UpdateOperatorPopupUser = (props: {
                 error={errors.email !== undefined}
                 onChange={handleChange}
                 sx={{
-                  mt: '5px',
+                  mt: '10px',
                   height: '42px',
                   fontFamily: 'NotoSansKRMedium',
                 }}
@@ -521,7 +523,7 @@ const TextField = styled(MuiTextField)({
 
 const Select = styled(MuiSelect)({
   height: '42px',
-  marginTop: '5px',
+  marginTop: '10px',
   '&.MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: '#0000001F',
