@@ -44,7 +44,7 @@ const AdminLogin = () => {
         Axios.defaults.headers.common['Authorization'] =
           'bearer ' + fetch.data.result.accessToken;
         setIsLogin(true);
-        navigate('/admin/management-list');
+        navigate('/admin/common/admin');
       } else {
         console.log(usrId);
         console.log(usrPwd);

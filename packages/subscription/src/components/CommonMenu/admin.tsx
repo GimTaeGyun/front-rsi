@@ -8,7 +8,7 @@ import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import axios from '../../utils/axios';
-import AlertPopup from '../../components/Common/AlertPopup';
+import AlertPopup from '../Common/AlertPopup';
 import AddGroup from '../AddGroup';
 import { GetSidebarData, AlertPopupData } from '../../data/atoms';
 import { ItemTypes } from '@minoru/react-dnd-treeview';
@@ -24,7 +24,7 @@ const defaultOperPopupData = {
   usrTp: 'DEFAULT',
   description: '',
 };
-const ManagementList = () => {
+const Admin = () => {
   const [addGroupTitle, setAddGroupTitle] = React.useState('');
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
   const [open, setOpen] = React.useState(false);
@@ -420,4 +420,4 @@ const ManagementList = () => {
   );
 };
 
-export default ManagementList;
+export default Admin;

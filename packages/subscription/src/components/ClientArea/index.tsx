@@ -40,22 +40,12 @@ const ClientArea = (props: {
       <Breadcrumbs aria-label="breadcrumb">
         <Link
           underline="hover"
-          sx={{
-            color: '#00000099',
-            fontSize: '14px',
-            fontFamily: 'NotoSansKRMedium',
-          }}
-          href="/"
+          sx={{ color: '#00000099', fontSize: '14px' }}
+          href="/admin/common/admin"
         >
           공통 관리
         </Link>
-        <Typography
-          sx={{
-            color: '#000000DE',
-            fontSize: '14px',
-            fontFamily: 'NotoSansKRMedium',
-          }}
-        >
+        <Typography sx={{ color: '#000000DE', fontSize: '14px' }}>
           운영자 관리
         </Typography>
       </Breadcrumbs>

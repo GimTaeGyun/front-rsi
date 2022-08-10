@@ -10,48 +10,6 @@ import React from 'react';
 
 //import AdminDrawerMenuItem from './DrawerMenuItem';
 
-/*const menuItems = [
-  {
-    title: '공통 관리',
-    icon: <SettingsIcon />,
-    items: [
-      {
-        title: '운영자 관리',
-      },
-      {
-        title: '서비스 관리',
-      },
-      {
-        title: '매체 관리',
-      },
-      {
-        title: '공지사항 관리',
-      },
-      {
-        title: '약관 관리',
-      },
-    ],
-  },
-  {
-    title: '고객 / 계약 / 결제 관리',
-    icon: <PersonIcon />,
-    items: [
-      {
-        title: '운영자 관리',
-      },
-    ],
-  },
-  {
-    title: '상품 관리',
-    icon: <DesktopMacIcon />,
-    items: [
-      {
-        title: '운영자 관리',
-      },
-    ],
-  },
-];*/
-
 const AdminDrawer = (props: { drawerWidth: number; open: boolean }) => {
   const { drawerWidth, open } = props;
   const [menuItems, setMenuItems] = React.useState([]);
