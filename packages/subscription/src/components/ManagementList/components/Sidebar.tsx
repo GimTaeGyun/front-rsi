@@ -45,9 +45,9 @@ export interface ITreeItem {
 const Sidebar = (props: {
   onSelect: (treeItem: ITreeItem) => void;
   treeMoreIconCallback?: Function[];
-  treeItemClickEvent: Function
+  treeItemClickEvent: Function;
 }) => {
-  const { onSelect, treeMoreIconCallback,treeItemClickEvent } = props;
+  const { onSelect, treeMoreIconCallback, treeItemClickEvent } = props;
 
   const [realNum, setRealNum] = React.useState(0);
   const [data, setData] = React.useState<IUsrGrp[]>();
@@ -263,6 +263,8 @@ const styles = {
     justifyContent: 'space-between',
     height: '44px',
     cursor: 'pointer',
+    fontSize: '15px',
+    fontFamily: 'NotoSansKRMedium',
     '&:hover': {
       backgroundColor: '#F4F5F7',
       borderRadius: '4px',

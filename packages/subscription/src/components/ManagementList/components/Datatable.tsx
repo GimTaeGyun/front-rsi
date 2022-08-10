@@ -63,6 +63,7 @@ const DataTable = (props: any) => {
               </Typography>
               <OutlinedInput
                 sx={styles.search_input}
+                placeholder="Search"
                 onChange={e => {
                   setSearchTxt(e.target.value);
                 }}
@@ -102,6 +103,7 @@ const DataTable = (props: any) => {
           sx={{
             borderRadius: 0,
             fontSize: '14px',
+            fontFamily: 'NotoSansKRMedium',
           }}
           components={{
             Footer: DatatableFooter,
@@ -140,6 +142,7 @@ const styles = {
     },
   },
   search_input: {
+    border: 'none',
     width: '194px',
     height: '37px',
     bgcolor: '#0000000A',
