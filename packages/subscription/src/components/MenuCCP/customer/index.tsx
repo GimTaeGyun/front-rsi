@@ -6,6 +6,8 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
+import { Card } from '@mui/material';
+
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -19,15 +21,19 @@ const Admin = () => {
           { name: '고객 관리', link: '/admin/ccp/customer' },
         ]}
       >
-        {alertPopup.visible ? (
-          <AlertPopup
-            message={alertPopup.message}
-            buttontext={alertPopup.leftText}
-            rightButtonText={alertPopup.rightText}
-            rightCallback={alertPopup.rightCallback}
-            closeCallback={alertPopup.leftCallback}
-          />
-        ) : undefined}
+        <>
+          {alertPopup.visible ? (
+            <AlertPopup
+              message={alertPopup.message}
+              buttontext={alertPopup.leftText}
+              rightButtonText={alertPopup.rightText}
+              rightCallback={alertPopup.rightCallback}
+              closeCallback={alertPopup.leftCallback}
+            />
+          ) : undefined}
+
+          <Card sx={{width:"100%",height:"112px"}}></Card>
+        </>
       </AppFrame>
     </>
   );
