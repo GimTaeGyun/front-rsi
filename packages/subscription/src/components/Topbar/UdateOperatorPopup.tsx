@@ -406,9 +406,8 @@ const UpdateOperatorPopupUser = (props: {
                     fontFamily: 'NotoSansKRMedium',
                     fontSize: '14px',
                     color: '#666666',
-                    borderStyle: 'dotted',
+                    border: '1px dotted #0000003B',
                     bgcolor: '#F9F9F9',
-                    borderColor: '#0000003B',
                   }}
                 >
                   <option value="DEFAULT">기본</option>
@@ -434,9 +433,8 @@ const UpdateOperatorPopupUser = (props: {
                     fontFamily: 'NotoSansKRMedium',
                     fontSize: '14px',
                     color: '#666666',
-                    borderStyle: 'dotted',
+                    border: '1px dotted #0000003B',
                     bgcolor: '#F9F9F9',
-                    borderColor: '#0000003B',
                   }}
                 >
                   <option value={1}>사용</option>
