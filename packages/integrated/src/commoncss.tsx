@@ -21,9 +21,9 @@ const css = createTheme({
           display: 'inline-block',
         },
         '& .sub_card': {
-          boxShadow: '0px 1px 5px #0000002E',
-          backgroundColor: 'yellow',
-          borderRadius: '6px',
+          boxShadow: '0px 1px 5px #0000002E !important',
+          backgroundColor: 'yellow !important',
+          borderRadius: '6px !important',
         },
       },
     },
