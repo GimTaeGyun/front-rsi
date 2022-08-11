@@ -186,9 +186,14 @@ const css = createTheme({
         },
         '& .sub_tbl_th_common':{
           color: "#000000DE",
-          fontFamily:"NotoSansKRMedium",
-          fontSize:"14px",
-          letterSpacing:"-0.35px"
+          fontFamily:"NotoSansKRMedium !important",
+          fontSize:"14px !important",
+          letterSpacing:"-0.35px !important"
+        },
+        '& .sub_tbl_outer_common .MuiDataGrid-cellContent':{
+          color: "#000000DE",
+          fontFamily:"NotoSansKRRegular !important",
+          fontSize:"14px !important",
         },
 
         //This is all outlined select style class
