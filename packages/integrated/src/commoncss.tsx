@@ -149,17 +149,17 @@ const css = createTheme({
         },
 
         //This is all data tables style class
-        '& .sub_tbl_section_common':{
-          border:"unset",
-          boxShadow: "0px 1px 5px #0000002E !important",
-          backgroundColor: "#fff !important",
-          borderRadius: "6px !important"
+        '& .sub_tbl_section_common': {
+          border: 'unset',
+          boxShadow: '0px 1px 5px #0000002E !important',
+          backgroundColor: '#fff !important',
+          borderRadius: '6px !important',
         },
-        '& .sub_tbl_outer_common':{
-          boxShadow: "unset !important",
-          borderRadius:"unset !important",
-          borderLeftWidth:"0 !important",
-          borderRightWidth:"0 !important",
+        '& .sub_tbl_outer_common': {
+          boxShadow: 'unset !important',
+          borderRadius: 'unset !important',
+          borderLeftWidth: '0 !important',
+          borderRightWidth: '0 !important',
           '& .MuiCheckbox-root.Mui-checked': {
             color: '#284AD5 !important',
           },
@@ -186,24 +186,23 @@ const css = createTheme({
             outline: 'none !important',
           },
         },
-        '& .sub_tbl_outer_common .MuiDataGrid-cellContent':{
-          color: "#000000DE",
-          fontFamily:"NotoSansKRRegular !important",
-          fontSize:"14px !important",
+        '& .sub_tbl_outer_common .MuiDataGrid-cellContent': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRRegular !important',
+          fontSize: '14px !important',
         },
-        '& .sub_tbl_th_common':{
-          color: "#000000DE",
-          fontFamily:"NotoSansKRMedium !important",
-          fontSize:"14px !important",
-          letterSpacing:"-0.35px !important"
+        '& .sub_tbl_th_common': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '14px !important',
+          letterSpacing: '-0.35px !important',
         },
-        '& .sub_tbl_header_text_common':{
-          color: "#000000DE",
-          fontFamily:"NotoSansKRMedium !important",
-          fontSize:"16px !important",
-          letterSpacing:"-0.4px !important"
+        '& .sub_tbl_header_text_common': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '16px !important',
+          letterSpacing: '-0.4px !important',
         },
-        
 
         //This is all outlined select style class
         '& .sub_select_common': {
@@ -317,6 +316,70 @@ const css = createTheme({
         '& .sub_btn_filter2': {
           width: '84px',
           height: '36px',
+        },
+
+        // 고객관리 상세정보 탭 카드 컴포넌트
+        '& .sub_ccp_detail_parent': {
+          width: '1470px',
+          borderRadius: '6px !important',
+          opacity: '1',
+          boxShadow: '0px 1px 5px #0000002E !important',
+        },
+        '& .sub_ccp_detail_parent .header': {
+          color: '#000000DE',
+          letterSpacing: '-0.4px',
+          lineHeight: '20px',
+          fontSize: '16px',
+        },
+        '& .sub_ccp_detail_parent .content': {
+          padding: '0px',
+        },
+        '& .sub_ccp_detail_parent .content:last-child': {
+          padding: '0px',
+        },
+        '& .sub_ccp_detail_parent .content .column': {
+          display: 'inline-block',
+          width: '490px',
+          color: '#333333',
+        },
+        '& .sub_ccp_detail_parent .content .column .label': {
+          width: '100px',
+          height: '30px',
+          margin: '15px',
+          marginLeft: '20px',
+          marginRight: '0px',
+          paddingTop: '5px',
+          paddingBottom: '5px',
+          fontSize: '14px',
+          letterSpacing: '-0.35px',
+          lineHeight: '25px',
+          display: 'inline-block',
+        },
+        '& .sub_ccp_detail_parent .content .column .text': {
+          width: '360px',
+          height: '36px',
+          marginTop: '12px',
+          marginBottom: '12px',
+          '& input': {
+            padding: '8px',
+            opacity: '1',
+            fontSize: '13px',
+            backgroundColor: '#F9F9F9',
+            fontFamily: 'NotoSansKRRegular',
+            letterSpacing: '0px',
+            lineHeight: '24px',
+            '-webkit-text-fill-color': '#666666',
+          },
+          '& fieldset': {
+            border: 'dashed 1px #0000001F',
+          },
+        },
+        '& .sub_ccp_detail_parent .content .column .select': {
+          '& input': {
+            borderStyle: 'hidden',
+            height: '36px',
+            opacity: 1,
+          },
         },
       },
     },
