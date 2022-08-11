@@ -125,11 +125,7 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography
-        fontFamily="NotoSansKRMEdium"
-        fontSize="14px"
-        borderRight="none"
-      >
+      <Typography fontSize="14px" borderRight="none">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -141,7 +137,6 @@ export const columns: GridColDef[] = [
           Width: '44px',
           height: '30px',
           fontSize: '13px',
-          fontFamily: 'NotoSansKRMedium',
           borderColor: '#284AD5',
           color: '#284AD5',
         }}
