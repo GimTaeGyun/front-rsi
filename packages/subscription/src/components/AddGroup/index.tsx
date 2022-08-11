@@ -1,11 +1,11 @@
 import { Box, Button, Modal, OutlinedInput } from '@mui/material';
+import { useAtom } from 'jotai';
 import * as React from 'react';
+
+import { AlertPopupData } from '../../data/atoms';
 import axios from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
-import { ITreeItem } from '../CommonMenu/components/Sidebar';
-import { AlertPopupData } from '../../data/atoms';
-import { useAtom } from 'jotai';
-
+import { ITreeItem } from '../MenuCommon/components/Sidebar';
 import DataTable from './Datatable';
 
 const AddGroup = (props: {

@@ -1,8 +1,8 @@
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import * as React from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import * as React from 'react';
 
 const PwResetPopup = (props: {
   open: boolean;

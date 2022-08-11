@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
+import { useAtom } from 'jotai';
 import React from 'react';
 
 import AppFrame from '../../../container/AppFrame';
-import axios from '../../../utils/axios';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import { useAtom } from 'jotai';
+import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 const Admin = () => {
   // alertPopup object
@@ -12,7 +12,14 @@ const Admin = () => {
 
   return (
     <>
-      <AppFrame title="고객 관리">
+      <AppFrame
+        title="고객 관리"
+        breadcrumbs={[
+          { name: '고객/계약/결제 관리', link: '/admin/ccp/customer' },
+          { name: '고객 관리', link: '/admin/ccp/customer' },
+          { name: '문의관리', link: '/admin/ccp/customer/contact' },
+        ]}
+      >
         {alertPopup.visible ? (
           <AlertPopup
             message={alertPopup.message}

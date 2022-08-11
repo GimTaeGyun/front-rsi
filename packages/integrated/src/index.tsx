@@ -1,4 +1,5 @@
 import Subscription from '@administrator/subscription';
+import { ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Provider } from 'jotai';
 import React from 'react';
@@ -6,6 +7,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './App';
+import theme from './commoncss';
 import * as serviceWorker from './serviceWorker';
 
 const root = ReactDOM.createRoot(
@@ -15,12 +17,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider>
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <CssBaseline />
-        <BrowserRouter>
-          <Subscription />
-        </BrowserRouter>
-      </React.Suspense>
+      <ThemeProvider theme={theme}>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <CssBaseline />
+          <BrowserRouter>
+            <Subscription />
+          </BrowserRouter>
+        </React.Suspense>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
 );

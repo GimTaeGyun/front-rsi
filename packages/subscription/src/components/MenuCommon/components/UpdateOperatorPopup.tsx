@@ -379,7 +379,7 @@ const UpdateOperatorPopup = (props: {
           <Button
             variant="contained"
             onClick={async () => {
-              let valid = {
+              const valid = {
                 usrPw: false,
                 usrNm: !(await validationSchema.fields.usrNm.isValid(
                   popupData.usrNm,

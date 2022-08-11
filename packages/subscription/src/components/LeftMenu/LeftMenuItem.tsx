@@ -1,13 +1,12 @@
-import { NoEncryption } from '@mui/icons-material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box } from '@mui/material';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LeftMenuItem = (props: {
   defaultOpen: boolean;
@@ -15,7 +14,6 @@ const LeftMenuItem = (props: {
 }) => {
   const { defaultOpen = false, menuItem } = props;
   const [open, setOpen] = React.useState(defaultOpen);
-
   return (
     <>
       <ListItem
@@ -58,37 +56,38 @@ const LeftMenuItem = (props: {
           }}
         >
           {menuItem.items.map((child, key) => (
-            <ListItem
-              key={key}
-              sx={{
-                height: '30px',
-                pl: '40px',
-                '&:hover': {
-                  bgcolor: 'transparent',
-                },
-                '&:click': {
-                  bgcolor: 'transparent',
-                },
-              }}
-              button
-            >
-              <ListItemText
-                primary={child.title}
+            <Link key={key} to={child.link ? child.link : '#'}>
+              <ListItem
                 sx={{
-                  height: '23px',
-                  lineHeight: 'normal',
-                  '& .MuiListItemText-primary': {
-                    color: '#FFFFFF99',
-                    fontFamily: 'NotoSansKRMedium',
-                    fontSize: '15px',
-                    height: '15px',
-                    '&:hover': {
-                      color: '#fff',
-                    },
+                  height: '30px',
+                  pl: '40px',
+                  '&:hover': {
+                    bgcolor: 'transparent',
+                  },
+                  '&:click': {
+                    bgcolor: 'transparent',
                   },
                 }}
-              />
-            </ListItem>
+                button
+              >
+                <ListItemText
+                  primary={child.title}
+                  sx={{
+                    height: '23px',
+                    lineHeight: 'normal',
+                    '& .MuiListItemText-primary': {
+                      color: '#FFFFFF99',
+                      fontFamily: 'NotoSansKRMedium',
+                      fontSize: '15px',
+                      height: '15px',
+                      '&:hover': {
+                        color: '#fff',
+                      },
+                    },
+                  }}
+                />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Collapse>

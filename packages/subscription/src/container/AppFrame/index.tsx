@@ -12,8 +12,9 @@ const drawerWidth = 350;
 const AppFrame = (props: {
   children?: JSX.Element;
   title?: string;
+  breadcrumbs?: Array<{ name: string; link: string }>;
 }): ReactElement => {
-  const { children = <Box />, title = '' } = props;
+  const { children = <Box />, title = '', breadcrumbs = [] } = props;
 
   // Handle drawer toggle
   const [open, setOpen] = React.useState(true);
@@ -24,7 +25,12 @@ const AppFrame = (props: {
     <Box sx={{ display: 'flex' }}>
       <Topbar handleToggle={handleToggle} />
       <LeftMenu open={open} drawerWidth={drawerWidth} />
-      <ClientArea open={open} drawerWidth={drawerWidth} title={title}>
+      <ClientArea
+        open={open}
+        drawerWidth={drawerWidth}
+        title={title}
+        breadcrumbs={breadcrumbs}
+      >
         {children}
       </ClientArea>
     </Box>

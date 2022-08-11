@@ -3,6 +3,7 @@ import Link from '@mui/material/Link';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { ReactElement } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Main = styled('main', {
   shouldForwardProp: prop => prop !== 'open' && prop !== 'drawerWidth',
@@ -32,22 +33,36 @@ const ClientArea = (props: {
   open: boolean;
   title: string;
   children: JSX.Element;
+  breadcrumbs: Array<{ name: string; link: string }>;
 }): ReactElement => {
-  const { drawerWidth, open, title, children } = props;
+  const { drawerWidth, open, title, children, breadcrumbs = [] } = props;
 
   return (
     <Main open={open} drawerWidth={drawerWidth}>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link
-          underline="hover"
-          sx={{ color: '#00000099', fontSize: '14px' }}
-          href="/admin/common/admin"
-        >
-          공통 관리
-        </Link>
-        <Typography sx={{ color: '#000000DE', fontSize: '14px' }}>
-          운영자 관리
-        </Typography>
+        {breadcrumbs.map((item, index) => {
+          if (index == breadcrumbs.length - 1)
+            return (
+              <Typography
+                key={index}
+                sx={{ color: '#000000DE', fontSize: '14px' }}
+              >
+                {item.name}
+              </Typography>
+            );
+          else
+            return (
+              <Link
+                key={index}
+                underline="hover"
+                sx={{ color: '#00000099', fontSize: '14px' }}
+                component={RouterLink}
+                to={item.link}
+              >
+                {item.name}
+              </Link>
+            );
+        })}
       </Breadcrumbs>
       <Typography
         sx={{
