@@ -194,7 +194,7 @@ const UpdateOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              아이디 <span style={styles.label_dot}>•</span>{' '}
+              아이디 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <Box
               sx={{
@@ -262,7 +262,7 @@ const UpdateOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              이름 <span style={styles.label_dot}>•</span>{' '}
+              이름 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -282,7 +282,7 @@ const UpdateOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              전화번호 <span style={styles.label_dot}>•</span>{' '}
+              전화번호 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -302,7 +302,7 @@ const UpdateOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              이메일 <span style={styles.label_dot}>•</span>{' '}
+              이메일 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -405,6 +405,3 @@ const UpdateOperatorPopup = (props: {
 };
 
 export default UpdateOperatorPopup;
-const styles = {
-  label_dot: { color: '#284ad5', fontSize: '20px', lineHeight: 0 },
-};

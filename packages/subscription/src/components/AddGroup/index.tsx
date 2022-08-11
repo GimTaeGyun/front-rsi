@@ -128,7 +128,19 @@ const AddGroup = (props: {
         <Box sx={styles.popup_outer}>
           <Box sx={styles.popup_header}>
             <Box component="h3" sx={styles.popup_title}>
-              {title}
+              {title}{' '}
+              <span
+                className="label-dot"
+                style={{
+                  color: '#284AD5',
+                  fontFamily: 'NotoSansKRMedium',
+                  position: 'absolute',
+                  top: '80px',
+                  left: '71px',
+                }}
+              >
+                •
+              </span>
             </Box>
             <Box
               component="img"
@@ -184,7 +196,22 @@ const AddGroup = (props: {
             </Box>
             <Box component="div" sx={styles.inputfield_outer}>
               <Box sx={styles.input_label}>
-                그룹 역할 설정<Box component="span" sx={styles.req_field}></Box>
+                그룹 역할 설정{' '}
+                <span
+                  className="label-dot"
+                  style={{
+                    minWidth: '10px',
+                    minHeight: '10px',
+                    color: '#284AD5',
+                    fontFamily: 'NotoSansKRMedium',
+                    position: 'absolute',
+                    left: '114px',
+                    top: '251px',
+                  }}
+                >
+                  •
+                </span>
+                <Box component="span" sx={styles.req_field}></Box>
               </Box>
               <Box component="div" sx={{ position: 'relative' }}>
                 <DataTable onChange={onRowsSelect} />
@@ -223,7 +250,6 @@ const styles = {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'auto',
     backgroundPosition: 'left top',
-
     width: '14px',
     height: '12px',
   },
@@ -242,10 +268,12 @@ const styles = {
     fontSize: '14px',
     width: '100%',
     height: '42px',
+    borderColor: '#284AD5',
     '& input::placeholder': {
       color: '#00000099',
       opacity: '1',
     },
+
     '&.MuiOutlinedInput-root.Mui-focused fieldset': {
       borderColor: '#284AD5',
       borderWidth: '1px',
@@ -259,8 +287,10 @@ const styles = {
     color: '#fff',
     width: '82px',
     height: '42px',
+    borderRadius: '6px',
     borderColor: '#284AD5',
     backgroundColor: '#284AD5',
+    fontFamily: 'NotoSansKRMedium',
     boxShadow: 'none',
     ':hover': {
       borderColor: '#0615B2',
@@ -277,11 +307,12 @@ const styles = {
   },
   btn_submit: {
     color: '#fff',
-    width: '57px',
+    minWidth: '57px',
     height: '36px',
     borderColor: '#284AD5',
     backgroundColor: '#284AD5',
     boxShadow: '0px 3px 3px #0000002E',
+    fontFamily: 'NotoSansKRMedium',
     ':hover': {
       borderColor: '#0615B2',
       backgroundColor: '#0615B2',
@@ -290,6 +321,8 @@ const styles = {
   },
   btn_close: {
     color: '#284AD5',
+    minWidth: '57px',
+    fontFamily: 'NotoSansKRMedium',
     ':hover': {
       color: '#0615B2',
       backgroundColor: 'unset',
@@ -331,7 +364,6 @@ const styles = {
     justifyContent: 'center',
     widwidth: '100%',
     height: '70px',
-    borderTop: '1px solid #eee',
   },
 };
 

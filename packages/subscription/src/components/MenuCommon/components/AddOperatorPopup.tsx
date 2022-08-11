@@ -12,11 +12,8 @@ import MuiMenuItem from '@mui/material/MenuItem';
 import MuiSelect from '@mui/material/Select';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
-
-import axios from '../../../utils/axios';
-import AlertPopup from '../../Common/AlertPopup';
 
 const FormLabel = styled(MuiFormLabel)({
   color: '#333333',
@@ -187,7 +184,7 @@ const AddOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              아이디 <span style={styles.label_dot}>•</span>{' '}
+              아이디 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <Box
               sx={{
@@ -230,7 +227,7 @@ const AddOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              비밀번호 <span style={styles.label_dot}>•</span>{' '}
+              비밀번호 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -254,7 +251,7 @@ const AddOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              이름 <span style={styles.label_dot}>•</span>{' '}
+              이름 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -276,7 +273,7 @@ const AddOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              전화번호 <span style={styles.label_dot}>•</span>{' '}
+              전화번호 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -299,7 +296,7 @@ const AddOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              이메일 <span style={styles.label_dot}>•</span>{' '}
+              이메일 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <TextField
               fullWidth
@@ -404,7 +401,3 @@ const AddOperatorPopup = (props: {
 };
 
 export default AddOperatorPopup;
-
-const styles = {
-  label_dot: { color: '#284ad5', fontSize: '20px', lineHeight: 0 },
-};
