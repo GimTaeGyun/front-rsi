@@ -104,7 +104,7 @@ const DataTable = (props: any) => {
           sx={{
             borderRadius: 0,
             fontSize: '14px',
-            fontFamily: 'NotoSansKRMedium',
+            fontFamily: 'NotoSansKRRagular',
             '	.MuiDataGrid-selectedRowCount': {
               bgcolor: '#284ad5',
             },
