@@ -110,7 +110,15 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px" borderRight="none">
+      <Typography
+        fontSize="14px"
+        borderRight="none"
+        sx={{
+          '.MuiDataGrid-columnSeparator': {
+            display: 'none',
+          },
+        }}
+      >
         {params.colDef.headerName}
       </Typography>
     ),

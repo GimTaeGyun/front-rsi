@@ -8,8 +8,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import InputLabel from '@mui/material/InputLabel';
-import MuiInputLabel from '@mui/material/InputLabel';
 import MuiMenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import MuiSelect from '@mui/material/Select';
@@ -114,9 +112,7 @@ const UpdateOperatorPopup = (props: {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ fontFamily: 'NotoSansKRMedium' }}>
-              운영자 정보 수정
-            </Typography>
+            <Typography>운영자 정보 수정</Typography>
             <Button
               sx={{
                 bgcolor: 'transparent',

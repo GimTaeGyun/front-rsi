@@ -65,7 +65,7 @@ const LeftMenuItem = (props: {
                     bgcolor: 'transparent',
                   },
                   '&:click': {
-                    bgcolor: 'transparent',
+                    bgcolor: 'white',
                   },
                 }}
                 button
@@ -77,11 +77,13 @@ const LeftMenuItem = (props: {
                     lineHeight: 'normal',
                     '& .MuiListItemText-primary': {
                       color: '#FFFFFF99',
-
                       fontSize: '15px',
                       height: '15px',
                       '&:hover': {
                         color: '#fff',
+                      },
+                      ':click': {
+                        bgcolor: 'transparent',
                       },
                     },
                   }}

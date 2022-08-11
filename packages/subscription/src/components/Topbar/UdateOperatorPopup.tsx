@@ -140,9 +140,7 @@ const UpdateOperatorPopupUser = (props: {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ fontFamily: 'NotoSansKRMedium', float: 'left' }}>
-              개인정보 설정
-            </Typography>
+            <Typography sx={{ float: 'left' }}>개인정보 설정</Typography>
             <Button
               sx={{
                 bgcolor: 'transparent',

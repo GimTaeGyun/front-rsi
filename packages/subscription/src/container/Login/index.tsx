@@ -151,7 +151,11 @@ const AdminLogin = () => {
           </CardContent>
           <CardActions sx={styles.loginbutton_outer}>
             <OnClose />
-            <Button sx={styles.loginbutton} onClick={onClick}>
+            <Button
+              sx={styles.loginbutton}
+              className="sub_button_blue"
+              onClick={onClick}
+            >
               로그인
             </Button>
           </CardActions>
@@ -187,10 +191,7 @@ const styles = {
     display: 'block',
     width: '100%',
     height: '60px',
-    color: '#fff',
-    backgroundColor: '#284AD5',
     fontSize: '16px',
-    fontFamily: 'NotoSansKRMedium',
     ':hover': {
       backgroundColor: '#0615B2',
     },

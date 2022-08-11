@@ -101,9 +101,7 @@ const AddOperatorPopup = (props: {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ fontFamily: 'NotoSansKRMedium' }}>
-              운영자 추가
-            </Typography>
+            <Typography>운영자 추가</Typography>
             <Button
               sx={{
                 bgcolor: 'transparent',
@@ -258,7 +256,19 @@ const AddOperatorPopup = (props: {
                 value="SYSUSER"
                 sx={{ fontFamily: 'NotoSansKRRagular' }}
               >
-                시스템사용자
+                슈퍼바이저
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                개발자
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                통합관리자 어드민
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                재무회계 담당자
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                영업 담당자
               </MenuItem>
             </Select>
           </Box>

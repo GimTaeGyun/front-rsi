@@ -166,17 +166,17 @@ const css = createTheme({
         },
 
         //This is all data tables style class
-        '& .sub_tbl_section_common':{
-          border:"unset",
-          boxShadow: "0px 1px 5px #0000002E !important",
-          backgroundColor: "#fff !important",
-          borderRadius: "6px !important"
+        '& .sub_tbl_section_common': {
+          border: 'unset',
+          boxShadow: '0px 1px 5px #0000002E !important',
+          backgroundColor: '#fff !important',
+          borderRadius: '6px !important',
         },
-        '& .sub_tbl_outer_common':{
-          boxShadow: "unset !important",
-          borderRadius:"unset !important",
-          borderLeftWidth:"0 !important",
-          borderRightWidth:"0 !important",
+        '& .sub_tbl_outer_common': {
+          boxShadow: 'unset !important',
+          borderRadius: 'unset !important',
+          borderLeftWidth: '0 !important',
+          borderRightWidth: '0 !important',
           '& .MuiCheckbox-root.Mui-checked': {
             color: '#284AD5 !important',
           },
@@ -203,24 +203,23 @@ const css = createTheme({
             outline: 'none !important',
           },
         },
-        '& .sub_tbl_outer_common .MuiDataGrid-cellContent':{
-          color: "#000000DE",
-          fontFamily:"NotoSansKRRegular !important",
-          fontSize:"14px !important",
+        '& .sub_tbl_outer_common .MuiDataGrid-cellContent': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRRegular !important',
+          fontSize: '14px !important',
         },
-        '& .sub_tbl_th_common':{
-          color: "#000000DE",
-          fontFamily:"NotoSansKRMedium !important",
-          fontSize:"14px !important",
-          letterSpacing:"-0.35px !important"
+        '& .sub_tbl_th_common': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '14px !important',
+          letterSpacing: '-0.35px !important',
         },
-        '& .sub_tbl_header_text_common':{
-          color: "#000000DE",
-          fontFamily:"NotoSansKRMedium !important",
-          fontSize:"16px !important",
-          letterSpacing:"-0.4px !important"
+        '& .sub_tbl_header_text_common': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '16px !important',
+          letterSpacing: '-0.4px !important',
         },
-        
 
         //This is all outlined select style class
         '& .sub_select_common': {
