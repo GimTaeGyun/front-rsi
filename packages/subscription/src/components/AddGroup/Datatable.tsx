@@ -1,10 +1,35 @@
-import { Box } from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { Box, Typography } from '@mui/material';
+import {
+  DataGrid,
+  GridColDef,
+  GridColumnHeaderParams,
+  GridValueGetterParams,
+} from '@mui/x-data-grid';
 import * as React from 'react';
 
 const columns: GridColDef[] = [
-  { field: 'roleName', headerName: '역할명', width: 157 },
-  { field: 'roleDesc', headerName: '설명', width: 230 },
+  {
+    field: 'roleName',
+    headerName: '역할명',
+    width: 157,
+    headerAlign: 'center',
+    renderHeader: (params: GridColumnHeaderParams) => (
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
+        {params.colDef.headerName}
+      </Typography>
+    ),
+  },
+  {
+    field: 'roleDesc',
+    headerName: '설명',
+    width: 230,
+    headerAlign: 'center',
+    renderHeader: (params: GridColumnHeaderParams) => (
+      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
+        {params.colDef.headerName}
+      </Typography>
+    ),
+  },
 ];
 
 const rows = [
@@ -50,7 +75,7 @@ const styles = {
       cursor: 'pointer',
     },
     '& .MuiDataGrid-row.Mui-selected:hover': {
-      backgroundColor: 'unset',
+      backgroundColor: 'black',
     },
     '& .MuiDataGrid-row.Mui-selected': {
       backgroundColor: 'unset',

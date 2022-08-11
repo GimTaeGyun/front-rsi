@@ -33,8 +33,12 @@ const ListItems = (props: {
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        placement="right"
-        sx={{ overflow: 'hidden', display: 'inline' }}
+        placement="left"
+        sx={{
+          overflow: 'hidden',
+          display: 'inline',
+          minWidth: '150px',
+        }}
       >
         <List>
           <ListItem disablePadding>
@@ -48,6 +52,8 @@ const ListItems = (props: {
                 borderTopLeftRadius: '6px',
                 backgroundColor: 'white',
                 overflow: 'hidden',
+
+                boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
                 '&:hover': { bgcolor: '#fff' },
               }}
             >
@@ -56,8 +62,8 @@ const ListItems = (props: {
                 primary={
                   <Typography
                     sx={{
-                      fontSize: '10pt',
-                      fontFamily: 'NotoSansKRMedium',
+                      fontSize: '13px',
+                      fontFamily: 'NotoSansKRRegular',
                       overflow: 'hidden',
                     }}
                   >
@@ -76,8 +82,9 @@ const ListItems = (props: {
                 border: '1px solid #0000001F',
                 height: '40px',
                 borderTop: '0.5px solid #0000001F',
-                borderBottom: '0.5px solid #0000001F',
+                borderBottom: 'none',
                 backgroundColor: 'white',
+                boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
                 overflow: 'hidden',
                 '&:hover': { bgcolor: '#fff' },
               }}
@@ -87,8 +94,8 @@ const ListItems = (props: {
                 primary={
                   <Typography
                     sx={{
-                      fontSize: '10pt',
-                      fontFamily: 'NotoSansKRMedium',
+                      fontSize: '13px',
+                      fontFamily: 'NotoSansKRRegular',
                       overflow: 'hidden',
                     }}
                   >
@@ -109,6 +116,7 @@ const ListItems = (props: {
                 borderTop: '0.5px solid #0000001F',
                 borderBottomRightRadius: '6px',
                 borderBottomLeftRadius: '6px',
+                boxShadow: 'rgb(149 157 165 / 20%) 2px 2px 2px',
                 backgroundColor: 'white',
                 overflow: 'hidden',
                 '&:hover': { bgcolor: '#fff' },
@@ -119,8 +127,8 @@ const ListItems = (props: {
                 primary={
                   <Typography
                     sx={{
-                      fontSize: '10pt',
-                      fontFamily: 'NotoSansKRMedium',
+                      fontSize: '13px',
+                      fontFamily: 'NotoSansKRRegular',
                       overflow: 'hidden',
                     }}
                   >
