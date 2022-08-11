@@ -41,7 +41,7 @@ const PwResetPopup = (props: {
           <Box component="div" sx={styles.popup_inner}>
             <Box component="div" sx={styles.popup_message}>
               <Typography component="p" sx={styles.msg}>
-                새 비밀번호 <span style={styles.label_dot}>•</span>{' '}
+                새 비밀번호 <Typography className="sub_label_dot">•</Typography>{' '}
               </Typography>
               <TextField
                 sx={styles.input_text}
@@ -153,7 +153,6 @@ const styles = {
     boxShadow: '0px 1px 5px #0000002E',
     borderRadius: '6px',
   },
-  label_dot: { color: '#284ad5', fontSize: '20px', lineHeight: 0 },
   title: {
     display: 'inline-block',
     width: '136px',

@@ -12,11 +12,8 @@ import MuiMenuItem from '@mui/material/MenuItem';
 import MuiSelect from '@mui/material/Select';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
-
-import axios from '../../../utils/axios';
-import AlertPopup from '../../Common/AlertPopup';
 
 const FormLabel = styled(MuiFormLabel)({
   color: '#333333',
@@ -187,7 +184,7 @@ const AddOperatorPopup = (props: {
             }}
           >
             <FormLabel>
-              아이디 <span style={styles.label_dot}>•</span>{' '}
+              아이디 <Typography className="sub_label_dot">•</Typography>{' '}
             </FormLabel>
             <Box
               sx={{
