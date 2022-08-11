@@ -21,7 +21,7 @@ const css = createTheme({
             width: '100px',
             height: '30px',
             margin: '15px',
-            margingLeft: '20px',
+            marginLeft: '20px',
           },
         },
       },
