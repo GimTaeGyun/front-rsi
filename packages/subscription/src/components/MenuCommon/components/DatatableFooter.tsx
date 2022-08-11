@@ -63,7 +63,8 @@ const DatatableFooter = (props: {
         <Box>
           <Button
             variant="outlined"
-            className="sub-button-white"
+            sx={buttonStyle}
+            className="sub_button_white"
             onClick={e => handleSecondBtn(e)}
           >
             운영자 추가
@@ -82,7 +83,7 @@ const DatatableFooter = (props: {
             />
           }
           sx={buttonStyle}
-          className="sub_button_white.root"
+          className="sub_button_white"
         >
           엑셀 다운로드
         </Button>

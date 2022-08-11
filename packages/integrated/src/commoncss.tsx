@@ -8,13 +8,11 @@ const css = createTheme({
           fontSize: '30px !important',
         },*/
         '& .sub_button_white': {
-          root: {
-            padding: '5px 10px',
-            lineHeight: 'normal',
-            fontFamily: 'NotoSansKRMedium',
-            color: '#284AD5',
-            borderColor: '#284AD5',
-          },
+          padding: '5px 10px !important',
+          lineHeight: 'normal !important',
+          fontFamily: 'NotoSansKRMedium !important',
+          color: '#284AD5 !important',
+          borderColor: '#284AD5 !important',
         },
       },
     },
