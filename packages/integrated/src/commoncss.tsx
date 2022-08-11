@@ -21,7 +21,6 @@ const css = createTheme({
           '& .sub_button_white': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
-
             color: '#284AD5',
             borderColor: '#284AD5',
             borderRadius: '6px',
@@ -29,7 +28,6 @@ const css = createTheme({
           '& .sub_button_blue': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
-
             backgroundColor: '#284AD5',
             color: '#fff',
             borderRadius: '6px',
@@ -59,8 +57,12 @@ const css = createTheme({
               padding: '11px 10px',
               lineHeight: 'normal',
             },
+            '& 	.MuiOutlinedInput-input': {
+              fontFamily: 'NotoSansKRMedium',
+              fontStyle: 'normal',
+              fontSize: '14px',
+            },
             '& .MuiOutlinedInput-root': {
-              '& placeholder': {},
               '& fieldset': {
                 borderColor: '#0000001F',
                 borderWidth: '1px',
