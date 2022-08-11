@@ -2,7 +2,9 @@ import { createTheme } from '@mui/material';
 import { fontFamily } from '@mui/system';
 
 const css = createTheme({
-  typography: {},
+  typography: {
+    fontFamily: 'NotoSansKRMedium',
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -19,7 +21,7 @@ const css = createTheme({
           '& .sub_button_white': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
-            fontFamily: 'NotoSansKRMedium ',
+
             color: '#284AD5',
             borderColor: '#284AD5',
             borderRadius: '6px',
@@ -27,7 +29,7 @@ const css = createTheme({
           '& .sub_button_blue': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
-            fontFamily: 'NotoSansKRMedium ',
+
             backgroundColor: '#284AD5',
             color: '#fff',
             borderRadius: '6px',
