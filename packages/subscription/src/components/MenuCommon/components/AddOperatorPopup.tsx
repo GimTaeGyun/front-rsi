@@ -101,9 +101,7 @@ const AddOperatorPopup = (props: {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ fontFamily: 'NotoSansKRMedium' }}>
-              운영자 추가
-            </Typography>
+            <Typography>운영자 추가</Typography>
             <Button
               sx={{
                 bgcolor: 'transparent',
@@ -153,10 +151,8 @@ const AddOperatorPopup = (props: {
                   height: '42px',
                   minWidth: '82px',
                   fontSize: '14px',
-                  p: '11px 16px',
-                  fontFamily: 'NotoSansKRMedium',
-                  bgcolor: '#284AD5',
                 }}
+                className="sub_button_blue"
                 onClick={e => handleMiddle(e)}
               >
                 중복확인
@@ -260,7 +256,19 @@ const AddOperatorPopup = (props: {
                 value="SYSUSER"
                 sx={{ fontFamily: 'NotoSansKRRagular' }}
               >
-                시스템사용자
+                슈퍼바이저
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                개발자
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                통합관리자 어드민
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                재무회계 담당자
+              </MenuItem>
+              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+                영업 담당자
               </MenuItem>
             </Select>
           </Box>
@@ -290,14 +298,17 @@ const AddOperatorPopup = (props: {
         </DialogContent>
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-          <Button onClick={e => handleClose(e)} sx={{ color: '#284AD5' }}>
+          <Button
+            onClick={e => handleClose(e)}
+            sx={{ fontSize: '14px' }}
+            className="sub_button_white"
+          >
             취소
           </Button>
           <Button
             variant="contained"
-            sx={{
-              bgcolor: '#284AD5',
-            }}
+            className="sub_button_blue"
+            sx={{ width: '57', height: '36', fontSize: '14px' }}
             onClick={async e => {
               if (await validationSchema.isValid(popupData)) {
                 handleOk(e);

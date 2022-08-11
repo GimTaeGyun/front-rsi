@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Box, IconButton,Popper, Typography } from '@mui/material';
+import { Box, IconButton, Popper, Typography } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -35,9 +35,7 @@ const ListItems = (props: {
             <ListItemText
               disableTypography
               primary={
-                <Typography
-                  sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}
-                >
+                <Typography sx={{ fontSize: '10pt' }}>
                   하위 그룹 추가
                 </Typography>
               }
@@ -59,11 +57,7 @@ const ListItems = (props: {
             <ListItemText
               disableTypography
               primary={
-                <Typography
-                  sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}
-                >
-                  그룹 수정
-                </Typography>
+                <Typography sx={{ fontSize: '10pt' }}>그룹 수정</Typography>
               }
             />
           </ListItemButton>
@@ -84,11 +78,7 @@ const ListItems = (props: {
             <ListItemText
               disableTypography
               primary={
-                <Typography
-                  sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}
-                >
-                  그룹 삭제
-                </Typography>
+                <Typography sx={{ fontSize: '10pt' }}>그룹 삭제</Typography>
               }
             />
           </ListItemButton>

@@ -58,7 +58,7 @@ const Topbar = (props: {
               mr: '10px',
               display: 'block',
               bgcolor: '#284AD5',
-              fontFamily: 'NotoSansKRMedium',
+
               fontSize: '13px',
               height: '25px',
               padding: '2px 5px',
@@ -81,7 +81,7 @@ const Topbar = (props: {
               bgcolor: '#EEEEEE',
               borderColor: '#DEDEDE',
               border: '1px solid #DEDEDE',
-              fontFamily: 'NotoSansKRMedium',
+
               fontSize: '13px',
               height: '25px',
               padding: '2px 5px',

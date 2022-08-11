@@ -16,7 +16,7 @@ import React from 'react';
 
 const FormLabel = styled(MuiFormLabel)({
   color: '#333333',
-  fontFamily: 'NotoSansKRMedium',
+
   fontSize: '14px',
 });
 

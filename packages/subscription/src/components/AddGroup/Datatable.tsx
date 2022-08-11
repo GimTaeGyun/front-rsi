@@ -13,10 +13,10 @@ const columns: GridColDef[] = [
     headerName: '역할명',
     width: 157,
     headerAlign: 'center',
+    sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -24,10 +24,10 @@ const columns: GridColDef[] = [
     headerName: '설명',
     width: 230,
     headerAlign: 'center',
+    sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
 ];

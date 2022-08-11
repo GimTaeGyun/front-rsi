@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import { InputLabel } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -7,9 +8,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import MuiFormLabel from '@mui/material/FormLabel';
 import MuiMenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import MuiSelect from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, { useEffect } from 'react';
@@ -17,67 +19,6 @@ import * as Yup from 'yup';
 
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-
-const FormLabel = styled(MuiFormLabel)({
-  color: '#333333',
-  fontFamily: 'NotoSansKRMedium',
-  fontSize: '14px',
-});
-
-const TextField = styled(MuiTextField)({
-  height: '42px',
-  '& .MuiOutlinedInput-input': {
-    padding: '11px 10px',
-    lineHeight: 'normal',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&:hover fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-error fieldset': {
-      borderColor: '#E50012',
-      borderWidth: '1px',
-    },
-  },
-});
-
-const Select = styled(MuiSelect)({
-  height: '42px',
-  marginTop: '5px',
-  '&.MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&:hover fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-error fieldset': {
-      borderColor: '#E50012',
-      borderWidth: '1px',
-    },
-  },
-  '&.Mui-disabled': {
-    border: 'dashed',
-    backgroundColor: '#F9F9F9',
-    borderWidth: '1px',
-    borderColor: '#0000003B',
-  },
-});
 
 const MenuItem = styled(MuiMenuItem)({
   '&:hover': {
@@ -171,9 +112,7 @@ const UpdateOperatorPopup = (props: {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ fontFamily: 'NotoSansKRMedium' }}>
-              운영자 정보 수정
-            </Typography>
+            <Typography>운영자 정보 수정</Typography>
             <Button
               sx={{
                 bgcolor: 'transparent',
@@ -188,40 +127,22 @@ const UpdateOperatorPopup = (props: {
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ padding: '30px' }}>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               아이디 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                mt: '5px',
-              }}
-            >
-              <TextField
-                id="operator_id"
-                placeholder="아이디"
-                className="Mui-disabled"
-                disabled
-                onChange={handleChange}
-                name="usrId"
-                value={popupData.usrId || ''}
-                sx={{ mr: '10px', flex: '1' }}
-              />
-            </Box>
+            </InputLabel>
+            <TextField
+              id="operator_id"
+              placeholder="아이디"
+              className="sub_formText"
+              disabled
+              onChange={handleChange}
+              name="usrId"
+              value={popupData.usrId || ''}
+            />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>비밀번호</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">비밀번호</InputLabel>
             <Box
               sx={{
                 display: 'flex',
@@ -235,7 +156,8 @@ const UpdateOperatorPopup = (props: {
                 id="password"
                 type="password"
                 placeholder="비밀번호"
-                sx={{ mr: '10px', flex: '1' }}
+                className="sub_formText"
+                sx={{ mr: '10px', flex: '1', marginTop: '0 !important' }}
                 name="usrPw"
                 value={popupData.usrPw || ''}
                 onChange={handleChange}
@@ -246,29 +168,25 @@ const UpdateOperatorPopup = (props: {
                 variant="contained"
                 sx={{
                   height: '42px',
-                  minWidth: '50px',
+                  minWidth: '82px',
                   fontSize: '14px',
-                  p: '11px 16px',
                 }}
                 onClick={() => handleMiddle(popupData.usrPw)}
+                className="sub_button_blue"
               >
                 변경
               </Button>
             </Box>
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               이름 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="name"
               placeholder="이름"
-              sx={{ mt: '5px' }}
+              className="sub_formText"
               name="usrNm"
               value={popupData.usrNm || ''}
               onChange={handleChange}
@@ -276,52 +194,40 @@ const UpdateOperatorPopup = (props: {
               label={dataValid.usrNm ? validationMsg.usrNm : ''}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               전화번호 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="phone"
               placeholder="전화번호"
-              sx={{ mt: '5px' }}
               name="phone"
+              className="sub_formText"
               value={popupData.phone || ''}
               onChange={handleChange}
               error={dataValid.phone}
               label={dataValid.phone ? validationMsg.phone : ''}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               이메일 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="email"
               placeholder="이메일 주소"
-              sx={{ mt: '5px' }}
               name="email"
+              className="sub_formText"
               value={popupData.email || ''}
               onChange={handleChange}
               error={dataValid.email}
               label={dataValid.email ? validationMsg.email : ''}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>유형</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">유형</InputLabel>
             <Select
               fullWidth
               id="category"
@@ -330,19 +236,17 @@ const UpdateOperatorPopup = (props: {
               onChange={e => {
                 setPopupData({ ...popupData, usrTp: e.target.value as string });
               }}
+              className="sub_select_form"
             >
               <MenuItem value="DEFAULT">기본</MenuItem>
               <MenuItem value="SYSUSER">시스템사용자</MenuItem>
             </Select>
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>상태</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">상태</InputLabel>
             <Select
               fullWidth
+              className="sub_select_form"
               id="status"
               value={popupData.status || ''}
               onChange={e => {
@@ -356,17 +260,13 @@ const UpdateOperatorPopup = (props: {
               <MenuItem value="0">미사용</MenuItem>
             </Select>
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>추가 내용</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">추가 내용</InputLabel>
             <TextField
               fullWidth
               id="description"
+              className="sub_formText"
               placeholder="운영자 설명"
-              sx={{ mt: '5px' }}
               name="description"
               value={popupData.description || ''}
               onChange={handleChange}
@@ -375,9 +275,17 @@ const UpdateOperatorPopup = (props: {
         </DialogContent>
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-          <Button onClick={() => handleClose()}>취소</Button>
+          <Button
+            onClick={() => handleClose()}
+            sx={{ fontSize: '14px' }}
+            className="sub_button_white_none"
+          >
+            취소
+          </Button>
           <Button
             variant="contained"
+            className="sub_button_blue"
+            sx={{ minheight: '36px', minWeight: '57px', fontSize: '14px' }}
             onClick={async () => {
               const valid = {
                 usrPw: false,

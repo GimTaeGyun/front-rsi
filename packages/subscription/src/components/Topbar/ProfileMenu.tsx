@@ -127,7 +127,6 @@ const ProfileMenu = () => {
           <MenuItem
             onClick={onClickButton}
             sx={{
-              fontFamily: 'NotoSansKRMedium',
               height: '49px',
               borderBottom: '1px solid',
               borderColor: '#0000001F',
@@ -135,10 +134,7 @@ const ProfileMenu = () => {
           >
             개인정보 설정
           </MenuItem>
-          <MenuItem
-            onClick={logout}
-            sx={{ fontFamily: 'NotoSansKRMedium', height: '49px' }}
-          >
+          <MenuItem onClick={logout} sx={{ height: '49px' }}>
             로그아웃
           </MenuItem>
         </Menu>

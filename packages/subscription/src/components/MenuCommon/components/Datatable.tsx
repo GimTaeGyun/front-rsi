@@ -90,7 +90,6 @@ const DataTable = (props: any) => {
             height: '56px',
             '& .MuiTypography-root': {
               fontSize: '16px',
-              fontFamily: 'NotoSansKRMedium',
             },
           }}
         />
@@ -105,9 +104,8 @@ const DataTable = (props: any) => {
             borderRadius: 0,
             fontSize: '14px',
             fontFamily: 'NotoSansKRRagular',
-            '	.MuiDataGrid-selectedRowCount': {
-              bgcolor: '#284ad5',
-            },
+
+            '.MuiDataGrid-columnSeparator--sideRight': {},
           }}
           components={{
             Footer: DatatableFooter,
@@ -142,7 +140,6 @@ const styles = {
   card_title: {
     '& .MuiTypography-root': {
       fontSize: '16px',
-      fontFamily: 'NotoSansKRMedium',
     },
   },
   search_input: {

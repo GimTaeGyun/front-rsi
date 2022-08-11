@@ -18,9 +18,7 @@ export const columns: GridColDef[] = [
     disableColumnMenu: true,
 
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -30,9 +28,7 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -45,9 +41,7 @@ export const columns: GridColDef[] = [
     hideSortIcons: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -58,9 +52,7 @@ export const columns: GridColDef[] = [
     sortable: false,
     hideSortIcons: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -72,13 +64,10 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
     renderCell: (params: GridRenderCellParams<string>) => (
       <Typography
-        fontFamily="NotoSansKRMedium"
         fontSize="14px"
         sx={{
           ...((params.value as any) == 1 && { color: '#284AD5' }),
@@ -97,9 +86,7 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -111,9 +98,7 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -125,7 +110,15 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px" borderRight="none">
+      <Typography
+        fontSize="14px"
+        borderRight="none"
+        sx={{
+          '.MuiDataGrid-columnSeparator': {
+            display: 'none',
+          },
+        }}
+      >
         {params.colDef.headerName}
       </Typography>
     ),
@@ -133,13 +126,11 @@ export const columns: GridColDef[] = [
       <Button
         variant="outlined"
         sx={{
-          p: '5px 10px',
           Width: '44px',
           height: '30px',
           fontSize: '13px',
-          borderColor: '#284AD5',
-          color: '#284AD5',
         }}
+        className="sub_button_white"
       >
         수정
       </Button>

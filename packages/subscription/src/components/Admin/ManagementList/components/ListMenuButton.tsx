@@ -26,9 +26,7 @@ const ListMenuButton = (props: {
           backgroundColor: 'white',
         }}
       >
-        <Typography sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}>
-          그룹 삭제
-        </Typography>
+        <Typography sx={{ fontSize: '10pt' }}>그룹 삭제</Typography>
       </MenuList>
       <MenuList
         sx={{
@@ -39,9 +37,7 @@ const ListMenuButton = (props: {
           backgroundColor: 'white',
         }}
       >
-        <Typography sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}>
-          그룹 삭제
-        </Typography>
+        <Typography sx={{ fontSize: '10pt' }}>그룹 삭제</Typography>
       </MenuList>
       <MenuList
         sx={{
@@ -53,9 +49,7 @@ const ListMenuButton = (props: {
           backgroundColor: 'white',
         }}
       >
-        <Typography sx={{ fontSize: '10pt', fontFamily: 'NotoSansKRMedium' }}>
-          그룹 삭제
-        </Typography>
+        <Typography sx={{ fontSize: '10pt' }}>그룹 삭제</Typography>
       </MenuList>
     </Menu>
   );

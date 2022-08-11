@@ -68,7 +68,7 @@ const ClientArea = (props: {
         sx={{
           color: '#000000',
           fontSize: '35px',
-          fontFamily: 'NotoSansKRMedium',
+
           mt: '15px',
           mb: '30px',
         }}
