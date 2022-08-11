@@ -32,7 +32,7 @@ const Admin = () => {
             />
           ) : undefined}
 
-          <Card sx={{width:"100%",height:"112px"}}></Card>
+          <Card className="sub_card" sx={{width:"100%",height:"112px"}}></Card>
         </>
       </AppFrame>
     </>
