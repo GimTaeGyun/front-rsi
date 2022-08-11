@@ -7,91 +7,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import MuiFormLabel from '@mui/material/FormLabel';
+import InputLabel from '@mui/material/InputLabel';
 import MuiMenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import MuiSelect from '@mui/material/Select';
-import MuiTextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import * as Yup from 'yup';
-
-const FormLabel = styled(MuiFormLabel)({
-  color: '#333333',
-  fontFamily: 'NotoSansKRMedium',
-  fontSize: '14px',
-});
-
-const TextField = styled(MuiTextField)({
-  minHeight: '42px',
-  fontFamily: 'NotoSansKRRegular',
-  '& .MuiOutlinedInput-input': {
-    padding: '11px 10px',
-    lineHeight: 'normal',
-    fontFamily: 'NotoSansKRRegular',
-  },
-  '& input::placeholder': {
-    color: '#00000099',
-    opacity: '1',
-    fontFamily: 'NotoSansKRRegular',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&:hover fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#284AD5',
-      borderWidth: '1px',
-    },
-    '&.Mui-error fieldset': {
-      borderColor: '#E50012',
-      borderWidth: '1px',
-    },
-  },
-});
-
-const Select = styled(MuiSelect)({
-  height: '42px',
-  marginTop: '5px',
-  fontFamily: 'NotoSansKRRagular',
-  fontSize: '14px',
-  '&.MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&:hover fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#0000001F',
-      borderWidth: '1px',
-    },
-    '&.Mui-error fieldset': {
-      borderColor: '#E50012',
-      borderWidth: '1px',
-    },
-  },
-  '&.Mui-disabled': {
-    fontSize: '14px',
-    border: 'dashed',
-    backgroundColor: '#F9F9F9',
-    borderWidth: '1px',
-    borderColor: '#0000003B',
-    fontFamily: 'NotoSansKRRagular',
-    '&.MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: '#0000001F',
-        borderWidth: '0px',
-      },
-    },
-  },
-});
 
 const MenuItem = styled(MuiMenuItem)({
   '&:hover': {
@@ -196,20 +119,18 @@ const AddOperatorPopup = (props: {
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ padding: '30px' }}>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel
+              className="sub_formLabel"
+              sx={{ marginTop: '0px !important' }}
+            >
               아이디 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                mt: '5px',
               }}
             >
               <TextField
@@ -224,6 +145,7 @@ const AddOperatorPopup = (props: {
                 }}
                 name="usrId"
                 sx={{ mr: '10px', flex: '1', minWidth: '348px' }}
+                className="sub_formText"
               />
               <Button
                 variant="contained"
@@ -241,14 +163,10 @@ const AddOperatorPopup = (props: {
               </Button>
             </Box>
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               비밀번호 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="password"
@@ -256,7 +174,7 @@ const AddOperatorPopup = (props: {
               placeholder="비밀번호"
               error={dataValid.usrPw}
               label={dataValid.usrPw ? validationMsg.usrPw : ''}
-              sx={{ mt: '5px' }}
+              className="sub_formText"
               name="usrPw"
               onChange={e => {
                 e.target.value = e.target.value.substring(0, 16);
@@ -265,19 +183,15 @@ const AddOperatorPopup = (props: {
               }}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               이름 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="name"
               placeholder="이름"
-              sx={{ mt: '5px' }}
+              className="sub_formText"
               name="usrNm"
               error={dataValid.usrNm}
               label={dataValid.usrNm ? validationMsg.usrNm : ''}
@@ -287,19 +201,15 @@ const AddOperatorPopup = (props: {
               }}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               전화번호 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="phone"
               placeholder="전화번호"
-              sx={{ mt: '5px' }}
+              className="sub_formText"
               name="phone"
               error={dataValid.phone}
               label={dataValid.phone ? validationMsg.phone : ''}
@@ -310,19 +220,15 @@ const AddOperatorPopup = (props: {
               }}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">
               이메일 <Typography className="sub_label_dot">•</Typography>{' '}
-            </FormLabel>
+            </InputLabel>
             <TextField
               fullWidth
               id="email"
               placeholder="이메일 주소"
-              sx={{ mt: '5px' }}
+              className="sub_formText"
               name="email"
               error={dataValid.email}
               label={dataValid.email ? validationMsg.email : ''}
@@ -332,16 +238,13 @@ const AddOperatorPopup = (props: {
               }}
             />
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>유형</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">유형</InputLabel>
             <Select
               fullWidth
               id="category"
               name="usrTp"
+              className="sub_select_form"
               defaultValue="DEFAULT"
               onChange={e => {
                 handleChange(e);
@@ -361,37 +264,25 @@ const AddOperatorPopup = (props: {
               </MenuItem>
             </Select>
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>상태</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">상태</InputLabel>
             <Select
               fullWidth
               id="situation"
               value="1"
               readOnly
-              className="Mui-disabled"
+              className="sub_select_form_disable"
             >
               <MenuItem value="1">사용</MenuItem>
             </Select>
           </Box>
-          <Box
-            sx={{
-              mb: '15px',
-            }}
-          >
-            <FormLabel>추가 내용</FormLabel>
+          <Box>
+            <InputLabel className="sub_formLabel">추가 내용</InputLabel>
             <TextField
               fullWidth
               id="additional_info"
               placeholder="운영자 설명"
-              sx={{
-                mt: '5px',
-                fontSize: '14px',
-                fontFamily: 'NotoSansKRRagular',
-              }}
+              className="sub_formText"
               name="description"
               onChange={e => handleChange(e)}
             />
