@@ -22,7 +22,7 @@ const AppFrame = (props: {
   const handleToggle = () => setOpen(!open);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex',backgroundColor:"#F4F5F7" }}>
       <Topbar handleToggle={handleToggle} />
       <LeftMenu open={open} drawerWidth={drawerWidth} />
       <ClientArea

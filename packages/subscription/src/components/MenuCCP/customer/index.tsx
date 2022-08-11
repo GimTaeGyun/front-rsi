@@ -6,7 +6,8 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-import { Card } from '@mui/material';
+import { Card, OutlinedInput, Select, MenuItem, Button } from '@mui/material';
+import DataTable from './components/Datatable';
 
 const Admin = () => {
   // alertPopup object
@@ -32,7 +33,91 @@ const Admin = () => {
             />
           ) : undefined}
 
-          <Card className="sub_card" sx={{width:"100%",height:"112px"}}></Card>
+          {/* Filter Section */}
+          <Card className="sub_card_common sub_card_filter" sx={{width:"100%",maxWidth:"1470px",height:"112px"}}>
+            <Box className="sub_listpage_filter_topsection">
+              <Box className="sub_listpage_filter_topsection_sub">
+                <Box component="span" className="sub_listpage_filter_label">검색어 입력</Box>
+                <Box component="span" className="sub_listpage_filter_inputgroup">
+                  <Select
+                    fullWidth={false}
+                    id="search-category"
+                    name="search-category"
+                    defaultValue="전체"
+                    className="sub_select_common sub_listpage_filter_list"
+                  >
+                    <MenuItem value="전체">전체</MenuItem>
+                  </Select>
+                  <OutlinedInput
+                    fullWidth={false}
+                    id="search-term"
+                    placeholder="검색어 입력"
+                    name="search-term"
+                    className="sub_input_common sub_listpage_filter_search"
+                  />
+                </Box>
+              </Box>
+              <Box className="sub_listpage_filter_topsection_sub">
+                <Box component="span" className="sub_listpage_filter_label">가입일</Box>
+                <Box component="span" className="sub_listpage_filter_inputgroup">
+                  <OutlinedInput
+                    fullWidth={false}
+                    id="search-date1"
+                    placeholder="시작일"
+                    name="search-date1"
+                    className="sub_input_common sub_listpage_filter_date"
+                  />
+                  <OutlinedInput
+                    fullWidth={false}
+                    id="search-date2"
+                    placeholder="종료일"
+                    name="search-date2"
+                    className="sub_input_common sub_listpage_filter_date"
+                  />
+                </Box>
+              </Box>
+              <Box className="sub_listpage_filter_topsection_sub">
+                <Box component="span" className="sub_listpage_filter_label">고객유형</Box>
+                <Box component="span" className="sub_listpage_filter_inputgroup">
+                    <Select
+                      fullWidth={false}
+                      id="search-category21"
+                      name="search-category21"
+                      defaultValue="전체"
+                      className="sub_select_common sub_listpage_filter_list2"
+                    >
+                      <MenuItem value="전체">전체</MenuItem>
+                    </Select>
+                    <Select
+                      fullWidth={false}
+                      id="search-category22"
+                      name="search-category22"
+                      defaultValue="전체"
+                      className="sub_select_common sub_listpage_filter_list2"
+                    >
+                      <MenuItem value="전체">전체</MenuItem>
+                    </Select>
+                    <Select
+                      fullWidth={false}
+                      id="search-category23"
+                      name="search-category23"
+                      defaultValue="전체"
+                      className="sub_select_common sub_listpage_filter_list2"
+                    >
+                      <MenuItem value="전체">전체</MenuItem>
+                    </Select>
+                </Box>
+              </Box>
+            </Box>
+            <Box className="sub_listpage_filter_btmsection">
+              <Button variant="outlined" className="sub_btn_primary_outline_common sub_btn_filter1">검색하기</Button>
+              <Button variant="contained" className="sub_btn_primary_fill_common sub_btn_filter2">검색하기</Button>
+            </Box>
+          </Card>
+
+          <Box component="div" sx={{ position: 'relative',maxWidth:"1470px" }}>
+            <DataTable />
+          </Box>
         </>
       </AppFrame>
     </>
