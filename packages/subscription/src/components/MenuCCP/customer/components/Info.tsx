@@ -1,8 +1,7 @@
 import { Box, Divider } from '@mui/material';
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, TextField } from '@mui/material';
 import React from 'react';
 import MuiFormLabel from '@mui/material/FormLabel';
-import TextField from '@mui/material/TextField';
 const Info = () => {
   return (
     <>
@@ -39,7 +38,7 @@ const Info = () => {
             sx={{
               display: 'inline-block',
               width: '490px',
-              height: '60px',
+              height: '63px',
               color: '#333333',
               fontFamily: 'NotoSansKRMedium',
             }}
@@ -58,12 +57,34 @@ const Info = () => {
             >
               아이디
             </MuiFormLabel>
-            <TextField></TextField>
+            <TextField
+              sx={{
+                '& .MuiInputBase-root': {
+                  width: '360px',
+                  height: '36px',
+                },
+                '& .MuiInputBase-root input': {
+                  width: '360px',
+                  height: '36px',
+                  paddingTop: '0px',
+                  paddingBottom: '0px',
+                  fontFamily: 'NotoSansKR',
+                  fontSize: '13px',
+                  lineHeight: '24px',
+                  letterSpacing: '0px',
+                },
+                '& .MuiInputBase-root fieldset': {
+                  height: '36px',
+                  display: 'inline-block',
+                },
+              }}
+            ></TextField>
           </Box>
           <Box
             sx={{
               display: 'inline-block',
               width: '490px',
+              height: '60px',
               color: '#333333',
               fontFamily: 'NotoSansKRMedium',
             }}
@@ -72,6 +93,7 @@ const Info = () => {
             sx={{
               display: 'inline-block',
               width: '490px',
+              height: '60px',
               color: '#333333',
               fontFamily: 'NotoSansKRMedium',
             }}
