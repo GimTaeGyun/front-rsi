@@ -125,9 +125,9 @@ const css = createTheme({
 
         //This is all cards style class
         '& .sub_card_common': {
-          boxShadow: '0px 1px 5px #0000002E',
-          backgroundColor: '#fff',
-          borderRadius: '6px',
+          boxShadow: '0px 1px 5px #0000002E !important',
+          backgroundColor: '#fff !important',
+          borderRadius: '6px !important',
         },
 
         //This is all outlined input style class
@@ -159,9 +159,14 @@ const css = createTheme({
         },
         '& .sub_tbl_th_common': {
           color: '#000000DE',
-          fontFamily: 'NotoSansKRMedium',
-          fontSize: '14px',
-          letterSpacing: '-0.35px',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '14px !important',
+          letterSpacing: '-0.35px !important',
+        },
+        '& .sub_tbl_outer_common .MuiDataGrid-cellContent': {
+          color: '#000000DE',
+          fontFamily: 'NotoSansKRRegular !important',
+          fontSize: '14px !important',
         },
 
         //This is all outlined select style class
@@ -177,35 +182,35 @@ const css = createTheme({
           },
         },
         '& .sub_select_common:hover': {
-          borderColor: '#000000DE',
+          borderColor: '#000000DE !important',
         },
 
         //This is all outlined button style class
         '& .sub_btn_primary_outline_common': {
-          color: '#284AD5',
-          fontFamily: 'NotoSansKRMedium',
-          fontSize: '14px',
-          borderColor: '#284AD5',
-          letterSpacing: '0.01px',
+          color: '#284AD5 !important',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '14px !important',
+          borderColor: '#284AD5 !important',
+          letterSpacing: '0.01px !important',
         },
         '& .sub_btn_primary_outline_common:hover': {
-          backgroundColor: '#fff',
+          backgroundColor: '#fff !important',
         },
 
         //This is all contained/filled button style class
         '& .sub_btn_primary_fill_common': {
-          color: '#fff',
-          backgroundColor: '#284AD5',
-          fontFamily: 'NotoSansKRMedium',
-          fontSize: '14px',
-          borderColor: '#284AD5',
-          letterSpacing: '0.01px',
-          boxShadow: '0px 3px 3px #0000002E',
+          color: '#fff !important',
+          backgroundColor: '#284AD5 !important',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '14px !important',
+          borderColor: '#284AD5 !important',
+          letterSpacing: '0.01px !important',
+          boxShadow: '0px 3px 3px #0000002E !important',
         },
         '& .sub_btn_primary_fill_common:hover': {
-          backgroundColor: '#284AD5',
-          borderColor: '#284AD5',
-          boxShadow: '0px 3px 3px #0000002E',
+          backgroundColor: '#284AD5 !important',
+          borderColor: '#284AD5 !important',
+          boxShadow: '0px 3px 3px #0000002E !important',
         },
 
         //Clases specific to search filter section below:
@@ -271,7 +276,7 @@ const css = createTheme({
         '& .sub_btn_filter1': {
           width: '84px',
           height: '36px',
-          marginRight: '8px',
+          marginRight: '8px !important',
         },
         '& .sub_btn_filter2': {
           width: '84px',
