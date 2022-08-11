@@ -6,6 +6,8 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
+import Info from './components/Info';
+
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -30,6 +32,7 @@ const Admin = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
+          <Info />
         </>
       </AppFrame>
     </>
