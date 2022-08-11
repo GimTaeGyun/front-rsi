@@ -4,7 +4,7 @@ const css = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        /*'.test': {
+        /*'& .test': {
           fontSize: '30px !important',
         },*/
       },
