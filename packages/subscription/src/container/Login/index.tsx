@@ -15,8 +15,8 @@ import {
 import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-
 import Axios from '../../utils/axios';
+import Image from '../../../public/assets/images/admin_bkg.png';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');
@@ -76,7 +76,9 @@ const AdminLogin = () => {
     if (!isLogin) {
       return (
         <Alert severity="error" icon={false} sx={styles.alert_error}>
-          아이디 또는 비밀번호를 확인해 주세요.
+          <Box sx={{ textAlign: 'center', minWidth: '294px' }}>
+            아이디 또는 비밀번호를 확인해 주세요.
+          </Box>
         </Alert>
       );
     } else {
@@ -148,6 +150,7 @@ const AdminLogin = () => {
             </FormGroup>
           </CardContent>
           <CardActions sx={styles.loginbutton_outer}>
+            <OnClose />
             <Button sx={styles.loginbutton} onClick={onClick}>
               로그인
             </Button>
@@ -163,13 +166,14 @@ const AdminLogin = () => {
 
 const styles = {
   alert_error: {
-    backgroundColor: 'white',
+    backgroundColor: '#F9F9F9',
     fontFamily: 'Noto Sans KR',
     width: '100%',
     fontSize: '15px',
+    fontAligh: 'center',
     color: '#F44336',
-    border: 'none',
     borderRadius: '0',
+    alignItems: 'center',
     '&.MuiAlert-message': {
       overflow: 'hidden',
     },
@@ -282,11 +286,11 @@ const styles = {
     width: '100%',
     height: '100%',
     backgroundColor: '#F2F3F6',
-    backgroundImage: '../../../public/assets/images/logo_bfly_adminlogin.jpg',
+    backgroundImage: `url(${Image})`,
+    backgroundAttachment: 'fixed',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: '100%',
-    backgroundPositionX: 'center',
-    backgroundPositionY: '-50px',
+    backgroundSize: 'contain',
+    backgroundPosition: 'bottom',
   },
   footer_text: {
     fontFamily: 'NotoSansKRRegular',

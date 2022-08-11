@@ -6,13 +6,8 @@ import React from 'react';
 import * as XLSX from 'xlsx';
 
 const buttonStyle = {
-  p: '5px 10px',
   height: '30px',
   fontSize: '13px',
-  lineHeight: 'normal',
-  fontFamily: 'NotoSansKRMedium',
-  color: '#284AD5',
-  borderColor: '#284AD5',
 };
 
 const DatatableFooter = (props: {
@@ -69,6 +64,7 @@ const DatatableFooter = (props: {
           <Button
             variant="outlined"
             sx={buttonStyle}
+            className="sub_button_white"
             onClick={e => handleSecondBtn(e)}
           >
             운영자 추가
@@ -87,6 +83,7 @@ const DatatableFooter = (props: {
             />
           }
           sx={buttonStyle}
+          className="sub_button_white"
         >
           엑셀 다운로드
         </Button>
