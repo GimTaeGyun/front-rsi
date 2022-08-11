@@ -1,23 +1,38 @@
 import { createTheme } from '@mui/material';
+import { fontFamily } from '@mui/system';
 
 const css = createTheme({
+  typography: {
+    fontFamily: 'NotoSansKRMedium',
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         ':root': {
+          '& .sub_button_white_noneborder': {
+            color: '#284AD5',
+            minWidth: '57px',
+
+            ':hover': {
+              color: '#0615B2',
+              backgroundColor: 'unset',
+            },
+          },
           '& .sub_button_white': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
-            fontFamily: 'NotoSansKRMedium ',
+
             color: '#284AD5',
             borderColor: '#284AD5',
+            borderRadius: '6px',
           },
           '& .sub_button_blue': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
-            fontFamily: 'NotoSansKRMedium ',
+
             backgroundColor: '#284AD5',
-            color: 'white',
+            color: '#fff',
+            borderRadius: '6px',
           },
           '& .sub_label_dot': {
             color: '#284ad5',
@@ -33,19 +48,19 @@ const css = createTheme({
           '& .sub_formLabel': {
             marginTop: '15px',
             color: '#333333',
-            fontFamily: 'NotoSansKRMedium',
             fontSize: '14px',
           },
 
           '& .sub_formText': {
-            fontFamily: 'NotoSansKRMedium',
-            marginTop: '15px',
+            marginTop: '10px',
             height: '42px',
+            width: '100%',
             '& .MuiOutlinedInput-input': {
               padding: '11px 10px',
               lineHeight: 'normal',
             },
             '& .MuiOutlinedInput-root': {
+              '& placeholder': {},
               '& fieldset': {
                 borderColor: '#0000001F',
                 borderWidth: '1px',
@@ -134,23 +149,61 @@ const css = createTheme({
         },
 
         //This is all data tables style class
-        '& .sub_tbl_outer_common': {
-          border: 'unset',
-          boxShadow: '0px 1px 5px #0000002E',
-          backgroundColor: '#fff',
-          borderRadius: '6px',
+        '& .sub_tbl_section_common':{
+          border:"unset",
+          boxShadow: "0px 1px 5px #0000002E !important",
+          backgroundColor: "#fff !important",
+          borderRadius: "6px !important"
         },
-        '& .sub_tbl_th_common': {
-          color: '#000000DE',
-          fontFamily: 'NotoSansKRMedium !important',
-          fontSize: '14px !important',
-          letterSpacing: '-0.35px !important',
+        '& .sub_tbl_outer_common':{
+          boxShadow: "unset !important",
+          borderRadius:"unset !important",
+          borderLeftWidth:"0 !important",
+          borderRightWidth:"0 !important",
+          '& .MuiCheckbox-root.Mui-checked': {
+            color: '#284AD5 !important',
+          },
+          '& .MuiDataGrid-row.Mui-selected:hover': {
+            backgroundColor: '#fff !important',
+          },
+          '& .MuiDataGrid-row:hover': {
+            backgroundColor: '#fff !important',
+            cursor: 'pointer !important',
+          },
+          '& .MuiDataGrid-row.Mui-selected': {
+            backgroundColor: 'unset !important',
+          },
+          '& .MuiDataGrid-cell:focus': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-columnHeader:focus': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-columnHeader:focus-within': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-cell:focus-within': {
+            outline: 'none !important',
+          },
         },
-        '& .sub_tbl_outer_common .MuiDataGrid-cellContent': {
-          color: '#000000DE',
-          fontFamily: 'NotoSansKRRegular !important',
-          fontSize: '14px !important',
+        '& .sub_tbl_outer_common .MuiDataGrid-cellContent':{
+          color: "#000000DE",
+          fontFamily:"NotoSansKRRegular !important",
+          fontSize:"14px !important",
         },
+        '& .sub_tbl_th_common':{
+          color: "#000000DE",
+          fontFamily:"NotoSansKRMedium !important",
+          fontSize:"14px !important",
+          letterSpacing:"-0.35px !important"
+        },
+        '& .sub_tbl_header_text_common':{
+          color: "#000000DE",
+          fontFamily:"NotoSansKRMedium !important",
+          fontSize:"16px !important",
+          letterSpacing:"-0.4px !important"
+        },
+        
 
         //This is all outlined select style class
         '& .sub_select_common': {

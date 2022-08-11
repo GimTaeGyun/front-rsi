@@ -1,4 +1,11 @@
-import { Box, Button, Modal, OutlinedInput } from '@mui/material';
+import {
+  Box,
+  Button,
+  Modal,
+  Typography,
+  TextField,
+  InputLabel,
+} from '@mui/material';
 import { useAtom } from 'jotai';
 import * as React from 'react';
 
@@ -128,19 +135,7 @@ const AddGroup = (props: {
         <Box sx={styles.popup_outer}>
           <Box sx={styles.popup_header}>
             <Box component="h3" sx={styles.popup_title}>
-              {title}{' '}
-              <span
-                className="label-dot"
-                style={{
-                  color: '#284AD5',
-                  fontFamily: 'NotoSansKRMedium',
-                  position: 'absolute',
-                  top: '80px',
-                  left: '71px',
-                }}
-              >
-                •
-              </span>
+              {title}
             </Box>
             <Box
               component="img"
@@ -151,19 +146,23 @@ const AddGroup = (props: {
           </Box>
           <Box sx={styles.popup_content}>
             <Box component="div" sx={styles.inputfield_outer}>
-              <Box sx={styles.input_label}>
-                그룹명<Box component="span" sx={styles.req_field}></Box>
-              </Box>
+              <InputLabel
+                className="sub_formLabel"
+                sx={{ marginBottom: '10px' }}
+              >
+                그룹명<Typography className="sub_label_dot">•</Typography>{' '}
+              </InputLabel>
               <Box sx={styles.checkfield_outer}>
                 <Box component="span" sx={{ width: '348px' }}>
-                  <OutlinedInput
+                  <TextField
                     fullWidth
                     id="group-name"
                     placeholder="생성할 그룹명을 입력해 주세요."
-                    sx={styles.inputfield}
+                    className="sub_formText"
                     name="usrGrpNm"
                     value={formData.usrGrpNm}
                     onChange={handleChange}
+                    sx={{ marginTop: '0 !important' }}
                   />
                 </Box>
                 <Box component="span" sx={{ display: 'inline-block' }}>
@@ -172,6 +171,7 @@ const AddGroup = (props: {
                     variant="contained"
                     sx={styles.btn_check}
                     onClick={checkGroupName}
+                    className="sub_button_blue"
                   >
                     중복확인
                   </Button>
@@ -179,47 +179,33 @@ const AddGroup = (props: {
               </Box>
             </Box>
             <Box component="div" sx={styles.inputfield_outer}>
-              <Box sx={styles.input_label}>그룹 설명</Box>
-              <Box sx={styles.checkfield_outer}>
-                <Box component="span" sx={{ width: '100%' }}>
-                  <OutlinedInput
-                    fullWidth
-                    id="group-desc"
-                    placeholder="그룹설명을 입력해 주세요."
-                    sx={styles.inputfield}
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                  />
-                </Box>
-              </Box>
+              <InputLabel className="sub_formLabel">그룹 설명</InputLabel>
+              <TextField
+                fullWidth
+                id="group-desc"
+                placeholder="그룹설명을 입력해 주세요."
+                className="sub_formText"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+              />
             </Box>
             <Box component="div" sx={styles.inputfield_outer}>
-              <Box sx={styles.input_label}>
-                그룹 역할 설정{' '}
-                <span
-                  className="label-dot"
-                  style={{
-                    minWidth: '10px',
-                    minHeight: '10px',
-                    color: '#284AD5',
-                    fontFamily: 'NotoSansKRMedium',
-                    position: 'absolute',
-                    left: '114px',
-                    top: '251px',
-                  }}
-                >
-                  •
-                </span>
+              <InputLabel
+                className="sub_formLabel"
+                sx={{ marginBottom: '10px' }}
+              >
+                그룹 역할 설정
+                <Typography className="sub_label_dot">•</Typography>{' '}
                 <Box component="span" sx={styles.req_field}></Box>
-              </Box>
+              </InputLabel>
               <Box component="div" sx={{ position: 'relative' }}>
                 <DataTable onChange={onRowsSelect} />
               </Box>
             </Box>
           </Box>
           <Box sx={styles.popup_footer}>
-            <Button sx={styles.btn_close} onClick={handleClose}>
+            <Button onClick={handleClose} className="sub_button_noneborder">
               취소
             </Button>
             <Button
@@ -227,6 +213,7 @@ const AddGroup = (props: {
               variant="contained"
               sx={styles.btn_submit}
               onClick={addGroup}
+              className="sub_button_blue"
             >
               저장
             </Button>
@@ -263,35 +250,13 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  inputfield: {
-    fontFamily: 'NotoSansKRRegular',
-    fontSize: '14px',
-    width: '100%',
-    height: '42px',
-    borderColor: '#284AD5',
-    '& input::placeholder': {
-      color: '#00000099',
-      opacity: '1',
-    },
-
-    '&.MuiOutlinedInput-root.Mui-focused fieldset': {
-      borderColor: '#284AD5',
-      borderWidth: '1px',
-    },
-  },
   input_outer: {
     display: 'inline-block',
   },
   btn_check: {
     px: '0',
-    color: '#fff',
     width: '82px',
     height: '42px',
-    borderRadius: '6px',
-    borderColor: '#284AD5',
-    backgroundColor: '#284AD5',
-    fontFamily: 'NotoSansKRMedium',
-    boxShadow: 'none',
     ':hover': {
       borderColor: '#0615B2',
       backgroundColor: '#0615B2',
@@ -317,15 +282,6 @@ const styles = {
       borderColor: '#0615B2',
       backgroundColor: '#0615B2',
       boxShadow: '0px 3px 3px #0000002E',
-    },
-  },
-  btn_close: {
-    color: '#284AD5',
-    minWidth: '57px',
-    fontFamily: 'NotoSansKRMedium',
-    ':hover': {
-      color: '#0615B2',
-      backgroundColor: 'unset',
     },
   },
   popup_outer: {

@@ -6,7 +6,7 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-import { Card, OutlinedInput, Select, MenuItem, Button } from '@mui/material';
+import { Card, CardHeader, OutlinedInput, Select, MenuItem, Button, Typography } from '@mui/material';
 import DataTable from './components/Datatable';
 
 const Admin = () => {
@@ -115,9 +115,23 @@ const Admin = () => {
             </Box>
           </Card>
 
-          <Box component="div" sx={{ position: 'relative',maxWidth:"1470px" }}>
+          <Card className="sub_tbl_section_common">
+            <CardHeader
+              className="sub_tbl_header_outer_common"
+              component="div"
+              title={
+                <Box
+                  component="div"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                <Typography className="sub_tbl_header_text_common">전체 고객 (300)</Typography>
+                </Box>
+                }
+            ></CardHeader>
             <DataTable />
-          </Box>
+          </Card>
         </>
       </AppFrame>
     </>
