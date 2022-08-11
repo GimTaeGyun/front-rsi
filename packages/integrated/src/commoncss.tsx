@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material';
+import { fontFamily } from '@mui/system';
 
 const css = createTheme({
+  typography: {},
   components: {
     MuiCard: {
       styleOverrides: {
@@ -32,28 +34,36 @@ const css = createTheme({
           fontSize: '30px !important',
         },*/
         ':root': {
+          '& .sub_button_white_noneborder': {
+            color: '#284AD5',
+            minWidth: '57px',
+
+            ':hover': {
+              color: '#0615B2',
+              backgroundColor: 'unset',
+            },
+          },
           '& .sub_button_white': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
             fontFamily: 'NotoSansKRMedium ',
             color: '#284AD5',
             borderColor: '#284AD5',
+            borderRadius: '6px',
           },
           '& .sub_button_blue': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
             fontFamily: 'NotoSansKRMedium ',
             backgroundColor: '#284AD5',
-            color: 'white',
+            color: '#fff',
+            borderRadius: '6px',
           },
           '& .sub_label_dot': {
             color: '#284ad5',
             fontSize: '20px ',
             lineHeight: '0 ',
             display: 'inline-block',
-          },
-          '& .sub_font_medium': {
-            fontFamily: 'NotoSansKRMedium',
           },
           '& .sub_font_regular': {
             fontFamily: 'NotoSansKRRegular',
@@ -77,19 +87,19 @@ const css = createTheme({
           '& .sub_formLabel': {
             marginTop: '15px',
             color: '#333333',
-            fontFamily: 'NotoSansKRMedium',
             fontSize: '14px',
           },
 
           '& .sub_formText': {
-            fontFamily: 'NotoSansKRMedium',
-            marginTop: '15px',
+            marginTop: '10px',
             height: '42px',
+            width: '100%',
             '& .MuiOutlinedInput-input': {
               padding: '11px 10px',
               lineHeight: 'normal',
             },
             '& .MuiOutlinedInput-root': {
+              '& placeholder': {},
               '& fieldset': {
                 borderColor: '#0000001F',
                 borderWidth: '1px',

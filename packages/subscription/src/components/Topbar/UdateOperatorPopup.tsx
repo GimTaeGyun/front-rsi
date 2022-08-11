@@ -325,8 +325,7 @@ const UpdateOperatorPopupUser = (props: {
           <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
             <Button
               onClick={handleClose}
-              className="sub_button_white"
-              sx={{ height: '36px' }}
+              className="sub_button_white_noneborder"
             >
               취소
             </Button>
