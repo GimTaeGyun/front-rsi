@@ -9,7 +9,7 @@ import * as React from 'react';
 
 const columns: GridColDef[] = [
   {
-    field: 'ID',
+    field: 'id',
     headerName: 'ID',
     width: 150,
     headerAlign: 'center',
@@ -121,7 +121,7 @@ const columns: GridColDef[] = [
   {
     field: 'details',
     headerName: '상세보기',
-    width: 114,
+    width: 110,
     headerAlign: 'center',
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
@@ -132,11 +132,66 @@ const columns: GridColDef[] = [
 ];
 
 const rows = [
-  { id: 1, roleName: '슈퍼바이저', roleDesc: 'SUPERVISOR' },
-  { id: 2, roleName: '개발자', roleDesc: 'DEVELOPMENT' },
-  { id: 3, roleName: '영업담당자', roleDesc: 'SALES' },
-  { id: 4, roleName: '재무회계담당자', roleDesc: 'FINANCE' },
-  { id: 5, roleName: '통합관리자어드민', roleDesc: 'ADMIN' },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  },
+  {
+    id:"yujinyong",customerName:"유진용",category:"개인",manager:"",phone:"010-0000-0000",email:"yujinyong@naver.com",memberSince:"2022-01-01 12:00",
+    lastPaymentDate:"2022-10-31 12:00",subsStatus:"구독중",situation:"사용",details:"보기"
+  }
 ];
 
 const DataTable = (props: {  }) => {
@@ -148,8 +203,8 @@ const DataTable = (props: {  }) => {
         rowHeight={52}
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         components={{
           Footer: () => {
