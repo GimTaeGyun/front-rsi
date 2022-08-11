@@ -2,6 +2,7 @@ import { Box, Divider } from '@mui/material';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import React from 'react';
 import MuiFormLabel from '@mui/material/FormLabel';
+import TextField from '@mui/material/TextField';
 const Info = () => {
   return (
     <>
@@ -38,6 +39,7 @@ const Info = () => {
             sx={{
               display: 'inline-block',
               width: '490px',
+              height: '60px',
               color: '#333333',
               fontFamily: 'NotoSansKRMedium',
             }}
@@ -45,16 +47,18 @@ const Info = () => {
             <MuiFormLabel
               sx={{
                 width: '100px',
-                margin: '10px',
+                margin: '15px',
                 marginLeft: '20px',
                 marginRight: '0px',
                 paddingTop: '5px',
                 paddingBottom: '5px',
                 fontFamily: 'NotoSansKRMedium',
+                display: 'inline-block',
               }}
             >
               아이디
             </MuiFormLabel>
+            <TextField></TextField>
           </Box>
           <Box
             sx={{

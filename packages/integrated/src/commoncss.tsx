@@ -25,23 +25,6 @@ const css = createTheme({
             lineHeight: '0 ',
             display: 'inline-block',
           },
-          '& .sub_font_medium': {
-            fontFamily: 'NotoSansKRMedium',
-          },
-          '& .sub_font_regular': {
-            fontFamily: 'NotoSansKRRegular',
-            letterSpacing: '-0.4px',
-          },
-          '& .sub_fontsize16': {
-            letterSpacing: '-0.4px',
-            lineHeight: '20px',
-            fontSize: '16px',
-          },
-          '& .sub_fontsize14': {
-            letterSpacing: '-0.35px',
-            lineHeight: '25px',
-            fontSize: '14px',
-          },
           '& .sub_card': {
             boxShadow: '0px 1px 5px #0000002E ',
             backgroundColor: 'yellow ',
