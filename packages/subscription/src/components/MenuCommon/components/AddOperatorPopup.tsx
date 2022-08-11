@@ -22,10 +22,17 @@ const FormLabel = styled(MuiFormLabel)({
 });
 
 const TextField = styled(MuiTextField)({
-  height: '42px',
+  minHeight: '42px',
+  fontFamily: 'NotoSansKRRegular',
   '& .MuiOutlinedInput-input': {
     padding: '11px 10px',
     lineHeight: 'normal',
+    fontFamily: 'NotoSansKRRegular',
+  },
+  '& input::placeholder': {
+    color: '#00000099',
+    opacity: '1',
+    fontFamily: 'NotoSansKRRegular',
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
@@ -37,7 +44,7 @@ const TextField = styled(MuiTextField)({
       borderWidth: '1px',
     },
     '&.Mui-focused fieldset': {
-      borderColor: '#0000001F',
+      borderColor: '#284AD5',
       borderWidth: '1px',
     },
     '&.Mui-error fieldset': {
@@ -50,6 +57,8 @@ const TextField = styled(MuiTextField)({
 const Select = styled(MuiSelect)({
   height: '42px',
   marginTop: '5px',
+  fontFamily: 'NotoSansKRRagular',
+  fontSize: '14px',
   '&.MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: '#0000001F',
@@ -69,10 +78,18 @@ const Select = styled(MuiSelect)({
     },
   },
   '&.Mui-disabled': {
+    fontSize: '14px',
     border: 'dashed',
     backgroundColor: '#F9F9F9',
     borderWidth: '1px',
     borderColor: '#0000003B',
+    fontFamily: 'NotoSansKRRagular',
+    '&.MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#0000001F',
+        borderWidth: '0px',
+      },
+    },
   },
 });
 
@@ -168,6 +185,7 @@ const AddOperatorPopup = (props: {
               sx={{
                 bgcolor: 'transparent',
                 color: '#000000DE',
+                padding: '0 0 0 0',
                 '&:focus, &:hover': { bgcolor: 'transparent' },
               }}
               onClick={() => handleClose()}
@@ -205,15 +223,17 @@ const AddOperatorPopup = (props: {
                   setPopupData({ ...popupData, usrId: e.target.value });
                 }}
                 name="usrId"
-                sx={{ mr: '10px', flex: '1' }}
+                sx={{ mr: '10px', flex: '1', minWidth: '348px' }}
               />
               <Button
                 variant="contained"
                 sx={{
                   height: '42px',
-                  minWidth: '50px',
+                  minWidth: '82px',
                   fontSize: '14px',
                   p: '11px 16px',
+                  fontFamily: 'NotoSansKRMedium',
+                  bgcolor: '#284AD5',
                 }}
                 onClick={e => handleMiddle(e)}
               >
@@ -327,8 +347,18 @@ const AddOperatorPopup = (props: {
                 handleChange(e);
               }}
             >
-              <MenuItem value="DEFAULT">기본</MenuItem>
-              <MenuItem value="SYSUSER">시스템사용자</MenuItem>
+              <MenuItem
+                value="DEFAULT"
+                sx={{ fontFamily: 'NotoSansKRRagular' }}
+              >
+                기본
+              </MenuItem>
+              <MenuItem
+                value="SYSUSER"
+                sx={{ fontFamily: 'NotoSansKRRagular' }}
+              >
+                시스템사용자
+              </MenuItem>
             </Select>
           </Box>
           <Box
@@ -357,7 +387,11 @@ const AddOperatorPopup = (props: {
               fullWidth
               id="additional_info"
               placeholder="운영자 설명"
-              sx={{ mt: '5px' }}
+              sx={{
+                mt: '5px',
+                fontSize: '14px',
+                fontFamily: 'NotoSansKRRagular',
+              }}
               name="description"
               onChange={e => handleChange(e)}
             />
@@ -365,9 +399,14 @@ const AddOperatorPopup = (props: {
         </DialogContent>
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-          <Button onClick={e => handleClose(e)}>취소</Button>
+          <Button onClick={e => handleClose(e)} sx={{ color: '#284AD5' }}>
+            취소
+          </Button>
           <Button
             variant="contained"
+            sx={{
+              bgcolor: '#284AD5',
+            }}
             onClick={async e => {
               if (await validationSchema.isValid(popupData)) {
                 handleOk(e);

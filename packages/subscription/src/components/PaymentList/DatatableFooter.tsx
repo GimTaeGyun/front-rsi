@@ -3,10 +3,10 @@ import Button from '@mui/material/Button';
 import React from 'react';
 
 const buttonStyle = {
-  p: '5px 10px',
   height: '30px',
   fontSize: '13px',
-  lineHeight: 'normal',
+
+  fontFamily: 'NotoSansKRMedium',
 };
 
 const DatatableFooter = () => {
@@ -28,12 +28,13 @@ const DatatableFooter = () => {
               ...buttonStyle,
               mr: '8px',
             }}
+            className="Sub-button-white"
           >
             리스트 저장
           </Button>
           <Button
             variant="outlined"
-            sx={buttonStyle}
+            className="Sub-button-white"
             onClick={() => setOpenOperatorPopup(true)}
           >
             운영자 추가
