@@ -18,6 +18,7 @@ const css = createTheme({
               backgroundColor: 'unset',
             },
           },
+
           '& .sub_button_white': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
@@ -25,6 +26,15 @@ const css = createTheme({
             borderColor: '#284AD5',
             borderRadius: '6px',
           },
+
+          '& .sub_button_white_none': {
+            padding: '5px 10px ',
+            lineHeight: 'normal ',
+            color: '#284AD5',
+            borderColor: '#F9F9F9',
+            borderRadius: '6px',
+          },
+
           '& .sub_button_blue': {
             padding: '5px 10px ',
             lineHeight: 'normal ',
@@ -32,17 +42,20 @@ const css = createTheme({
             color: '#fff',
             borderRadius: '6px',
           },
+
           '& .sub_label_dot': {
             color: '#284ad5',
             fontSize: '20px ',
             lineHeight: '0 ',
             display: 'inline-block',
           },
+
           '& .sub_card': {
             boxShadow: '0px 1px 5px #0000002E ',
             backgroundColor: 'yellow ',
             borderRadius: '6px ',
           },
+
           '& .sub_formLabel': {
             marginTop: '15px',
             color: '#333333',
@@ -81,9 +94,10 @@ const css = createTheme({
               },
             },
           },
+
           '& .sub_select_form_disable': {
             height: '42px',
-            marginTop: '15px',
+            marginTop: '10px',
             fontSize: '14px',
             border: 'dashed',
             backgroundColor: '#F9F9F9',
@@ -97,9 +111,10 @@ const css = createTheme({
               },
             },
           },
+
           '& .sub_select_form': {
             height: '42px',
-            marginTop: '15px',
+            marginTop: '10px',
             fontFamily: 'NotoSansKRRagular',
             fontSize: '14px',
             '&.MuiOutlinedInput-root': {

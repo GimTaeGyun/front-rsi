@@ -108,13 +108,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
       </Toolbar>
       <Box sx={{ overflow: 'auto' }}>
         {menuItems.map((menuItem, index) => (
-          <List
-            disablePadding
-            key={`list-item-${index}`}
-            sx={{
-              fontFamily: 'NotoSansKRMedium',
-            }}
-          >
+          <List disablePadding key={`list-item-${index}`} sx={{}}>
             <LeftMenuMenuItem defaultOpen={index === 0} menuItem={menuItem} />
           </List>
         ))}

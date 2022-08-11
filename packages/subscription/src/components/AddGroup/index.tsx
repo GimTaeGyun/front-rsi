@@ -205,7 +205,7 @@ const AddGroup = (props: {
             </Box>
           </Box>
           <Box sx={styles.popup_footer}>
-            <Button onClick={handleClose} className="sub_button_noneborder">
+            <Button onClick={handleClose} className="sub_button_white_none">
               취소
             </Button>
             <Button

@@ -91,7 +91,7 @@ const styles = {
     borderColor: '#284AD5',
     backgroundColor: '#284AD5',
     boxShadow: '0px 3px 3px #0000002E',
-    fontFamily: 'NotoSansKRMedium',
+
     ':hover': {
       borderColor: '#0615B2',
       backgroundColor: '#0615B2',
@@ -111,13 +111,11 @@ const styles = {
     width: '100%',
     height: '32px',
     textAlign: 'left',
-    fontFamily: 'NotoSansKRMedium',
   },
   popup_btn: {
     width: '100%',
     height: '32px',
     textAlign: 'right',
-    fontFamily: 'NotoSansKRMedium',
   },
   popup_outer: {
     display: 'block',

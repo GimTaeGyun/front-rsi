@@ -137,14 +137,11 @@ export const columns: GridColDef[] = [
       <Button
         variant="outlined"
         sx={{
-          p: '5px 10px',
           Width: '44px',
           height: '30px',
           fontSize: '13px',
-          fontFamily: 'NotoSansKRMedium',
-          borderColor: '#284AD5',
-          color: '#284AD5',
         }}
+        className="sub_button_white"
       >
         수정
       </Button>

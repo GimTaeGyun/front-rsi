@@ -5,8 +5,6 @@ import React from 'react';
 const buttonStyle = {
   height: '30px',
   fontSize: '13px',
-
-  fontFamily: 'NotoSansKRMedium',
 };
 
 const DatatableFooter = () => {

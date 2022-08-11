@@ -249,7 +249,6 @@ const DataTable = () => {
                 sx={{
                   '& .MuiTypography-root': {
                     fontSize: '16px',
-                    fontFamily: 'NotoSansKRMedium',
                   },
                 }}
               >
@@ -286,7 +285,6 @@ const DataTable = () => {
             height: '56px',
             '& .MuiTypography-root': {
               fontSize: '16px',
-              fontFamily: 'NotoSansKRMedium',
             },
           }}
         />

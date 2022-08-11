@@ -71,7 +71,6 @@ const Sidebar = () => {
           sx={{
             '& .MuiTypography-root': {
               fontSize: '16px',
-              fontFamily: 'NotoSansKRMedium',
             },
           }}
         />

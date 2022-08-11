@@ -153,10 +153,8 @@ const AddOperatorPopup = (props: {
                   height: '42px',
                   minWidth: '82px',
                   fontSize: '14px',
-                  p: '11px 16px',
-                  fontFamily: 'NotoSansKRMedium',
-                  bgcolor: '#284AD5',
                 }}
+                className="sub_button_blue"
                 onClick={e => handleMiddle(e)}
               >
                 중복확인
@@ -290,14 +288,17 @@ const AddOperatorPopup = (props: {
         </DialogContent>
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-          <Button onClick={e => handleClose(e)} sx={{ color: '#284AD5' }}>
+          <Button
+            onClick={e => handleClose(e)}
+            sx={{ fontSize: '14px' }}
+            className="sub_button_white"
+          >
             취소
           </Button>
           <Button
             variant="contained"
-            sx={{
-              bgcolor: '#284AD5',
-            }}
+            className="sub_button_blue"
+            sx={{ width: '57', height: '36', fontSize: '14px' }}
             onClick={async e => {
               if (await validationSchema.isValid(popupData)) {
                 handleOk(e);

@@ -23,7 +23,7 @@ const LeftMenuItem = (props: {
             bgcolor: '#3e5cd9',
           }),
           color: '#fff',
-          fontFamily: 'NotoSansKRMedium',
+
           borderTop: '1px solid #ffffff1f',
           borderBottom: '1px solid #ffffff1f',
           pl: '8px',
@@ -77,7 +77,7 @@ const LeftMenuItem = (props: {
                     lineHeight: 'normal',
                     '& .MuiListItemText-primary': {
                       color: '#FFFFFF99',
-                      fontFamily: 'NotoSansKRMedium',
+
                       fontSize: '15px',
                       height: '15px',
                       '&:hover': {

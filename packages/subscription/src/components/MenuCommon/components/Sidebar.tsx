@@ -183,7 +183,6 @@ const Sidebar = (props: {
                           <ArrowForwardIos
                             sx={{
                               fontSize: '14px',
-                              fontFamily: 'NotoSansKRMedium',
                             }}
                           />
                         ) : (
@@ -191,16 +190,12 @@ const Sidebar = (props: {
                             sx={{
                               fontSize: '14px',
                               color: '#00000042',
-
-                              fontFamily: 'NotoSansKRMedium',
                             }}
                           />
                         )}
                         <Typography
                           component="span"
-                          sx={{
-                            fontFamily: 'NotoSansKRMedium',
-                          }}
+                          sx={{}}
                         >{`${node.text} (${node?.data.cnt})`}</Typography>
                       </Box>
                       <Box>
@@ -263,7 +258,6 @@ const styles = {
   box_cardHeader: {
     '& .MuiTypography-root': {
       fontSize: '16px',
-      fontFamily: 'NotoSansKRMedium',
     },
   },
   cardContent_list: {
@@ -279,7 +273,7 @@ const styles = {
     height: '44px',
     cursor: 'pointer',
     fontSize: '15px',
-    fontFamily: 'NotoSansKRMedium',
+
     '&:hover': {
       backgroundColor: '#F4F5F7',
       borderRadius: '4px',

@@ -90,7 +90,6 @@ const DataTable = (props: any) => {
             height: '56px',
             '& .MuiTypography-root': {
               fontSize: '16px',
-              fontFamily: 'NotoSansKRMedium',
             },
           }}
         />
@@ -142,7 +141,6 @@ const styles = {
   card_title: {
     '& .MuiTypography-root': {
       fontSize: '16px',
-      fontFamily: 'NotoSansKRMedium',
     },
   },
   search_input: {

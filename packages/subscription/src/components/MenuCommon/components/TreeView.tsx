@@ -120,7 +120,6 @@ const styles = {
   box_cardHeader: {
     '& .MuiTypography-root': {
       fontSize: '16px',
-      fontFamily: 'NotoSansKRMedium',
     },
   },
   cardContent_list: {

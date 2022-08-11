@@ -14,9 +14,7 @@ const columns: GridColDef[] = [
     width: 157,
     headerAlign: 'center',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {
@@ -25,9 +23,7 @@ const columns: GridColDef[] = [
     width: 230,
     headerAlign: 'center',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontFamily="NotoSansKRMEdium" fontSize="14px">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
 ];
