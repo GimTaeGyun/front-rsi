@@ -140,6 +140,7 @@ const Sidebar = (props: {
   };
 
   const onClick = (treeItem: any, onToggle: () => void) => {
+    console.log(clickedTreeItem);
     onToggle();
     handleSelectedTreeitem(treeItem);
   };
@@ -175,14 +176,20 @@ const Sidebar = (props: {
                         ...styles.treeview_item,
                         paddingLeft: `${depth * 20 + 10}px`,
                       }}
+                      className={
+                        selectedTreeitem && selectedTreeitem.id == node.id
+                          ? 'sub_tree_hover'
+                          : ''
+                      }
                     >
                       <Box onClick={() => onClick(node, onToggle)}>
                         {isOpen && hasChild ? (
-                          <ExpandMore />
+                          <ExpandMore sx={{ color: '#000000DE' }} />
                         ) : hasChild ? (
                           <ArrowForwardIos
                             sx={{
                               fontSize: '14px',
+                              color: '#000000DE',
                             }}
                           />
                         ) : (
@@ -193,10 +200,14 @@ const Sidebar = (props: {
                             }}
                           />
                         )}
+                        <Typography component="span">{`${node.text}`}</Typography>
                         <Typography
                           component="span"
-                          sx={{}}
-                        >{`${node.text} (${node?.data.cnt})`}</Typography>
+                          sx={{ color: '#000000DE' }}
+                        >
+                          {' '}
+                          {`(${node?.data.cnt})`}
+                        </Typography>
                       </Box>
                       <Box>
                         <IconButton

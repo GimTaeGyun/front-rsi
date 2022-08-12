@@ -4,7 +4,7 @@ import { atom, useAtom } from 'jotai';
 import React from 'react';
 
 import AppFrame from '../../container/AppFrame';
-import { AlertPopupData,GetSidebarData } from '../../data/atoms';
+import { AlertPopupData, GetSidebarData } from '../../data/atoms';
 import axios from '../../utils/axios';
 import AddGroup from '../AddGroup';
 import AlertPopup from '../Common/AlertPopup';
@@ -139,7 +139,6 @@ const Admin = () => {
         usrPw: pw,
       })
       .then(res => {
-        console.log(res);
         if (res.data.code == '0000') {
           setAlertPopup({
             ...defaultAlertPopup,
@@ -189,7 +188,6 @@ const Admin = () => {
   /* 팝업 끝 */
 
   const treeItemClickEvent = (params: any) => {
-    console.log(params);
     if (typeof params.id == 'undefined' || typeof params.id == null) {
       return false;
     }
@@ -275,7 +273,6 @@ const Admin = () => {
       setAddGroupOpen(true);
     },
     (selectedMoreIcon: any) => {
-      console.log(selectedMoreIcon);
       selectedMoreIcon = selectedMoreIcon.treeItem;
       setAlertPopup({
         ...alertPopup,
@@ -288,7 +285,6 @@ const Admin = () => {
         },
         rightCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
-          console.log(selectedMoreIcon);
           if (selectedMoreIcon) {
             axios
               .post('/management/subscription/admin/usergroup/update', {

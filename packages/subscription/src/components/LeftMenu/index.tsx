@@ -11,25 +11,25 @@ import React from 'react';
 import axios from '../../utils/axios';
 import LeftMenuMenuItem from './LeftMenuItem';
 const menuLink = [
-  '', // 0 root
-  '', // 1 공통관리
-  '', // 2 고객/계약/결제 관리
-  '', // 3 상품관리
+  '###', // 0 root
+  '/admin/common', // 1 공통관리
+  '/admin/ccp', // 2 고객/계약/결제 관리
+  '###', // 3 상품관리
   '/admin/common/admin', // 4 운영자 관리
-  '', // 5 서비스 관리
-  '', // 6 매체 관리
-  '', // 7 공지사항 관리
-  '', // 8 약관 관리
+  '###', // 5 서비스 관리
+  '###', // 6 매체 관리
+  '###', // 7 공지사항 관리
+  '###', // 8 약관 관리
   '/admin/ccp/customer', // 9 고객 관리
-  '', // 10 계약 관리
-  '', // 11 결제 관리
-  '', // 12 상품 그룹 관리
-  '', // 13 옵션 관리
-  '', // 14 상품 관리
-  '', // 15 운영자 그룹
-  '', // 16 운영자
-  '', // 17 매체그룹
-  '', // 18 매체
+  '###', // 10 계약 관리
+  '###', // 11 결제 관리
+  '###', // 12 상품 그룹 관리
+  '###', // 13 옵션 관리
+  '###', // 14 상품 관리
+  '###', // 15 운영자 그룹
+  '###', // 16 운영자
+  '###', // 17 매체그룹
+  '###', // 18 매체
 ];
 const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
   const { drawerWidth, open } = props;
@@ -52,6 +52,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
             title: menu.menuNm,
             icon: <></>,
             items: [] as any,
+            menuId: menu.menuId,
           };
 
           switch (menu.menuId) {
@@ -107,9 +108,16 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
         />
       </Toolbar>
       <Box sx={{ overflow: 'auto' }}>
-        {menuItems.map((menuItem, index) => (
-          <List disablePadding key={`list-item-${index}`} sx={{}}>
-            <LeftMenuMenuItem defaultOpen={index === 0} menuItem={menuItem} />
+        {menuItems.map((menuItem: any, index) => (
+          <List disablePadding key={`list-item-${index}`}>
+            <LeftMenuMenuItem
+              defaultOpen={
+                window.location.pathname.includes(menuLink[menuItem.menuId])
+                  ? true
+                  : false
+              }
+              menuItem={menuItem}
+            />
           </List>
         ))}
       </Box>

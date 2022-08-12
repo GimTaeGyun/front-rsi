@@ -10,7 +10,8 @@ Axios.interceptors.request.use(config => {
       config.url?.includes('/management/subscription/admin/login')) ){
     const header = `bearer ${  localStorage.getItem('access-token')}`;
     (config.headers as any).Authorization = header;
-  }
+  }else
+    delete (config.headers as any).Authorization;
   return config;
 });
 
