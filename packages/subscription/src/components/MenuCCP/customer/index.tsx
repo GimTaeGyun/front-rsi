@@ -9,6 +9,7 @@ import AlertPopup from '../../Common/AlertPopup';
 import { Card, CardHeader, OutlinedInput, Select, MenuItem, Button, Typography } from '@mui/material';
 import DataTable from './components/Datatable';
 
+
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -66,6 +67,7 @@ const Admin = () => {
                     placeholder="시작일"
                     name="search-date1"
                     className="sub_input_common sub_listpage_filter_date"
+                    sx={{marginRight:"8px"}}
                   />
                   <OutlinedInput
                     fullWidth={false}

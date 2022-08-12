@@ -76,7 +76,9 @@ const LeftMenuItem = (props: {
                     height: '23px',
                     lineHeight: 'normal',
                     '& .MuiListItemText-primary': {
-                      color: '#FFFFFF99',
+                      color: window.location.pathname.includes(child.link)
+                        ? '#fff'
+                        : '#FFFFFF99',
                       fontSize: '15px',
                       height: '15px',
                       '&:hover': {
