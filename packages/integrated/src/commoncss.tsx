@@ -5,6 +5,12 @@ const css = createTheme({
   typography: {
     fontFamily: 'NotoSansKRMedium',
   },
+
+  palette: {
+    background: {
+      default: '#F4F5F7',
+    },
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -28,7 +34,7 @@ const css = createTheme({
             padding: '5px 10px ',
             lineHeight: 'normal ',
             color: '#284AD5',
-            borderColor: '#284AD5',
+            border: '1px solid #284AD5',
             borderRadius: '6px',
           },
 
@@ -207,9 +213,10 @@ const css = createTheme({
           '& .MuiDataGrid-cell:focus-within': {
             outline: 'none !important',
           },
-          '& .MuiDataGrid-columnHeaderTitleContainer .MuiSvgIcon-root':{
-            fontSize:"24px !important",color:"#141414"
-          }
+          '& .MuiDataGrid-columnHeaderTitleContainer .MuiSvgIcon-root': {
+            fontSize: '24px !important',
+            color: '#141414',
+          },
         },
         '& .sub_tbl_outer_common .MuiDataGrid-cellContent': {
           color: '#000000DE',
@@ -222,8 +229,8 @@ const css = createTheme({
           fontSize: '14px !important',
           letterSpacing: '-0.35px !important',
         },
-        '& .sub_hideLastSeparator .MuiDataGrid-columnSeparator--sideRight':{
-          display:"none !important"
+        '& .sub_hideLastSeparator .MuiDataGrid-columnSeparator--sideRight': {
+          display: 'none !important',
         },
         '& .sub_tbl_header_text_common': {
           color: '#000000DE',
@@ -253,7 +260,7 @@ const css = createTheme({
           color: '#284AD5 !important',
           fontFamily: 'NotoSansKRMedium !important',
           fontSize: '14px !important',
-          borderWidth:"1px",
+          borderWidth: '1px',
           borderColor: '#284AD5 !important',
           letterSpacing: '0.01px !important',
         },
@@ -343,97 +350,129 @@ const css = createTheme({
           width: '84px',
           height: '36px',
         },
-        '& .sub_td_cat':{
-          fontFamily:"NotoSansKRMedium",
-          width:"32px",height:"22px",
-          borderRadius:"5px",
-          fontSize:"13px",
-          display:"flex",alignItems:"center",justifyContent:"center",
+        '& .sub_td_cat': {
+          fontFamily: 'NotoSansKRMedium',
+          width: '32px',
+          height: '22px',
+          borderRadius: '5px',
+          fontSize: '13px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         },
-        '& .sub_td_cat_color1':{
-          backgroundColor:"#E8EAEE",
+        '& .sub_td_cat_color1': {
+          backgroundColor: '#E8EAEE',
         },
-        '& .sub_td_cat_color2':{
-          backgroundColor:"#11ADBF",
-          color: "#fff",
+        '& .sub_td_cat_color2': {
+          backgroundColor: '#11ADBF',
+          color: '#fff',
         },
-        '& .sub_td_cat_color3':{
-          backgroundColor:"#3A4B60",
-          color: "#fff",
+        '& .sub_td_cat_color3': {
+          backgroundColor: '#3A4B60',
+          color: '#fff',
         },
-        '& .sub_td_status':{
-          fontSize:"14px",
-          fontFamily:"NotoSansKRMedium",
-          letterSpacing:"-0.35px",
+        '& .sub_td_status': {
+          fontSize: '14px',
+          fontFamily: 'NotoSansKRMedium',
+          letterSpacing: '-0.35px',
         },
-        '& .sub_td_status_color1':{
-          color:"#284AD5",
+        '& .sub_td_status_color1': {
+          color: '#284AD5',
         },
-        '& .sub_td_status_color2':{
-          color:"#999999",
+        '& .sub_td_status_color2': {
+          color: '#999999',
         },
-        '& .sub_td_sit':{
-          fontSize:"14px",
-          fontFamily:"NotoSansKRMedium",
-          letterSpacing:"-0.35px",
+        '& .sub_td_sit': {
+          fontSize: '14px',
+          fontFamily: 'NotoSansKRMedium',
+          letterSpacing: '-0.35px',
         },
-        '& .sub_td_sit_color1':{
-          color:"#284AD5",
+        '& .sub_td_sit_color1': {
+          color: '#284AD5',
         },
-        '& .sub_td_sit_color2':{
-          color:"#E50012",
+        '& .sub_td_sit_color2': {
+          color: '#E50012',
         },
-        '& .sub_td_sit_color3':{
-          color:"#999999",
+        '& .sub_td_sit_color3': {
+          color: '#999999',
         },
-        '& .sub_td_btn_action':{
-          minWidth:"44px !important",maxWidth:"44px",minHeight:"30px",maxHeight:"30px",borderRadius:"4px !important",
-          fontSize:"13px !important",letterSpacing:"-0.33px !important"
+        '& .sub_td_btn_action': {
+          minWidth: '44px !important',
+          maxWidth: '44px',
+          minHeight: '30px',
+          maxHeight: '30px',
+          borderRadius: '4px !important',
+          fontSize: '13px !important',
+          letterSpacing: '-0.33px !important',
         },
-        '& .sub_pagination_wrapper':{
-          borderTop:"1px solid rgba(224, 224, 224, 1)",
-          display:"flex",width:"100%",height:"52px",
-          alignItems:"center",justifyContent:"center"
+        '& .sub_pagination_wrapper': {
+          borderTop: '1px solid rgba(224, 224, 224, 1)',
+          display: 'flex',
+          width: '100%',
+          height: '52px',
+          alignItems: 'center',
+          justifyContent: 'center',
         },
-        '& .sub_pagination_outer':{
-          width:"33.33%",height:"52px",display:"flex",alignItems:"center",padding:"0 10px !important"
+        '& .sub_pagination_outer': {
+          width: '33.33%',
+          height: '52px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 10px !important',
         },
-        '& .sub_select_batch':{
-          width:"120px",height:"30px",borderRadius:"4px",borderColor:"#0000001F",
-          '& .MuiSelect-select':{
-            color: "#000000DE",
-            fontSize:"13px",
-            fontFamily:"NotoSansKRRegular",
-            paddingLeft:"8px",paddingRight:"32px"
-          }
-        },
-        '& .sub_btn_footer_save':{
-          width:"80px",height:"30px",
-          fontSize:"13px !important",
-          padding:"0 !important",
-          fontFamily:"NotoSansKRMedium !important",letterSpacing:"-0.33px !important",marginLeft:"8px !important"
-        },
-        '& .sub_pagination':{
-          '& .MuiTablePagination-selectLabel':{
-            color: "#00000099",fontSize:"14px",fontFamily:"NotoSansKRRegular"
+        '& .sub_select_batch': {
+          width: '120px',
+          height: '30px',
+          borderRadius: '4px',
+          borderColor: '#0000001F',
+          '& .MuiSelect-select': {
+            color: '#000000DE',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
+            paddingLeft: '8px',
+            paddingRight: '32px',
           },
-          '& .MuiSelect-select':{
-            color: "#00000099",fontSize:"14px",fontFamily:"NotoSansKRRegular"
+        },
+        '& .sub_btn_footer_save': {
+          width: '80px',
+          height: '30px',
+          fontSize: '13px !important',
+          padding: '0 !important',
+          fontFamily: 'NotoSansKRMedium !important',
+          letterSpacing: '-0.33px !important',
+          marginLeft: '8px !important',
+        },
+        '& .sub_pagination': {
+          '& .MuiTablePagination-selectLabel': {
+            color: '#00000099',
+            fontSize: '14px',
+            fontFamily: 'NotoSansKRRegular',
           },
-          '& .MuiTablePagination-displayedRows':{
-            color: "#00000099",fontSize:"14px",fontFamily:"NotoSansKRRegular"
+          '& .MuiSelect-select': {
+            color: '#00000099',
+            fontSize: '14px',
+            fontFamily: 'NotoSansKRRegular',
+          },
+          '& .MuiTablePagination-displayedRows': {
+            color: '#00000099',
+            fontSize: '14px',
+            fontFamily: 'NotoSansKRRegular',
           },
         },
-        '& .sub_btn_footer_export':{
-          width:"111px",height:"30px",fontsize:"13px",fontFamily:"NotoSansKRMedium",padding:"0 !important",letterSpacing:"-0.33px"
+        '& .sub_btn_footer_export': {
+          width: '111px',
+          height: '30px',
+          fontsize: '13px',
+          fontFamily: 'NotoSansKRMedium',
+          padding: '0 !important',
+          letterSpacing: '-0.33px',
         },
 
         // 고객관리 상세정보 탭 카드 컴포넌트
         '& .sub_ccp_detail_parent': {
-          width: '1470px',
           borderRadius: '6px !important',
           opacity: '1',
-          boxShadow: '0px 1px 5px #0000002E !important',
+          boxShadow: '0px 3px 5px #0000002E !important',
         },
         '& .sub_ccp_detail_parent .header': {
           color: '#000000DE',
@@ -470,6 +509,7 @@ const css = createTheme({
           height: '36px',
           marginTop: '12px',
           marginBottom: '12px',
+          backgroundcolor: 'white',
           '& input': {
             padding: '8px',
             opacity: '1',
