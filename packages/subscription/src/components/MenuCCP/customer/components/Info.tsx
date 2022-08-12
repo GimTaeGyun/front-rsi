@@ -75,7 +75,9 @@ const Info = (props: { buttonCallback?: Function }) => {
             ></TextField>
             <Button
               className="sub_button_white button"
-              onClick={e => props.buttonCallback(e)}
+              onClick={e =>
+                props.buttonCallback ? props.buttonCallback(e) : undefined
+              }
             >
               재설정
             </Button>
