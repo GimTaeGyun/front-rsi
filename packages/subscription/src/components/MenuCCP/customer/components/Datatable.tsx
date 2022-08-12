@@ -1,4 +1,4 @@
-import { Box, Button, MenuItem, Select, TablePagination, Typography } from '@mui/material';
+import { Box, Button, IconButton, MenuItem, Select, TablePagination, Typography } from '@mui/material';
 import {
   DataGrid,
   GridColDef,
@@ -46,19 +46,19 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params) => {
-      let str_class = "td_cat td_cat_color1";
+      let str_class = "sub_td_cat sub_td_cat_color1";
       switch(params.value){
         case "개인":
-          str_class = "td_cat td_cat_color1";
+          str_class = "sub_td_cat sub_td_cat_color1";
           break;
         case "기업":
-          str_class = "td_cat td_cat_color2";
+          str_class = "sub_td_cat sub_td_cat_color2";
           break;
         case "공공":
-          str_class = "td_cat td_cat_color3";
+          str_class = "sub_td_cat sub_td_cat_color3";
           break;
         default:
-          str_class = "td_cat td_cat_color1";
+          str_class = "sub_td_cat sub_td_cat_color1";
           break;
       }
       return (<Box component="span" className={str_class}>
@@ -112,10 +112,16 @@ const columns: GridColDef[] = [
     width: 140,
     headerAlign: 'center',
     disableColumnMenu: true,
+    sortable:false,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
+      <>
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+        <IconButton color="primary" component="label">
+          <Box component="img" src="/filter_list.png"></Box>
+        </IconButton>
+      </>
     ),
   },
   {
@@ -125,10 +131,16 @@ const columns: GridColDef[] = [
     width: 149,
     headerAlign: 'center',
     disableColumnMenu: true,
+    sortable:false,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
+      <>
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+        <IconButton color="primary" component="label">
+          <Box component="img" src="/filter_list.png"></Box>
+        </IconButton>
+      </>
     ),
   },
   {
@@ -144,16 +156,16 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params) => {
-      let str_class = "sub_td_status sub_td_status_color1";
+      let str_class = "sub_sub_td_status sub_sub_td_status_color1";
       switch(params.value){
         case "구독중":
-          str_class = "sub_td_status sub_td_status_color1";
+          str_class = "sub_sub_td_status sub_sub_td_status_color1";
           break;
         case "종료":
-          str_class = "sub_td_status sub_td_status_color2";
+          str_class = "sub_sub_td_status sub_sub_td_status_color2";
           break;
         default:
-          str_class = "sub_td_status sub_td_status_color1";
+          str_class = "sub_sub_td_status sub_sub_td_status_color1";
           break;
       }
       return (<Box component="span" className={str_class}>
@@ -174,19 +186,19 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params) => {
-      let str_class = "sub_td_sit sub_td_sit_color1";
+      let str_class = "sub_sub_td_sit sub_sub_td_sit_color1";
       switch(params.value){
         case "사용":
-          str_class = "sub_td_sit sub_td_sit_color1";
+          str_class = "sub_sub_td_sit sub_sub_td_sit_color1";
           break;
         case "휴면":
-          str_class = "sub_td_sit sub_td_sit_color2";
+          str_class = "sub_sub_td_sit sub_sub_td_sit_color2";
           break;
           case "탈퇴":
-            str_class = "sub_td_sit sub_td_sit_color3";
+            str_class = "sub_sub_td_sit sub_sub_td_sit_color3";
             break;
         default:
-          str_class = "sub_td_sit sub_td_sit_color1";
+          str_class = "sub_sub_td_sit sub_sub_td_sit_color1";
           break;
       }
       return (<Box component="span" className={str_class}>
@@ -194,19 +206,21 @@ const columns: GridColDef[] = [
       </Box>)
   }},
   {
+    headerClassName: 'sub_hideLastSeparator',
     align: 'center',
     field: 'details',
     headerName: '상세보기',
     width: 114,
     headerAlign: 'center',
     disableColumnMenu: true,
+    sortable:false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
       </Typography>
     ),
     renderCell: (params) => {
-      return (<Button variant="outlined" className="sub_btn_primary_outline_common sub_td_btn_action">
+      return (<Button variant="outlined" className="sub_btn_primary_outline_common sub_sub_td_btn_action">
         {params.value}
       </Button>)
     }
@@ -412,7 +426,7 @@ const rows = [
 ];
 
 const DataTable = () => {
-  const [page, setPage] = React.useState(2);
+  const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [pageSize, setPageSize] = React.useState<number>(10);
 
