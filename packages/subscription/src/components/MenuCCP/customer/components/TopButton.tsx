@@ -66,7 +66,7 @@ const TabButton = (props: {
           mb: '20px',
         }}
       >
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box>
           <TabList
             aria-label="simple tabs example"
             value={value}

@@ -509,6 +509,7 @@ const css = createTheme({
           height: '36px',
           marginTop: '12px',
           marginBottom: '12px',
+          backgroundcolor: 'white',
           '& input': {
             padding: '8px',
             opacity: '1',

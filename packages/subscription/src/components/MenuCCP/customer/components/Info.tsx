@@ -28,6 +28,7 @@ const Info = (props: { buttonCallback?: Function }) => {
         >
           <Card className="sub_ccp_detail_parent">
             <CardHeader disableTypography title="고객정보" className="header" />
+            <Divider />
             <CardContent className="content" sx={{ padding: '0px' }}>
               <Box className="column">
                 <MuiFormLabel className="label" htmlFor="id">
@@ -97,7 +98,6 @@ const Info = (props: { buttonCallback?: Function }) => {
             </CardContent>
           </Card>
         </Box>
-        <SubmitButton />
       </Box>
     </>
   );
