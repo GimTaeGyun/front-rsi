@@ -217,6 +217,9 @@ const css = createTheme({
           fontSize: '14px !important',
           letterSpacing: '-0.35px !important',
         },
+        '& .sub_hideLastSeparator .MuiDataGrid-columnSeparator--sideRight':{
+          display:"none !important"
+        },
         '& .sub_tbl_header_text_common': {
           color: '#000000DE',
           fontFamily: 'NotoSansKRMedium !important',
@@ -383,6 +386,7 @@ const css = createTheme({
           fontSize:"13px !important",letterSpacing:"-0.33px !important"
         },
         '& .sub_pagination_wrapper':{
+          borderTop:"1px solid rgba(224, 224, 224, 1)",
           display:"flex",width:"100%",height:"52px",
           alignItems:"center",justifyContent:"center"
         },

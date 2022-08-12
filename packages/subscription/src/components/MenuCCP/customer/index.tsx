@@ -9,6 +9,7 @@ import AlertPopup from '../../Common/AlertPopup';
 import { Card, CardHeader, OutlinedInput, Select, MenuItem, Button, Typography } from '@mui/material';
 import DataTable from './components/Datatable';
 
+
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
