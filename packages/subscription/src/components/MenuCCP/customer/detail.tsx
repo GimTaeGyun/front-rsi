@@ -7,8 +7,8 @@ import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import Info from './components/Info';
-import { SubmitButton } from './components/SubmitButton';
 import TabButton from './components/TopButton';
+import SubmitButton from './components/SubmitButton';
 
 const Data = [
   {
@@ -58,6 +58,7 @@ const Admin = () => {
             />
           ) : undefined}
           <TabButton item={Data} />
+          <SubmitButton />
         </Box>
       </AppFrame>
     </>

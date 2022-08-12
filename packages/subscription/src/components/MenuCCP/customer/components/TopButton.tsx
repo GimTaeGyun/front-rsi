@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { number } from 'yup/lib/locale';
+import { Divider } from '@mui/material';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -55,6 +56,7 @@ const TabButton = (props: {
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    console.log(event);
     setValue(newValue);
   };
 
@@ -62,46 +64,42 @@ const TabButton = (props: {
     <>
       <Box
         sx={{
-          height: '48px',
-          mb: '20px',
+          mb: '28px',
         }}
       >
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList
-            aria-label="simple tabs example"
-            value={value}
-            onChange={handleChange}
-            disabled={false}
-          >
-            {props.item.map(item => (
-              <Tab
-                sx={{
-                  minHeight: '48px',
-                  opacity: '1',
-                  fontSize: '14px',
-                  color: '#00000099',
-                  ':hover': {
-                    color: '#284AD5',
-                  },
-                  '.Mui-selected': {
-                    color: '#284AD5',
-                  },
-                }}
-                label={item.title}
-                value={item.index}
-                {...allyProps(item.index)}
-                key={item.index}
-              />
-            ))}
-          </TabList>
-          <Box>
-            {props.item.map(item => (
-              <TabPanel index={item.index} value={value}>
-                {item.child}
-              </TabPanel>
-            ))}
-          </Box>
-        </Box>
+        <TabList
+          aria-label="simple tabs example"
+          value={value}
+          onChange={handleChange}
+          disabled={false}
+        >
+          {props.item.map(item => (
+            <Tab
+              sx={{
+                minHeight: '48px',
+                opacity: '1',
+                fontSize: '14px',
+                color: '#00000099',
+                ':hover': {
+                  color: '#284AD5',
+                },
+                '.Mui-selected': {
+                  color: '#284AD5',
+                },
+              }}
+              label={item.title}
+              value={item.index}
+              {...allyProps(item.index)}
+              key={item.index}
+            />
+          ))}
+        </TabList>
+        <Divider />
+        {props.item.map(item => (
+          <TabPanel index={item.index} value={value}>
+            {item.child}
+          </TabPanel>
+        ))}
       </Box>
     </>
   );

@@ -473,6 +473,7 @@ const css = createTheme({
           borderRadius: '6px !important',
           opacity: '1',
           boxShadow: '0px 3px 5px #0000002E !important',
+          marginTop: '20px',
         },
         '& .sub_ccp_detail_parent .header': {
           color: '#000000DE',
@@ -481,6 +482,7 @@ const css = createTheme({
           fontSize: '16px',
         },
         '& .sub_ccp_detail_parent .content': {
+          width: '1470px',
           padding: '0px',
         },
         '& .sub_ccp_detail_parent .content:last-child': {
