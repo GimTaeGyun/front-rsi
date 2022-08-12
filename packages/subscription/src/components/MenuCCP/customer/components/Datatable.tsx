@@ -1,9 +1,13 @@
-import { Box, Button, IconButton, MenuItem, Select, TablePagination, Typography } from '@mui/material';
 import {
-  DataGrid,
-  GridColDef,
-  GridColumnHeaderParams
-} from '@mui/x-data-grid';
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  TablePagination,
+  Typography,
+} from '@mui/material';
+import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import * as React from 'react';
 
 const columns: GridColDef[] = [
@@ -45,26 +49,28 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: (params) => {
-      let str_class = "sub_td_cat sub_td_cat_color1";
-      switch(params.value){
-        case "개인":
-          str_class = "sub_td_cat sub_td_cat_color1";
+    renderCell: params => {
+      let str_class = 'sub_td_cat sub_td_cat_color1';
+      switch (params.value) {
+        case '개인':
+          str_class = 'sub_td_cat sub_td_cat_color1';
           break;
-        case "기업":
-          str_class = "sub_td_cat sub_td_cat_color2";
+        case '기업':
+          str_class = 'sub_td_cat sub_td_cat_color2';
           break;
-        case "공공":
-          str_class = "sub_td_cat sub_td_cat_color3";
+        case '공공':
+          str_class = 'sub_td_cat sub_td_cat_color3';
           break;
         default:
-          str_class = "sub_td_cat sub_td_cat_color1";
+          str_class = 'sub_td_cat sub_td_cat_color1';
           break;
       }
-      return (<Box component="span" className={str_class}>
-        {params.value}
-      </Box>)
-    }
+      return (
+        <Box component="span" className={str_class}>
+          {params.value}
+        </Box>
+      );
+    },
   },
   {
     align: 'center',
@@ -112,7 +118,7 @@ const columns: GridColDef[] = [
     width: 140,
     headerAlign: 'center',
     disableColumnMenu: true,
-    sortable:false,
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <>
         <Typography className="sub_tbl_th_common">
@@ -131,7 +137,7 @@ const columns: GridColDef[] = [
     width: 149,
     headerAlign: 'center',
     disableColumnMenu: true,
-    sortable:false,
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <>
         <Typography className="sub_tbl_th_common">
@@ -155,23 +161,25 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: (params) => {
-      let str_class = "sub_td_status sub_td_status_color1";
-      switch(params.value){
-        case "구독중":
-          str_class = "sub_td_status sub_td_status_color1";
+    renderCell: params => {
+      let str_class = 'sub_td_status sub_td_status_color1';
+      switch (params.value) {
+        case '구독중':
+          str_class = 'sub_td_status sub_td_status_color1';
           break;
-        case "종료":
-          str_class = "sub_td_status sub_td_status_color2";
+        case '종료':
+          str_class = 'sub_td_status sub_td_status_color2';
           break;
         default:
-          str_class = "sub_td_status sub_td_status_color1";
+          str_class = 'sub_td_status sub_td_status_color1';
           break;
       }
-      return (<Box component="span" className={str_class}>
-        {params.value}
-      </Box>)
-    }
+      return (
+        <Box component="span" className={str_class}>
+          {params.value}
+        </Box>
+      );
+    },
   },
   {
     align: 'center',
@@ -185,26 +193,29 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: (params) => {
-      let str_class = "sub_td_sit sub_td_sit_color1";
-      switch(params.value){
-        case "사용":
-          str_class = "sub_td_sit sub_td_sit_color1";
+    renderCell: params => {
+      let str_class = 'sub_td_sit sub_td_sit_color1';
+      switch (params.value) {
+        case '사용':
+          str_class = 'sub_td_sit sub_td_sit_color1';
           break;
-        case "휴면":
-          str_class = "sub_td_sit sub_td_sit_color2";
+        case '휴면':
+          str_class = 'sub_td_sit sub_td_sit_color2';
           break;
-          case "탈퇴":
-            str_class = "sub_td_sit sub_td_sit_color3";
-            break;
+        case '탈퇴':
+          str_class = 'sub_td_sit sub_td_sit_color3';
+          break;
         default:
-          str_class = "sub_td_sit sub_td_sit_color1";
+          str_class = 'sub_td_sit sub_td_sit_color1';
           break;
       }
-      return (<Box component="span" className={str_class}>
-        {params.value}
-      </Box>)
-  }},
+      return (
+        <Box component="span" className={str_class}>
+          {params.value}
+        </Box>
+      );
+    },
+  },
   {
     headerClassName: 'sub_hideLastSeparator',
     align: 'center',
@@ -213,17 +224,22 @@ const columns: GridColDef[] = [
     width: 114,
     headerAlign: 'center',
     disableColumnMenu: true,
-    sortable:false,
+    sortable: false,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: (params) => {
-      return (<Button variant="outlined" className="sub_btn_primary_outline_common sub_td_btn_action">
-        {params.value}
-      </Button>)
-    }
+    renderCell: params => {
+      return (
+        <Button
+          variant="outlined"
+          className="sub_btn_primary_outline_common sub_td_btn_action"
+        >
+          {params.value}
+        </Button>
+      );
+    },
   },
 ];
 
@@ -439,26 +455,29 @@ const DataTable = () => {
         rows={rows}
         columns={columns}
         pageSize={rowsPerPage}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        onPageSizeChange={newPageSize => setPageSize(newPageSize)}
         rowsPerPageOptions={[10, 25, 50]}
         pagination={true}
         checkboxSelection={true}
         components={{
-          Footer: ()=>{
+          Footer: () => {
             const handleChangePage = (
               event: React.MouseEvent<HTMLButtonElement> | null,
               newPage: number,
             ) => {
+              if(event!=null){
+
+              }
               setPage(newPage);
             };
-          
+
             const handleChangeRowsPerPage = (
               event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
             ) => {
               setRowsPerPage(parseInt(event.target.value, 10));
               setPage(0);
             };
-          
+
             return (
               <Box className="sub_pagination_wrapper" component="div">
                 <Box component="div" className="sub_pagination_outer">
@@ -471,7 +490,12 @@ const DataTable = () => {
                   >
                     <MenuItem value="일괄 사용 처리">일괄 사용 처리</MenuItem>
                   </Select>
-                  <Button variant="contained" className="sub_btn_primary_fill_common sub_btn_footer_save">리스트 저장</Button>
+                  <Button
+                    variant="contained"
+                    className="sub_btn_primary_fill_common sub_btn_footer_save"
+                  >
+                    리스트 저장
+                  </Button>
                 </Box>
                 <Box component="div" className="sub_pagination_outer">
                   <TablePagination
@@ -484,8 +508,22 @@ const DataTable = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                   />
                 </Box>
-                <Box component="div" className="sub_pagination_outer" sx={{justifyContent:"end"}}>
-                  <Button variant="outlined" className="sub_btn_primary_outline_common sub_btn_footer_export"><Box component="img" src="/icon_export.png" sx={{marginRight:"3px"}}></Box>엑셀 다운로드</Button>
+                <Box
+                  component="div"
+                  className="sub_pagination_outer"
+                  sx={{ justifyContent: 'end' }}
+                >
+                  <Button
+                    variant="outlined"
+                    className="sub_btn_primary_outline_common sub_btn_footer_export"
+                  >
+                    <Box
+                      component="img"
+                      src="/icon_export.png"
+                      sx={{ marginRight: '3px' }}
+                    ></Box>
+                    엑셀 다운로드
+                  </Button>
                 </Box>
               </Box>
             );

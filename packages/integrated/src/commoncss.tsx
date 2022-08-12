@@ -328,11 +328,11 @@ const css = createTheme({
           justifyContent: 'center',
         },
         '& .sub_listpage_filter_date': {
-          width: '175px',
-          height: '36px',
-          background: 'url(/icon-datetime-calendar.png)',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: '95%',
+          '& .MuiInputBase-root':{
+            width: '175px',
+            height: '36px',
+          }
+          
         },
         '& .sub_btn_filter1': {
           width: '84px',
