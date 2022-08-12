@@ -156,16 +156,16 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params) => {
-      let str_class = "sub_sub_td_status sub_sub_td_status_color1";
+      let str_class = "sub_td_status sub_td_status_color1";
       switch(params.value){
         case "구독중":
-          str_class = "sub_sub_td_status sub_sub_td_status_color1";
+          str_class = "sub_td_status sub_td_status_color1";
           break;
         case "종료":
-          str_class = "sub_sub_td_status sub_sub_td_status_color2";
+          str_class = "sub_td_status sub_td_status_color2";
           break;
         default:
-          str_class = "sub_sub_td_status sub_sub_td_status_color1";
+          str_class = "sub_td_status sub_td_status_color1";
           break;
       }
       return (<Box component="span" className={str_class}>
@@ -186,19 +186,19 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params) => {
-      let str_class = "sub_sub_td_sit sub_sub_td_sit_color1";
+      let str_class = "sub_td_sit sub_td_sit_color1";
       switch(params.value){
         case "사용":
-          str_class = "sub_sub_td_sit sub_sub_td_sit_color1";
+          str_class = "sub_td_sit sub_td_sit_color1";
           break;
         case "휴면":
-          str_class = "sub_sub_td_sit sub_sub_td_sit_color2";
+          str_class = "sub_td_sit sub_td_sit_color2";
           break;
           case "탈퇴":
-            str_class = "sub_sub_td_sit sub_sub_td_sit_color3";
+            str_class = "sub_td_sit sub_td_sit_color3";
             break;
         default:
-          str_class = "sub_sub_td_sit sub_sub_td_sit_color1";
+          str_class = "sub_td_sit sub_td_sit_color1";
           break;
       }
       return (<Box component="span" className={str_class}>
@@ -220,7 +220,7 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: (params) => {
-      return (<Button variant="outlined" className="sub_btn_primary_outline_common sub_sub_td_btn_action">
+      return (<Button variant="outlined" className="sub_btn_primary_outline_common sub_td_btn_action">
         {params.value}
       </Button>)
     }
