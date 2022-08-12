@@ -202,6 +202,9 @@ const css = createTheme({
           '& .MuiDataGrid-cell:focus-within': {
             outline: 'none !important',
           },
+          '& .MuiSvgIcon-root':{
+            fontSize:"24px !important",color:"#141414"
+          }
         },
         '& .sub_tbl_outer_common .MuiDataGrid-cellContent': {
           color: '#000000DE',
@@ -413,7 +416,7 @@ const css = createTheme({
           },
           '& .MuiTablePagination-displayedRows':{
             color: "#00000099",fontSize:"14px",fontFamily:"NotoSansKRRegular"
-          }
+          },
         },
         '& .sub_btn_footer_export':{
           width:"111px",height:"30px",fontsize:"13px",fontFamily:"NotoSansKRMedium",padding:"0 !important",letterSpacing:"-0.33px"

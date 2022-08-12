@@ -13,6 +13,7 @@ const columns: GridColDef[] = [
     headerName: 'ID',
     width: 150,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -23,8 +24,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'customerName',
     headerName: '고객명',
-    width: 132,
+    width: 130,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -37,6 +39,7 @@ const columns: GridColDef[] = [
     headerName: '유형',
     width: 100,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -69,6 +72,7 @@ const columns: GridColDef[] = [
     headerName: '담당자',
     width: 100,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -81,6 +85,7 @@ const columns: GridColDef[] = [
     headerName: '전화번호',
     width: 143,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -91,8 +96,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'email',
     headerName: '이메일',
-    width: 200,
+    width: 180,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -103,8 +109,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'memberSince',
     headerName: '가입일',
-    width: 150,
+    width: 140,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -115,8 +122,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'lastPaymentDate',
     headerName: '최종 결제일',
-    width: 127,
+    width: 149,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -129,6 +137,7 @@ const columns: GridColDef[] = [
     headerName: '구독현황',
     width: 114,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -158,6 +167,7 @@ const columns: GridColDef[] = [
     headerName: '상태',
     width: 89,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -187,8 +197,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'details',
     headerName: '상세보기',
-    width: 105,
+    width: 114,
     headerAlign: 'center',
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
