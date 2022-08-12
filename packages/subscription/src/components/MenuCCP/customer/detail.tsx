@@ -47,7 +47,7 @@ const Admin = () => {
           { name: '상세정보', link: '/admin/ccp/customer/detail' },
         ]}
       >
-        <Box sx={{ minWidth: '1480px' }}>
+        <Box>
           {alertPopup.visible ? (
             <AlertPopup
               message={alertPopup.message}

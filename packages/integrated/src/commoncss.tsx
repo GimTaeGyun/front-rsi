@@ -470,10 +470,9 @@ const css = createTheme({
 
         // 고객관리 상세정보 탭 카드 컴포넌트
         '& .sub_ccp_detail_parent': {
-          width: '1470px',
           borderRadius: '6px !important',
           opacity: '1',
-          boxShadow: '0px 1px 5px #0000002E !important',
+          boxShadow: '0px 3px 5px #0000002E !important',
         },
         '& .sub_ccp_detail_parent .header': {
           color: '#000000DE',

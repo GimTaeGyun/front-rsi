@@ -10,9 +10,7 @@ export const SubmitButton = () => {
         bb: '48px',
       }}
     >
-      <DialogActions
-        sx={{ justifyContent: 'center', borderTop: '28px solid #F4F5F7' }}
-      >
+      <DialogActions sx={{ justifyContent: 'center' }}>
         <Button
           className="sub_button_white"
           sx={{

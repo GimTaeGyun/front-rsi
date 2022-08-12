@@ -52,7 +52,7 @@ const TabButton = (props: {
     child: JSX.Element;
   }>;
 }) => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -60,12 +60,9 @@ const TabButton = (props: {
 
   return (
     <>
-      <h3>나의 글</h3>
       <Box
         sx={{
-          width: '100%',
           height: '48px',
-          position: 'static',
           mb: '20px',
         }}
       >
@@ -79,7 +76,6 @@ const TabButton = (props: {
             {props.item.map(item => (
               <Tab
                 sx={{
-                  minWidth: '100px',
                   minHeight: '48px',
                   opacity: '1',
                   fontSize: '14px',
