@@ -7,29 +7,47 @@ import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import Info from './components/Info';
-import TabButton from './components/TopButton';
+import Info2 from './components/Info2';
 import SubmitButton from './components/SubmitButton';
+import TabButton from './components/TopButton';
 
 const Data = [
   {
     title: '상세정보',
     index: 1,
-    child: <Info />,
+    child: (
+      <>
+        <Info />
+        <Info2 />
+      </>
+    ),
   },
   {
     title: '주문정보',
     index: 2,
-    child: <Info />,
+    child: (
+      <>
+        <Info />
+      </>
+    ),
   },
   {
     title: '사용자관리',
     index: 3,
-    child: <Info />,
+    child: (
+      <>
+        <Info />
+      </>
+    ),
   },
   {
     title: '문의관리',
     index: 4,
-    child: <Info />,
+    child: (
+      <>
+        <Info />
+      </>
+    ),
   },
 ];
 

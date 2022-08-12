@@ -1192,7 +1192,7 @@
   resolved "https://registry.yarnpkg.com/@date-io/core/-/core-2.15.0.tgz#8133860c8ce163b8d0cca3c1caed8d5d1fbfb14e"
   integrity sha512-3CRvQUEK7aF87NUOwcTtmJ2Rc1kN0D4jFQUfRoanuAnE4o5HzHx4E2YenjaKjSPWeZYiWG6ZhDomx5hp1AaCJA==
 
-"@date-io/date-fns@^2.14.0":
+"@date-io/date-fns@^2.14.0", "@date-io/date-fns@^2.15.0":
   version "2.15.0"
   resolved "https://registry.yarnpkg.com/@date-io/date-fns/-/date-fns-2.15.0.tgz#2541144f4fc40365efd7d0b7affa5d77dbe59102"
   integrity sha512-hkVeLm0jijHS2F9YVQcf0LSlD55w9xPvvIfuxDE0XWNXOTcRAAhqw2aqOxyeGbmHxc5U4HqyPZaqs9tfeTsomQ==
@@ -2519,7 +2519,25 @@
     prop-types "^15.8.1"
     reselect "^4.1.6"
 
-"@mui/x-date-pickers@^5.0.0-beta.5":
+"@mui/x-date-pickers-pro@^5.0.0-beta.5":
+  version "5.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-5.0.0-beta.5.tgz#18348d1ebf9af69e013a6dbd293e93ed7b05d594"
+  integrity sha512-YPFhg75F6ZRTckqU9TAFmywFKom2mJB2g1JK4nx7hUQewVMZBflz9tz90k/N0ab7TmTPE5bVgLNi4lVsnepLkw==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@date-io/date-fns" "^2.14.0"
+    "@date-io/dayjs" "^2.14.0"
+    "@date-io/luxon" "^2.14.0"
+    "@date-io/moment" "^2.14.0"
+    "@mui/utils" "^5.4.1"
+    "@mui/x-date-pickers" "5.0.0-beta.5"
+    "@mui/x-license-pro" "5.12.1"
+    clsx "^1.2.1"
+    prop-types "^15.7.2"
+    react-transition-group "^4.4.2"
+    rifm "^0.12.1"
+
+"@mui/x-date-pickers@5.0.0-beta.5", "@mui/x-date-pickers@^5.0.0-beta.5":
   version "5.0.0-beta.5"
   resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-5.0.0-beta.5.tgz#286387107a4cf03290cfae8013dba4a4e1c44cac"
   integrity sha512-pCVNSHuAcndEJACVS/v2AKBSXemqmhzVvOdsPS9hOIOzGSYawrbCEuhI9+o0/NR/pFLz+JcIYrnVV/Zx8f2ZEw==
@@ -2536,6 +2554,16 @@
     prop-types "^15.7.2"
     react-transition-group "^4.4.2"
     rifm "^0.12.1"
+
+"@mui/x-license-pro@5.12.1":
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-license-pro/-/x-license-pro-5.12.1.tgz#c0c0a175ebacd1a017fcd9bc25afe205ff6bd1f7"
+  integrity sha512-loiYFPr709tvWpIDLkDuNwsRoGVAkW1MlKDiurPlQaizVaS4w9YGw+oSHro7DTkXehuhkF2g2QTKorynazDu/Q==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "@mui/utils" "^5.4.1"
+    esm "^3.2.25"
+    yargs "^17.5.1"
 
 "@mui/x-license-pro@5.15.0":
   version "5.15.0"
@@ -5371,6 +5399,11 @@ data-urls@^2.0.0:
     abab "^2.0.3"
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
+
+date-fns@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.1.tgz#9667c2615525e552b5135a3116b95b1961456e60"
+  integrity sha512-dlLD5rKaKxpFdnjrs+5azHDFOPEu4ANy/LTh04A1DTzMM7qoajmKCBc8pkKRFT41CNzw+4gQh79X5C+Jq27HAw==
 
 dateformat@^3.0.0:
   version "3.0.3"

@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@mui/material';
 import DataTable from './components/Datatable';
-import { ItemTypes } from '@minoru/react-dnd-treeview';
 
 const defaultSearchParam = {
   custNm: 'ALL',
@@ -38,6 +37,7 @@ const defaultSearchCategory = {
   managerNm: 'ALL',
   mobile: 'ALL',
 };
+import MyDatePicker from '../../Common/MyDatePicker';
 
 const Admin = () => {
   // alertPopup object
@@ -171,20 +171,19 @@ const Admin = () => {
                   component="span"
                   className="sub_listpage_filter_inputgroup"
                 >
-                  <OutlinedInput
-                    fullWidth={false}
-                    id="search-date1"
-                    placeholder="시작일"
-                    name="search-date1"
-                    className="sub_input_common sub_listpage_filter_date"
-                    sx={{ marginRight: '8px' }}
+                  <MyDatePicker
+                    strId="search-date1"
+                    strClass="sub_input_common sub_listpage_filter_date"
+                    strName="search-date1"
+                    strPlaceholder="종료일"
+                    objSX={{ marginRight: '8px' }}
                   />
-                  <OutlinedInput
-                    fullWidth={false}
-                    id="search-date2"
-                    placeholder="종료일"
-                    name="search-date2"
-                    className="sub_input_common sub_listpage_filter_date"
+                  <MyDatePicker
+                    strId="search-date2"
+                    strClass="sub_input_common sub_listpage_filter_date"
+                    strName="search-date2"
+                    strPlaceholder="종료일"
+                    objSX={null}
                   />
                 </Box>
               </Box>
