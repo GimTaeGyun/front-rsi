@@ -7,7 +7,7 @@ const Info = () => {
     <>
       <Card
         sx={{
-          width: '1470px',
+          width: '100%',
           height: '168px',
           borderRadius: '6px',
           opacity: '1',

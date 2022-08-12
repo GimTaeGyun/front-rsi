@@ -23,7 +23,7 @@ const css = createTheme({
             padding: '5px 10px ',
             lineHeight: 'normal ',
             color: '#284AD5',
-            borderColor: '#284AD5',
+            border: '1px solid #284AD5',
             borderRadius: '6px',
           },
 

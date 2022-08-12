@@ -7,6 +7,27 @@ import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import Info from './components/Info';
+import { SubmitButton } from './components/SubmitButton';
+import TabButton from './components/TopButton';
+
+const Data = [
+  {
+    title: '상세정보',
+    index: 1,
+  },
+  {
+    title: '주문정보',
+    index: 2,
+  },
+  {
+    title: '사용자관리',
+    index: 3,
+  },
+  {
+    title: '문의관리',
+    index: 4,
+  },
+];
 
 const Admin = () => {
   // alertPopup object
@@ -22,7 +43,7 @@ const Admin = () => {
           { name: '상세정보', link: '/admin/ccp/customer/detail' },
         ]}
       >
-        <>
+        <Box sx={{ minWidth: '1480px' }}>
           {alertPopup.visible ? (
             <AlertPopup
               message={alertPopup.message}
@@ -32,8 +53,10 @@ const Admin = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
+          <TabButton item={Data} />
           <Info />
-        </>
+          <SubmitButton />
+        </Box>
       </AppFrame>
     </>
   );
