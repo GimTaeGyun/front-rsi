@@ -6,10 +6,11 @@ import {
   TextField,
   Select,
   MenuItem,
+  Button,
 } from '@mui/material';
 import React from 'react';
 import MuiFormLabel from '@mui/material/FormLabel';
-const Info = () => {
+const Info = props => {
   return (
     <>
       <Card className="sub_ccp_detail_parent">
@@ -68,7 +69,11 @@ const Info = () => {
               disabled
               className="text"
               value="sadasdas"
+              sx={{
+                width: '266px !important',
+              }}
             ></TextField>
+            <Button className="sub_button_white button">재설정</Button>
           </Box>
         </CardContent>
       </Card>

@@ -322,7 +322,7 @@ const css = createTheme({
           backgroundRepeat: 'no-repeat',
           backgroundPosition: '95%',
         },
-        '& .sub_listpage_filter_date:first-child': {
+        '& .sub_listpage_filter_date:first-of-child': {
           marginRight: '8px',
         },
         '& .sub_btn_filter1': {
@@ -385,7 +385,7 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
             letterSpacing: '0px',
             lineHeight: '24px',
-            '-webkit-text-fill-color': '#666666',
+            WebkitTextFillColor: '#666666',
           },
           '& fieldset': {
             border: 'dashed 1px #0000001F',
@@ -397,6 +397,14 @@ const css = createTheme({
             height: '36px',
             opacity: 1,
           },
+        },
+        '& .sub_ccp_detail_parent .content .column .button': {
+          width: '84px',
+          height: '36px',
+          border: 'solid 1px #284AD5',
+          marginLeft: '10px',
+          marginBottom: '10px',
+          opacity: '1',
         },
       },
     },
