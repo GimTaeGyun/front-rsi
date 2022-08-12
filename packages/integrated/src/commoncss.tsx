@@ -202,7 +202,7 @@ const css = createTheme({
           '& .MuiDataGrid-cell:focus-within': {
             outline: 'none !important',
           },
-          '& .MuiSvgIcon-root':{
+          '& .MuiDataGrid-columnHeaderTitleContainer .MuiSvgIcon-root':{
             fontSize:"24px !important",color:"#141414"
           }
         },
