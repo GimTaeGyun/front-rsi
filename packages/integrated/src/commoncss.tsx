@@ -9,6 +9,11 @@ const css = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         ':root': {
+          '& .sub_tree_hover': {
+            backgroundColor: '#F4F5F7',
+            borderRadius: '4px',
+            color: '#284AD5',
+          },
           '& .sub_button_white_noneborder': {
             color: '#284AD5',
             minWidth: '57px',
@@ -492,7 +497,6 @@ const css = createTheme({
           border: 'solid 1px #284AD5',
           marginLeft: '10px',
           marginBottom: '10px',
-          opacity: '1',
         },
       },
     },
