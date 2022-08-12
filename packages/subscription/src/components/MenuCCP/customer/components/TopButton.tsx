@@ -49,6 +49,7 @@ const TabButton = (props: {
   item: Array<{
     title: string;
     index: number;
+    child: JSX.Element;
   }>;
 }) => {
   const [value, setValue] = React.useState(0);
@@ -97,6 +98,13 @@ const TabButton = (props: {
               />
             ))}
           </TabList>
+          <Box>
+            {props.item.map(item => (
+              <TabPanel index={item.index} value={value}>
+                {item.child}
+              </TabPanel>
+            ))}
+          </Box>
         </Box>
       </Box>
     </>

@@ -14,18 +14,22 @@ const Data = [
   {
     title: '상세정보',
     index: 1,
+    child: <Info />,
   },
   {
     title: '주문정보',
     index: 2,
+    child: <Info />,
   },
   {
     title: '사용자관리',
     index: 3,
+    child: <Info />,
   },
   {
     title: '문의관리',
     index: 4,
+    child: <Info />,
   },
 ];
 
@@ -54,8 +58,6 @@ const Admin = () => {
             />
           ) : undefined}
           <TabButton item={Data} />
-          <Info />
-          <SubmitButton />
         </Box>
       </AppFrame>
     </>
