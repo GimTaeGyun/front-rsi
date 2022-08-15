@@ -2,7 +2,7 @@ import * as React from 'react';
 import OutlinedInput from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DatePicker } from '@mui/x-date-pickers-pro';
 
 const MyDatePicker = (props:{strId:string,strClass:string, strName:string,strPlaceholder:string, objSX:object | null}) => {
   const [value, setValue] = React.useState<Date | null>(
@@ -15,7 +15,8 @@ const MyDatePicker = (props:{strId:string,strClass:string, strName:string,strPla
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DesktopDatePicker
+        <DatePicker
+          reduceAnimations={true}
           label=""
           inputFormat="yyyy-MM-dd"
           value={value}

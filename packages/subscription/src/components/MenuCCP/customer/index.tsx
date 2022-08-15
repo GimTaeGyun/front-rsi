@@ -38,7 +38,7 @@ const defaultSearchCategory = {
   mobile: 'ALL',
 };
 import MyDatePicker from '../../Common/MyDatePicker';
-
+import CheckboxSelect from '../../Common/CheckboxSelect';
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -195,7 +195,8 @@ const Admin = () => {
                   component="span"
                   className="sub_listpage_filter_inputgroup"
                 >
-                  <Select
+                  <CheckboxSelect names={['전체', '기업', '공공', '개인']} value={['전체']} width={116} margin="0 8px 0 0 !important" onChangeHandler={selectChangedEvent} />
+                  {/*<Select
                     fullWidth={false}
                     id="search-category21"
                     name="custTp"
@@ -208,7 +209,9 @@ const Admin = () => {
                     <MenuItem value="2">공공</MenuItem>
                     <MenuItem value="3">개인</MenuItem>
                   </Select>
-                  <Select
+                  */}
+                  <CheckboxSelect names={['전체', '구독중', '종료']} value={['전체']} width={116} margin="0 8px 0 0 !important"  onChangeHandler={selectChangedEvent} />
+                  {/*<Select
                     fullWidth={false}
                     id="search-category22"
                     name="subscriptionStatus"
@@ -220,7 +223,8 @@ const Admin = () => {
                     <MenuItem value="1">구독중</MenuItem>
                     <MenuItem value="2">종료</MenuItem>
                   </Select>
-                  <Select
+                  */}
+                  {/*<Select
                     fullWidth={false}
                     id="search-category23"
                     name="status"
@@ -233,6 +237,8 @@ const Admin = () => {
                     <MenuItem value="2">휴면</MenuItem>
                     <MenuItem value="0">탈퇴</MenuItem>
                   </Select>
+                  */}
+                  <CheckboxSelect names={['전체', '활동', '휴면', '탈퇴']} value={['전체']} width={116} margin="0 8px 0 0 !important" onChangeHandler={selectChangedEvent} />
                 </Box>
               </Box>
             </Box>

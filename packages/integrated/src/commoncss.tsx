@@ -254,6 +254,15 @@ const css = createTheme({
         '& .sub_select_common:hover': {
           borderColor: '#000000DE !important',
         },
+        '& .MuiButtonBase-root.Mui-checked':{
+          color: '#284AD5 !important',
+        },
+        '& .selectMenuItem':{
+          paddingLeft:'0 !important',paddingRight:'0 !important',height:"40px"
+        },
+        '& .MuiList-root':{
+          padding:'0 !important'
+        },
 
         //This is all outlined button style class
         '& .sub_btn_primary_outline_common': {
@@ -266,6 +275,9 @@ const css = createTheme({
         },
         '& .sub_btn_primary_outline_common:hover': {
           backgroundColor: '#fff !important',
+        },
+        '& .MuiPickersDay-root.Mui-selected':{
+          backgroundColor: "#284AD5 !important"
         },
 
         //This is all contained/filled button style class
