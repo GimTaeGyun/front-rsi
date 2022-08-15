@@ -572,6 +572,7 @@ const css = createTheme({
           marginBottom: '10px',
         },
 
+        //styles related to card/form input fields
         '& .sub_card_form_header':{
           borderBottom:"1px solid #0000001F"
         },
@@ -607,7 +608,6 @@ const css = createTheme({
             fontFamily:"NotoSansKRRegular",
           }
         },
-
         '& .sub_card_formcontrol_list':{
           width:"344px",
           height:"38px",
@@ -677,6 +677,78 @@ const css = createTheme({
             color: '#00000042'
           }
         },
+
+        //styles related to modal/form
+        '& .mymodal_wrapper':{
+          '& .MuiBox-root:focus-visible': {
+            outline: 'unset',
+          },
+        },
+        '& .mymodal_outer.modal_password':{
+          height:"257px",
+          '& .mymodal_content':{
+            height:"135px",
+          },
+        },
+        '& .mymodal_outer':{
+          display: 'block',
+          margin: '0 auto',
+          width: '500px',
+          height: 'auto',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: '#fff',
+          border: 'none',
+          boxShadow: '0px 1px 5px #0000002E',
+          borderRadius: '6px',
+        },
+        '& .mymodal_header':{
+          padding: '0 15px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          height: '56px',
+          borderBottom: '1px solid #eee',
+        },
+        '& .mymodal_title':{
+          fontSize: '16px',
+          fontColor: '#000000DE',
+          fontFamily: 'NotoSansKRMedium',
+        },
+        '& .mymodal_content':{ 
+          width: '100%', 
+          height: 'auto', 
+          padding: '30px 30px 0 30px', 
+        },
+        
+        '& .mymodal_footer':{ 
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          widwidth: '100%',
+          height: '70px',
+          borderTop: '1px solid #eee',
+         },
+        '& .btn_modal_primary_fill':{
+          width:"57px",
+          height:"36px"
+
+        },
+        '& .mymodal_inputfield_outer':{
+
+        },
+        '& .mymodal_inputlabel':{
+
+        },
+        '& .mymodal_inputfield':{
+
+        },
+
+
+
 
 
       },

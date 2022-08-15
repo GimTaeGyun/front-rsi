@@ -6,6 +6,7 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
+import ModalResetPassword from './components/ModalResetPassword';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,12 +49,16 @@ const Admin = () => {
 
   const [tabValue, setTabValue] = React.useState(0);
 
+  const [modalResetPassword, setModalResetPassword] = React.useState(true);
+
   const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
     event;
     setTabValue(newValue);
   };
 
-
+  const handleModalResetPassword = ()=>{
+    setModalResetPassword(!modalResetPassword);
+  }
   return (
     <>
       <AppFrame
@@ -65,6 +70,14 @@ const Admin = () => {
         ]}
       >
         <>
+          {modalResetPassword ? (
+            <ModalResetPassword
+              title="비밀번호 재설정"
+              open={modalResetPassword}
+              handleClose={handleModalResetPassword}
+            />
+          ) : undefined}
+
           {alertPopup.visible ? (
             <AlertPopup
               message={alertPopup.message}
@@ -135,7 +148,7 @@ const Admin = () => {
                       </Box>
                     </Grid>
                     <Grid xs={4} md={4}>
-                        <Box component="div" className="sub_card_formcontrol_outer_common">
+                        <Box component="div" className="sub_card_formcontrol_outer_common b-0">
                           <Box component="span" className="sub_card_formcontrol_label">고객유형</Box>
                           <Select
                             fullWidth={false}
@@ -274,13 +287,64 @@ const Admin = () => {
 
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
-            Item Two
+            <Card className="sub_card_common sub_card_form" sx={{width:"100%",height:"168px"}}>
+              <CardHeader
+              className="sub_tbl_header_outer_common sub_card_form_header"
+              component="div"
+              title={
+                <Typography className="sub_tbl_header_text_common">Tab 2</Typography>
+              }
+            ></CardHeader>
+            <CardContent>
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={0}>
+                  <Grid xs={4} md={4}>
+                    
+                  </Grid>
+                </Grid>
+              </Box>
+            </CardContent>
+            </Card>
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
-            Item Three
+            <Card className="sub_card_common sub_card_form" sx={{width:"100%",height:"168px"}}>
+                <CardHeader
+                className="sub_tbl_header_outer_common sub_card_form_header"
+                component="div"
+                title={
+                  <Typography className="sub_tbl_header_text_common">Tab 3</Typography>
+                }
+              ></CardHeader>
+              <CardContent>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={0}>
+                    <Grid xs={4} md={4}>
+                      
+                    </Grid>
+                  </Grid>
+                </Box>
+              </CardContent>
+              </Card>
           </TabPanel>
           <TabPanel value={tabValue} index={3}>
-            Item Three
+            <Card className="sub_card_common sub_card_form" sx={{width:"100%",height:"168px"}}>
+                <CardHeader
+                className="sub_tbl_header_outer_common sub_card_form_header"
+                component="div"
+                title={
+                  <Typography className="sub_tbl_header_text_common">Tab 4</Typography>
+                }
+              ></CardHeader>
+              <CardContent>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={0}>
+                    <Grid xs={4} md={4}>
+                      
+                    </Grid>
+                  </Grid>
+                </Box>
+              </CardContent>
+              </Card>
           </TabPanel>
         </>
       </AppFrame>

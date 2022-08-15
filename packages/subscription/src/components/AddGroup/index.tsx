@@ -209,11 +209,8 @@ const AddGroup = (props: {
               취소
             </Button>
             <Button
-              color="primary"
-              variant="contained"
               sx={styles.btn_submit}
-              onClick={addGroup}
-              className="sub_button_blue"
+              className="sub_btn_primary_fill_common"
             >
               저장
             </Button>
