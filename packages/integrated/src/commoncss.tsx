@@ -279,6 +279,24 @@ const css = createTheme({
         '& .MuiPickersDay-root.Mui-selected':{
           backgroundColor: "#284AD5 !important"
         },
+        '& ul .selectMenuItem':{
+          borderBottom:"1px solid #0000001F"
+        },
+        '& ul .selectMenuItem:hover':{
+          backgroundColor:"#fff"
+        },
+        '& ul .selectMenuItem.Mui-selected:hover':{
+          backgroundColor:"#fff"
+        },
+        '& ul .selectMenuItem.Mui-selected':{
+          backgroundColor:"#fff"
+        },
+        '& ul .selectMenuItem.Mui-focusVisible':{
+          backgroundColor:"#fff"
+        },
+        '& .MuiPickersDay-root.Mui-focusVisible.Mui-selected':{
+          backgroundColor:"#fff"
+        },
 
         //This is all contained/filled button style class
         '& .sub_btn_primary_fill_common': {

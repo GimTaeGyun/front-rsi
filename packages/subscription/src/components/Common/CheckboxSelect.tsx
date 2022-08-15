@@ -36,6 +36,7 @@ const CheckboxSelect = (props:{names:Array<string>,value:string[],width:number,m
           MenuProps={{
             PaperProps: {
               style: {
+                overflow:"hidden",
                 width: props.width,
               },
             },
@@ -43,7 +44,7 @@ const CheckboxSelect = (props:{names:Array<string>,value:string[],width:number,m
         >
           {props.names.map((name) => (
             <MenuItem className="selectMenuItem" key={name} value={name}>
-              <Checkbox className={name+"=indexOf="+itemName.indexOf(name)} checked={itemName.indexOf(name) > -1} />
+              <Checkbox checked={itemName.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}
