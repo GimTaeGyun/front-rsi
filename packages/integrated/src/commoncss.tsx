@@ -570,6 +570,100 @@ const css = createTheme({
           marginLeft: '10px',
           marginBottom: '10px',
         },
+
+        '& .sub_card_form_header':{
+          borderBottom:"1px solid #0000001F"
+        },
+        '& .sub_card_form .MuiCardContent-root':{
+          padding:'0',
+        },
+        '& .sub_card_formcontrol_outer_common':{
+          display:"flex",alignItems:"center",justifyContent:"space-between",
+          width:"100%",
+          height:"55px",
+          borderBottom:"1px solid #0000001F",
+          padding:"0 10px 0 16px",
+        },
+        '& .sub_card_formcontrol_outer_common.b-0':{
+          borderWidth:"0px",
+        },
+        '& .sub_card_formcontrol_label':{
+          color: "#333 !important",
+          fontSize:"14px",
+          fontFamily:"NotoSansKRMedium",
+          letterSpacing:"-0.33px",
+        },
+        '& .sub_card_formcontrol_input':{
+          width:"344px",
+          height:"38px",
+          backgroundColor:"#F9F9F9",
+          '& .MuiOutlinedInput-notchedOutline':{
+            border:"1px solid #0000001F",
+          },
+          '& .MuiOutlinedInput-input':{
+            color: "#666 !important",
+            fontSize:"13px",
+            fontFamily:"NotoSansKRRegular",
+          }
+        },
+
+        '& .sub_card_formcontrol_list':{
+          width:"344px",
+          height:"38px",
+          backgroundColor:"#F9F9F9",
+          '& .MuiOutlinedInput-notchedOutline':{
+            border:"1px solid #0000001F",
+          },
+          '& .MuiOutlinedInput-input':{
+            color: "#666 !important",
+            fontSize:"13px",
+            fontFamily:"NotoSansKRRegular",
+          }
+        },
+        '& .sub_card_formcontrol_inputbutton_outer':{
+          width:"344px",
+          height:"38px",
+          '& .sub_card_formcontrol_input':{
+            width:"250px",
+          },
+          '& .sub_card_formcontrol_button':{
+            width:"84px",
+          }
+        },
+        '& .sub_tabs_container':{
+          '& .MuiButtonBase-root':{
+            paddingTop:"0",paddingBottom:"0"
+          },
+          '& .MuiTab-textColorPrimary':{
+            color: '#000000DE',
+            opacity:"0.54",
+          },
+          '& .Mui-selected.MuiTab-textColorPrimary':{
+            color: '#284AD5',
+            opacity:"1",
+          },
+          '& .MuiTabs-indicator':{
+            backgroundColor: '#284AD5 !important',
+          },
+        },
+        '& .sub_listpage_card_btmsection': {
+          marginTop:"30px",
+          height: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        '& .sub_btn_card_btm':{
+          width:"80px",height:"42px"
+        },
+        '& .primaryColor2':{
+          backgroundColor:"#0615B2  !important"
+        },
+        '& .primaryColor2:hover':{
+          backgroundColor:"#0615B2  !important"
+        },
+
+
       },
     },
   },
