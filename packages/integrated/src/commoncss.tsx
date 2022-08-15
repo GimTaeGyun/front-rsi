@@ -272,6 +272,7 @@ const css = createTheme({
           borderWidth: '1px',
           borderColor: '#284AD5 !important',
           letterSpacing: '0.01px !important',
+          backgroundColor: '#fff !important',
         },
         '& .sub_btn_primary_outline_common:hover': {
           backgroundColor: '#fff !important',
@@ -654,13 +655,27 @@ const css = createTheme({
           justifyContent: 'center',
         },
         '& .sub_btn_card_btm':{
-          width:"80px",height:"42px"
+          width:"85px",height:"45px"
         },
         '& .primaryColor2':{
           backgroundColor:"#0615B2  !important"
         },
         '& .primaryColor2:hover':{
           backgroundColor:"#0615B2  !important"
+        },
+        '& .sub_card_formcontrol_checkboxes':{
+          flexDirection:"row",
+          '& .MuiTypography-root':{
+            color:"#000000DE",
+            fontSize:"13px",
+            fontFamily:"NotoSansKRRegular"
+          },
+          '& .MuiFormControlLabel-root':{
+            marginRight:"30px",
+          },
+          '& .MuiSvgIcon-root':{
+            color: '#00000042'
+          }
         },
 
 

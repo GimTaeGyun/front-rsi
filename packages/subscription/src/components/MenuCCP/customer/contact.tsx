@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardHeader, CardContent, Grid, MenuItem, OutlinedInput, Select, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Button, Card, CardHeader, CardContent, Checkbox, FormControlLabel, FormGroup, Grid, MenuItem, OutlinedInput, Select, Tab, Tabs, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import React from 'react';
 
@@ -241,6 +241,18 @@ const Admin = () => {
                           </Select>
                         </Box>
                       </Grid>
+                      <Grid xs={4} md={4}>
+                        <Box component="div" className="sub_card_formcontrol_outer_common b-0">
+                          <Box component="span" className="sub_card_formcontrol_label">마케팅 동의</Box>
+                          <Box component="div" className="sub_card_formcontrol_inputbutton_outer">
+                            <FormGroup className="sub_card_formcontrol_checkboxes" sx={{flexDirection:"row"}}>
+                              <FormControlLabel control={<Checkbox defaultChecked />} label="이메일" />
+                              <FormControlLabel control={<Checkbox />} label="SMS" />
+                            </FormGroup>                            
+                          </Box>
+                        </Box>
+                      </Grid>
+                      
                     </Grid>
                 </Box>
               </CardContent>
