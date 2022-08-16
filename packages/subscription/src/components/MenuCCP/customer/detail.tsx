@@ -13,13 +13,16 @@ import SubmitButton from './components/SubmitButton';
 import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
 
+
+const { state } = useLocation();
+
 const Data = [
   {
     title: '상세정보',
     index: 1,
     child: (
       <>
-        <TabContent1 />
+        <TabContent1 state={state}/>
       </>
     ),
   },
@@ -55,7 +58,6 @@ const Data = [
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-  const { state } = useLocation();
   console.log(state);
   return (
     <>
