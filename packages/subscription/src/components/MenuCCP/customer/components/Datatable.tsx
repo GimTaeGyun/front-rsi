@@ -267,10 +267,23 @@ interface Row {
   status: Number | null;
 }
 
-const DataTable = (props: { rows: Array<Row>; cellClickEvent?: Function }) => {
+const DataTable = (props: {
+  rows: Array<Row>;
+  cellClickEvent?: Function;
+  rowsPerPage?: number;
+  pageChanged?: Function;
+  rowsChanged?: Function;
+  total?: number;
+}) => {
+  const {
+    rows = [],
+    cellClickEvent = () => {},
+    rowsPerPage = 10,
+    pageChanged = () => {},
+    rowsChanged = () => {},
+    total = 10,
+  } = props;
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [pageSize, setPageSize] = React.useState<number>(10);
 
   return (
     <div style={{ height: '626px', width: '100%' }}>
@@ -279,31 +292,32 @@ const DataTable = (props: { rows: Array<Row>; cellClickEvent?: Function }) => {
         headerHeight={57}
         disableSelectionOnClick
         rowHeight={52}
-        rows={props.rows}
+        rows={rows}
         columns={columns}
         pageSize={rowsPerPage}
-        onPageSizeChange={newPageSize => setPageSize(newPageSize)}
         rowsPerPageOptions={[10, 25, 50]}
         pagination={true}
+        rowCount={total}
+        paginationMode="server"
         checkboxSelection={true}
-        onCellClick={(params, event) => {
-          props.cellClickEvent ? props.cellClickEvent(params, event) : '';
-        }}
+        onCellClick={(params, event) => cellClickEvent(params, event)}
         components={{
           Footer: () => {
             const handleChangePage = (
               event: React.MouseEvent<HTMLButtonElement> | null,
               newPage: number,
             ) => {
-              console.log(event);
+              console.log(event, 'here?');
               setPage(newPage);
+              pageChanged(newPage);
             };
 
             const handleChangeRowsPerPage = (
               event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
             ) => {
-              setRowsPerPage(parseInt(event.target.value, 10));
+              console.log(event, 'here??');
               setPage(0);
+              rowsChanged(event.target.value);
             };
 
             return (
@@ -329,7 +343,7 @@ const DataTable = (props: { rows: Array<Row>; cellClickEvent?: Function }) => {
                   <TablePagination
                     className="sub_pagination"
                     component="div"
-                    count={props.rows.length}
+                    count={total}
                     page={page}
                     onPageChange={handleChangePage}
                     rowsPerPage={rowsPerPage}

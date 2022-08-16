@@ -28,7 +28,9 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <Typography fontSize="14px" aria-expanded="false">
+        {params.colDef.headerName}
+      </Typography>
     ),
   },
   {
@@ -51,6 +53,7 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     sortable: false,
     hideSortIcons: true,
+    headerClassName: 'datagridMenu',
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
@@ -109,16 +112,9 @@ export const columns: GridColDef[] = [
     align: 'center',
     sortable: false,
     disableColumnMenu: true,
+    headerClassName: 'lastcolumnSeparator',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography
-        fontSize="14px"
-        borderRight="none"
-        sx={{
-          '.MuiDataGrid-columnSeparator': {
-            display: 'none',
-          },
-        }}
-      >
+      <Typography fontSize="14px" borderRight="none">
         {params.colDef.headerName}
       </Typography>
     ),

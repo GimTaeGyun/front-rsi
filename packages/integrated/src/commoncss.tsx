@@ -15,6 +15,17 @@ const css = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         ':root': {
+          '& .lastcolumnSeparator': {
+            '.MuiDataGrid-columnSeparator': {
+              display: 'none',
+            },
+          },
+          '& .datagridMenu': {
+            hover: 'none',
+            '& .MuiDataGrid-menuIcon': {
+              visibility: 'visible !important',
+            },
+          },
           '& .sub_tree_hover': {
             backgroundColor: '#F4F5F7',
             borderRadius: '4px',
@@ -254,14 +265,16 @@ const css = createTheme({
         '& .sub_select_common:hover': {
           borderColor: '#000000DE !important',
         },
-        '& .MuiButtonBase-root.Mui-checked':{
+        '& .MuiButtonBase-root.Mui-checked': {
           color: '#284AD5 !important',
         },
-        '& .selectMenuItem':{
-          paddingLeft:'0 !important',paddingRight:'0 !important',height:"40px"
+        '& .selectMenuItem': {
+          paddingLeft: '0 !important',
+          paddingRight: '0 !important',
+          height: '40px',
         },
-        '& .MuiList-root':{
-          padding:'0 !important'
+        '& .MuiList-root': {
+          padding: '0 !important',
         },
 
         //This is all outlined button style class
@@ -277,26 +290,26 @@ const css = createTheme({
         '& .sub_btn_primary_outline_common:hover': {
           backgroundColor: '#fff !important',
         },
-        '& .MuiPickersDay-root.Mui-selected':{
-          backgroundColor: "#284AD5 !important"
+        '& .MuiPickersDay-root.Mui-selected': {
+          backgroundColor: '#284AD5 !important',
         },
-        '& ul .selectMenuItem':{
-          borderBottom:"1px solid #0000001F"
+        '& ul .selectMenuItem': {
+          borderBottom: '1px solid #0000001F',
         },
-        '& ul .selectMenuItem:hover':{
-          backgroundColor:"#fff"
+        '& ul .selectMenuItem:hover': {
+          backgroundColor: '#fff',
         },
-        '& ul .selectMenuItem.Mui-selected:hover':{
-          backgroundColor:"#fff"
+        '& ul .selectMenuItem.Mui-selected:hover': {
+          backgroundColor: '#fff',
         },
-        '& ul .selectMenuItem.Mui-selected':{
-          backgroundColor:"#fff"
+        '& ul .selectMenuItem.Mui-selected': {
+          backgroundColor: '#fff',
         },
-        '& ul .selectMenuItem.Mui-focusVisible':{
-          backgroundColor:"#fff"
+        '& ul .selectMenuItem.Mui-focusVisible': {
+          backgroundColor: '#fff',
         },
-        '& .MuiPickersDay-root.Mui-focusVisible.Mui-selected':{
-          backgroundColor:"#fff"
+        '& .MuiPickersDay-root.Mui-focusVisible.Mui-selected': {
+          backgroundColor: '#fff',
         },
 
         //This is all contained/filled button style class
@@ -366,11 +379,10 @@ const css = createTheme({
           justifyContent: 'center',
         },
         '& .sub_listpage_filter_date': {
-          '& .MuiInputBase-root':{
+          '& .MuiInputBase-root': {
             width: '175px',
             height: '36px',
-          }
-          
+          },
         },
         '& .sub_btn_filter1': {
           width: '84px',
@@ -573,27 +585,29 @@ const css = createTheme({
         },
 
         //styles related to card/form input fields
-        '& .sub_card_form_header':{
-          borderBottom:"1px solid #0000001F"
+        '& .sub_card_form_header': {
+          borderBottom: '1px solid #0000001F',
         },
-        '& .sub_card_form .MuiCardContent-root':{
-          padding:'0',
+        '& .sub_card_form .MuiCardContent-root': {
+          padding: '0',
         },
-        '& .sub_card_formcontrol_outer_common':{
-          display:"flex",alignItems:"center",justifyContent:"space-between",
-          width:"100%",
-          height:"55px",
-          borderBottom:"1px solid #0000001F",
-          padding:"0 10px 0 16px",
+        '& .sub_card_formcontrol_outer_common': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          height: '55px',
+          borderBottom: '1px solid #0000001F',
+          padding: '0 10px 0 16px',
         },
-        '& .sub_card_formcontrol_outer_common.b-0':{
-          borderWidth:"0px",
+        '& .sub_card_formcontrol_outer_common.b-0': {
+          borderWidth: '0px',
         },
-        '& .sub_card_formcontrol_label':{
-          color: "#333 !important",
-          fontSize:"14px",
-          fontFamily:"NotoSansKRMedium",
-          letterSpacing:"-0.33px",
+        '& .sub_card_formcontrol_label': {
+          color: '#333 !important',
+          fontSize: '14px',
+          fontFamily: 'NotoSansKRMedium',
+          letterSpacing: '-0.33px',
         },
         '& .sub_card_formcontrol_input':{
           width:"344px",
@@ -638,11 +652,11 @@ const css = createTheme({
           '& .MuiOutlinedInput-notchedOutline':{
             border:"1px solid #0000001F",
           },
-          '& .MuiOutlinedInput-input':{
-            color: "#666 !important",
-            fontSize:"13px",
-            fontFamily:"NotoSansKRRegular",
-          }
+          '& .MuiOutlinedInput-input': {
+            color: '#666 !important',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
+          },
         },
         '& .sub_card_formcontrol_list.MuiInputBase-readOnly':{
           '& .MuiInputBase-input':{
@@ -671,51 +685,53 @@ const css = createTheme({
           '& .sub_card_formcontrol_input':{
             width:"250px",
           },
-          '& .sub_card_formcontrol_button':{
-            width:"84px",
-          }
+          '& .sub_card_formcontrol_button': {
+            width: '84px',
+          },
         },
-        '& .sub_tabs_container':{
-          '& .MuiButtonBase-root':{
-            paddingTop:"0",paddingBottom:"0"
+        '& .sub_tabs_container': {
+          '& .MuiButtonBase-root': {
+            paddingTop: '0',
+            paddingBottom: '0',
           },
-          '& .MuiTab-textColorPrimary':{
+          '& .MuiTab-textColorPrimary': {
             color: '#000000DE',
-            opacity:"0.54",
+            opacity: '0.54',
           },
-          '& .Mui-selected.MuiTab-textColorPrimary':{
+          '& .Mui-selected.MuiTab-textColorPrimary': {
             color: '#284AD5',
-            opacity:"1",
+            opacity: '1',
           },
-          '& .MuiTabs-indicator':{
+          '& .MuiTabs-indicator': {
             backgroundColor: '#284AD5 !important',
           },
         },
         '& .sub_listpage_card_btmsection': {
-          marginTop:"30px",
+          marginTop: '30px',
           height: 'auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         },
-        '& .sub_btn_card_btm':{
-          width:"85px",height:"45px"
+        '& .sub_btn_card_btm': {
+          width: '85px',
+          height: '45px',
         },
-        '& .primaryColor2':{
-          backgroundColor:"#0615B2  !important"
+        '& .primaryColor2': {
+          backgroundColor: '#0615B2  !important',
         },
-        '& .primaryColor2:hover':{
-          backgroundColor:"#0615B2  !important"
+        '& .primaryColor2:hover': {
+          backgroundColor: '#0615B2  !important',
         },
-        '& .sub_card_formcontrol_checkboxes':{
-          flexDirection:"row",
-          '& .MuiTypography-root':{
-            color:"#000000DE",
-            fontSize:"13px",
-            fontFamily:"NotoSansKRRegular"
+        '& .sub_card_formcontrol_checkboxes': {
+          flexDirection: 'row',
+          '& .MuiTypography-root': {
+            color: '#000000DE',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
           },
-          '& .MuiFormControlLabel-root':{
-            marginRight:"30px",
+          '& .MuiFormControlLabel-root': {
+            marginRight: '30px',
           },
           '& .MuiSvgIcon-root':{
             color: '#284AD5'
@@ -731,18 +747,18 @@ const css = createTheme({
         },
 
         //styles related to modal/form
-        '& .mymodal_wrapper':{
+        '& .mymodal_wrapper': {
           '& .MuiBox-root:focus-visible': {
             outline: 'unset',
           },
         },
-        '& .mymodal_outer.modal_password':{
-          height:"257px",
-          '& .mymodal_content':{
-            height:"135px",
+        '& .mymodal_outer.modal_password': {
+          height: '257px',
+          '& .mymodal_content': {
+            height: '135px',
           },
         },
-        '& .mymodal_outer':{
+        '& .mymodal_outer': {
           display: 'block',
           margin: '0 auto',
           width: '500px',
@@ -756,7 +772,7 @@ const css = createTheme({
           boxShadow: '0px 1px 5px #0000002E',
           borderRadius: '6px',
         },
-        '& .mymodal_header':{
+        '& .mymodal_header': {
           padding: '0 15px',
           display: 'flex',
           alignItems: 'center',
@@ -765,44 +781,32 @@ const css = createTheme({
           height: '56px',
           borderBottom: '1px solid #eee',
         },
-        '& .mymodal_title':{
+        '& .mymodal_title': {
           fontSize: '16px',
           fontColor: '#000000DE',
           fontFamily: 'NotoSansKRMedium',
         },
-        '& .mymodal_content':{ 
-          width: '100%', 
-          height: 'auto', 
-          padding: '30px 30px 0 30px', 
+        '& .mymodal_content': {
+          width: '100%',
+          height: 'auto',
+          padding: '30px 30px 0 30px',
         },
-        
-        '& .mymodal_footer':{ 
+
+        '& .mymodal_footer': {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           widwidth: '100%',
           height: '70px',
           borderTop: '1px solid #eee',
-         },
-        '& .btn_modal_primary_fill':{
-          width:"57px",
-          height:"36px"
-
         },
-        '& .mymodal_inputfield_outer':{
-
+        '& .btn_modal_primary_fill': {
+          width: '57px',
+          height: '36px',
         },
-        '& .mymodal_inputlabel':{
-
-        },
-        '& .mymodal_inputfield':{
-
-        },
-
-
-
-
-
+        '& .mymodal_inputfield_outer': {},
+        '& .mymodal_inputlabel': {},
+        '& .mymodal_inputfield': {},
       },
     },
   },
