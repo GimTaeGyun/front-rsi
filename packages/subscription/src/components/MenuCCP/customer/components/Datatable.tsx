@@ -17,6 +17,7 @@ const columns: GridColDef[] = [
     headerName: 'ID',
     width: 150,
     headerAlign: 'center',
+    sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
@@ -42,6 +43,7 @@ const columns: GridColDef[] = [
     field: 'custTp',
     headerName: '유형',
     width: 100,
+    sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -103,6 +105,7 @@ const columns: GridColDef[] = [
     field: 'email',
     headerName: '이메일',
     width: 180,
+    sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -155,6 +158,7 @@ const columns: GridColDef[] = [
     headerName: '구독현황',
     width: 114,
     headerAlign: 'center',
+    sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
@@ -190,6 +194,7 @@ const columns: GridColDef[] = [
     field: 'status',
     headerName: '상태',
     width: 89,
+    sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (

@@ -625,12 +625,19 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
           },
         },
-        '& .sub_card_formcontrol_list': {
-          width: '344px',
-          height: '38px',
-          backgroundColor: '#F9F9F9',
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: '1px solid #0000001F',
+        '& .sub_card_formcontrol_input_long':{
+          width:"853px",
+        },
+        '& .sub_card_formcontrol_input.Mui-disabled':{
+          '& .MuiOutlinedInput-notchedOutline':{
+            backgroundColor:"#f9f9f9",
+            border:"1px dashed #0000001F !important",
+          }
+        },
+        '& .sub_card_formcontrol_input.MuiInputBase-readOnly':{
+          '& .MuiInputBase-input':{
+            color: "#666 !important",
+            zIndex:1,
           },
           '& .MuiOutlinedInput-input': {
             color: '#666 !important',
@@ -644,8 +651,14 @@ const css = createTheme({
           '& .sub_card_formcontrol_input': {
             width: '250px',
           },
+          '& .sub_card_formcontrol_input_search':{
+            width:"279px",
+          },
           '& .sub_card_formcontrol_button': {
             width: '84px',
+          },
+          '& .sub_card_formcontrol_button_reg': {
+            width: '71px',
           },
         },
         '& .sub_tabs_container': {
@@ -695,6 +708,16 @@ const css = createTheme({
           '& .MuiSvgIcon-root': {
             color: '#00000042',
           },
+        },
+        '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg':{
+          fontSize:"13px",lineHeight:"13px",fontFamily:"NotoSansKRRegular",color:"#0615B2",
+          borderBottom:"1px solid #0615B2",paddingLeft:"0", paddingRight:"0",paddingBottom:"5px",borderRadius:"0"
+        },
+        '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg:hover':{
+          backgroundColor:"#fff"
+        },
+        '& .MuiButtonBase-root.sub_card_formcontrol_button_search':{
+          width:"73px"
         },
 
         //styles related to modal/form
