@@ -14,7 +14,6 @@ import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
 
 
-const { state } = useLocation();
 
 const Data = [
   {
@@ -22,7 +21,7 @@ const Data = [
     index: 1,
     child: (
       <>
-        <TabContent1 state={state}/>
+        <TabContent1 />
       </>
     ),
   },
