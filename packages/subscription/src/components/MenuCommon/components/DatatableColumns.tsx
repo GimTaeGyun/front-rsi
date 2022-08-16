@@ -58,7 +58,6 @@ export const columns: GridColDef[] = [
       <Typography
         fontSize="14px"
         sx={{
-          maxWidth: '50px',
           ':hover': {
             pointerEvents: 'none !important',
           },
