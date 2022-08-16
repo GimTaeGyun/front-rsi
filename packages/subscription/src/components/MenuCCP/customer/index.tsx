@@ -165,7 +165,7 @@ const Admin = () => {
           {/* Filter Section */}
           <Card
             className="sub_card_common sub_card_filter"
-            sx={{ width: '100%', maxWidth: '1470px', height: '112px' }}
+            sx={{ width: '100%', height: '112px' }}
           >
             <Box className="sub_listpage_filter_topsection">
               <Box className="sub_listpage_filter_topsection_sub">
@@ -228,7 +228,10 @@ const Admin = () => {
                   />
                 </Box>
               </Box>
-              <Box className="sub_listpage_filter_topsection_sub">
+              <Box
+                className="sub_listpage_filter_topsection_sub"
+                sx={{ minWidth: '500px' }}
+              >
                 <Box component="span" className="sub_listpage_filter_label">
                   고객유형
                 </Box>
