@@ -46,6 +46,7 @@ const Admin = () => {
   const searchTextRef = useRef();
   const [searchCategory, setSearchCategory] = useState('custNm');
   const [tableRows, setTableRows] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,6 +63,10 @@ const Admin = () => {
       })
       .catch(e => console.log(e));
   }, []);
+
+  useEffect(() => {
+    searchClickEvent();
+  }, [, searchParam.page, searchParam.page_no]);
 
   const selectChangedEvent = (e: any) => {
     let temp = defaultSearchParam;
@@ -131,7 +136,7 @@ const Admin = () => {
 
   const cellClickEvent = (e: any) => {
     if (e.field == 'details') {
-      navigate('/admin/ccp/customer/detail', { state: e.row.custId });
+      navigate('/admin/ccp/customer/detail', { state: e.row });
     }
   };
 
@@ -329,7 +334,18 @@ const Admin = () => {
                 </Box>
               }
             ></CardHeader>
-            <DataTable rows={tableRows} cellClickEvent={cellClickEvent} />
+            <DataTable
+              rows={tableRows}
+              cellClickEvent={cellClickEvent}
+              rowsPerPage={searchParam.page}
+              total={28}
+              pageChanged={(e: number) => {
+                setSearchParam({ ...searchParam, page_no: e + 1 });
+              }}
+              rowsChanged={(e: number) => {
+                setSearchParam({ ...searchParam, page: e, page_no: 1 });
+              }}
+            />
           </Card>
         </>
       </AppFrame>
