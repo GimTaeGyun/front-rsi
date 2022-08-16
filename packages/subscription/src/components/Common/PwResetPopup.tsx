@@ -42,8 +42,8 @@ const PwResetPopup = (props: {
           <Divider />
           <Box component="div" sx={styles.popup_inner}>
             <Box component="div" sx={styles.popup_message}>
-              <Typography component="p" sx={styles.msg}>
-                새 비밀번호 <Typography className="sub_label_dot">•</Typography>{' '}
+              <Typography component="div" sx={styles.msg}>
+                새 비밀번호 <Typography component="div" className="sub_label_dot">•</Typography>{' '}
               </Typography>
               <TextField
                 sx={styles.input_text}
