@@ -43,13 +43,14 @@ interface item {
 }
 
 const TabButton = (props: {
+  selectedIndex: number | 0,
   item: Array<{
     title: string;
     index: number;
     child: JSX.Element;
   }>;
 }) => {
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(props.selectedIndex);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log(event);

@@ -3,13 +3,13 @@ import React, {useState} from 'react';
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
 import CompInfo from './CompInfo';
-import {AlertPopupData, customerData} from '../../../../data/atoms';
 import {useAtom} from 'jotai'
 import PwResetPopup from '../../../Common/PwResetPopup';
-import {DefaultAlertPopupData} from '../../../../data/atoms';
+import {DefaultAlertPopupData, customerData} from '../../../../data/atoms';
 import AlertPopup from '../../../Common/AlertPopup';
 
 const TabContent1 = () => {
+
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(true);
   const [alertPopupData, setAlertPopupData] = useState({...DefaultAlertPopupData, message:"비밀번호가 변경되었습니다."});

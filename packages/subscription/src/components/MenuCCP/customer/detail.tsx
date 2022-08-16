@@ -13,6 +13,7 @@ import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
 
 
+
 const Data = [
   {
     title: '상세정보',
@@ -59,6 +60,7 @@ const Detail = () => {
   const {state} = useLocation();
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   setSharedCustomerData(state);
+
   
   return (
     <>
@@ -80,7 +82,7 @@ const Detail = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
-          <TabButton item={Data} />
+          <TabButton item={Data} selectedIndex={1} />
           <SubmitButton />
         </Box>
       </AppFrame>

@@ -337,7 +337,7 @@ const css = createTheme({
           borderBottom: '1px solid #0000001F',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'stretch',
+          justifyContent: 'space-between',
         },
         '& .sub_listpage_filter_topsection_sub': {
           display: 'flex',
@@ -345,7 +345,7 @@ const css = createTheme({
           width: '33.33%',
           height: '60px',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'stretch',
           paddingLeft: '20px',
           paddingRight: '10px',
         },
@@ -354,6 +354,7 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium',
           fontSize: '14px',
           letterSpacing: '-0.35',
+          borderRight: '30px solid white'
         },
         '& .sub_listpage_filter_search': {
           width: '230px',
