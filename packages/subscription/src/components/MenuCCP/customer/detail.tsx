@@ -15,49 +15,48 @@ import { useLocation } from 'react-router-dom';
 
 
 
-const Data = [
-  {
-    title: '상세정보',
-    index: 1,
-    child: (
-      <>
-        <TabContent1 />
-      </>
-    ),
-  },
-  {
-    title: '주문정보',
-    index: 2,
-    child: (
-      <>
-        <Info />
-      </>
-    ),
-  },
-  {
-    title: '사용자관리',
-    index: 3,
-    child: (
-      <>
-        <Info />
-      </>
-    ),
-  },
-  {
-    title: '문의관리',
-    index: 4,
-    child: (
-      <>
-        <Info />
-      </>
-    ),
-  },
-];
-
 const Admin = () => {
-  // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-  console.log(state);
+  const Data = [
+    {
+      title: '상세정보',
+      index: 1,
+      child: (
+        <>
+        <TabContent1  />
+        </>
+      ),
+    },
+    {
+      title: '주문정보',
+      index: 2,
+      child: (
+        <>
+          <Info />
+        </>
+      ),
+    },
+    {
+      title: '사용자관리',
+      index: 3,
+      child: (
+        <>
+          <Info />
+        </>
+      ),
+    },
+    {
+      title: '문의관리',
+      index: 4,
+      child: (
+        <>
+          <Info />
+        </>
+      ),
+    },
+  ];
+  // alertPopup object
+  
   return (
     <>
       <AppFrame

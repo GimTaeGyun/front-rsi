@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 
 const TabContent1 = () => {
+  console.log(props.state);
   return (
     <>
       <Card
