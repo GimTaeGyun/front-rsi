@@ -64,10 +64,12 @@ const TabButton = (props: {
     <>
       <Box
         sx={{
+          mt:'-20px',
           mb: '28px',
         }}
       >
         <TabList
+          className="sub_tabs_container"
           aria-label="simple tabs example"
           value={value}
           onChange={handleChange}
