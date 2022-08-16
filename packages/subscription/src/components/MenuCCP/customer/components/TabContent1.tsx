@@ -16,6 +16,7 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
+import SubmitButton from './SubmitButton';
 
 const TabContent1 = () => {
   return (
@@ -557,6 +558,7 @@ const TabContent1 = () => {
           </Box>
         </CardContent>
       </Card>
+      <SubmitButton />
     </>
   );
 };

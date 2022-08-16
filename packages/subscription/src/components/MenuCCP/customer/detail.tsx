@@ -75,7 +75,7 @@ const Admin = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
-          <TabButton item={Data} />
+          <TabButton item={Data} selectedIndex={1} />
           <SubmitButton />
         </Box>
       </AppFrame>
