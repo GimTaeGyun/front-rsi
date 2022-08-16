@@ -186,7 +186,7 @@ const TabContent1 = ()=>{
               </CardContent>
             </Card>
 
-            <Card className="sub_card_common sub_card_form" sx={{width:"100%",height:"168px",marginTop:"20px"}}>
+            <Card className="sub_card_common sub_card_form" sx={{width:"100%",height:"392px",marginTop:"20px"}}>
                 <CardHeader
                     className="sub_tbl_header_outer_common sub_card_form_header"
                     component="div"
@@ -245,7 +245,6 @@ const TabContent1 = ()=>{
                                         name="select3"
                                         value="개인"
                                         className="sub_select_common sub_card_formcontrol_list"
-                                        readOnly
                                     >
                                         <MenuItem value="개인">개인</MenuItem>
                                     </Select>
@@ -266,7 +265,22 @@ const TabContent1 = ()=>{
                             </Grid>
                             <Grid xs={4} md={4}>
                                 <Box component="div" className="sub_card_formcontrol_outer_common">
-                                <Box component="span" className="sub_card_formcontrol_label">사업자등록번호</Box>
+                                    <Box component="span" className="sub_card_formcontrol_label">사업자등록증</Box>
+                                    <Box component="div" className="sub_card_formcontrol_inputbutton_outer">
+                                    <Button
+                                        variant="outlined"
+                                        className="sub_btn_primary_outline_common sub_card_formcontrol_button_reg"
+                                        sx={{marginRight:"10px"}}
+                                    >
+                                        등록
+                                    </Button>
+                                    <Button variant="text" className="sub_card_formcontrol_btn_reg">현대중공업_사업자등록증.pdf</Button>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">업종</Box>
                                 <OutlinedInput
                                     fullWidth={false}
                                     id="text11"
@@ -276,6 +290,95 @@ const TabContent1 = ()=>{
                                     className="sub_input_common sub_card_formcontrol_input"
                                 />
                                 </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">기업규모</Box>
+                                    <Select
+                                        fullWidth={false}
+                                        id="select4"
+                                        name="select4"
+                                        value="대기업"
+                                        className="sub_select_common sub_card_formcontrol_list"
+                                    >
+                                        <MenuItem value="대기업">대기업</MenuItem>
+                                    </Select>
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">직원규모</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text13"
+                                    placeholder=""
+                                    name="text12"
+                                    value="300명 이상"
+                                    className="sub_input_common sub_card_formcontrol_input"
+                                />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                    <Box component="span" className="sub_card_formcontrol_label">우편번호</Box>
+                                    <Box component="div" className="sub_card_formcontrol_inputbutton_outer">
+                                        <OutlinedInput
+                                            type="text"
+                                            fullWidth={false}
+                                            id="text14"
+                                            placeholder=""
+                                            name="text14"
+                                            value="44032"
+                                            className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_search"
+                                        />
+                                        <Button
+                                            variant="outlined"
+                                            className="sub_btn_primary_outline_common sub_card_formcontrol_button_search"
+                                            sx={{marginLeft:"8px"}}
+                                        >
+                                            검색
+                                        </Button>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                            <Grid xs={8} md={8}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common"></Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={0}>
+                            <Grid xs={8} md={8}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">주소</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text15"
+                                    placeholder=""
+                                    name="text15"
+                                    value="울산광역시 동구 방어진순환도로 1000"
+                                    className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
+                                />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common"></Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={0}>
+                            <Grid xs={8} md={8}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common b-0">
+                                <Box component="span" className="sub_card_formcontrol_label">상세주소</Box>
+                                    <OutlinedInput
+                                        fullWidth={false}
+                                        id="text16"
+                                        placeholder=""
+                                        name="text16"
+                                        value="현대중공업 조선소 6F"
+                                        className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
+                                    />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common b-0"></Box>
                             </Grid>
                         </Grid>
                     </Box>
