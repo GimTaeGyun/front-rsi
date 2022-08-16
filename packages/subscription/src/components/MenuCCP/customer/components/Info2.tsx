@@ -1,4 +1,12 @@
-import { Box, Divider } from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Typography,
+} from '@mui/material';
 import {
   Card,
   CardContent,
@@ -9,15 +17,26 @@ import {
 } from '@mui/material';
 import React from 'react';
 import MuiFormLabel from '@mui/material/FormLabel';
+import { CheckBox } from '@mui/icons-material';
 const Info = () => {
+  const [state, setState] = React.useState({
+    email: true,
+    SMS: false,
+  });
+
+  const { email, SMS } = state;
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   return (
     <>
       <Card className="sub_ccp_detail_parent">
-        <CardHeader
-          disableTypography
-          title="법인 담당자 정보"
-          className="header"
-        />
+        <CardHeader disableTypography title="개인 정보" className="header" />
         <Divider />
         <CardContent className="content" sx={{ padding: '0px' }}>
           <Box className="column">
@@ -32,8 +51,17 @@ const Info = () => {
             </MuiFormLabel>
             <TextField
               id="phone"
+              type="text"
               className="text"
-              value="010-0000-0000"
+              defaultValue="010-0000-0000"
+              sx={{
+                '& input': {
+                  backgroundColor: '#ffffff !important',
+                },
+                '& fieldset': {
+                  border: 'solid 1px #0000001F !important',
+                },
+              }}
             ></TextField>
           </Box>
           <Box className="column">
@@ -43,39 +71,19 @@ const Info = () => {
             <TextField
               id="email"
               className="text"
-              value="oooo@gmail.com"
-            ></TextField>
-          </Box>
-          <Divider />
-          <Box className="column">
-            <MuiFormLabel className="label" htmlFor="nname">
-              부서명
-            </MuiFormLabel>
-            <TextField id="nname" className="text" value="홍보팀"></TextField>
-          </Box>
-          <Box className="column">
-            <MuiFormLabel className="label" htmlFor="number">
-              전화번호
-            </MuiFormLabel>
-            <TextField
-              id="number"
-              className="text"
-              value="02-1234-5678"
-            ></TextField>
-          </Box>
-          <Box className="column">
-            <MuiFormLabel className="label" htmlFor="fax">
-              팩스번호
-            </MuiFormLabel>
-            <TextField
-              id="fax"
               type="text"
-              className="text"
-              value="02-1234-9999"
+              defaultValue="oooo@gmail.com"
+              sx={{
+                '& input': {
+                  backgroundColor: '#ffffff !important',
+                },
+                '& fieldset': {
+                  border: 'solid 1px #0000001F !important',
+                },
+              }}
             ></TextField>
           </Box>
           <Divider />
-
           <Box className="column">
             <MuiFormLabel className="label" htmlFor="type">
               정보유효기간
@@ -84,9 +92,64 @@ const Info = () => {
               <MenuItem value="0">탈퇴 시 까지</MenuItem>
             </Select>
           </Box>
-          <Box className="column">
-            <MuiFormLabel className="label">마케팅 동의</MuiFormLabel>
-          </Box>
+          <FormControl component="fieldset" className="column">
+            <FormGroup row>
+              <MuiFormLabel className="label" htmlFor="mark">
+                마케팅 동의
+              </MuiFormLabel>
+              <FormControlLabel
+                id="mark"
+                control={
+                  <Checkbox
+                    checked={email}
+                    onChange={handleChange}
+                    name="eamil"
+                    sx={{
+                      maxHeight: '18px',
+                      maxWidth: '18px',
+                      borderLeft: '12px solid white',
+                    }}
+                  />
+                }
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: '14px',
+                      fontFamily: 'Noto Sans KR',
+                      borderLeft: '10px solid white',
+                    }}
+                  >
+                    이메일
+                  </Typography>
+                }
+              />
+              <FormControlLabel
+                id="mark"
+                sx={{
+                  borderLeft: '30px solid white ',
+                }}
+                control={
+                  <Checkbox
+                    checked={SMS}
+                    onChange={handleChange}
+                    name="SMS"
+                    sx={{ maxHeight: '18px', maxWidth: '18px' }}
+                  />
+                }
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: '14px',
+                      fontFamily: 'Noto Sans KR',
+                      borderLeft: '10px solid white',
+                    }}
+                  >
+                    SMS
+                  </Typography>
+                }
+              />
+            </FormGroup>
+          </FormControl>
         </CardContent>
       </Card>
     </>
