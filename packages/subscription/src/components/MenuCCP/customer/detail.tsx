@@ -4,7 +4,6 @@ import React from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import axios from '../../../utils/axios';
 import {customerData} from '../../../data/atoms';
 import AlertPopup from '../../Common/AlertPopup';
 import Info from './components/UserInfo';
