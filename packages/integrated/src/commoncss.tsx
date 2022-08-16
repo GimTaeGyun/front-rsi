@@ -625,7 +625,7 @@ const css = createTheme({
         '& .sub_card_formcontrol_input.Mui-disabled':{
           '& .MuiOutlinedInput-notchedOutline':{
             backgroundColor:"#f9f9f9",
-            border:"1px solid #f9f9f9 !important",
+            border:"1px dashed #0000001F !important",
           }
         },
         '& .sub_card_formcontrol_input.MuiInputBase-readOnly':{
@@ -635,7 +635,7 @@ const css = createTheme({
           },
           '& .MuiOutlinedInput-notchedOutline':{
             backgroundColor:"#f9f9f9",
-            border:"1px solid #f9f9f9",
+            border:"1px dashed #0000001F !important",
             zIndex:0
           },
           '&:hover fieldset': {

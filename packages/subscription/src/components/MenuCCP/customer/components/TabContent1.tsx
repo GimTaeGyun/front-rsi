@@ -159,8 +159,8 @@ const TabContent1 = ()=>{
                           <Box component="span" className="sub_card_formcontrol_label">정보 유효기간</Box>
                           <Select
                             fullWidth={false}
-                            id="select1"
-                            name="select1"
+                            id="select2"
+                            name="select2"
                             value="탈퇴 시 까지"
                             className="sub_select_common sub_card_formcontrol_list"
                             readOnly
@@ -206,6 +206,73 @@ const TabContent1 = ()=>{
                                     placeholder=""
                                     name="text8"
                                     value="현대중공업(주)"
+                                    className="sub_input_common sub_card_formcontrol_input"
+                                />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">대표자명</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text9"
+                                    placeholder=""
+                                    name="text9"
+                                    value="한영석"
+                                    className="sub_input_common sub_card_formcontrol_input"
+                                />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">대표번호</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text10"
+                                    placeholder=""
+                                    name="text10"
+                                    value="052-202-2114"
+                                    className="sub_input_common sub_card_formcontrol_input"
+                                />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">법인유형</Box>
+                                <Select
+                                    fullWidth={false}
+                                    id="select3"
+                                    name="select3"
+                                    value="기업"
+                                    className="sub_select_common sub_card_formcontrol_list"
+                                    readOnly
+                                >
+                                    <MenuItem value="개인">기업</MenuItem>
+                                </Select>
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">사업자등록번호</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text11"
+                                    placeholder=""
+                                    name="text11"
+                                    value="000-00-00000"
+                                    className="sub_input_common sub_card_formcontrol_input"
+                                />
+                                </Box>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">사업자등록번호</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text11"
+                                    placeholder=""
+                                    name="text11"
+                                    value="000-00-00000"
                                     className="sub_input_common sub_card_formcontrol_input"
                                 />
                                 </Box>
