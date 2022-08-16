@@ -26,6 +26,7 @@ const TabContent1 = ()=>{
                           name="text1"
                           value="yujinyong"
                           className="sub_input_common sub_card_formcontrol_input"
+                          readOnly
                         />
                       </Box>
                     </Grid>
@@ -39,6 +40,7 @@ const TabContent1 = ()=>{
                           name="text2"
                           value="2022-01-01 12:00"
                           className="sub_input_common sub_card_formcontrol_input"
+                          readOnly
                         />
                       </Box>
                     </Grid>
@@ -52,6 +54,7 @@ const TabContent1 = ()=>{
                           name="text3"
                           value="2022-01-01 12:00"
                           className="sub_input_common sub_card_formcontrol_input"
+                          readOnly
                         />
                       </Box>
                     </Grid>
@@ -64,6 +67,7 @@ const TabContent1 = ()=>{
                             name="select1"
                             value="개인"
                             className="sub_select_common sub_card_formcontrol_list"
+                            readOnly
                           >
                             <MenuItem value="개인">개인</MenuItem>
                           </Select>
@@ -81,6 +85,7 @@ const TabContent1 = ()=>{
                             name="text4"
                             value="abc123"
                             className="sub_input_common sub_card_formcontrol_input"
+                            readOnly
                           />
                           <Button
                             variant="outlined"
@@ -119,6 +124,7 @@ const TabContent1 = ()=>{
                             name="text5"
                             value="유진용"
                             className="sub_input_common sub_card_formcontrol_input"
+                            readOnly
                           />
                         </Box>
                       </Grid>
@@ -157,6 +163,7 @@ const TabContent1 = ()=>{
                             name="select1"
                             value="탈퇴 시 까지"
                             className="sub_select_common sub_card_formcontrol_list"
+                            readOnly
                           >
                             <MenuItem value="탈퇴 시 까지">탈퇴 시 까지</MenuItem>
                           </Select>
@@ -167,9 +174,9 @@ const TabContent1 = ()=>{
                           <Box component="span" className="sub_card_formcontrol_label">마케팅 동의</Box>
                           <Box component="div" className="sub_card_formcontrol_inputbutton_outer">
                             <FormGroup className="sub_card_formcontrol_checkboxes" sx={{flexDirection:"row"}}>
-                              <FormControlLabel control={<Checkbox defaultChecked />} label="이메일" />
-                              <FormControlLabel control={<Checkbox />} label="SMS" />
-                            </FormGroup>                            
+                              <FormControlLabel control={<Checkbox disabled defaultChecked />} label="이메일" />
+                              <FormControlLabel control={<Checkbox disabled />} label="SMS" />
+                            </FormGroup>
                           </Box>
                         </Box>
                       </Grid>
@@ -178,6 +185,35 @@ const TabContent1 = ()=>{
                 </Box>
               </CardContent>
             </Card>
+
+            <Card className="sub_card_common sub_card_form" sx={{width:"100%",height:"168px",marginTop:"20px"}}>
+                <CardHeader
+                    className="sub_tbl_header_outer_common sub_card_form_header"
+                    component="div"
+                    title={
+                    <Typography className="sub_tbl_header_text_common">법인 정보</Typography>
+                    }
+                ></CardHeader>
+                <CardContent>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={0}>
+                            <Grid xs={4} md={4}>
+                                <Box component="div" className="sub_card_formcontrol_outer_common">
+                                <Box component="span" className="sub_card_formcontrol_label">법인명</Box>
+                                <OutlinedInput
+                                    fullWidth={false}
+                                    id="text8"
+                                    placeholder=""
+                                    name="text8"
+                                    value="현대중공업(주)"
+                                    className="sub_input_common sub_card_formcontrol_input"
+                                />
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </CardContent>
+            </Card> 
         </>
     );
 }
