@@ -19,11 +19,7 @@ function TabPanel(props: any) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3, padding: 0 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3, padding: 0 }}>{children}</Box>}
     </div>
   );
 }
@@ -64,10 +60,12 @@ const TabButton = (props: {
     <>
       <Box
         sx={{
+          mt:'-20px',
           mb: '28px',
         }}
       >
         <TabList
+          className="sub_tabs_container"
           aria-label="simple tabs example"
           value={value}
           onChange={handleChange}
@@ -95,8 +93,8 @@ const TabButton = (props: {
           ))}
         </TabList>
         <Divider />
-        {props.item.map(item => (
-          <TabPanel index={item.index} value={value}>
+        {props.item.map((item, index) => (
+          <TabPanel key={index} index={item.index} value={value}>
             {item.child}
           </TabPanel>
         ))}

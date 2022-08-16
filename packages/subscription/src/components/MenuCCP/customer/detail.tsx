@@ -8,6 +8,7 @@ import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import Info from './components/Info';
 import Info2 from './components/Info2';
+import TabContent1 from './components/TabContent1';
 import SubmitButton from './components/SubmitButton';
 import TabButton from './components/TopButton';
 
@@ -17,8 +18,7 @@ const Data = [
     index: 1,
     child: (
       <>
-        <Info />
-        <Info2 />
+        <TabContent1 />
       </>
     ),
   },

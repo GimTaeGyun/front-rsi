@@ -174,7 +174,8 @@ const columns: GridColDef[] = [
           text = '종료';
           break;
         default:
-          str_class = 'sub_td_status sub_td_status_color1';
+          str_class = 'sub_td_status sub_td_status_color2';
+          text = '종료';
           break;
       }
       return (
@@ -213,7 +214,8 @@ const columns: GridColDef[] = [
           text = '탈퇴';
           break;
         default:
-          str_class = 'sub_td_sit sub_td_sit_color1';
+          str_class = 'sub_td_sit sub_td_sit_color3';
+          text = '탈퇴';
           break;
       }
       return (
@@ -265,7 +267,7 @@ interface Row {
   status: Number | null;
 }
 
-const DataTable = (props: { rows: Array<Row> }) => {
+const DataTable = (props: { rows: Array<Row>; cellClickEvent?: Function }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [pageSize, setPageSize] = React.useState<number>(10);
@@ -275,6 +277,7 @@ const DataTable = (props: { rows: Array<Row> }) => {
       <DataGrid
         className="sub_tbl_outer_common"
         headerHeight={57}
+        disableSelectionOnClick
         rowHeight={52}
         rows={props.rows}
         columns={columns}
@@ -283,6 +286,9 @@ const DataTable = (props: { rows: Array<Row> }) => {
         rowsPerPageOptions={[10, 25, 50]}
         pagination={true}
         checkboxSelection={true}
+        onCellClick={(params, event) => {
+          props.cellClickEvent ? props.cellClickEvent(params, event) : '';
+        }}
         components={{
           Footer: () => {
             const handleChangePage = (

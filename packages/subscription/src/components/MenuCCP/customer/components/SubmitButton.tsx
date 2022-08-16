@@ -3,32 +3,16 @@ import React from 'react';
 
 const SubmitButton = () => {
   return (
-    <Box sx={{ textAlign: 'center', width: '100%' }}>
+    <Box className="sub_listpage_card_btmsection">
       <Button
-        className="sub_button_white"
-        sx={{
-          height: '42px',
-          Width: '82px',
-          fontSize: '14px',
-          fontFamily: 'NotoSansKR',
-          marginRight: '15px',
-        }}
+        variant="outlined"
+        className="sub_btn_primary_outline_common sub_btn_card_btm"
       >
         뒤로
       </Button>
       <Button
         variant="contained"
-        type="submit"
-        className="sub_button_blue"
-        sx={{
-          height: '42px',
-          Width: '82px',
-          fontSize: '14px',
-          fontFamily: 'NotoSansKR',
-          ':hover': {
-            bgcolor: '#284AD5',
-          },
-        }}
+        className="sub_btn_primary_fill_common sub_btn_card_btm primaryColor2" sx={{marginLeft:"15px"}}
       >
         저장
       </Button>

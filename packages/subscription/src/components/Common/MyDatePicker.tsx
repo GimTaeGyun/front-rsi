@@ -4,24 +4,30 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers-pro';
 
-const MyDatePicker = (props:{strId:string,strClass:string, strName:string,strPlaceholder:string, objSX:object | null}) => {
-  const [value, setValue] = React.useState<Date | null>(
-    null,
-  );
-
-  const handleChange = (newValue: Date | null) => {
-    setValue(newValue);
-  };
+const MyDatePicker = (props: {
+  strId: string;
+  strClass: string;
+  strName: string;
+  strPlaceholder: string;
+  objSX: object | null;
+  value: Date;
+  onChange?: Function;
+}) => {
+  const [value, setValue] = React.useState<Date | null>(props.value);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          reduceAnimations={true}
-          label=""
-          inputFormat="yyyy-MM-dd"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <OutlinedInput
+      <DatePicker
+        reduceAnimations={true}
+        label=""
+        inputFormat="yyyy-MM-dd"
+        value={value}
+        onChange={e => {
+          props.onChange ? props.onChange(e) : '';
+          setValue(e);
+        }}
+        renderInput={params => (
+          <OutlinedInput
             type="date"
             fullWidth={false}
             id={props.strId}
@@ -30,10 +36,11 @@ const MyDatePicker = (props:{strId:string,strClass:string, strName:string,strPla
             className={props.strClass}
             sx={props.objSX}
             {...params}
-          />}
-        />
+          />
+        )}
+      />
     </LocalizationProvider>
   );
-}
+};
 
 export default MyDatePicker;

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useState, useRef, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
@@ -21,7 +21,7 @@ const defaultSearchParam = {
   custNm: 'ALL',
   custTp: 99,
   dateFrom: '1990-01-01',
-  dateTo: '9999-12-31',
+  dateTo: '2099-12-31',
   email: 'ALL',
   managerNm: 'ALL',
   mobile: 'ALL',
@@ -46,6 +46,7 @@ const Admin = () => {
   const searchTextRef = useRef();
   const [searchCategory, setSearchCategory] = useState('custNm');
   const [tableRows, setTableRows] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -87,9 +88,31 @@ const Admin = () => {
     }
     setSearchParam(temp);
   };
+
+  const dateChanged = (e: Date, type: string) => {
+    let date = e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate();
+
+    switch (type) {
+      case 'from':
+        setSearchParam({ ...searchParam, dateFrom: date });
+        break;
+      case 'to':
+        setSearchParam({ ...searchParam, dateTo: date });
+        break;
+    }
+  };
+
   const searchClickEvent = () => {
+    let reqParam = { ...searchParam };
+    if ((searchTextRef.current as any).children[0].value == '')
+      (reqParam as any)[searchCategory] = 'ALL';
+    else
+      (reqParam as any)[searchCategory] = (
+        searchTextRef.current as any
+      ).children[0].value;
+
     axios
-      .post('/management/manager/customer/search', searchParam)
+      .post('/management/manager/customer/search', reqParam)
       .then(res => {
         if (res.data.code === '0000') {
           let result = res.data.result;
@@ -104,6 +127,12 @@ const Admin = () => {
   const initSearchParam = () => {
     setSearchParam(defaultSearchParam);
     setSearchCategory('custNm');
+  };
+
+  const cellClickEvent = (e: any) => {
+    if (e.field == 'details') {
+      navigate('/admin/ccp/customer/detail', { state: e.row.custId });
+    }
   };
 
   return (
@@ -160,6 +189,7 @@ const Admin = () => {
                     name="search-term"
                     className="sub_input_common sub_listpage_filter_search"
                     ref={searchTextRef}
+                    onChange={selectChangedEvent}
                   />
                 </Box>
               </Box>
@@ -175,8 +205,10 @@ const Admin = () => {
                     strId="search-date1"
                     strClass="sub_input_common sub_listpage_filter_date"
                     strName="search-date1"
-                    strPlaceholder="종료일"
+                    strPlaceholder="시작일"
                     objSX={{ marginRight: '8px' }}
+                    value={new Date(searchParam.dateFrom)}
+                    onChange={(e: Date) => dateChanged(e, 'from')}
                   />
                   <MyDatePicker
                     strId="search-date2"
@@ -184,6 +216,8 @@ const Admin = () => {
                     strName="search-date2"
                     strPlaceholder="종료일"
                     objSX={null}
+                    value={new Date(searchParam.dateTo)}
+                    onChange={(e: Date) => dateChanged(e, 'to')}
                   />
                 </Box>
               </Box>
@@ -295,7 +329,7 @@ const Admin = () => {
                 </Box>
               }
             ></CardHeader>
-            <DataTable rows={tableRows} />
+            <DataTable rows={tableRows} cellClickEvent={cellClickEvent} />
           </Card>
         </>
       </AppFrame>
