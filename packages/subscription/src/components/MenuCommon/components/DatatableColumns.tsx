@@ -55,7 +55,17 @@ export const columns: GridColDef[] = [
     hideSortIcons: true,
     headerClassName: 'datagridMenu',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <Typography
+        fontSize="14px"
+        sx={{
+          maxWidth: '50px',
+          ':hover': {
+            pointerEvents: 'none !important',
+          },
+        }}
+      >
+        {params.colDef.headerName}
+      </Typography>
     ),
   },
   {

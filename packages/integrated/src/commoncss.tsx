@@ -20,12 +20,12 @@ const css = createTheme({
               display: 'none',
             },
           },
+          /*          
           '& .datagridMenu': {
-            hover: 'none',
             '& .MuiDataGrid-menuIcon': {
               visibility: 'visible !important',
             },
-          },
+          }, */
           '& .sub_tree_hover': {
             backgroundColor: '#F4F5F7',
             borderRadius: '4px',
@@ -337,15 +337,15 @@ const css = createTheme({
           borderBottom: '1px solid #0000001F',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'stretch',
+          justifyContent: 'space-between',
         },
         '& .sub_listpage_filter_topsection_sub': {
           display: 'flex',
-          minWidth: '490px',
+          maxWidth: '490px',
           width: '33.33%',
           height: '60px',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'screch',
           paddingLeft: '20px',
           paddingRight: '10px',
         },
@@ -353,6 +353,7 @@ const css = createTheme({
           color: '#333333',
           fontFamily: 'NotoSansKRMedium',
           fontSize: '14px',
+          borderRight: '45px solid white',
           letterSpacing: '-0.35',
         },
         '& .sub_listpage_filter_search': {
@@ -365,8 +366,8 @@ const css = createTheme({
           marginRight: '8px',
         },
         '& .sub_listpage_filter_list2': {
-          width: '116px',
-          height: '36px',
+          maxWidth: '116px',
+          maxHeight: '36px',
           marginRight: '8px',
         },
         '& .sub_listpage_filter_list2:last-child': {
@@ -609,17 +610,17 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium',
           letterSpacing: '-0.33px',
         },
-        '& .sub_card_formcontrol_input':{
-          width:"360px",
-          height:"38px",
-          backgroundColor:"#fff",
-          '& .MuiOutlinedInput-input':{
-            color: "#666 !important",
-            fontSize:"13px",
-            fontFamily:"NotoSansKRRegular",
+        '& .sub_card_formcontrol_input': {
+          width: '344px',
+          height: '38px',
+          backgroundColor: '#F9F9F9',
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #0000001F',
           },
-          '& .MuiOutlinedInput-notchedOutline':{
-            border:"1px solid #0000001F",
+          '& .MuiOutlinedInput-input': {
+            color: '#666 !important',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
           },
         },
         '& .sub_card_formcontrol_input_long':{
@@ -636,57 +637,17 @@ const css = createTheme({
             color: "#666 !important",
             zIndex:1,
           },
-          '& .MuiOutlinedInput-notchedOutline':{
-            backgroundColor:"#f9f9f9",
-            border:"1px dashed #0000001F !important",
-            zIndex:0
-          },
-          '&:hover fieldset': {
-            borderColor: '#f9f9f9'
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: '#f9f9f9'
-          },
-        },
-        '& .sub_card_formcontrol_list':{
-          width:"360px",
-          height:"38px",
-          backgroundColor:"#fff",
-          '& .MuiOutlinedInput-notchedOutline':{
-            border:"1px solid #0000001F",
-          },
           '& .MuiOutlinedInput-input': {
             color: '#666 !important',
             fontSize: '13px',
             fontFamily: 'NotoSansKRRegular',
           },
         },
-        '& .sub_card_formcontrol_list.MuiInputBase-readOnly':{
-          '& .MuiInputBase-input':{
-            color: "#666 !important",
-            zIndex:1,
-          },
-          '& .MuiOutlinedInput-notchedOutline':{
-            backgroundColor:"#f9f9f9",
-            border:"1px dashed #0000001F !important",
-            zIndex:0
-          },
-          '&:hover fieldset': {
-            borderColor: '#0000001F'
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: '#0000001F'
-          },
-          '& .MuiSvgIcon-root':{
-            zIndex:1
-          }
-        },
-
-        '& .sub_card_formcontrol_inputbutton_outer':{
-          width:"360px",
-          height:"38px",
-          '& .sub_card_formcontrol_input':{
-            width:"266px",
+        '& .sub_card_formcontrol_inputbutton_outer': {
+          width: '344px',
+          height: '38px',
+          '& .sub_card_formcontrol_input': {
+            width: '250px',
           },
           '& .sub_card_formcontrol_input_search':{
             width:"279px",
@@ -742,16 +703,8 @@ const css = createTheme({
           '& .MuiFormControlLabel-root': {
             marginRight: '30px',
           },
-          '& .MuiSvgIcon-root':{
-            color: '#284AD5'
-          },
-          '& .Mui-disabled':{
-            '& .MuiSvgIcon-root':{
-              color: '#00000042'
-            },
-            '& .MuiTypography-root':{
-              color: '#000000DE !important'
-            }
+          '& .MuiSvgIcon-root': {
+            color: '#00000042',
           },
         },
         '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg':{
