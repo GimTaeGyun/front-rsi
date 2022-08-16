@@ -757,6 +757,22 @@ const css = createTheme({
         '& .mymodal_inputfield_outer': {},
         '& .mymodal_inputlabel': {},
         '& .mymodal_inputfield': {},
+
+        '& .sub_td_ostatus': {
+          fontSize:"14px",fontFamily:"NotoSansKRMedium"
+        },
+        '& .sub_td_ostatus.sub_td_ostatus_color1': {
+          color:"#284AD5"
+        },
+        '& .sub_td_ostatus.sub_td_ostatus_color2': {
+          color:"결제완료"
+        },
+        '& .sub_td_ostatus.sub_td_ostatus_color3': {
+          color:"#E50012"
+        },
+        '& .sub_td_ostatus.sub_td_ostatus_color4': {
+          color:"#999999"
+        },
       },
     },
   },
