@@ -39,7 +39,10 @@ const ClientArea = (props: {
 
   return (
     <Main open={open} drawerWidth={drawerWidth}>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        sx={{ fontSize: '14px', fontFamily: 'NotoSansKRRagular' }}
+      >
         {breadcrumbs.map((item, index) => {
           if (index == breadcrumbs.length - 1)
             return (
