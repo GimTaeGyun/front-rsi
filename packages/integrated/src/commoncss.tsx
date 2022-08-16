@@ -665,14 +665,14 @@ const css = createTheme({
           },
           '& .MuiOutlinedInput-notchedOutline':{
             backgroundColor:"#f9f9f9",
-            border:"1px solid #f9f9f9",
+            border:"1px dashed #0000001F !important",
             zIndex:0
           },
           '&:hover fieldset': {
-            borderColor: '#f9f9f9'
+            borderColor: '#0000001F'
           },
           '&.Mui-focused fieldset': {
-            borderColor: '#f9f9f9'
+            borderColor: '#0000001F'
           },
           '& .MuiSvgIcon-root':{
             zIndex:1
