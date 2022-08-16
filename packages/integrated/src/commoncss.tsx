@@ -21,7 +21,9 @@ const css = createTheme({
             },
           },
           '& .datagridMenu': {
-            hover: 'none',
+            ':hover': {
+              pointerEvents: 'none !important',
+            },
             '& .MuiDataGrid-menuIcon': {
               visibility: 'visible !important',
             },
