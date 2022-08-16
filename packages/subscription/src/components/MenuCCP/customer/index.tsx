@@ -39,7 +39,7 @@ const defaultSearchCategory = {
 };
 import MyDatePicker from '../../Common/MyDatePicker';
 import CheckboxSelect from '../../Common/CheckboxSelect';
-const Admin = () => {
+const Index = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [searchParam, setSearchParam] = useState(defaultSearchParam);
@@ -139,6 +139,7 @@ const Admin = () => {
   const cellClickEvent = (e: any) => {
     if (e.field == 'details') {
       navigate('/admin/ccp/customer/detail', { state: e.row });
+      console.log(e.row);
     }
   };
 
@@ -304,7 +305,7 @@ const Admin = () => {
                 </Box>
               </Box>
             </Box>
-            <Box className="sub_listpage_filter_btmsection">
+            <Box className="sub_listpage_filter_btmsection" sx={{width: '100%'}}>
               <Button
                 variant="outlined"
                 className="sub_btn_primary_outline_common sub_btn_filter1"
@@ -358,4 +359,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Index;

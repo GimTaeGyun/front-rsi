@@ -5,12 +5,15 @@ import React from 'react';
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
+import {customerData} from '../../../data/atoms';
 import AlertPopup from '../../Common/AlertPopup';
-import Info from './components/Info';
-import Info2 from './components/Info2';
+import Info from './components/UserInfo';
 import TabContent1 from './components/TabContent1';
 import SubmitButton from './components/SubmitButton';
 import TabButton from './components/TopButton';
+import { useLocation } from 'react-router-dom';
+
+
 
 const Data = [
   {
@@ -51,10 +54,15 @@ const Data = [
   },
 ];
 
-const Admin = () => {
+const Detail = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
+  const {state} = useLocation();
+  const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
+  setSharedCustomerData(state);
+
+  
   return (
     <>
       <AppFrame
@@ -83,4 +91,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Detail;

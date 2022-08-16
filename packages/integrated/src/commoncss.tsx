@@ -337,7 +337,7 @@ const css = createTheme({
           borderBottom: '1px solid #0000001F',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'stretch',
+          justifyContent: 'space-between',
         },
         '& .sub_listpage_filter_topsection_sub': {
           display: 'flex',
@@ -345,7 +345,7 @@ const css = createTheme({
           width: '33.33%',
           height: '60px',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'stretch',
           paddingLeft: '20px',
           paddingRight: '10px',
         },
@@ -354,6 +354,7 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium',
           fontSize: '14px',
           letterSpacing: '-0.35',
+          borderRight: '30px solid white'
         },
         '& .sub_listpage_filter_search': {
           width: '230px',
@@ -511,83 +512,6 @@ const css = createTheme({
           letterSpacing: '-0.33px',
         },
 
-        // 고객관리 상세정보 탭 카드 컴포넌트
-        '& .sub_ccp_detail_parent': {
-          borderRadius: '6px !important',
-          opacity: '1',
-          boxShadow: '0px 3px 5px #0000002E !important',
-          marginTop: '20px',
-        },
-        '& .sub_ccp_detail_parent .header': {
-          color: '#000000DE',
-          letterSpacing: '-0.4px',
-          lineHeight: '20px',
-          fontSize: '16px',
-        },
-        '& .sub_ccp_detail_parent .content': {
-          width: '1470px',
-          padding: '0px',
-        },
-        '& .sub_ccp_detail_parent .content:last-child': {
-          padding: '0px',
-        },
-        '& .sub_ccp_detail_parent .content .column': {
-          display: 'inline-block',
-          width: '490px',
-          color: '#333333',
-        },
-        '& .sub_ccp_detail_parent .content .column .label': {
-          width: '100px',
-          height: '30px',
-          margin: '15px',
-          marginLeft: '20px',
-          marginRight: '0px',
-          paddingTop: '5px',
-          paddingBottom: '5px',
-          fontSize: '14px',
-          letterSpacing: '-0.35px',
-          lineHeight: '25px',
-          display: 'inline-block',
-        },
-        '& .sub_ccp_detail_parent .content .column .text': {
-          width: '360px',
-          height: '36px',
-          marginTop: '12px',
-          marginBottom: '12px',
-          backgroundcolor: 'white',
-          '& input': {
-            padding: '8px',
-            opacity: '1',
-            fontSize: '13px',
-            backgroundColor: '#F9F9F9',
-            fontFamily: 'NotoSansKRRegular',
-            letterSpacing: '0px',
-            lineHeight: '24px',
-            WebkitTextFillColor: '#666666',
-          },
-          '& fieldset': {
-            border: 'dashed 1px #0000001F',
-          },
-        },
-        '& .sub_ccp_detail_parent .content .column .select': {
-          '& input': {
-            borderStyle: 'hidden',
-            height: '36px',
-            opacity: 1,
-          },
-        },
-        '& .sub_ccp_detail_parent .content .column .button': {
-          width: '84px',
-          height: '36px',
-          border: 'solid 1px #284AD5',
-          marginLeft: '10px',
-          marginBottom: '10px',
-        },
-
-        //styles related to card/form input fields
-        '& .sub_card_form_header': {
-          borderBottom: '1px solid #0000001F',
-        },
         '& .sub_card_form .MuiCardContent-root': {
           padding: '0',
         },
@@ -597,7 +521,6 @@ const css = createTheme({
           justifyContent: 'space-between',
           width: '100%',
           height: '55px',
-          borderBottom: '1px solid #0000001F',
           padding: '0 10px 0 16px',
         },
         '& .sub_card_formcontrol_outer_common.b-0': {

@@ -6,7 +6,7 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-import Info from './components/Info';
+
 import TabContent1 from './components/TabContent1';
 import TabContent2 from './components/TabContent2';
 import TabButton from './components/TopButton';
@@ -35,7 +35,6 @@ const Data = [
     index: 3,
     child: (
       <>
-        <Info />
       </>
     ),
   },
@@ -44,13 +43,12 @@ const Data = [
     index: 4,
     child: (
       <>
-        <Info />
       </>
     ),
   },
 ];
 
-const Admin = () => {
+const Order = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
@@ -80,5 +78,4 @@ const Admin = () => {
     </>
   );
 };
-
-export default Admin;
+export default Order;
