@@ -239,16 +239,16 @@ const TabContent1 = ()=>{
                             <Grid xs={4} md={4}>
                                 <Box component="div" className="sub_card_formcontrol_outer_common">
                                 <Box component="span" className="sub_card_formcontrol_label">법인유형</Box>
-                                <Select
-                                    fullWidth={false}
-                                    id="select3"
-                                    name="select3"
-                                    value="기업"
-                                    className="sub_select_common sub_card_formcontrol_list"
-                                    readOnly
-                                >
-                                    <MenuItem value="개인">기업</MenuItem>
-                                </Select>
+                                    <Select
+                                        fullWidth={false}
+                                        id="select3"
+                                        name="select3"
+                                        value="개인"
+                                        className="sub_select_common sub_card_formcontrol_list"
+                                        readOnly
+                                    >
+                                        <MenuItem value="개인">개인</MenuItem>
+                                    </Select>
                                 </Box>
                             </Grid>
                             <Grid xs={4} md={4}>

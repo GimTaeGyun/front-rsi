@@ -610,7 +610,7 @@ const css = createTheme({
           letterSpacing: '-0.33px',
         },
         '& .sub_card_formcontrol_input':{
-          width:"344px",
+          width:"360px",
           height:"38px",
           backgroundColor:"#fff",
           '& .MuiOutlinedInput-input':{
@@ -646,7 +646,7 @@ const css = createTheme({
           },
         },
         '& .sub_card_formcontrol_list':{
-          width:"344px",
+          width:"360px",
           height:"38px",
           backgroundColor:"#fff",
           '& .MuiOutlinedInput-notchedOutline':{
@@ -680,10 +680,10 @@ const css = createTheme({
         },
 
         '& .sub_card_formcontrol_inputbutton_outer':{
-          width:"344px",
+          width:"360px",
           height:"38px",
           '& .sub_card_formcontrol_input':{
-            width:"250px",
+            width:"266px",
           },
           '& .sub_card_formcontrol_button': {
             width: '84px',
