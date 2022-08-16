@@ -53,10 +53,9 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     sortable: false,
     hideSortIcons: true,
+    headerClassName: 'datagridMenu',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px" aria-expanded="false">
-        {params.colDef.headerName}
-      </Typography>
+      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
   {

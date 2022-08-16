@@ -20,6 +20,12 @@ const css = createTheme({
               display: 'none',
             },
           },
+          '& .datagridMenu': {
+            hover: 'none',
+            '& .MuiDataGrid-menuIcon': {
+              visibility: 'visible !important',
+            },
+          },
           '& .sub_tree_hover': {
             backgroundColor: '#F4F5F7',
             borderRadius: '4px',
