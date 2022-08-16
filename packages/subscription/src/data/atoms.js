@@ -42,6 +42,9 @@ export const DefaultAlertPopupData = {
   rightText: '',
 };
 const AlertPopupData = atom(DefaultAlertPopupData);
+
+// 고객관리 테이블 로우 정보보기 공유데이터
+const customerData = atom();
 export {
   SignupData,
   AgreementData,
@@ -49,4 +52,5 @@ export {
   CheckLoginId,
   GetSidebarData,
   AlertPopupData,
+  customerData
 };
