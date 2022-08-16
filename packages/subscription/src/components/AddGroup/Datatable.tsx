@@ -26,6 +26,7 @@ const columns: GridColDef[] = [
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
+    headerClassName: 'lastcolumnSeparator',
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),

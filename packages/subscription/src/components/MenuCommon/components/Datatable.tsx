@@ -45,6 +45,8 @@ const DataTable = (props: any) => {
     }
   }, [treeItem]);
 
+  const rowNum = 8;
+
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={styles.card}>
@@ -97,7 +99,7 @@ const DataTable = (props: any) => {
           rows={rowData}
           columns={columns}
           pageSize={rowData.length}
-          rowsPerPageOptions={[5]}
+          rowCount={rowNum}
           disableSelectionOnClick
           checkboxSelection
           sx={{
