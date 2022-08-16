@@ -6,7 +6,7 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-const Admin = () => {
+const Contact = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
@@ -34,4 +34,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Contact;

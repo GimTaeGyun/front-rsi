@@ -39,7 +39,7 @@ const defaultSearchCategory = {
 };
 import MyDatePicker from '../../Common/MyDatePicker';
 import CheckboxSelect from '../../Common/CheckboxSelect';
-const Admin = () => {
+const Index = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [searchParam, setSearchParam] = useState(defaultSearchParam);
@@ -358,4 +358,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Index;
