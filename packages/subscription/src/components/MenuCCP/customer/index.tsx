@@ -195,7 +195,13 @@ const Admin = () => {
                   component="span"
                   className="sub_listpage_filter_inputgroup"
                 >
-                  <CheckboxSelect names={['전체', '기업', '공공', '개인']} value={['전체']} width={116} margin="0 8px 0 0 !important" onChangeHandler={selectChangedEvent} />
+                  <CheckboxSelect
+                    names={['전체', '기업', '공공', '개인']}
+                    value={['전체']}
+                    width={116}
+                    margin="0 8px 0 0 !important"
+                    onChangeHandler={selectChangedEvent}
+                  />
                   {/*<Select
                     fullWidth={false}
                     id="search-category21"
@@ -210,7 +216,13 @@ const Admin = () => {
                     <MenuItem value="3">개인</MenuItem>
                   </Select>
                   */}
-                  <CheckboxSelect names={['전체', '구독중', '종료']} value={['전체']} width={116} margin="0 8px 0 0 !important"  onChangeHandler={selectChangedEvent} />
+                  <CheckboxSelect
+                    names={['전체', '구독중', '종료']}
+                    value={['전체']}
+                    width={116}
+                    margin="0 8px 0 0 !important"
+                    onChangeHandler={selectChangedEvent}
+                  />
                   {/*<Select
                     fullWidth={false}
                     id="search-category22"
@@ -238,7 +250,13 @@ const Admin = () => {
                     <MenuItem value="0">탈퇴</MenuItem>
                   </Select>
                   */}
-                  <CheckboxSelect names={['전체', '활동', '휴면', '탈퇴']} value={['전체']} width={116} margin="0 8px 0 0 !important" onChangeHandler={selectChangedEvent} />
+                  <CheckboxSelect
+                    names={['전체', '활동', '휴면', '탈퇴']}
+                    value={['전체']}
+                    width={116}
+                    margin="0 8px 0 0 !important"
+                    onChangeHandler={selectChangedEvent}
+                  />
                 </Box>
               </Box>
             </Box>
