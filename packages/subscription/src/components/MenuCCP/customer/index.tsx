@@ -49,6 +49,7 @@ const Admin = () => {
 
   const navigate = useNavigate();
 
+  // 페이지 초기화
   useEffect(() => {
     axios
       .post('/management/manager/customer/search', defaultSearchParam)
@@ -64,6 +65,7 @@ const Admin = () => {
       .catch(e => console.log(e));
   }, []);
 
+  // 페이지값이 변하면 다시 로딩
   useEffect(() => {
     searchClickEvent();
   }, [, searchParam.page, searchParam.page_no]);
