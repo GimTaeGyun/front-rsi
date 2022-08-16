@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box, Button, Card, CardHeader, CardContent, Checkbox, FormControlLabel, FormGroup, Grid, MenuItem, OutlinedInput, Select, Tab, Tabs, Typography } from '@mui/material';
 
-const TabContent1 = ()=>{
+const TabContent1 = (props: {
+  state: any
+})=>{
 
     return (
         <>

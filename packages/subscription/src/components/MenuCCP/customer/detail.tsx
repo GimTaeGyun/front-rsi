@@ -11,6 +11,7 @@ import Info2 from './components/Info2';
 import TabContent1 from './components/TabContent1';
 import SubmitButton from './components/SubmitButton';
 import TabButton from './components/TopButton';
+import { useLocation } from 'react-router-dom';
 
 const Data = [
   {
@@ -54,7 +55,8 @@ const Data = [
 const Admin = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-
+  const { state } = useLocation();
+  console.log(state);
   return (
     <>
       <AppFrame

@@ -139,6 +139,7 @@ const Admin = () => {
   const cellClickEvent = (e: any) => {
     if (e.field == 'details') {
       navigate('/admin/ccp/customer/detail', { state: e.row });
+      console.log(e.row);
     }
   };
 
