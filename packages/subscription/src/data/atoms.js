@@ -38,7 +38,7 @@ export const DefaultAlertPopupData = {
   message: '',
   leftCallback: () => {},
   rightCallback: () => {},
-  leftText: '',
+  leftText: '확인',
   rightText: '',
 };
 const AlertPopupData = atom(DefaultAlertPopupData);

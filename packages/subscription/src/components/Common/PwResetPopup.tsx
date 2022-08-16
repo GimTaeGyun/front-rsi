@@ -2,7 +2,7 @@ import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import * as React from 'react';
+import React, {useEffect} from 'react';
 
 const PwResetPopup = (props: {
   open: boolean;
@@ -11,14 +11,16 @@ const PwResetPopup = (props: {
   okCallback?: Function;
 }) => {
   const [inputText, setInputText] = React.useState('');
-  React.useEffect(() => {
-    if (!props.saved) setInputText('');
+  const {open, saved=false, closeCallback=()=>{}, okCallback=()=>{}} = props;
+  
+  useEffect(() => {
+    if (!saved) setInputText('');
   }, [open]);
   const handleClose = () => {
-    props.closeCallback ? props.closeCallback(inputText) : '';
+    closeCallback(inputText);
   };
   const handleOk = () => {
-    props.okCallback ? props.okCallback(inputText) : '';
+    okCallback(inputText);
   };
 
   return (
@@ -75,6 +77,7 @@ const styles = {
   modal: {
     '& .MuiBox-root:focus-visible': {
       outline: 'unset',
+      border: "1px solid #0000001F"
     },
   },
   msg: {
@@ -84,8 +87,7 @@ const styles = {
     marginBottom: '10px',
     fontSize: '14px',
     lineHeight: '25px',
-    fontFamily: 'NotoSansKRBold',
-    fontWeight: '800',
+    letterSpacing:"-0.35px",
   },
   btnOk: {
     minWidth: '46px',
