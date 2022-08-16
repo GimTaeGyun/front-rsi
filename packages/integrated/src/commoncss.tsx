@@ -608,52 +608,53 @@ const css = createTheme({
           fontSize: '14px',
           fontFamily: 'NotoSansKRMedium',
           letterSpacing: '-0.33px',
+          width: '100px',
         },
-        '& .sub_card_formcontrol_input':{
-          width:"360px",
-          height:"38px",
-          backgroundColor:"#fff",
-          '& .MuiOutlinedInput-input':{
-            color: "#666 !important",
-            fontSize:"13px",
-            fontFamily:"NotoSansKRRegular",
+        '& .sub_card_formcontrol_input': {
+          width: '360px',
+          height: '38px',
+          backgroundColor: '#fff',
+          '& .MuiOutlinedInput-input': {
+            color: '#666 !important',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
           },
-          '& .MuiOutlinedInput-notchedOutline':{
-            border:"1px solid #0000001F",
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #0000001F',
           },
         },
-        '& .sub_card_formcontrol_input_long':{
-          width:"853px",
+        '& .sub_card_formcontrol_input_long': {
+          width: '853px',
         },
-        '& .sub_card_formcontrol_input.Mui-disabled':{
-          '& .MuiOutlinedInput-notchedOutline':{
-            backgroundColor:"#f9f9f9",
-            border:"1px dashed #0000001F !important",
-          }
-        },
-        '& .sub_card_formcontrol_input.MuiInputBase-readOnly':{
-          '& .MuiInputBase-input':{
-            color: "#666 !important",
-            zIndex:1,
+        '& .sub_card_formcontrol_input.Mui-disabled': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
           },
-          '& .MuiOutlinedInput-notchedOutline':{
-            backgroundColor:"#f9f9f9",
-            border:"1px dashed #0000001F !important",
-            zIndex:0
+        },
+        '& .sub_card_formcontrol_input.MuiInputBase-readOnly': {
+          '& .MuiInputBase-input': {
+            color: '#666 !important',
+            zIndex: 1,
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
+            zIndex: 0,
           },
           '&:hover fieldset': {
-            borderColor: '#f9f9f9'
+            borderColor: '#f9f9f9',
           },
           '&.Mui-focused fieldset': {
-            borderColor: '#f9f9f9'
+            borderColor: '#f9f9f9',
           },
         },
-        '& .sub_card_formcontrol_list':{
-          width:"360px",
-          height:"38px",
-          backgroundColor:"#fff",
-          '& .MuiOutlinedInput-notchedOutline':{
-            border:"1px solid #0000001F",
+        '& .sub_card_formcontrol_list': {
+          width: '360px',
+          height: '38px',
+          backgroundColor: '#fff',
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #0000001F',
           },
           '& .MuiOutlinedInput-input': {
             color: '#666 !important',
@@ -661,35 +662,35 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
           },
         },
-        '& .sub_card_formcontrol_list.MuiInputBase-readOnly':{
-          '& .MuiInputBase-input':{
-            color: "#666 !important",
-            zIndex:1,
+        '& .sub_card_formcontrol_list.MuiInputBase-readOnly': {
+          '& .MuiInputBase-input': {
+            color: '#666 !important',
+            zIndex: 1,
           },
-          '& .MuiOutlinedInput-notchedOutline':{
-            backgroundColor:"#f9f9f9",
-            border:"1px dashed #0000001F !important",
-            zIndex:0
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
+            zIndex: 0,
           },
           '&:hover fieldset': {
-            borderColor: '#0000001F'
+            borderColor: '#0000001F',
           },
           '&.Mui-focused fieldset': {
-            borderColor: '#0000001F'
+            borderColor: '#0000001F',
           },
-          '& .MuiSvgIcon-root':{
-            zIndex:1
-          }
+          '& .MuiSvgIcon-root': {
+            zIndex: 1,
+          },
         },
 
-        '& .sub_card_formcontrol_inputbutton_outer':{
-          width:"360px",
-          height:"38px",
-          '& .sub_card_formcontrol_input':{
-            width:"266px",
+        '& .sub_card_formcontrol_inputbutton_outer': {
+          width: '360px',
+          height: '38px',
+          '& .sub_card_formcontrol_input': {
+            width: '266px',
           },
-          '& .sub_card_formcontrol_input_search':{
-            width:"279px",
+          '& .sub_card_formcontrol_input_search': {
+            width: '279px',
           },
           '& .sub_card_formcontrol_button': {
             width: '84px',
@@ -742,27 +743,34 @@ const css = createTheme({
           '& .MuiFormControlLabel-root': {
             marginRight: '30px',
           },
-          '& .MuiSvgIcon-root':{
-            color: '#284AD5'
+          '& .MuiSvgIcon-root': {
+            color: '#284AD5',
           },
-          '& .Mui-disabled':{
-            '& .MuiSvgIcon-root':{
-              color: '#00000042'
+          '& .Mui-disabled': {
+            '& .MuiSvgIcon-root': {
+              color: '#00000042',
             },
-            '& .MuiTypography-root':{
-              color: '#000000DE !important'
-            }
+            '& .MuiTypography-root': {
+              color: '#000000DE !important',
+            },
           },
         },
-        '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg':{
-          fontSize:"13px",lineHeight:"13px",fontFamily:"NotoSansKRRegular",color:"#0615B2",
-          borderBottom:"1px solid #0615B2",paddingLeft:"0", paddingRight:"0",paddingBottom:"5px",borderRadius:"0"
+        '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg': {
+          fontSize: '13px',
+          lineHeight: '13px',
+          fontFamily: 'NotoSansKRRegular',
+          color: '#0615B2',
+          borderBottom: '1px solid #0615B2',
+          paddingLeft: '0',
+          paddingRight: '0',
+          paddingBottom: '5px',
+          borderRadius: '0',
         },
-        '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg:hover':{
-          backgroundColor:"#fff"
+        '& .MuiButtonBase-root.sub_card_formcontrol_btn_reg:hover': {
+          backgroundColor: '#fff',
         },
-        '& .MuiButtonBase-root.sub_card_formcontrol_button_search':{
-          width:"73px"
+        '& .MuiButtonBase-root.sub_card_formcontrol_button_search': {
+          width: '73px',
         },
 
         //styles related to modal/form
