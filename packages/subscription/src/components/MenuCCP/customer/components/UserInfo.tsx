@@ -7,8 +7,7 @@ import moment from 'moment';
 
 const Info = (props: { buttonCallback?: Function; userData: any, custTp: any}) => {
   const {buttonCallback = ()=> {}, userData} = props;
-  console.log(userData);
-  const date1 = new Date(userData.creAt);  
+  const date1 = new Date(userData.creAt);
   const fomated = moment(date1).format('YYYY-MM-DD HHMM');
   return (
     <>

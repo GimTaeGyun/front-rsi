@@ -24,9 +24,10 @@ const TabContent1 = () => {
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [userData , setUserData] = useState({});
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
-  const [custTp, setCustTp] = useState(3);
+  const [custTp, setCustTp] = useState(0);
   const [emailCheck, setEmailCheck] = useState(false);
   const [smsCheck, setSmsCheck] = useState(false);
+  console.log(sharedCustomerData);
 
   const [alertPopupData, setAlertPopupData] = useState({...DefaultAlertPopupData, message:"비밀번호가 변경되었습니다.", visible:false,
   leftCallback : ()=>{
@@ -34,25 +35,25 @@ const TabContent1 = () => {
     setAlertPopupData({...alertPopupData, visible: false});
   }});
 
-  useEffect(() => {
-    const custTps = () => {
-    if(sharedCustomerData.custId === '기업') {
-      setCustTp(1);
-    }    
-    if(sharedCustomerData.custId === '공공') {
-      setCustTp(2);
-    }    
-    if(sharedCustomerData.custId === '개인') {
-      setCustTp(3);
-    }
-  };
-  custTps();
-  }, [sharedCustomerData]);
+
 
    
   
   useEffect(() => {
     const userApi = async() => {
+      switch (sharedCustomerData.custTp) {
+        case '기업' :
+          setCustTp(1);
+          break;
+          case '공공' :
+            setCustTp(2);
+            break;
+            case '개인' :
+              setCustTp(3);
+              break;
+
+      }
+      console.log(custTp);
       
       const response = await axios.post(
         "/management/manager/customer/search/detail",
