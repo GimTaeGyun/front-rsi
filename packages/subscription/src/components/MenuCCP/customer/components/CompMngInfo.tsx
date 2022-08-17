@@ -27,7 +27,6 @@ const CompMngInfo = () => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text8"
                   placeholder=""
                   name="text8"
                   value="김철수"
@@ -45,7 +44,6 @@ const CompMngInfo = () => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text9"
                   placeholder=""
                   name="text9"
                   value="010-1234-1234"
@@ -63,7 +61,6 @@ const CompMngInfo = () => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text10"
                   placeholder=""
                   name="text10"
                   value="test@gmail.com"
@@ -82,7 +79,6 @@ const CompMngInfo = () => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text8"
                   placeholder=""
                   name="text8"
                   value="홍보팀"
@@ -100,7 +96,6 @@ const CompMngInfo = () => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text9"
                   placeholder=""
                   name="text9"
                   value="010-1234-1234"
@@ -118,7 +113,6 @@ const CompMngInfo = () => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text10"
                   placeholder=""
                   name="text10"
                   value="02-1234-1234"
@@ -137,7 +131,6 @@ const CompMngInfo = () => {
                 </Box>
                 <Select
                   fullWidth={false}
-                  id="select2"
                   name="select2"
                   value="탈퇴 시 까지"
                   className="sub_select_common sub_card_formcontrol_list"

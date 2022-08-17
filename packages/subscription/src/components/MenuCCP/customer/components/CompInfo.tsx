@@ -22,7 +22,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text8"
                     placeholder=""
                     name="text8"
                     value="현대중공업(주)"
@@ -40,7 +39,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text9"
                     placeholder=""
                     name="text9"
                     value="한영석"
@@ -58,7 +56,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text10"
                     placeholder=""
                     name="text10"
                     value="052-202-2114"
@@ -77,7 +74,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <Select
                     fullWidth={false}
-                    id="select3"
                     name="select3"
                     value="개인"
                     className="sub_select_common sub_card_formcontrol_list"
@@ -96,7 +92,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text11"
                     placeholder=""
                     name="text11"
                     value="000-00-00000"
@@ -143,7 +138,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text11"
                     placeholder=""
                     name="text11"
                     value="000-00-00000"
@@ -161,7 +155,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <Select
                     fullWidth={false}
-                    id="select4"
                     name="select4"
                     value="대기업"
                     className="sub_select_common sub_card_formcontrol_list"
@@ -180,7 +173,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text13"
                     placeholder=""
                     name="text12"
                     value="300명 이상"
@@ -204,7 +196,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                     <OutlinedInput
                       type="text"
                       fullWidth={false}
-                      id="text14"
                       placeholder=""
                       name="text14"
                       value="44032"
@@ -238,7 +229,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                     주소
                   </Box>
                   <OutlinedInput
-                    id="text15"
                     placeholder=""
                     name="text15"
                     value="울산광역시 동구 방어진순환도로 1000"
@@ -264,7 +254,6 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                     상세주소
                   </Box>
                   <OutlinedInput
-                    id="text16"
                     placeholder=""
                     name="text16"
                     value="현대중공업 조선소 6F"
