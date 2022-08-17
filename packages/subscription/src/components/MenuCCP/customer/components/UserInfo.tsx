@@ -86,7 +86,9 @@ const Info = (props: { buttonCallback?: Function}) => {
                     className="sub_select_common sub_card_formcontrol_list"
                     readOnly
                   >
-                    <MenuItem value="개인">개인</MenuItem>
+                  <MenuItem value="개인">개인</MenuItem>
+                  <MenuItem value="기업">기업</MenuItem>
+                  <MenuItem value="공공">공공</MenuItem>
                   </Select>
                 </Box>
               </Grid>

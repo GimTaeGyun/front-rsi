@@ -1,12 +1,30 @@
 import { Box, Divider } from '@mui/material';
 import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
-import React from 'react';
+import React,{useRef} from 'react';
 import CardTemplate from './CardTemplate';
+declare var daum:any;
 const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
   const { userData } = props;
   const {buttonCallback = ()=> {}} = props;
+  
+  const zipCodeRef = useRef();
+  const addressRef = useRef(); 
+
+  const addressClickEvent = ()=>{
+    new daum.Postcode({oncomplete: (data:any)=>{
+      let address = '';
+      if( data.userSelectedType == 'J' )
+        address = data.jibunAddress;
+      else
+        address = data.roadAddress;
+      (addressRef.current as any).children[0].value = address;
+      (zipCodeRef.current as any).children[0].value = data.zonecode;
+    }}).open();
+
+  }
   return (
     <>
+      <script src={require('@administrator/subscription/public/postcode.v2.js')}></script>
       <CardTemplate
         title="법인 정보"
       >
@@ -79,6 +97,8 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                     className="sub_select_common sub_card_formcontrol_list"
                   >
                     <MenuItem value="개인">개인</MenuItem>
+                    <MenuItem value="기업">기업</MenuItem>
+                    <MenuItem value="공공">공공</MenuItem>
                   </Select>
                 </Box>
               </Grid>
@@ -160,6 +180,10 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                     className="sub_select_common sub_card_formcontrol_list"
                   >
                     <MenuItem value="대기업">대기업</MenuItem>
+                    <MenuItem value="중견기업">중견기업</MenuItem>
+                    <MenuItem value="중소기업">중소기업</MenuItem>
+                    <MenuItem value="소기업">소기업</MenuItem>
+                    <MenuItem value="소상공인">소상공인</MenuItem>
                   </Select>
                 </Box>
               </Grid>
@@ -205,6 +229,7 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                       variant="outlined"
                       className="sub_btn_primary_outline_common sub_card_formcontrol_button_search"
                       sx={{ marginLeft: '8px' }}
+                      onClick={addressClickEvent}
                     >
                       검색
                     </Button>
@@ -230,6 +255,7 @@ const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     placeholder=""
+                    ref={addressRef}
                     name="text15"
                     value="울산광역시 동구 방어진순환도로 1000"
                     className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"

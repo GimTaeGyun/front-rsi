@@ -132,11 +132,12 @@ const CompMngInfo = () => {
                 <Select
                   fullWidth={false}
                   name="select2"
-                  value="탈퇴 시 까지"
+                  value="탈퇴"
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
                 >
-                  <MenuItem value="탈퇴 시 까지">탈퇴 시 까지</MenuItem>
+                  <MenuItem value="탈퇴">탈퇴 시 까지</MenuItem>
+                  <MenuItem value="365">1년</MenuItem>
                 </Select>
               </Box>
             </Grid>
