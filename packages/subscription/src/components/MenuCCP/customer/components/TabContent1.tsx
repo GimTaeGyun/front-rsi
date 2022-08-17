@@ -9,6 +9,8 @@ import PwResetPopup from '../../../Common/PwResetPopup';
 import {DefaultAlertPopupData, customerData} from '../../../../data/atoms';
 import AlertPopup from '../../../Common/AlertPopup';
 import * as Yup from 'yup';
+import SubmitButton from './SubmitButton';
+
 const validator = Yup.object().shape({usrPw: Yup.string()
 .required()
 .min(8)
@@ -123,10 +125,9 @@ const TabContent1 = () => {
     <>
       <PwResetPopup open={pwResetPopupOpen} closeCallback={()=>{setPwResetPopupOpen(!pwResetPopupOpen)}} okCallback={pwOkCallback}/>
       {alertPopupData.visible ? <AlertPopup  message={alertPopupData.message} buttontext={alertPopupData.leftText} closeCallback={alertPopupData.leftCallback} />: ''}
-
       <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}} userData={userData} custTp={sharedCustomerData.custTp} />
       {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData} emailCheck={emailCheck} smsCheck={smsCheck}/> : <><CompMngInfo/><CompInfo userData={userData}/></>}
-
+      <SubmitButton />
     </>
   );
 };

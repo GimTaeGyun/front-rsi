@@ -1,11 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import CustomerContact from './components/MenuCCP/customer/contact';
-import CustomerDetail from './components/MenuCCP/customer/detail';
+import CustomerTab from './components/MenuCCP/customer/customertab';
 import CustomerIndex from './components/MenuCCP/customer/index';
-import CustomerOrder from './components/MenuCCP/customer/order';
-import CustomerUser from './components/MenuCCP/customer/user';
 import AdminMenu from './components/MenuCommon/admin';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
@@ -21,10 +18,7 @@ const Subscription = () => {
       <Route path="/admin/login" element={<AdminLogin />}></Route>
       <Route path="/admin/common/admin" element={<AdminMenu />}></Route>
       <Route path="/admin/ccp/customer">
-        <Route path="detail" element={<CustomerDetail />} />
-        <Route path="order" element={<CustomerOrder />} />
-        <Route path="user" element={<CustomerUser />} />
-        <Route path="contact" element={<CustomerContact />} />
+        <Route path="tab" element={<CustomerTab />} />
         <Route path="" element={<CustomerIndex />} />
       </Route>
     </Routes>

@@ -28,7 +28,8 @@ Axios.interceptors.response.use(
     return response;
   },
   async error => {
-    if (error.response.status == 401) {
+    if (error.response.status == 401 &&
+      !error.config.url.includes('/management/keycloak/refreshtoken') ) {
       try {
         if( error.url?.includes('/management/keycloak/refreshtoken') ){
           localStorage.clear();
@@ -38,7 +39,6 @@ Axios.interceptors.response.use(
         }
         
         const originalRequest = error.config;
-        localStorage.removeItem('access-token');
         const res = await Axios.post('/management/keycloak/refreshtoken', {
           refreshToken: localStorage.getItem('refresh-token')
         });
@@ -60,12 +60,6 @@ Axios.interceptors.response.use(
         //location.href = '/admin/login';
         return;
       }
-    }
-    else if(error.config.url === '/management/keycloak/refreshtoken'){
-      localStorage.clear();
-      //location.href = '/admin/login';
-      console.log(4);
-      return Promise.reject(error);
     }else{
       return Promise.reject(error);
     }
