@@ -65,7 +65,7 @@ const css = createTheme({
             borderRadius: '6px',
           },
 
-          '& .sub_label_dot': {
+          '& .MuiTypography-root.sub_label_dot': {
             color: '#284ad5',
             fontSize: '20px ',
             lineHeight: '0 ',
@@ -176,7 +176,7 @@ const css = createTheme({
             color: '#00000099',
             opacity: '1',
           },
-          '& .MuiOutlinedInput-notchedOutline':{
+          '& .MuiOutlinedInput-notchedOutline': {
             borderRadius: '4px',
             borderColor: '#0000001F',
           },
@@ -213,6 +213,9 @@ const css = createTheme({
           },
           '& .MuiDataGrid-row.Mui-selected': {
             backgroundColor: 'unset !important',
+          },
+          '& .MuiDataGrid-row--lastVisible .MuiDataGrid-cell': {
+            borderBottomWidth: '0',
           },
           '& .MuiDataGrid-cell:focus': {
             outline: 'none !important',
@@ -257,7 +260,7 @@ const css = createTheme({
           color: '#000000DE',
           fontFamily: 'NotoSansKRRegular',
           fontSize: '13px',
-          '& .MuiOutlinedInput-notchedOutline':{
+          '& .MuiOutlinedInput-notchedOutline': {
             borderRadius: '4px',
             borderColor: '#0000001F',
           },
@@ -370,7 +373,7 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium',
           fontSize: '14px',
           letterSpacing: '-0.35',
-          borderRight: '30px solid white'
+          borderRight: '30px solid white',
         },
         '& .sub_listpage_filter_search': {
           width: '230px',
@@ -770,7 +773,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          widwidth: '100%',
+          width: '100%',
           height: '70px',
           borderTop: '1px solid #eee',
         },
@@ -783,39 +786,52 @@ const css = createTheme({
         '& .mymodal_inputfield': {},
 
         '& .sub_td_ostatus': {
-          fontSize:"14px",fontFamily:"NotoSansKRMedium"
+          fontSize: '14px',
+          fontFamily: 'NotoSansKRMedium',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color1': {
-          color:"#284AD5"
+          color: '#284AD5',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color2': {
-          color:"결제완료"
+          color: '결제완료',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color3': {
-          color:"#E50012"
+          color: '#E50012',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color4': {
-          color:"#999999"
+          color: '#999999',
         },
 
         //
-        '& .sub_filter2_left':{
-          border:"0 solid #000",
-          paddingLeft:"20px",
-          width:"1000px",height: '60px',display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"start"
+        '& .sub_filter2_left': {
+          border: '0 solid #000',
+          paddingLeft: '20px',
+          width: '1000px',
+          height: '60px',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'start',
         },
-        '& .sub_filter2_right':{
-          border:"0 solid #000",
-          width:"470px",height: '60px',display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"start"
+        '& .sub_filter2_right': {
+          border: '0 solid #000',
+          width: '470px',
+          height: '60px',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'start',
         },
-        '& .sub_filter2_label1':{
-          width:"102px"
+        '& .sub_filter2_label1': {
+          width: '102px',
         },
-        '& .sub_filter2_list':{
-          width:"180px",height:"36px"
+        '& .sub_filter2_list': {
+          width: '180px',
+          height: '36px',
         },
-        '& .sub_filter2_list2':{
-          width:"360px",height:"36px"
+        '& .sub_filter2_list2': {
+          width: '360px',
+          height: '36px',
         },
         '& .sub_filter2_date': {
           '& .MuiInputBase-root': {
@@ -823,16 +839,172 @@ const css = createTheme({
             height: '36px',
           },
         },
-        '& .sub_filter2_btn':{
-            width: '68px',
-            height: '36px',
-            '&.active':{
-              color: '#fff !important',
-              backgroundColor: '#284AD5 !important',
-              borderColor: '#284AD5 !important',
-              boxShadow: '0px 3px 3px #0000002E !important',
-            }
-        }
+        '& .sub_filter2_btn': {
+          width: '68px',
+          height: '36px',
+          '&.active': {
+            color: '#fff !important',
+            backgroundColor: '#284AD5 !important',
+            borderColor: '#284AD5 !important',
+            boxShadow: '0px 3px 3px #0000002E !important',
+          },
+        },
+
+        '& .sub_dialog_main': {
+          '& .MuiPaper-root': {
+            margin: '0 auto',
+          },
+        },
+        '& .sub_dialog_title_outer': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          '&.MuiTypography-root': {
+            height: '56px',
+            paddingLeft: '15px',
+            paddingRight: '15px',
+            borderBottom: '1px solid #E0E0E0',
+          },
+        },
+        '& .sub_dialog_icon_close': {
+          '&.MuiSvgIcon-root': {
+            color: '#000',
+          },
+        },
+        '& .MuiDialogContent-root.sub_dialog_content_outer': {
+          border: '0 solid #000',
+          width: '100%',
+          padding: '15px 30px 0 30px !important',
+        },
+        '& .sub_dialog_input_outer': {
+          marginBottom: '13px',
+        },
+        '& .MuiFormLabel-root.sub_dialog_formLabel': {
+          fontSize: '14px',
+          color: '#333',
+          fontFamily: 'NotoSansKRMedium',
+          lineHeight: '14px',
+          letterSpacing: '-0.35px',
+          marginTop: '20px',
+          marginBottom: '10px',
+        },
+        '& .sub_card_dialog_input': {
+          width: '360px',
+          height: '42px',
+          backgroundColor: '#fff',
+          '& .MuiOutlinedInput-input': {
+            color: '#666 !important',
+            fontSize: '14px',
+            fontFamily: 'NotoSansKRRegular',
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #0000001F',
+          },
+        },
+        '& .sub_card_dialog_input.Mui-disabled': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
+          },
+        },
+        '& .sub_card_dialog_input.MuiInputBase-readOnly': {
+          '& .MuiInputBase-input': {
+            color: '#666 !important',
+            zIndex: 1,
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
+            zIndex: 0,
+          },
+          '&:hover fieldset': {
+            borderColor: '#f9f9f9',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#f9f9f9',
+          },
+        },
+        '& .sub_dialog_list': {
+          width: '100%',
+          height: '42px',
+          backgroundColor: '#fff',
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #0000001F',
+          },
+          '& .MuiOutlinedInput-input': {
+            color: '#666 !important',
+            fontSize: '14px',
+            fontFamily: 'NotoSansKRRegular',
+          },
+        },
+        '& .sub_dialog_list.MuiInputBase-readOnly': {
+          '& .MuiInputBase-input': {
+            color: '#666 !important',
+            zIndex: 1,
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
+            zIndex: 0,
+          },
+          '&:hover fieldset': {
+            borderColor: '#0000001F',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#0000001F',
+          },
+          '& .MuiSvgIcon-root': {
+            zIndex: 1,
+          },
+        },
+        '& .sub_dialog_footer': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          height: '70px',
+          borderTop: '1px solid #E0E0E0',
+          //marginTop: '30px',
+        },
+        '& .sub_tbl_dialog_common': {
+          boxShadow: 'unset !important',
+          '& .MuiCheckbox-root.Mui-checked': {
+            color: '#284AD5 !important',
+          },
+          '& .MuiDataGrid-row.Mui-selected:hover': {
+            backgroundColor: '#fff !important',
+          },
+          '& .MuiDataGrid-row:hover': {
+            backgroundColor: '#fff !important',
+            cursor: 'pointer !important',
+          },
+          '& .MuiDataGrid-row.Mui-selected': {
+            backgroundColor: 'unset !important',
+          },
+          '& .MuiDataGrid-row--lastVisible .MuiDataGrid-cell': {
+            borderBottomWidth: '0',
+          },
+          '& .MuiDataGrid-cell:focus': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-columnHeader:focus': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-columnHeader:focus-within': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-cell:focus-within': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-columnHeaderTitleContainer .MuiSvgIcon-root': {
+            fontSize: '24px !important',
+            color: '#141414',
+          },
+        },
+        '& .sub_dialog_button_blue': {
+          width: '57px',
+          height: '36px',
+        },
       },
     },
   },

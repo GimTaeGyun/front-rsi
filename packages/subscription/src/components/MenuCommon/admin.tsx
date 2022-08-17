@@ -1,5 +1,5 @@
 import { ItemTypes } from '@minoru/react-dnd-treeview';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { atom, useAtom } from 'jotai';
 import React from 'react';
 
@@ -13,6 +13,9 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
+import DialogFormTemplate from './components/DialogFormTemplate';
+import FrmUserInfo from './components/FrmUserInfo';
+
 const defaultOperPopupData = {
   action: 'add',
   email: '',
@@ -406,6 +409,25 @@ const Admin = () => {
             open={addGroupOpen}
             treeItem={selectedTreeitem}
             handleClose={() => setAddGroupOpen(false)}
+          />
+          <DialogFormTemplate
+            open={false}
+            title="사용자 정보 수정"
+            width="500px"
+            height="916px"
+            children={<FrmUserInfo />}
+            footer={
+              <>
+                <Button className="sub_button_white_none">취소</Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  className="sub_btn_primary_fill_common sub_dialog_button_blue"
+                >
+                  저장
+                </Button>
+              </>
+            }
           />
         </>
       </AppFrame>
