@@ -29,7 +29,6 @@ const Data = [
     index: 2,
     child: (
       <>
-        <Info />
       </>
     ),
   },
@@ -38,7 +37,6 @@ const Data = [
     index: 3,
     child: (
       <>
-        <Info />
       </>
     ),
   },
@@ -47,7 +45,6 @@ const Data = [
     index: 4,
     child: (
       <>
-        <Info />
       </>
     ),
   },

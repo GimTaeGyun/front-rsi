@@ -23,7 +23,9 @@ const TabContent1 = () => {
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [userData , setUserData] = useState({});
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
-  const [custTp, setCustTp] = useState(0);
+  const [custTp, setCustTp] = useState(3);
+  const [emailCheck, setEmailCheck] = useState(false);
+  const [smsCheck, setSmsCheck] = useState(false);
 
   const [alertPopupData, setAlertPopupData] = useState({...DefaultAlertPopupData, message:"비밀번호가 변경되었습니다.", visible:false,
   leftCallback : ()=>{
@@ -31,19 +33,26 @@ const TabContent1 = () => {
     setAlertPopupData({...alertPopupData, visible: false});
   }});
 
-   
-  useEffect(() => {if(sharedCustomerData.custTp === '기업') {
-    setCustTp(1);
-  } else if(sharedCustomerData.custTp === '공공') {
-    setCustTp(2);
-  } else if(sharedCustomerData.custTp === '개인') {
-    setCustTp(3);
+  useEffect(() => {
+    const custTps = () => {
+    if(sharedCustomerData.custId === '기업') {
+      setCustTp(1);
+    }    
+    if(sharedCustomerData.custId === '공공') {
+      setCustTp(2);
+    }    
+    if(sharedCustomerData.custId === '개인') {
+      setCustTp(3);
+    }
   };
-}, [sharedCustomerData]);
+  custTps();
+  }, [sharedCustomerData]);
 
+   
+  
   useEffect(() => {
     const userApi = async() => {
-      try{
+      
       const response = await axios.post(
         "/management/manager/customer/search/detail",
         {
@@ -51,10 +60,26 @@ const TabContent1 = () => {
           custTp: custTp,
         }
       );
+
       setUserData(response.data.result);
-      } catch {
-        console.log('error');
+      switch(response.data.result.tosInfo[0].tosInfo.promotion.email) {
+        case 'true':
+          setEmailCheck(true);
+          break;
+        case 'false':
+          setEmailCheck(false);
+          break;
+      };
+      switch(response.data.result.tosInfo[0].tosInfo.promotion.mobile) {
+        case 'true':
+          setSmsCheck(true);
+          break;
+        case 'false':
+          setSmsCheck(false);
+          break;
       }
+      
+      
     }
     userApi();
   }, [custTp]);
@@ -96,8 +121,8 @@ const TabContent1 = () => {
     <>
       <PwResetPopup open={pwResetPopupOpen} closeCallback={()=>{setPwResetPopupOpen(!pwResetPopupOpen)}} okCallback={pwOkCallback}/>
       {alertPopupData.visible ? <AlertPopup  message={alertPopupData.message} buttontext={alertPopupData.leftText} closeCallback={alertPopupData.leftCallback} />: ''}
-      <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}}/>
-      {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData} /> : <CompInfo userData={userData} />}
+      <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}} userData={userData} />
+      {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData} emailCheck={emailCheck} smsCheck={smsCheck}/> : <CompInfo userData={userData} />}
     </>
   );
 };
