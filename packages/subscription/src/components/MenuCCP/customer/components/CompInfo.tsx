@@ -2,7 +2,8 @@ import { Box, Divider } from '@mui/material';
 import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
 import React from 'react';
 import CardTemplate from './CardTemplate';
-const CompInfo = (props: { buttonCallback?: Function}) => {
+const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
+  const { userData } = props;
   const {buttonCallback = ()=> {}} = props;
   return (
     <>

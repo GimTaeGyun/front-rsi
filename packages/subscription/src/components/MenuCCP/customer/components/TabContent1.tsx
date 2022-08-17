@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "../../../../utils/axios";
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
@@ -15,15 +15,51 @@ const validator = Yup.object().shape({usrPw: Yup.string()
 .max(16)
 .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)});
 
+
+
+
+
 const TabContent1 = () => {
 
-  const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
+  const [userData , setUserData] = useState({});
+  const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
+  const [custTp, setCustTp] = useState(0);
+
   const [alertPopupData, setAlertPopupData] = useState({...DefaultAlertPopupData, message:"비밀번호가 변경되었습니다.", visible:false,
   leftCallback : ()=>{
     setPwResetPopupOpen(false);
     setAlertPopupData({...alertPopupData, visible: false});
   }});
+
+   
+  useEffect(() => {if(sharedCustomerData.custTp === '기업') {
+    setCustTp(1);
+  } else if(sharedCustomerData.custTp === '공공') {
+    setCustTp(2);
+  } else if(sharedCustomerData.custTp === '개인') {
+    setCustTp(3);
+  };
+}, [sharedCustomerData]);
+
+  useEffect(() => {
+    const userApi = async() => {
+      try{
+      const response = await axios.post(
+        "/management/manager/customer/search/detail",
+        {
+          custId: sharedCustomerData.custId, 
+          custTp: custTp,
+        }
+      );
+      setUserData(response.data.result);
+      } catch {
+        console.log('error');
+      }
+    }
+    userApi();
+  }, [custTp]);
+
   const pwOkCallback = async (value:any)=>{
     let valid = await validator.isValid({usrPw:value});
     if( valid ){
@@ -53,12 +89,16 @@ const TabContent1 = () => {
                         leftCallback:()=>{setAlertPopupData({...alertPopupData, visible: false})}})
     }
   }
+
+  
+
+
   return (
     <>
       <PwResetPopup open={pwResetPopupOpen} closeCallback={()=>{setPwResetPopupOpen(!pwResetPopupOpen)}} okCallback={pwOkCallback}/>
       {alertPopupData.visible ? <AlertPopup  message={alertPopupData.message} buttontext={alertPopupData.leftText} closeCallback={alertPopupData.leftCallback} />: ''}
       <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}}/>
-      {sharedCustomerData.custTp == '개인' ? <PersonalInfo/> : <><CompMngInfo/><CompInfo/></>}
+      {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData}/> : <><CompMngInfo/><CompInfo userData={userData}/></>}
     </>
   );
 };
