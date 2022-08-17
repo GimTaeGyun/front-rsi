@@ -29,7 +29,6 @@ const TabContent1 = () => {
   const [custTp, setCustTp] = useState(0);
   const [emailCheck, setEmailCheck] = useState(false);
   const [smsCheck, setSmsCheck] = useState(false);
-  console.log(sharedCustomerData);
 
   const [alertPopupData, setAlertPopupData] = useState({...DefaultAlertPopupData, message:"비밀번호가 변경되었습니다.", visible:false,
   leftCallback : ()=>{
@@ -55,7 +54,6 @@ const TabContent1 = () => {
               break;
 
       }
-      console.log(custTp);
       
       const response = await axios.post(
         "/management/manager/customer/search/detail",
@@ -126,7 +124,7 @@ const TabContent1 = () => {
       <PwResetPopup open={pwResetPopupOpen} closeCallback={()=>{setPwResetPopupOpen(!pwResetPopupOpen)}} okCallback={pwOkCallback}/>
       {alertPopupData.visible ? <AlertPopup  message={alertPopupData.message} buttontext={alertPopupData.leftText} closeCallback={alertPopupData.leftCallback} />: ''}
       <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}} userData={userData} custTp={sharedCustomerData.custTp} />
-      {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData} emailCheck={emailCheck} smsCheck={smsCheck}/> : <><CompMngInfo/><CompInfo userData={userData}/></>}
+      {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData} emailCheck={emailCheck} smsCheck={smsCheck}/> : <><CompMngInfo userData={userData} emailCheck={emailCheck} smsCheck={smsCheck} /><CompInfo userData={userData}/></>}
       <SubmitButton />
     </>
   );
