@@ -12,7 +12,7 @@ import {
 import CardTemplate from './CardTemplate';
 import React from 'react';
 
-const Info = (props: {
+const PersonalInfo = (props: {
   userData: any
 }) => {
   const { userData } = props;
@@ -143,4 +143,4 @@ const Info = (props: {
   );
 };
 
-export default Info;
+export default PersonalInfo;

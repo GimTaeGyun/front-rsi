@@ -2,6 +2,8 @@ import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import TabContent1 from '../components/MenuCCP/customer/components/TabContent1';
 import TabContent2 from '../components/MenuCCP/customer/components/TabContent2';
+import PersonalInfo from '../components/MenuCCP/customer/components/PersonalInfo';
+import React from 'react';
 
 import axios from '../utils/axios';
 
@@ -71,7 +73,7 @@ export const CustomerTab = [
     index: 3,
     child: (
       <>
-        <Info />
+        <PersonalInfo />
       </>
     ),
   },
@@ -80,7 +82,7 @@ export const CustomerTab = [
     index: 4,
     child: (
       <>
-        <Info />
+        <PersonalInfo />
       </>
     ),
   },
