@@ -3,6 +3,7 @@ import axios from "../../../../utils/axios";
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
 import CompInfo from './CompInfo';
+import CompMngInfo from './CompMngInfo';
 import {useAtom} from 'jotai'
 import PwResetPopup from '../../../Common/PwResetPopup';
 import {DefaultAlertPopupData, customerData} from '../../../../data/atoms';
@@ -57,7 +58,7 @@ const TabContent1 = () => {
       <PwResetPopup open={pwResetPopupOpen} closeCallback={()=>{setPwResetPopupOpen(!pwResetPopupOpen)}} okCallback={pwOkCallback}/>
       {alertPopupData.visible ? <AlertPopup  message={alertPopupData.message} buttontext={alertPopupData.leftText} closeCallback={alertPopupData.leftCallback} />: ''}
       <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}}/>
-      {sharedCustomerData.custTp == '개인' ? <PersonalInfo/> : <CompInfo/>}
+      {sharedCustomerData.custTp == '개인' ? <PersonalInfo/> : <><CompMngInfo/><CompInfo/></>}
     </>
   );
 };

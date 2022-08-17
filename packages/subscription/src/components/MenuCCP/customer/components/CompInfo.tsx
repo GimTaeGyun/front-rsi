@@ -2,7 +2,7 @@ import { Box, Divider } from '@mui/material';
 import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
 import React from 'react';
 import CardTemplate from './CardTemplate';
-const Info = (props: { buttonCallback?: Function}) => {
+const CompInfo = (props: { buttonCallback?: Function}) => {
   const {buttonCallback = ()=> {}} = props;
   return (
     <>
@@ -284,4 +284,4 @@ const Info = (props: { buttonCallback?: Function}) => {
   );
 };
 
-export default Info;
+export default CompInfo;

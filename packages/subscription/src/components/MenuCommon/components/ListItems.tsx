@@ -1,12 +1,9 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Box, Hidden, IconButton, Popper, Typography } from '@mui/material';
+import { Popper, Typography } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useEffect } from 'react';
-
-import AddGroup from '../../AddGroup';
 import { ITreeItem } from './Sidebar';
 
 const ListItems = (props: {
