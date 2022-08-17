@@ -1,10 +1,15 @@
-import { Box, Divider } from '@mui/material';
-import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
+import { Box, Divider, MenuItem } from '@mui/material';
+import { Button, Select, Grid, OutlinedInput } from '@mui/material';
 import React from 'react';
 import MuiFormLabel from '@mui/material/FormLabel';
 import CardTemplate from './CardTemplate';
-const Info = (props: { buttonCallback?: Function}) => {
-  const {buttonCallback = ()=> {}} = props;
+import moment from 'moment';
+
+const Info = (props: { buttonCallback?: Function; userData: any, custTp: any}) => {
+  const {buttonCallback = ()=> {}, userData} = props;
+  console.log(userData);
+  const date1 = new Date(userData.creAt);  
+  const fomated = moment(date1).format('YYYY-MM-DD HHMM');
   return (
     <>
       <CardTemplate
@@ -25,7 +30,7 @@ const Info = (props: { buttonCallback?: Function}) => {
                     id="text1"
                     placeholder=""
                     name="text1"
-                    value="yujinyong"
+                    value={userData.loginId}
                     className="sub_input_common sub_card_formcontrol_input"
                     readOnly
                   />
@@ -44,7 +49,7 @@ const Info = (props: { buttonCallback?: Function}) => {
                     id="text2"
                     placeholder=""
                     name="text2"
-                    value="2022-01-01 12:00"
+                    value={fomated}
                     className="sub_input_common sub_card_formcontrol_input"
                     readOnly
                   />
@@ -82,13 +87,15 @@ const Info = (props: { buttonCallback?: Function}) => {
                     fullWidth={false}
                     id="select1"
                     name="select1"
-                    value="개인"
+                    value={props.custTp}
                     className="sub_select_common sub_card_formcontrol_list"
                     readOnly
                   >
+
                   <MenuItem value="개인">개인</MenuItem>
                   <MenuItem value="기업">기업</MenuItem>
                   <MenuItem value="공공">공공</MenuItem>
+
                   </Select>
                 </Box>
               </Grid>

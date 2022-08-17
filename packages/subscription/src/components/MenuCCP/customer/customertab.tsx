@@ -51,6 +51,7 @@ const CustomerTab=[
   },
 ];
 
+
 const Detail = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);

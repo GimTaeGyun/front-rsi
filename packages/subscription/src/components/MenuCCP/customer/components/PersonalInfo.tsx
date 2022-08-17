@@ -10,26 +10,17 @@ import {
   Checkbox
 } from '@mui/material';
 import CardTemplate from './CardTemplate';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 const PersonalInfo = (props: {
-  userData: any
+  userData: any;
+  emailCheck: boolean;
+  smsCheck: boolean;
 }) => {
   const { userData } = props;
-  const [state, setState] = React.useState({
-    email: true,
-    SMS: false,
-  });
 
-  console.log(userData);
-  const { email, SMS } = state;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
-  };
 
   return (
     <>
@@ -51,6 +42,7 @@ const PersonalInfo = (props: {
                     fullWidth={false}
                     placeholder=""
                     name="text5"
+                    value={userData.custNm}
                     className="sub_input_common sub_card_formcontrol_input"
                     readOnly
                   />
@@ -67,7 +59,8 @@ const PersonalInfo = (props: {
                   <OutlinedInput
                     fullWidth={false}
                     placeholder=""
-                    name="text6"
+                    name="text6"                    
+                    value={userData.mobile}
                     className="sub_input_common sub_card_formcontrol_input"
                   />
                 </Box>
@@ -84,6 +77,7 @@ const PersonalInfo = (props: {
                     fullWidth={false}
                     placeholder=""
                     name="text7"
+                    value={userData.email}
                     className="sub_input_common sub_card_formcontrol_input"
                   />
                 </Box>
@@ -124,14 +118,16 @@ const PersonalInfo = (props: {
                       className="sub_card_formcontrol_checkboxes"
                       sx={{ flexDirection: 'row' }}
                     >
+                      
                       <FormControlLabel
-                        control={<Checkbox disabled />}
+                        control={<Checkbox disabled checked={props.emailCheck} />}
                         label="이메일"
                       />
                       <FormControlLabel
-                        control={<Checkbox disabled />}
+                        control={<Checkbox disabled checked={props.smsCheck} />}
                         label="SMS"
                       />
+                        
                     </FormGroup>
                   </Box>
                 </Box>
