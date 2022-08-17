@@ -29,8 +29,7 @@ const TabContent1 = () => {
   useEffect(() => {
     const userApi = async () => {
       let tmpData = sharedCustomerData;
-      if (!sharedCustomerData || sharedCustomerData.hasOwnProperty('tosInfo'))
-        return;
+      if (!sharedCustomerData || !loaded) return;
       switch (sharedCustomerData.custTp) {
         case '기업':
           tmpData.custTp = 1;
@@ -140,7 +139,7 @@ const TabContent1 = () => {
             <PersonalInfo userData={sharedCustomerData} />
           ) : (
             <>
-              <CompMngInfo />
+              <CompMngInfo userData={sharedCustomerData} />
               <CompInfo userData={sharedCustomerData} />
             </>
           )}

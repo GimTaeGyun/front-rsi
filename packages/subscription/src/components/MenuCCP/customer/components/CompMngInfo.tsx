@@ -7,11 +7,11 @@ import {
   MenuItem,
   Grid,
   OutlinedInput,
-  Typography
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import CardTemplate from './CardTemplate';
-const CompMngInfo = (props: {userData: any;  emailCheck: boolean; smsCheck:boolean}) => {
+const CompMngInfo = (props: { userData: any }) => {
   const { userData } = props;
   console.log(userData);
   return (
@@ -160,11 +160,11 @@ const CompMngInfo = (props: {userData: any;  emailCheck: boolean; smsCheck:boole
                     sx={{ flexDirection: 'row' }}
                   >
                     <FormControlLabel
-                      control={<Checkbox disabled checked={props.emailCheck} />}
+                      control={<Checkbox disabled checked={true} />}
                       label="이메일"
                     />
                     <FormControlLabel
-                      control={<Checkbox disabled checked={props.smsCheck}/>}
+                      control={<Checkbox disabled checked={false} />}
                       label="SMS"
                     />
                   </FormGroup>
