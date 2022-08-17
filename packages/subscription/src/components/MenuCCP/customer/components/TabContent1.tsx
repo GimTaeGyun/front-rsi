@@ -72,6 +72,12 @@ const TabContent1 = () => {
                               message:"비밀번호가 변경되었습니다.",
                               leftCallback: ()=>{setPwResetPopupOpen(false);
                                 setAlertPopupData({...alertPopupData, visible: false});}});
+        }else{
+          setAlertPopupData({...alertPopupData,
+            visible:true,
+            message:"비밀번호 변경이 실패하였습니다.",
+            leftCallback: ()=>{
+              setAlertPopupData({...alertPopupData, visible: false});}});
         }
       })
       .catch((e:any)=>{console.log(e)});
