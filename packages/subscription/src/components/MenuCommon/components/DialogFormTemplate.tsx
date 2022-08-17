@@ -30,7 +30,10 @@ const DialogFormTemplate = (props: {
         open={open}
         onClose={() => handleClose()}
         sx={{
-          '& .MuiPaper-root': { width: props.width, height: props.height },
+          '& .MuiPaper-root:first-child': {
+            width: props.width,
+            height: props.height,
+          },
         }}
       >
         <DialogTitle className="sub_dialog_title_outer">

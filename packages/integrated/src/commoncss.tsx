@@ -853,6 +853,7 @@ const css = createTheme({
         '& .sub_dialog_main': {
           '& .MuiPaper-root': {
             margin: '0 auto',
+            maxWidth: 'unset',
           },
         },
         '& .sub_dialog_title_outer': {
@@ -1004,6 +1005,20 @@ const css = createTheme({
         '& .sub_dialog_button_blue': {
           width: '57px',
           height: '36px',
+        },
+
+        //
+        '& .MuiPaper-root.sub_dialog_card_orderinfo1': {
+          width: 'inherit !important',
+          height: '240px !important',
+          '& .sub_dialog_card_orderinfo_header': {
+            width: '100%',
+            height: '46px',
+          },
+          '& .sub_dialog_card_orderinfo_content': {
+            width: '100%',
+            height: '196px',
+          },
         },
       },
     },

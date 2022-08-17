@@ -15,6 +15,7 @@ import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
 import DialogFormTemplate from './components/DialogFormTemplate';
 import FrmUserInfo from './components/FrmUserInfo';
+import FrmOrderDetails from './components/FrmOrderDetails';
 
 const defaultOperPopupData = {
   action: 'add',
@@ -426,6 +427,18 @@ const Admin = () => {
                 >
                   저장
                 </Button>
+              </>
+            }
+          />
+          <DialogFormTemplate
+            open={false}
+            title="주문 상세 정보"
+            width="1000px"
+            height="802px"
+            children={<FrmOrderDetails />}
+            footer={
+              <>
+                <Button className="sub_button_white_none">닫기</Button>
               </>
             }
           />
