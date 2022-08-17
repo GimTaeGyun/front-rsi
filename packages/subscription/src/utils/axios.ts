@@ -19,6 +19,12 @@ Axios.interceptors.request.use(config => {
 
 Axios.interceptors.response.use(
   response => {
+    if(response.config.url?.includes("/management/keycloak/refreshtoken") &&
+      response.data.hasOwnProperty("code") && response.data.code != '0000'){
+      console.log("response")
+      localStorage.clear();
+      //location.href="/admin/login"
+    }
     return response;
   },
   async error => {
@@ -27,11 +33,12 @@ Axios.interceptors.response.use(
         if( error.url?.includes('/management/keycloak/refreshtoken') ){
           localStorage.clear();
           console.log(1);
-          location.href = '/admin/login';
+          //location.href = '/admin/login';
           return;
         }
         
         const originalRequest = error.config;
+        localStorage.removeItem('access-token');
         const res = await Axios.post('/management/keycloak/refreshtoken', {
           refreshToken: localStorage.getItem('refresh-token')
         });
@@ -44,19 +51,19 @@ Axios.interceptors.response.use(
         }else{
           localStorage.clear();
           console.log(2);
-          location.href = '/admin/login';
+          //location.href = '/admin/login';
           return;
         }
       } catch (error) {
         localStorage.clear();
         console.log(3);
-        location.href = '/admin/login';
+        //location.href = '/admin/login';
         return;
       }
     }
     else if(error.config.url === '/management/keycloak/refreshtoken'){
       localStorage.clear();
-      location.href = '/admin/login';
+      //location.href = '/admin/login';
       console.log(4);
       return Promise.reject(error);
     }else{

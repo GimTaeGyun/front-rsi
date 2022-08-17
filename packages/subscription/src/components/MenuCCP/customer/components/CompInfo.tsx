@@ -1,12 +1,30 @@
 import { Box, Divider } from '@mui/material';
 import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
-import React from 'react';
+import React,{useRef} from 'react';
 import CardTemplate from './CardTemplate';
-const Info = (props: { buttonCallback?: Function, userData: any}) => {
+declare var daum:any;
+const CompInfo = (props: { buttonCallback?: Function, userData: any}) => {
   const { userData } = props;
   const {buttonCallback = ()=> {}} = props;
+  
+  const zipCodeRef = useRef();
+  const addressRef = useRef(); 
+
+  const addressClickEvent = ()=>{
+    new daum.Postcode({oncomplete: (data:any)=>{
+      let address = '';
+      if( data.userSelectedType == 'J' )
+        address = data.jibunAddress;
+      else
+        address = data.roadAddress;
+      (addressRef.current as any).children[0].value = address;
+      (zipCodeRef.current as any).children[0].value = data.zonecode;
+    }}).open();
+
+  }
   return (
     <>
+      <script src={require('@administrator/subscription/public/postcode.v2.js')}></script>
       <CardTemplate
         title="법인 정보"
       >
@@ -22,7 +40,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text8"
                     placeholder=""
                     name="text8"
                     value="현대중공업(주)"
@@ -40,7 +57,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text9"
                     placeholder=""
                     name="text9"
                     value="한영석"
@@ -58,7 +74,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text10"
                     placeholder=""
                     name="text10"
                     value="052-202-2114"
@@ -77,12 +92,13 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <Select
                     fullWidth={false}
-                    id="select3"
                     name="select3"
                     value="개인"
                     className="sub_select_common sub_card_formcontrol_list"
                   >
                     <MenuItem value="개인">개인</MenuItem>
+                    <MenuItem value="기업">기업</MenuItem>
+                    <MenuItem value="공공">공공</MenuItem>
                   </Select>
                 </Box>
               </Grid>
@@ -96,7 +112,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text11"
                     placeholder=""
                     name="text11"
                     value="000-00-00000"
@@ -143,7 +158,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text11"
                     placeholder=""
                     name="text11"
                     value="000-00-00000"
@@ -161,12 +175,15 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <Select
                     fullWidth={false}
-                    id="select4"
                     name="select4"
                     value="대기업"
                     className="sub_select_common sub_card_formcontrol_list"
                   >
                     <MenuItem value="대기업">대기업</MenuItem>
+                    <MenuItem value="중견기업">중견기업</MenuItem>
+                    <MenuItem value="중소기업">중소기업</MenuItem>
+                    <MenuItem value="소기업">소기업</MenuItem>
+                    <MenuItem value="소상공인">소상공인</MenuItem>
                   </Select>
                 </Box>
               </Grid>
@@ -180,7 +197,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text13"
                     placeholder=""
                     name="text12"
                     value="300명 이상"
@@ -204,7 +220,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                     <OutlinedInput
                       type="text"
                       fullWidth={false}
-                      id="text14"
                       placeholder=""
                       name="text14"
                       value="44032"
@@ -214,6 +229,7 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                       variant="outlined"
                       className="sub_btn_primary_outline_common sub_card_formcontrol_button_search"
                       sx={{ marginLeft: '8px' }}
+                      onClick={addressClickEvent}
                     >
                       검색
                     </Button>
@@ -238,8 +254,8 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                     주소
                   </Box>
                   <OutlinedInput
-                    id="text15"
                     placeholder=""
+                    ref={addressRef}
                     name="text15"
                     value="울산광역시 동구 방어진순환도로 1000"
                     className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
@@ -264,7 +280,6 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
                     상세주소
                   </Box>
                   <OutlinedInput
-                    id="text16"
                     placeholder=""
                     name="text16"
                     value="현대중공업 조선소 6F"
@@ -285,4 +300,4 @@ const Info = (props: { buttonCallback?: Function, userData: any}) => {
   );
 };
 
-export default Info;
+export default CompInfo;
