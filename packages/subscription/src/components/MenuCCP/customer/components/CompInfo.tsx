@@ -9,15 +9,6 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
 
   const zipCodeRef = useRef();
   const addressRef = useRef();
-  const [corpTp, setCorpTp] = React.useState('');
-  const [corpSize, setCorpSize] = React.useState(0);
-  const [empSize, setEmpSize] = React.useState(1);
-
-  useEffect(() => {
-    setCorpTp(userData.corpTp);
-    setCorpSize(userData.corpSize);
-    setEmpSize(userData.empSize);
-  }, [userData]);
 
   const addressClickEvent = () => {
     new daum.Postcode({
@@ -101,7 +92,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <Select
                   fullWidth={false}
                   name="select3"
-                  value={corpTp}
+                  value={userData.corpTp}
                   className="sub_select_common sub_card_formcontrol_list"
                 >
                   <MenuItem value="CORP">기업</MenuItem>
@@ -177,45 +168,57 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 component="div"
                 className="sub_card_formcontrol_outer_common"
               >
-                <Box component="span" className="sub_card_formcontrol_label">
-                  기업규모
-                </Box>
-                <Select
-                  fullWidth={false}
-                  name="select4"
-                  value={corpSize}
-                  className="sub_select_common sub_card_formcontrol_list"
-                >
-                  <MenuItem value={1}>대기업</MenuItem>
-                  <MenuItem value={2}>중견기업</MenuItem>
-                  <MenuItem value={3}>중소기업</MenuItem>
-                  <MenuItem value={4}>소기업</MenuItem>
-                  <MenuItem value={5}>소상공인</MenuItem>
-                </Select>
+                {userData.custTp == 2 ? (
+                  <>
+                    <Box
+                      component="span"
+                      className="sub_card_formcontrol_label"
+                    >
+                      기업규모
+                    </Box>
+                    <Select
+                      fullWidth={false}
+                      name="select4"
+                      value={userData.corpSize}
+                      className="sub_select_common sub_card_formcontrol_list"
+                    >
+                      <MenuItem value={1}>대기업</MenuItem>
+                      <MenuItem value={2}>중견기업</MenuItem>
+                      <MenuItem value={3}>중소기업</MenuItem>
+                      <MenuItem value={4}>소기업</MenuItem>
+                      <MenuItem value={5}>소상공인</MenuItem>
+                    </Select>
+                  </>
+                ) : (
+                  <>
+                    <Box
+                      component="span"
+                      className="sub_card_formcontrol_label"
+                    >
+                      직원규모
+                    </Box>
+                    <Select
+                      fullWidth={false}
+                      name="select6"
+                      defaultValue={userData.empSize}
+                      className="sub_select_common sub_card_formcontrol_list"
+                    >
+                      <MenuItem value={1}>3천명이상</MenuItem>
+                      <MenuItem value={2}>2천명이상~3천명미만</MenuItem>
+                      <MenuItem value={3}>1천명이상~2천명미만</MenuItem>
+                      <MenuItem value={4}>500명이상~1000명미만</MenuItem>
+                      <MenuItem value={5}>100명이상~500명미만</MenuItem>
+                      <MenuItem value={6}>100명미만</MenuItem>
+                    </Select>
+                  </>
+                )}
               </Box>
             </Grid>
             <Grid>
               <Box
                 component="div"
                 className="sub_card_formcontrol_outer_common"
-              >
-                <Box component="span" className="sub_card_formcontrol_label">
-                  직원규모
-                </Box>
-                <Select
-                  fullWidth={false}
-                  name="select6"
-                  defaultValue={empSize}
-                  className="sub_select_common sub_card_formcontrol_list"
-                >
-                  <MenuItem value={1}>3천명이상</MenuItem>
-                  <MenuItem value={2}>2천명이상~3천명미만</MenuItem>
-                  <MenuItem value={3}>1천명이상~2천명미만</MenuItem>
-                  <MenuItem value={4}>500명이상~1000명미만</MenuItem>
-                  <MenuItem value={5}>100명이상~500명미만</MenuItem>
-                  <MenuItem value={6}>100명미만</MenuItem>
-                </Select>
-              </Box>
+              ></Box>
             </Grid>
             <Divider sx={{ width: '100%' }} />
             <Grid>
