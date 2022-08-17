@@ -56,11 +56,14 @@ Axios.interceptors.response.use(
         }
       } catch (error) {
         localStorage.clear();
+        console.log(error);
         console.log(3);
         //location.href = '/admin/login';
         return;
       }
     }else{
+      console.log(4);
+      console.log(error);
       return Promise.reject(error);
     }
 });

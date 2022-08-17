@@ -1,132 +1,154 @@
-import React, {useEffect, useState} from 'react';
-import axios from "../../../../utils/axios";
+import React, { useEffect, useState } from 'react';
+import axios from '../../../../utils/axios';
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
 import CompInfo from './CompInfo';
 import CompMngInfo from './CompMngInfo';
-import {useAtom} from 'jotai'
+import { useAtom } from 'jotai';
 import PwResetPopup from '../../../Common/PwResetPopup';
-import {DefaultAlertPopupData, customerData} from '../../../../data/atoms';
+import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
 import AlertPopup from '../../../Common/AlertPopup';
 import * as Yup from 'yup';
 import SubmitButton from './SubmitButton';
 
-const validator = Yup.object().shape({usrPw: Yup.string()
-.required()
-.min(8)
-.max(16)
-.matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)});
-
-
-
-
+const validator = Yup.object().shape({
+  usrPw: Yup.string()
+    .required()
+    .min(8)
+    .max(16)
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/),
+});
 
 const TabContent1 = () => {
-
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
-  const [userData , setUserData] = useState({});
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
-  const [custTp, setCustTp] = useState(0);
-  const [emailCheck, setEmailCheck] = useState(false);
-  const [smsCheck, setSmsCheck] = useState(false);
-  console.log(sharedCustomerData);
+  const [loaded, setLoaded] = useState(false);
 
-  const [alertPopupData, setAlertPopupData] = useState({...DefaultAlertPopupData, message:"비밀번호가 변경되었습니다.", visible:false,
-  leftCallback : ()=>{
-    setPwResetPopupOpen(false);
-    setAlertPopupData({...alertPopupData, visible: false});
-  }});
+  const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
 
-
-
-   
-  
   useEffect(() => {
-    const userApi = async() => {
+    const userApi = async () => {
+      let tmpData = sharedCustomerData;
+      if (!sharedCustomerData || sharedCustomerData.hasOwnProperty('tosInfo'))
+        return;
       switch (sharedCustomerData.custTp) {
-        case '기업' :
-          setCustTp(1);
+        case '기업':
+          tmpData.custTp = 1;
           break;
-          case '공공' :
-            setCustTp(2);
-            break;
-            case '개인' :
-              setCustTp(3);
-              break;
-
+        case '공공':
+          tmpData.custTp = 2;
+          break;
+        case '개인':
+          tmpData.custTp = 3;
+          break;
       }
-      console.log(custTp);
-      
+
       const response = await axios.post(
-        "/management/manager/customer/search/detail",
+        '/management/manager/customer/search/detail',
         {
-          custId: sharedCustomerData.custId, 
-          custTp: custTp,
-        }
+          custId: sharedCustomerData.custId,
+          custTp: tmpData.custTp,
+        },
       );
+      tmpData = { ...tmpData, ...response.data.result };
+      tmpData.tosInfo[0].tosInfo.promotion.email == 'true'
+        ? (tmpData.tosInfo[0].tosInfo.promotion.email = true)
+        : (tmpData.tosInfo[0].tosInfo.promotion.email = false);
 
-      setUserData(response.data.result);
-      switch(response.data.result.tosInfo[0].tosInfo.promotion.email) {
-        case 'true':
-          setEmailCheck(true);
-          break;
-        case 'false':
-          setEmailCheck(false);
-          break;
-      };
-      switch(response.data.result.tosInfo[0].tosInfo.promotion.mobile) {
-        case 'true':
-          setSmsCheck(true);
-          break;
-        case 'false':
-          setSmsCheck(false);
-          break;
-      }
-      
-      
-    }
+      tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
+        ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
+        : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
+      setSharedCustomerData(tmpData);
+      setLoaded(true);
+    };
     userApi();
-  }, [custTp]);
+  }, [sharedCustomerData]);
 
-  const pwOkCallback = async (value:any)=>{
-    let valid = await validator.isValid({usrPw:value});
-    if( valid ){
-      axios.post("/management/manager/customer/userpw/update",
-      {usrId:sharedCustomerData.custId,
-      usrPw:value})
-      .then((res:any)=>{
-        if(res.data.code == '0000'){
-          setAlertPopupData({...alertPopupData,
-                              visible:true,
-                              message:"비밀번호가 변경되었습니다.",
-                              leftCallback: ()=>{setPwResetPopupOpen(false);
-                                setAlertPopupData({...alertPopupData, visible: false});}});
-        }else{
-          setAlertPopupData({...alertPopupData,
-            visible:true,
-            message:"비밀번호 변경이 실패하였습니다.",
-            leftCallback: ()=>{
-              setAlertPopupData({...alertPopupData, visible: false});}});
-        }
-      })
-      .catch((e:any)=>{console.log(e)});
-    }else{
-      setAlertPopupData({...alertPopupData, 
-                        visible: true,
-                        message:"비밀번호는 대소문자, 특수문자를 포함한 8~16자입니다",
-                        leftCallback:()=>{setAlertPopupData({...alertPopupData, visible: false})}})
+  const pwOkCallback = async (value: any) => {
+    let valid = await validator.isValid({ usrPw: value });
+    if (valid) {
+      axios
+        .post('/management/manager/customer/userpw/update', {
+          usrId: sharedCustomerData.custId,
+          usrPw: value,
+        })
+        .then((res: any) => {
+          if (res.data.code == '0000') {
+            setAlertPopupData({
+              ...alertPopupData,
+              visible: true,
+              message: '비밀번호가 변경되었습니다.',
+              leftCallback: () => {
+                setPwResetPopupOpen(false);
+                setAlertPopupData({ ...alertPopupData, visible: false });
+              },
+            });
+          } else {
+            setAlertPopupData({
+              ...alertPopupData,
+              visible: true,
+              message: '비밀번호 변경이 실패하였습니다.',
+              leftCallback: () => {
+                setAlertPopupData({ ...alertPopupData, visible: false });
+              },
+            });
+          }
+        })
+        .catch((e: any) => {
+          console.log(e);
+        });
+    } else {
+      setAlertPopupData({
+        ...alertPopupData,
+        visible: true,
+        message: '비밀번호는 대소문자, 특수문자를 포함한 8~16자입니다',
+        leftCallback: () => {
+          setAlertPopupData({ ...alertPopupData, visible: false });
+        },
+      });
     }
-  }
-
-  
-
+  };
 
   return (
     <>
-      <PwResetPopup open={pwResetPopupOpen} closeCallback={()=>{setPwResetPopupOpen(!pwResetPopupOpen)}} okCallback={pwOkCallback}/>
-      {alertPopupData.visible ? <AlertPopup  message={alertPopupData.message} buttontext={alertPopupData.leftText} closeCallback={alertPopupData.leftCallback} />: ''}
-      <UserInfo buttonCallback={()=>{setPwResetPopupOpen(true)}} userData={userData} custTp={sharedCustomerData.custTp} />
-      {sharedCustomerData.custTp == '개인' ? <PersonalInfo userData={userData} emailCheck={emailCheck} smsCheck={smsCheck}/> : <><CompMngInfo/><CompInfo userData={userData}/></>}
+      <PwResetPopup
+        open={pwResetPopupOpen}
+        closeCallback={() => {
+          setPwResetPopupOpen(!pwResetPopupOpen);
+        }}
+        okCallback={pwOkCallback}
+      />
+      {alertPopupData.visible ? (
+        <AlertPopup
+          message={alertPopupData.message}
+          buttontext={alertPopupData.leftText}
+          closeCallback={alertPopupData.leftCallback}
+        />
+      ) : (
+        ''
+      )}
+      {loaded ? (
+        <>
+          <UserInfo
+            buttonCallback={() => {
+              setPwResetPopupOpen(true);
+            }}
+            userData={sharedCustomerData}
+          />
+          {sharedCustomerData.custTp == 3 ||
+          sharedCustomerData.custTp == '개인' ? (
+            <PersonalInfo userData={sharedCustomerData} />
+          ) : (
+            <>
+              <CompMngInfo />
+              <CompInfo userData={sharedCustomerData} />
+            </>
+          )}
+        </>
+      ) : (
+        ''
+      )}
+
       <SubmitButton />
     </>
   );
