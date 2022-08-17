@@ -29,7 +29,7 @@ const TabContent1 = () => {
   useEffect(() => {
     const userApi = async () => {
       let tmpData = sharedCustomerData;
-      if (!sharedCustomerData || !loaded) return;
+      if (!sharedCustomerData || loaded) return;
       switch (sharedCustomerData.custTp) {
         case '기업':
           tmpData.custTp = 1;
