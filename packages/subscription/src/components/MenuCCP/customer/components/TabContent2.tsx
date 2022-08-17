@@ -299,8 +299,65 @@ const TabContent2 = () => {
         sx={{ width: "100%", height: "112px", mt:"20px" }}
       >
         <Box className="sub_listpage_filter_topsection">
-          
+          <Box className="sub_filter2_left" component="div">
+            <Box component="div" className="sub_filter2_label1">
+              기간
+            </Box>
+            <Select
+                fullWidth={false}
+                id="select1"
+                name="select1"
+                value="전체"
+                className="sub_select_common sub_filter2_list"
+              >
+              <MenuItem value="전체">전체</MenuItem>
+              <MenuItem value="주문일">주문일</MenuItem>
+              <MenuItem value="결제일">결제일</MenuItem>
+            </Select>
+            <MyDatePicker
+              strId="search-date1"
+              strClass="sub_input_common sub_filter2_date"
+              strName="search-date1"
+              strPlaceholder="시작일"
+              objSX={{ marginLeft: '8px' }}
+              value={new Date()}
+            />
+            <MyDatePicker
+              strId="search-date2"
+              strClass="sub_input_common sub_filter2_date"
+              strName="search-date2"
+              strPlaceholder="종료일"
+              objSX={{ marginLeft: '8px' }}
+              value={new Date()}
+            />
+            <Button variant="outlined" className="sub_btn_secondary_outline_common sub_filter2_btn active" sx={{marginLeft:"8px"}}>1개월</Button>
+            <Button variant="outlined" className="sub_btn_secondary_outline_common sub_filter2_btn" sx={{marginLeft:"10px"}}>3개월</Button>
+            <Button variant="outlined" className="sub_btn_secondary_outline_common sub_filter2_btn" sx={{marginLeft:"10px"}}>6개월</Button>
+          </Box>
+
+          <Box className="sub_filter2_right" component="div">
+            <Box component="div" className="sub_filter2_label1">
+              결제상태
+            </Box>
+            <Select
+                fullWidth={false}
+                id="select2"
+                name="select2"
+                value="전체"
+                className="sub_select_common sub_filter2_list2"
+              >
+              <MenuItem value="전체">전체</MenuItem>
+              <MenuItem value="입금대기">입금대기</MenuItem>
+              <MenuItem value="입금완료">입금완료</MenuItem>
+              <MenuItem value="결제완료">결제완료</MenuItem>
+              <MenuItem value="취소요청">취소요청</MenuItem>
+              <MenuItem value="취소완료">취소완료</MenuItem>
+              <MenuItem value="환불완료">환불완료</MenuItem>
+            </Select>
+          </Box>
         </Box>
+
+
         <Box className="sub_listpage_filter_btmsection">
           <Button
             variant="outlined"
