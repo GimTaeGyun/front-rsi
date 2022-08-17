@@ -12,15 +12,11 @@ import {
 import CardTemplate from './CardTemplate';
 import React, { useEffect, useState } from 'react';
 
-<<<<<<< HEAD
-const Info = (props: {
+
+const PersonalInfo = (props: {
   userData: any;
   emailCheck: boolean;
   smsCheck: boolean;
-=======
-const PersonalInfo = (props: {
-  userData: any
->>>>>>> 53ff54ad78c43dce1d8b3a31836f9185c35756a7
 }) => {
   const { userData } = props;
 
