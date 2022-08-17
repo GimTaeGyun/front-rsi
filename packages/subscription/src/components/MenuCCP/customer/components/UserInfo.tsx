@@ -1,6 +1,6 @@
 import { Box, Divider, MenuItem } from '@mui/material';
 import { Button, Select, Grid, OutlinedInput } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MuiFormLabel from '@mui/material/FormLabel';
 import CardTemplate from './CardTemplate';
 import moment from 'moment';
@@ -9,6 +9,9 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
   const { buttonCallback = () => {}, userData } = props;
   const date1 = new Date(userData.creAt);
   const fomated = moment(date1).format('YYYY-MM-DD HHMM');
+  const [fomat, setFomat] = React.useState('');
+  const [custTp, setCustTp] = React.useState(0);
+
   const translateCustTp = (custTp: any) => {
     switch (custTp) {
       case '기업':
@@ -21,6 +24,20 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
         return custTp;
     }
   };
+
+  useEffect(() => {
+    setCustTp(userData.custTp);
+    if (userData.creAt) {
+      const date1 = new Date(userData.creAt);
+      const fomated = moment(date1).format('YYYY-MM-DD HH:MM');
+      setFomat(fomated);
+    } else {
+      const date1 = new Date(userData.cre_at);
+      const fomated = moment(date1).format('YYYY-MM-DD HH:MM');
+      setFomat(fomated);
+    }
+  }, [userData]);
+
   return (
     <>
       <CardTemplate title="고객 정보">
@@ -58,7 +75,7 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                   id="text2"
                   placeholder=""
                   name="text2"
-                  value={fomated}
+                  value={fomat}
                   className="sub_input_common sub_card_formcontrol_input"
                   readOnly
                 />
@@ -100,9 +117,9 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
                 >
-                  <MenuItem value="1">기업</MenuItem>
-                  <MenuItem value="2">공공</MenuItem>
-                  <MenuItem value="3">개인</MenuItem>
+                  <MenuItem value={1}>기업</MenuItem>
+                  <MenuItem value={2}>공공</MenuItem>
+                  <MenuItem value={3}>개인</MenuItem>
                 </Select>
               </Box>
             </Grid>

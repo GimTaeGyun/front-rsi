@@ -1,6 +1,6 @@
 import { Box, Divider } from '@mui/material';
 import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import CardTemplate from './CardTemplate';
 declare var daum: any;
 const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
@@ -9,6 +9,15 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
 
   const zipCodeRef = useRef();
   const addressRef = useRef();
+  const [corpTp, setCorpTp] = React.useState('');
+  const [corpSize, setCorpSize] = React.useState(0);
+  const [empSize, setEmpSize] = React.useState(1);
+
+  useEffect(() => {
+    setCorpTp(userData.corpTp);
+    setCorpSize(userData.corpSize);
+    setEmpSize(userData.empSize);
+  }, [userData]);
 
   const addressClickEvent = () => {
     new daum.Postcode({
@@ -41,7 +50,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text8"
-                  value="현대중공업(주)"
+                  value={userData.cpyNm}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -58,7 +67,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text9"
-                  value="한영석"
+                  value={userData.ceo}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -92,12 +101,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <Select
                   fullWidth={false}
                   name="select3"
-                  value="1"
+                  value={corpTp}
                   className="sub_select_common sub_card_formcontrol_list"
                 >
-                  <MenuItem value="1">기업</MenuItem>
-                  <MenuItem value="2">공공</MenuItem>
-                  <MenuItem value="3">개인</MenuItem>
+                  <MenuItem value="CORP">기업</MenuItem>
+                  <MenuItem value="PUBL">공공</MenuItem>
                 </Select>
               </Box>
             </Grid>
@@ -113,7 +121,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text11"
-                  value="000-00-00000"
+                  value={userData.corpRegNo}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -159,7 +167,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text11"
-                  value="000-00-00000"
+                  value={userData.bizItem}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -175,14 +183,14 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <Select
                   fullWidth={false}
                   name="select4"
-                  value="대기업"
+                  value={corpSize}
                   className="sub_select_common sub_card_formcontrol_list"
                 >
-                  <MenuItem value="대기업">대기업</MenuItem>
-                  <MenuItem value="중견기업">중견기업</MenuItem>
-                  <MenuItem value="중소기업">중소기업</MenuItem>
-                  <MenuItem value="소기업">소기업</MenuItem>
-                  <MenuItem value="소상공인">소상공인</MenuItem>
+                  <MenuItem value={1}>대기업</MenuItem>
+                  <MenuItem value={2}>중견기업</MenuItem>
+                  <MenuItem value={3}>중소기업</MenuItem>
+                  <MenuItem value={4}>소기업</MenuItem>
+                  <MenuItem value={5}>소상공인</MenuItem>
                 </Select>
               </Box>
             </Grid>
@@ -194,13 +202,19 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <Box component="span" className="sub_card_formcontrol_label">
                   직원규모
                 </Box>
-                <OutlinedInput
+                <Select
                   fullWidth={false}
-                  placeholder=""
-                  name="text12"
-                  value="300명 이상"
-                  className="sub_input_common sub_card_formcontrol_input"
-                />
+                  name="select6"
+                  defaultValue={empSize}
+                  className="sub_select_common sub_card_formcontrol_list"
+                >
+                  <MenuItem value={1}>3천명이상</MenuItem>
+                  <MenuItem value={2}>2천명이상~3천명미만</MenuItem>
+                  <MenuItem value={3}>1천명이상~2천명미만</MenuItem>
+                  <MenuItem value={4}>500명이상~1000명미만</MenuItem>
+                  <MenuItem value={5}>100명이상~500명미만</MenuItem>
+                  <MenuItem value={6}>100명미만</MenuItem>
+                </Select>
               </Box>
             </Grid>
             <Divider sx={{ width: '100%' }} />
@@ -221,7 +235,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                     fullWidth={false}
                     placeholder=""
                     name="text14"
-                    value="44032"
+                    value={userData.postNo}
                     className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_search"
                   />
                   <Button
@@ -256,7 +270,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   placeholder=""
                   ref={addressRef}
                   name="text15"
-                  value="울산광역시 동구 방어진순환도로 1000"
+                  value={userData.address}
                   className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
                 />
               </Box>
@@ -281,7 +295,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <OutlinedInput
                   placeholder=""
                   name="text16"
-                  value="현대중공업 조선소 6F"
+                  value={userData.addressDesc}
                   className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
                 />
               </Box>
