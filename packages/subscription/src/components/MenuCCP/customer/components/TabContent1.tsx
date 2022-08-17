@@ -79,13 +79,14 @@ const TabContent1 = () => {
         },
       );
       tmpData = { ...tmpData, ...response.data.result };
-      (tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
-        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
-        : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
-
-      (tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
-        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
-        : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
+      //(tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
+      //  ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
+      //  : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
+      (tmpData as any).chemail = false;
+      (tmpData as any).chmobile = false;
+      //(tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
+      //  ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
+      //  : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };
