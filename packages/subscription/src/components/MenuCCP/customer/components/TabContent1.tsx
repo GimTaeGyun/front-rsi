@@ -28,40 +28,64 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
-      let tmpData = sharedCustomerData;
-      if (!sharedCustomerData || loaded) return;
-      switch (sharedCustomerData.custTp) {
-        case '기업':
-          tmpData.custTp = 1;
-          break;
-        case '공공':
-          tmpData.custTp = 2;
-          break;
-        case '개인':
-          tmpData.custTp = 3;
-          break;
-      }
+      /*let tmpData = {
+        rnum: 10,
+        custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
+        custNm: '개발자',
+        custTp: {
+          value: 3,
+          label: '개인',
+        },
+        loginId: 'atayun',
+        mobile: '010-5555-5566',
+        email: 'g9soft@gmail.com',
+        joinedAt: '2022-07-22 00:20',
+        status: {
+          value: 1,
+          label: '사용',
+        },
+      };*/
+      let tmpData = {
+        rnum: 8,
+        custId: '232e9b0a3bb22717c5e54ae9df67219e',
+        custNm: null,
+        custTp: {
+          value: 1,
+          label: '법인',
+        },
+        loginId: 'ibk07',
+        mobile: null,
+        email: null,
+        joinedAt: '2022-06-27 15:36',
+        status: {
+          value: 1,
+          label: '사용',
+        },
+      };
+      if (loaded) return;
+
+      (tmpData as any).custTp = tmpData.custTp.value;
 
       const response = await axios.post(
         '/management/manager/customer/search/detail',
         {
-          custId: sharedCustomerData.custId,
+          custId: tmpData.custId,
           custTp: tmpData.custTp,
         },
       );
       tmpData = { ...tmpData, ...response.data.result };
-      tmpData.tosInfo[0].tosInfo.promotion.email == 'true'
-        ? (tmpData.tosInfo[0].tosInfo.promotion.email = true)
-        : (tmpData.tosInfo[0].tosInfo.promotion.email = false);
+      (tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
+        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
+        : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
 
-      tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
-        ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
-        : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
+      (tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
+        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
+        : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };
     userApi();
-  }, [sharedCustomerData]);
+  }, []);
 
   const pwOkCallback = async (value: any) => {
     let valid = await validator.isValid({ usrPw: value });

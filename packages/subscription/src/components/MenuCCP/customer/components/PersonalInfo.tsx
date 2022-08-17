@@ -84,11 +84,12 @@ const PersonalInfo = (props: { userData: any }) => {
                 <Select
                   fullWidth={false}
                   name="select2"
-                  value="탈퇴 시 까지"
+                  value={userData.piStoreDays}
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
                 >
-                  <MenuItem value="탈퇴 시 까지">탈퇴 시 까지</MenuItem>
+                  <MenuItem value="365">1년</MenuItem>
+                  <MenuItem value="32767">탈퇴 시 까지</MenuItem>
                 </Select>
               </Box>
             </Grid>
