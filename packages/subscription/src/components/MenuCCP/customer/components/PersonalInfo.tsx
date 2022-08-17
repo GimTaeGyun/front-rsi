@@ -12,12 +12,16 @@ import {
 import CardTemplate from './CardTemplate';
 import React from 'react';
 
-const Info = () => {
+const Info = (props: {
+  userData: any
+}) => {
+  const { userData } = props;
   const [state, setState] = React.useState({
     email: true,
     SMS: false,
   });
 
+  console.log(userData);
   const { email, SMS } = state;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +52,6 @@ const Info = () => {
                     id="text5"
                     placeholder=""
                     name="text5"
-                    value="유진용"
                     className="sub_input_common sub_card_formcontrol_input"
                     readOnly
                   />
@@ -67,7 +70,6 @@ const Info = () => {
                     id="text6"
                     placeholder=""
                     name="text6"
-                    value="010-0000-0000"
                     className="sub_input_common sub_card_formcontrol_input"
                   />
                 </Box>
@@ -85,7 +87,6 @@ const Info = () => {
                     id="text7"
                     placeholder=""
                     name="text7"
-                    value="yujinyong@naver.com"
                     className="sub_input_common sub_card_formcontrol_input"
                   />
                 </Box>
@@ -128,7 +129,7 @@ const Info = () => {
                       sx={{ flexDirection: 'row' }}
                     >
                       <FormControlLabel
-                        control={<Checkbox disabled defaultChecked />}
+                        control={<Checkbox disabled />}
                         label="이메일"
                       />
                       <FormControlLabel
