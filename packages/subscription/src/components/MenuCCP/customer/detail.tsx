@@ -4,51 +4,13 @@ import React from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import {customerData} from '../../../data/atoms';
+import {customerData, CustomerTab} from '../../../data/atoms';
 import AlertPopup from '../../Common/AlertPopup';
-import Info from './components/UserInfo';
-import TabContent1 from './components/TabContent1';
+
 import SubmitButton from './components/SubmitButton';
 import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
 
-
-
-const Data = [
-  {
-    title: '상세정보',
-    index: 1,
-    child: (
-      <>
-        <TabContent1 />
-      </>
-    ),
-  },
-  {
-    title: '주문정보',
-    index: 2,
-    child: (
-      <>
-      </>
-    ),
-  },
-  {
-    title: '사용자관리',
-    index: 3,
-    child: (
-      <>
-      </>
-    ),
-  },
-  {
-    title: '문의관리',
-    index: 4,
-    child: (
-      <>
-      </>
-    ),
-  },
-];
 
 const Detail = () => {
   // alertPopup object
@@ -79,7 +41,7 @@ const Detail = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
-          <TabButton item={Data} selectedIndex={1} />
+          <TabButton item={CustomerTab} selectedIndex={1} />
           <SubmitButton />
         </Box>
       </AppFrame>

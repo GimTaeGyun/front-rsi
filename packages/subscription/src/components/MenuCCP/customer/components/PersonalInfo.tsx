@@ -39,7 +39,6 @@ const Info = (props: {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text5"
                     placeholder=""
                     name="text5"
                     value={userData.custNm}
@@ -58,7 +57,6 @@ const Info = (props: {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text6"
                     placeholder=""
                     name="text6"                    
                     value={userData.mobile}
@@ -76,7 +74,6 @@ const Info = (props: {
                   </Box>
                   <OutlinedInput
                     fullWidth={false}
-                    id="text7"
                     placeholder=""
                     name="text7"
                     value={userData.email}
@@ -95,7 +92,6 @@ const Info = (props: {
                   </Box>
                   <Select
                     fullWidth={false}
-                    id="select2"
                     name="select2"
                     value="탈퇴 시 까지"
                     className="sub_select_common sub_card_formcontrol_list"

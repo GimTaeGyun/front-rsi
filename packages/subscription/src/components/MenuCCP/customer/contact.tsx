@@ -6,6 +6,9 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import axios from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
+import SubmitButton from './components/SubmitButton';
+import TabButton from './components/TopButton';
+import {CustomerTab} from '../../../data/atoms';
 const Contact = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -20,6 +23,7 @@ const Contact = () => {
           { name: '문의관리', link: '/admin/ccp/customer/contact' },
         ]}
       >
+        <>
         {alertPopup.visible ? (
           <AlertPopup
             message={alertPopup.message}
@@ -29,6 +33,9 @@ const Contact = () => {
             closeCallback={alertPopup.leftCallback}
           />
         ) : undefined}
+        <TabButton item={CustomerTab} selectedIndex={1} />
+        <SubmitButton />
+        </>
       </AppFrame>
     </>
   );

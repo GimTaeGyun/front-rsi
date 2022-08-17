@@ -5,7 +5,7 @@ import MuiFormLabel from '@mui/material/FormLabel';
 import CardTemplate from './CardTemplate';
 import moment from 'moment';
 
-const Info = (props: { buttonCallback?: Function; userData: any}) => {
+const Info = (props: { buttonCallback?: Function; userData: any, custTp: any}) => {
   const {buttonCallback = ()=> {}, userData} = props;
   console.log(userData);
   const date1 = new Date(userData.creAt);  
@@ -87,13 +87,15 @@ const Info = (props: { buttonCallback?: Function; userData: any}) => {
                     fullWidth={false}
                     id="select1"
                     name="select1"
-                    value={1}
+                    value={props.custTp}
                     className="sub_select_common sub_card_formcontrol_list"
                     readOnly
                   >
-                    <MenuItem value={1}>기업</MenuItem>
-                    <MenuItem value={2}>공공</MenuItem>
-                    <MenuItem value={3}>개인</MenuItem>
+
+                  <MenuItem value="개인">개인</MenuItem>
+                  <MenuItem value="기업">기업</MenuItem>
+                  <MenuItem value="공공">공공</MenuItem>
+
                   </Select>
                 </Box>
               </Grid>

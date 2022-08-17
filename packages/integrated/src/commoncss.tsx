@@ -169,14 +169,16 @@ const css = createTheme({
 
         //This is all outlined input style class
         '& .sub_input_common': {
-          borderRadius: '4px',
-          borderColor: '#0000001F',
           color: '#00000099',
           fontFamily: 'NotoSansKRRegular',
           fontSize: '13px',
           '& input::placeholder': {
             color: '#00000099',
             opacity: '1',
+          },
+          '& .MuiOutlinedInput-notchedOutline':{
+            borderRadius: '4px',
+            borderColor: '#0000001F',
           },
           '&.MuiOutlinedInput-root.Mui-focused fieldset': {
             borderWidth: '1px',
@@ -252,11 +254,13 @@ const css = createTheme({
 
         //This is all outlined select style class
         '& .sub_select_common': {
-          borderRadius: '4px',
-          borderColor: '#0000001F',
           color: '#000000DE',
           fontFamily: 'NotoSansKRRegular',
           fontSize: '13px',
+          '& .MuiOutlinedInput-notchedOutline':{
+            borderRadius: '4px',
+            borderColor: '#0000001F',
+          },
           '&.MuiOutlinedInput-root.Mui-focused fieldset': {
             borderWidth: '1px',
             borderColor: '#284AD5',
@@ -288,6 +292,18 @@ const css = createTheme({
           backgroundColor: '#fff !important',
         },
         '& .sub_btn_primary_outline_common:hover': {
+          backgroundColor: '#fff !important',
+        },
+        '& .sub_btn_secondary_outline_common': {
+          color: '#555555 !important',
+          fontFamily: 'NotoSansKRMedium !important',
+          fontSize: '14px !important',
+          borderWidth: '1px',
+          borderColor: '#0000001F !important',
+          letterSpacing: '0.01px !important',
+          backgroundColor: '#fff !important',
+        },
+        '& .sub_btn_secondary_outline_common:hover': {
           backgroundColor: '#fff !important',
         },
         '& .MuiPickersDay-root.Mui-selected': {
@@ -773,6 +789,42 @@ const css = createTheme({
         '& .sub_td_ostatus.sub_td_ostatus_color4': {
           color:"#999999"
         },
+
+        //
+        '& .sub_filter2_left':{
+          border:"0 solid #000",
+          paddingLeft:"20px",
+          width:"1000px",height: '60px',display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"start"
+        },
+        '& .sub_filter2_right':{
+          border:"0 solid #000",
+          width:"470px",height: '60px',display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"start"
+        },
+        '& .sub_filter2_label1':{
+          width:"102px"
+        },
+        '& .sub_filter2_list':{
+          width:"180px",height:"36px"
+        },
+        '& .sub_filter2_list2':{
+          width:"360px",height:"36px"
+        },
+        '& .sub_filter2_date': {
+          '& .MuiInputBase-root': {
+            width: '205px',
+            height: '36px',
+          },
+        },
+        '& .sub_filter2_btn':{
+            width: '68px',
+            height: '36px',
+            '&.active':{
+              color: '#fff !important',
+              backgroundColor: '#284AD5 !important',
+              borderColor: '#284AD5 !important',
+              boxShadow: '0px 3px 3px #0000002E !important',
+            }
+        }
       },
     },
   },
