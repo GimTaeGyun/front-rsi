@@ -502,6 +502,14 @@ const css = createTheme({
           letterSpacing: '-0.33px !important',
           marginLeft: '8px !important',
         },
+        '& .sub_btn_footer_add': {
+          width: '107px',
+          height: '30px',
+          fontSize: '13px !important',
+          padding: '0 !important',
+          fontFamily: 'NotoSansKRMedium !important',
+          letterSpacing: '-0.33px !important',
+        },
         '& .sub_pagination': {
           '& .MuiTablePagination-selectLabel': {
             color: '#00000099',
@@ -522,7 +530,7 @@ const css = createTheme({
         '& .sub_btn_footer_export': {
           width: '111px',
           height: '30px',
-          fontsize: '13px',
+          fontsize: '13px !important',
           fontFamily: 'NotoSansKRMedium',
           padding: '0 !important',
           letterSpacing: '-0.33px',
