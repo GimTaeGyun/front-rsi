@@ -8,6 +8,7 @@ import {customerData} from '../../../data/atoms';
 import AlertPopup from '../../Common/AlertPopup';
 import Info from './components/UserInfo';
 import TabContent1 from './components/TabContent1';
+import TabContent2 from './components/TabContent2';
 import SubmitButton from './components/SubmitButton';
 import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
@@ -29,7 +30,7 @@ const Data = [
     index: 2,
     child: (
       <>
-        <Info />
+        <TabContent2 />
       </>
     ),
   },
