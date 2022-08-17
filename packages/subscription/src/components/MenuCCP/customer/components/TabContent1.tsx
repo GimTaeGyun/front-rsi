@@ -23,8 +23,13 @@ const TabContent1 = () => {
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [loaded, setLoaded] = useState(false);
+  const [personalData, setPersonalData] = useState([]);
 
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
+
+  const personalChange = (data: any) => {
+    setPersonalData(data);
+  };
 
   useEffect(() => {
     const userApi = async () => {
@@ -160,7 +165,10 @@ const TabContent1 = () => {
           />
           {sharedCustomerData.custTp == 3 ||
           sharedCustomerData.custTp == '개인' ? (
-            <PersonalInfo userData={sharedCustomerData} />
+            <PersonalInfo
+              userData={sharedCustomerData}
+              personal={personalChange}
+            />
           ) : (
             <>
               <CompMngInfo userData={sharedCustomerData} />

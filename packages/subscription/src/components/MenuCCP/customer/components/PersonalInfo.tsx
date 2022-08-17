@@ -10,10 +10,20 @@ import {
   Checkbox,
 } from '@mui/material';
 import CardTemplate from './CardTemplate';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
-const PersonalInfo = (props: { userData: any }) => {
+const PersonalInfo = (props: { userData: any; personal: Function }) => {
   const { userData } = props;
+  const [mobile, setMobile] = React.useState('');
+  const [email, setEmail] = React.useState('');
+
+  useEffect(() => {
+    let data = {
+      mobile: mobile,
+      email: email,
+    };
+    props.personal(data);
+  }, [mobile, email]);
 
   return (
     <>
@@ -52,6 +62,9 @@ const PersonalInfo = (props: { userData: any }) => {
                   name="text6"
                   value={userData.mobile}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setMobile(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -69,6 +82,9 @@ const PersonalInfo = (props: { userData: any }) => {
                   name="text7"
                   value={userData.email}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
