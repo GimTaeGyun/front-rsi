@@ -1,7 +1,10 @@
 import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+import TabContent1 from '../components/MenuCCP/customer/components/TabContent1';
+import TabContent2 from '../components/MenuCCP/customer/components/TabContent2';
+import TabContent3 from '../components/MenuCCP/customer/components/TabContent3';
 import PersonalInfo from '../components/MenuCCP/customer/components/PersonalInfo';
-
+import React from 'react';
 
 import axios from '../utils/axios';
 

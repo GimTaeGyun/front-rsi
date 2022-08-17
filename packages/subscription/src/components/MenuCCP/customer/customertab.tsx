@@ -7,6 +7,7 @@ import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import {customerData} from '../../../data/atoms';
 import TabContent1 from './components/TabContent1';
 import TabContent2 from './components/TabContent2';
+import TabContent3 from './components/TabContent3';
 import AlertPopup from '../../Common/AlertPopup';
 
 
@@ -36,7 +37,7 @@ const CustomerTab=[
     index: 3,
     child: (
       <>
-        <TabContent1 />
+        <TabContent3 />
       </>
     ),
   },
