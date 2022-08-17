@@ -7,11 +7,13 @@ import {
   MenuItem,
   Grid,
   OutlinedInput,
-  Typography
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import CardTemplate from './CardTemplate';
-const CompMngInfo = () => {
+const CompMngInfo = (props: { userData: any }) => {
+  const { userData } = props;
+  console.log(userData);
   return (
     <>
       <CardTemplate title="법인 담당자 정보">
@@ -29,7 +31,7 @@ const CompMngInfo = () => {
                   fullWidth={false}
                   placeholder=""
                   name="text8"
-                  value="김철수"
+                  value={userData.ceo}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -46,7 +48,7 @@ const CompMngInfo = () => {
                   fullWidth={false}
                   placeholder=""
                   name="text9"
-                  value="010-1234-1234"
+                  value={userData.mobile}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -63,7 +65,7 @@ const CompMngInfo = () => {
                   fullWidth={false}
                   placeholder=""
                   name="text10"
-                  value="test@gmail.com"
+                  value={userData.email}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -81,7 +83,7 @@ const CompMngInfo = () => {
                   fullWidth={false}
                   placeholder=""
                   name="text8"
-                  value="홍보팀"
+                  value={userData.custDept}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -98,7 +100,7 @@ const CompMngInfo = () => {
                   fullWidth={false}
                   placeholder=""
                   name="text9"
-                  value="010-1234-1234"
+                  value={userData.tel}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -115,7 +117,7 @@ const CompMngInfo = () => {
                   fullWidth={false}
                   placeholder=""
                   name="text10"
-                  value="02-1234-1234"
+                  value={userData.corpRegNo}
                   className="sub_input_common sub_card_formcontrol_input"
                 />
               </Box>
@@ -158,11 +160,11 @@ const CompMngInfo = () => {
                     sx={{ flexDirection: 'row' }}
                   >
                     <FormControlLabel
-                      control={<Checkbox disabled defaultChecked />}
+                      control={<Checkbox disabled checked={true} />}
                       label="이메일"
                     />
                     <FormControlLabel
-                      control={<Checkbox disabled />}
+                      control={<Checkbox disabled checked={false} />}
                       label="SMS"
                     />
                   </FormGroup>

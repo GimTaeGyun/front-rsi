@@ -1,19 +1,18 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import {customerData} from '../../../data/atoms';
+import { customerData } from '../../../data/atoms';
 import TabContent1 from './components/TabContent1';
 import TabContent2 from './components/TabContent2';
 import TabContent3 from './components/TabContent3';
 import AlertPopup from '../../Common/AlertPopup';
 
-
 import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
-const CustomerTab=[
+const CustomerTabData = [
   {
     title: '상세정보',
     index: 1,
@@ -52,16 +51,17 @@ const CustomerTab=[
   },
 ];
 
-
-const Detail = () => {
+const CustomerTab = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
-  const {state} = useLocation();
+  const { state } = useLocation();
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
-  setSharedCustomerData(state);
 
-  
+  useEffect(() => {
+    setSharedCustomerData(state);
+  }, []);
+
   return (
     <>
       <AppFrame
@@ -82,11 +82,11 @@ const Detail = () => {
               closeCallback={alertPopup.leftCallback}
             />
           ) : undefined}
-          <TabButton item={CustomerTab} selectedIndex={1} />
+          <TabButton item={CustomerTabData} selectedIndex={1} />
         </Box>
       </AppFrame>
     </>
   );
 };
 
-export default Detail;
+export default CustomerTab;
