@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import MyDatePicker from "../../../Common/MyDatePicker";
 import CheckboxSelect from "../../../Common/CheckboxSelect";
-
+import SubmitButton from './SubmitButton';
 import {
   DataGrid,
   GridColDef,
@@ -443,6 +443,8 @@ const TabContent2 = () => {
                     }}
                 />
             </div>
+            
+          <SubmitButton />
       </Card>
     </>
   );
