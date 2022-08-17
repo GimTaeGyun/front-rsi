@@ -443,8 +443,6 @@ const TabContent2 = () => {
                     }}
                 />
             </div>
-            
-          <SubmitButton />
       </Card>
     </>
   );
