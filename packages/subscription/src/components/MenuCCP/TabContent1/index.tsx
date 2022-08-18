@@ -125,7 +125,6 @@ const TabContent1 = () => {
       reqdata,
     );
     if (response.data.msg === '성공') {
-      alert('정상적으로 처리 되었습니다.');
       if (sharedCustomerData.custTp == 3) {
         setSharedCustomerData({ ...sharedCustomerData, ...data.personData });
       } else {
