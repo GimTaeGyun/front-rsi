@@ -145,16 +145,19 @@ const styles = {
     },
   },
   search_input: {
-    border: 'none',
+    border: '0px important',
     width: '194px',
     height: '37px',
     bgcolor: '#0000000A',
     borderRadius: '4px',
     pl: 0,
+    '& input::placeholder': {
+      fontFamily: 'NotoSansKRRegular',
+    },
     '&.MuiOutlinedInput-root': {
       '& fieldset': {
         borderColor: '#0000000A',
-        borderWidth: '1px',
+        borderWidth: '0px',
       },
       '&:hover fieldset': {
         borderColor: '#0000000A',

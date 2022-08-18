@@ -24,8 +24,9 @@ const LeftMenuItem = (props: {
           }),
           color: '#fff',
 
-          borderTop: '1px solid #ffffff1f',
-          borderBottom: '1px solid #ffffff1f',
+          borderTop: '0.5px solid #ffffff1f',
+          borderBottom: '0.5px solid #ffffff1f',
+          borderCollapse: 'collapse',
           pl: '8px',
           height: '55px',
           '&:hover': {
@@ -75,6 +76,7 @@ const LeftMenuItem = (props: {
                   sx={{
                     height: '23px',
                     lineHeight: 'normal',
+                    fontFamily: 'NotoSansKRRegular',
                     '& .MuiListItemText-primary': {
                       color: window.location.pathname.includes(child.link)
                         ? '#fff'
@@ -83,9 +85,6 @@ const LeftMenuItem = (props: {
                       height: '15px',
                       '&:hover': {
                         color: '#fff',
-                      },
-                      ':click': {
-                        bgcolor: 'transparent',
                       },
                     },
                   }}

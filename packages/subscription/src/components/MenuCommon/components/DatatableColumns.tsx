@@ -26,6 +26,7 @@ export const columns: GridColDef[] = [
     headerName: '이름',
     width: 87,
     headerAlign: 'center',
+    sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography fontSize="14px" aria-expanded="false">
@@ -39,7 +40,7 @@ export const columns: GridColDef[] = [
     width: 143,
     headerAlign: 'center',
     align: 'center',
-
+    sortable: false,
     hideSortIcons: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -51,6 +52,7 @@ export const columns: GridColDef[] = [
     headerName: '이메일',
     width: 200,
     headerAlign: 'center',
+    disableColumnMenu: true,
     sortable: false,
     hideSortIcons: true,
     headerClassName: 'datagridMenu',
@@ -83,7 +85,10 @@ export const columns: GridColDef[] = [
         fontSize="14px"
         sx={{
           ...((params.value as any) == 1 && { color: '#284AD5' }),
-          ...((params.value as any) != 1 && { color: '#999999' }),
+          ...((params.value as any) != 1 && {
+            color: '#999999',
+            fontFamily: 'NotoSansKRReguler',
+          }),
         }}
       >
         {(params.value as any) == 1 ? '사용' : '종료'}
@@ -131,7 +136,7 @@ export const columns: GridColDef[] = [
       <Button
         variant="outlined"
         sx={{
-          Width: '44px',
+          minWidth: '44px',
           height: '30px',
           fontSize: '13px',
         }}

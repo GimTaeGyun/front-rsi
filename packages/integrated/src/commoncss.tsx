@@ -68,9 +68,11 @@ const css = createTheme({
           '& .MuiTypography-root.sub_label_dot': {
             color: '#284ad5',
             fontSize: '20px ',
-            lineHeight: '0 ',
+            minWidth: '20px',
             display: 'inline-block',
-            top: '5px',
+            position: 'absolute',
+            top: '-10px',
+            borderLeft: '5px solid white',
           },
 
           '& .sub_card': {
@@ -94,7 +96,7 @@ const css = createTheme({
               lineHeight: 'normal',
             },
             '& 	.MuiOutlinedInput-input': {
-              fontFamily: 'NotoSansKRMedium',
+              fontFamily: 'NotoSansKRReguler',
               fontStyle: 'normal',
               fontSize: '14px',
             },
@@ -123,6 +125,7 @@ const css = createTheme({
             marginTop: '10px',
             fontSize: '14px',
             border: 'dashed',
+            color: '#f9f9f9',
             backgroundColor: '#F9F9F9',
             borderWidth: '1px',
             borderColor: '#0000003B',
