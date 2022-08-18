@@ -197,11 +197,29 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                     sx={{ flexDirection: 'row' }}
                   >
                     <FormControlLabel
-                      control={<Checkbox disabled checked={true} />}
+                      control={
+                        <Checkbox
+                          disabled
+                          checked={
+                            userData.hasOwnProperty('tosInfo')
+                              ? userData.tosInfo[0].tosInfo.promotion.email
+                              : false
+                          }
+                        />
+                      }
                       label="이메일"
                     />
                     <FormControlLabel
-                      control={<Checkbox disabled checked={false} />}
+                      control={
+                        <Checkbox
+                          disabled
+                          checked={
+                            userData.hasOwnProperty('tosInfo')
+                              ? userData.tosInfo[0].tosInfo.promotion.mobile
+                              : false
+                          }
+                        />
+                      }
                       label="SMS"
                     />
                   </FormGroup>

@@ -74,7 +74,7 @@ const TabContent1 = () => {
             dept: compMngData.custDept,
             email: compMngData.email,
             empSize: compData.empSize,
-            fax: '02-000-0001',
+            fax: compMngData.fax,
             mobile: compMngData.mobile,
             postNo: compData.postNo,
             tel: compMngData.tel,
@@ -115,6 +115,7 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
+      /*
       let tmpData = {
         rnum: 10,
         custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
@@ -132,7 +133,7 @@ const TabContent1 = () => {
           label: '사용',
         },
       };
-      /*
+      */
       let tmpData = {
         rnum: 8,
         custId: '232e9b0a3bb22717c5e54ae9df67219e',
@@ -150,7 +151,6 @@ const TabContent1 = () => {
           label: '사용',
         },
       };
-      */
       if (loaded) return;
 
       (tmpData as any).custTp = tmpData.custTp.value;
