@@ -63,7 +63,8 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  휴대전화 <Typography className="sub_label_dot">•</Typography>{' '}
+                  휴대전화{' '}
+                  <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
@@ -82,7 +83,8 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  이메일 <Typography className="sub_label_dot">•</Typography>{' '}
+                  이메일{' '}
+                  <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
