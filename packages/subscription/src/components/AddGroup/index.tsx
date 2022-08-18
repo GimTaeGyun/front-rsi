@@ -149,7 +149,7 @@ const AddGroup = (props: {
                 className="sub_formLabel"
                 sx={{ marginBottom: '10px' }}
               >
-                그룹명<Typography className="sub_label_dot">•</Typography>{' '}
+                그룹명 <Typography className="sub_cust_label_dot">•</Typography>{' '}
               </InputLabel>
               <Box sx={styles.checkfield_outer}>
                 <Box component="span" sx={{ width: '348px' }}>
@@ -194,8 +194,8 @@ const AddGroup = (props: {
                 className="sub_formLabel"
                 sx={{ marginBottom: '10px' }}
               >
-                그룹 역할 설정
-                <Typography className="sub_label_dot">•</Typography>{' '}
+                그룹 역할 설정{' '}
+                <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 <Box component="span" sx={styles.req_field}></Box>
               </InputLabel>
               <Box component="div" sx={{ position: 'relative' }}>

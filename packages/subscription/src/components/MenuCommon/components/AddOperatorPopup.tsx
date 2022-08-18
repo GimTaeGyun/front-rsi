@@ -122,7 +122,7 @@ const AddOperatorPopup = (props: {
               className="sub_formLabel"
               sx={{ marginTop: '0px !important' }}
             >
-              아이디 <Typography className="sub_label_dot">•</Typography>{' '}
+              아이디 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <Box
               sx={{
@@ -151,6 +151,7 @@ const AddOperatorPopup = (props: {
                   height: '42px',
                   minWidth: '82px',
                   fontSize: '14px',
+                  marginTop: '10px',
                 }}
                 className="sub_button_blue"
                 onClick={e => handleMiddle(e)}
@@ -161,7 +162,7 @@ const AddOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              비밀번호 <Typography className="sub_label_dot">•</Typography>{' '}
+              비밀번호 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
@@ -181,7 +182,7 @@ const AddOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              이름 <Typography className="sub_label_dot">•</Typography>{' '}
+              이름 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
@@ -199,7 +200,7 @@ const AddOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              전화번호 <Typography className="sub_label_dot">•</Typography>{' '}
+              전화번호 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
@@ -218,7 +219,7 @@ const AddOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              이메일 <Typography className="sub_label_dot">•</Typography>{' '}
+              이메일 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
@@ -248,26 +249,38 @@ const AddOperatorPopup = (props: {
             >
               <MenuItem
                 value="DEFAULT"
-                sx={{ fontFamily: 'NotoSansKRRagular' }}
+                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
               >
                 기본
               </MenuItem>
               <MenuItem
                 value="SYSUSER"
-                sx={{ fontFamily: 'NotoSansKRRagular' }}
+                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
               >
                 슈퍼바이저
               </MenuItem>
-              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+              <MenuItem
+                value=""
+                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+              >
                 개발자
               </MenuItem>
-              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+              <MenuItem
+                value=""
+                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+              >
                 통합관리자 어드민
               </MenuItem>
-              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+              <MenuItem
+                value=""
+                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+              >
                 재무회계 담당자
               </MenuItem>
-              <MenuItem value="" sx={{ fontFamily: 'NotoSansKRRagular' }}>
+              <MenuItem
+                value=""
+                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+              >
                 영업 담당자
               </MenuItem>
             </Select>
@@ -300,15 +313,15 @@ const AddOperatorPopup = (props: {
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button
             onClick={e => handleClose(e)}
-            sx={{ fontSize: '14px' }}
-            className="sub_button_white"
+            sx={{ fontSize: '14px', width: '57px', height: '36px' }}
+            className="sub_button_white_noneborder"
           >
             취소
           </Button>
           <Button
             variant="contained"
             className="sub_button_blue"
-            sx={{ width: '57', height: '36', fontSize: '14px' }}
+            sx={{ width: '57px', height: '36px', fontSize: '14px' }}
             onClick={async e => {
               if (await validationSchema.isValid(popupData)) {
                 handleOk(e);

@@ -96,6 +96,8 @@ const css = createTheme({
             marginTop: '10px',
             height: '42px',
             width: '100%',
+            color: '##000000DE',
+            '& input::placeholder': { color: '#00000099' },
             '& .MuiOutlinedInput-input': {
               padding: '11px 10px',
               lineHeight: 'normal',

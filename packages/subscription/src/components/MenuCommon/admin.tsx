@@ -266,11 +266,11 @@ const Admin = () => {
   // 사이드바 트리 아이콘의 ...icon 클릭 이벨트
   const treeMoreIconCallback = [
     () => {
-      setAddGroupTitle('하위 그룹 추가');
+      setAddGroupTitle('운영자 그룹 추가');
       setAddGroupOpen(true);
     },
     () => {
-      setAddGroupTitle('그룹 수정');
+      setAddGroupTitle('운영자 그룹 수정');
       setAddGroupOpen(true);
     },
     (selectedMoreIcon: any) => {
