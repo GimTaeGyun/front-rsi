@@ -1,11 +1,52 @@
 import { Box, Divider } from '@mui/material';
 import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CardTemplate from './CardTemplate';
 declare var daum: any;
-const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
+const CompInfo = (props: {
+  buttonCallback?: Function;
+  compChange: Function;
+  userData: any;
+}) => {
   const { userData } = props;
   const { buttonCallback = () => {} } = props;
+  const [cpyNm, setCpyNm] = useState(userData.cpyNm);
+  const [ceo, setCeo] = useState(userData.ceo);
+  const [corpTp, setCorpTp] = useState(userData.corpTp);
+  const [corpRegNo, setCorpRegNo] = useState(userData.corpRegNo);
+  const [bizItem, setBizItem] = useState(userData.bizItem);
+  const [corpSize, setCorpSize] = useState(userData.corpSize);
+  const [empSize, setEmpSize] = useState(userData.empSize);
+  const [postNo, setPostNo] = useState(userData.postNo);
+  const [address, setAddress] = useState(userData.address);
+  const [addressDesc, setAddressDesc] = useState(userData.addressDesc);
+
+  useEffect(() => {
+    const data = {
+      cpyNm: cpyNm,
+      ceo: ceo,
+      corpRegNo: corpRegNo,
+      corpTp: corpTp,
+      bizItem: bizItem,
+      corpSize: corpSize,
+      empSize: empSize,
+      postNo: postNo,
+      address: address,
+      addressDesc: addressDesc,
+    };
+    props.compChange(data);
+  }, [
+    cpyNm,
+    ceo,
+    corpTp,
+    corpRegNo,
+    bizItem,
+    corpSize,
+    empSize,
+    postNo,
+    address,
+    addressDesc,
+  ]);
 
   const zipCodeRef = useRef();
   const addressRef = useRef();
@@ -41,8 +82,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text8"
-                  value={userData.cpyNm}
+                  value={cpyNm}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setCpyNm(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -58,8 +102,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text9"
-                  value={userData.ceo}
+                  value={ceo}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setCeo(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -92,8 +139,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <Select
                   fullWidth={false}
                   name="select3"
-                  value={userData.corpTp}
+                  value={corpTp}
                   className="sub_select_common sub_card_formcontrol_list"
+                  onChange={e => {
+                    setCorpTp(e.target.value);
+                  }}
                 >
                   <MenuItem value="CORP">기업</MenuItem>
                   <MenuItem value="PUBL">공공</MenuItem>
@@ -112,8 +162,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text11"
-                  value={userData.corpRegNo}
+                  value={corpRegNo}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setCorpRegNo(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -158,8 +211,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text11"
-                  value={userData.bizItem}
+                  value={bizItem}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setBizItem(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -179,8 +235,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                     <Select
                       fullWidth={false}
                       name="select4"
-                      value={userData.corpSize}
+                      value={corpSize}
                       className="sub_select_common sub_card_formcontrol_list"
+                      onChange={e => {
+                        setCorpSize(e.target.value);
+                      }}
                     >
                       <MenuItem value={1}>대기업</MenuItem>
                       <MenuItem value={2}>중견기업</MenuItem>
@@ -200,8 +259,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                     <Select
                       fullWidth={false}
                       name="select6"
-                      defaultValue={userData.empSize}
+                      defaultValue={empSize}
                       className="sub_select_common sub_card_formcontrol_list"
+                      onChange={e => {
+                        setEmpSize(e.target.value);
+                      }}
                     >
                       <MenuItem value={1}>3천명이상</MenuItem>
                       <MenuItem value={2}>2천명이상~3천명미만</MenuItem>
@@ -238,8 +300,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                     fullWidth={false}
                     placeholder=""
                     name="text14"
-                    value={userData.postNo}
+                    value={postNo}
                     className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_search"
+                    onChange={e => {
+                      setPostNo(e.target.value);
+                    }}
                   />
                   <Button
                     variant="outlined"
@@ -273,8 +338,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                   placeholder=""
                   ref={addressRef}
                   name="text15"
-                  value={userData.address}
+                  value={address}
                   className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
+                  onChange={e => {
+                    setAddress(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -298,8 +366,11 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <OutlinedInput
                   placeholder=""
                   name="text16"
-                  value={userData.addressDesc}
+                  value={addressDesc}
                   className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
+                  onChange={e => {
+                    setAddressDesc(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>

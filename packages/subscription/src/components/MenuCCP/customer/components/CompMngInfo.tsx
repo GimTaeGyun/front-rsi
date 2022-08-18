@@ -9,11 +9,29 @@ import {
   OutlinedInput,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardTemplate from './CardTemplate';
-const CompMngInfo = (props: { userData: any }) => {
+const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
   const { userData } = props;
-  console.log(userData);
+  const [custNm, setCustNm] = useState(userData.custNm);
+  const [mobile, setMobile] = useState(userData.mobile);
+  const [custDept, setCustDept] = useState(userData.custDept);
+  const [tel, setTel] = useState(userData.tel);
+  const [fax, setFax] = useState(userData.fax);
+  const [email, setEmail] = useState(userData.email);
+
+  useEffect(() => {
+    const datas = {
+      custNm: custNm === undefined ? userData.custNm : custNm,
+      mobile: mobile === undefined ? userData.mobile : mobile,
+      email: email === undefined ? userData.email : email,
+      custDept: custDept === undefined ? userData.custDept : custDept,
+      tel: tel === undefined ? userData.tel : tel,
+      fax: fax === undefined ? userData.fax : fax,
+    };
+    props.compMngChange(datas);
+  }, [custNm, mobile, email, custDept, tel, fax]);
+
   return (
     <>
       <CardTemplate title="법인 담당자 정보">
@@ -31,8 +49,11 @@ const CompMngInfo = (props: { userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text8"
-                  value={userData.ceo}
+                  value={custNm}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setCustNm(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -48,8 +69,11 @@ const CompMngInfo = (props: { userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text9"
-                  value={userData.mobile}
+                  value={mobile}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setMobile(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -65,8 +89,11 @@ const CompMngInfo = (props: { userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text10"
-                  value={userData.email}
+                  value={email}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -83,8 +110,11 @@ const CompMngInfo = (props: { userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text8"
-                  value={userData.custDept}
+                  value={custDept}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setCustDept(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -100,8 +130,11 @@ const CompMngInfo = (props: { userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text9"
-                  value={userData.tel}
+                  value={tel}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setTel(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>
@@ -117,8 +150,11 @@ const CompMngInfo = (props: { userData: any }) => {
                   fullWidth={false}
                   placeholder=""
                   name="text10"
-                  value={userData.corpRegNo}
+                  value={fax}
                   className="sub_input_common sub_card_formcontrol_input"
+                  onChange={e => {
+                    setFax(e.target.value);
+                  }}
                 />
               </Box>
             </Grid>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ButtonHTMLAttributes, useEffect, useState } from 'react';
 import axios from '../../../../utils/axios';
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
@@ -10,6 +10,7 @@ import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
 import AlertPopup from '../../../Common/AlertPopup';
 import * as Yup from 'yup';
 import SubmitButton from './SubmitButton';
+import { useNavigate } from 'react-router-dom';
 
 const validator = Yup.object().shape({
   usrPw: Yup.string()
@@ -20,15 +21,71 @@ const validator = Yup.object().shape({
 });
 
 const TabContent1 = () => {
+  const navigate = useNavigate();
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [loaded, setLoaded] = useState(false);
   const [personalData, setPersonalData] = useState([]);
+  const [compData, setCompData] = useState(Object);
+  const [compMngData, setCompMngData] = useState(Object);
 
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
 
   const personalChange = (data: any) => {
     setPersonalData(data);
+  };
+
+  const compChange = (data: any) => {
+    setCompData(data);
+  };
+
+  const compMngChange = (data: any) => {
+    setCompMngData(data);
+  };
+
+  const onClickUserChange = async () => {
+    const data = {
+      action: 'mod',
+      corpData: [
+        {
+          address: compData.address,
+          addressDesc: compData.addressDesc,
+          bizItem: compData.bizItem,
+          ceo: compData.ceo,
+          corpRegNo: compData.corpRegNo,
+          corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
+          corpSize: compData.corpSize,
+          corpTp: compData.corpTp,
+          cpy_nm: compData.cpyNm,
+          custNm: compMngData.custNm,
+          dept: compMngData.custDept,
+          email: compMngData.email,
+          empSize: compData.empSize,
+          fax: '02-000-0001',
+          mobile: compMngData.mobile,
+          postNo: compData.postNo,
+          tel: compMngData.tel,
+        },
+      ],
+      custId: '232e9b0a3bb22717c5e54ae9df67219e',
+      custTp: 1,
+      personData: [
+        {
+          email: compMngData.email,
+          mobile: compMngData.mobile,
+        },
+      ],
+    };
+    const response = await axios.post(
+      '/management/manager/customer/cust/update',
+      data,
+    );
+    if (response.data.msg === '성공') {
+      navigate('/admin/common/admin');
+    } else {
+      alert('XXX');
+      navigate('/admin/ccp/customer/tab');
+    }
   };
 
   useEffect(() => {
@@ -172,15 +229,18 @@ const TabContent1 = () => {
             />
           ) : (
             <>
-              <CompMngInfo userData={sharedCustomerData} />
-              <CompInfo userData={sharedCustomerData} />
+              <CompMngInfo
+                userData={sharedCustomerData}
+                compMngChange={compMngChange}
+              />
+              <CompInfo userData={sharedCustomerData} compChange={compChange} />
             </>
           )}
         </>
       ) : (
         ''
       )}
-      <SubmitButton />
+      <SubmitButton onClickUserChange={onClickUserChange} />
     </>
   );
 };
