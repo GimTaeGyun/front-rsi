@@ -312,7 +312,6 @@ const DataTable = (props: {
               event: React.MouseEvent<HTMLButtonElement> | null,
               newPage: number,
             ) => {
-              console.log(event, 'here?');
               setPage(newPage);
               pageChanged(newPage);
             };
@@ -320,7 +319,6 @@ const DataTable = (props: {
             const handleChangeRowsPerPage = (
               event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
             ) => {
-              console.log(event, 'here??');
               setPage(0);
               rowsChanged(event.target.value);
             };

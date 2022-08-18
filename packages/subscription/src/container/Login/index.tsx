@@ -46,9 +46,6 @@ const AdminLogin = () => {
         setIsLogin(true);
         navigate('/admin/common/admin');
       } else {
-        console.log(usrId);
-        console.log(usrPwd);
-        console.log(fetch.data.msg);
         setIsLogin(false);
       }
     } catch (e) {

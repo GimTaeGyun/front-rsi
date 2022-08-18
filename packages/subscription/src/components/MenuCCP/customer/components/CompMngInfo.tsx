@@ -13,7 +13,6 @@ import React from 'react';
 import CardTemplate from './CardTemplate';
 const CompMngInfo = (props: { userData: any }) => {
   const { userData } = props;
-  console.log(userData);
   return (
     <>
       <CardTemplate title="법인 담당자 정보">

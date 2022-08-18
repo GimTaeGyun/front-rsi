@@ -57,7 +57,6 @@ const UpdateOperatorPopupUser = (props: {
         } else {
           setIsOpenPassword(false);
         }
-        console.log(fetch);
       } catch (e) {
         console.error(e);
       }
@@ -100,8 +99,6 @@ const UpdateOperatorPopupUser = (props: {
           usrPw: '',
           usrTp: data.usrTp,
         };
-
-        console.log(userParam);
         try {
           const fetch = await Axios.post(
             '/management/subscription/admin/user/update',

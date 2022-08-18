@@ -1,5 +1,12 @@
 import { Box, Divider } from '@mui/material';
-import { Button, Select, MenuItem, Grid, OutlinedInput } from '@mui/material';
+import {
+  Button,
+  Select,
+  MenuItem,
+  Grid,
+  OutlinedInput,
+  Input,
+} from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import CardTemplate from './CardTemplate';
 declare var daum: any;
@@ -9,6 +16,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
 
   const zipCodeRef = useRef();
   const addressRef = useRef();
+  const fileUploadRef = useRef();
 
   const addressClickEvent = () => {
     new daum.Postcode({
@@ -108,6 +116,7 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                 <Box component="span" className="sub_card_formcontrol_label">
                   사업자등록번호
                 </Box>
+
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
@@ -133,9 +142,20 @@ const CompInfo = (props: { buttonCallback?: Function; userData: any }) => {
                     variant="outlined"
                     className="sub_btn_primary_outline_common sub_card_formcontrol_button_reg"
                     sx={{ marginRight: '10px' }}
+                    onClick={() => {
+                      (fileUploadRef.current as any).children[0].click();
+                    }}
                   >
                     등록
                   </Button>
+                  <Input
+                    ref={fileUploadRef}
+                    type="file"
+                    sx={{ display: 'none' }}
+                    onChange={value => {
+                      console.log(value);
+                    }}
+                  />
                   <Button
                     variant="text"
                     className="sub_card_formcontrol_btn_reg"

@@ -140,7 +140,6 @@ const Sidebar = (props: {
   };
 
   const onClick = (treeItem: any, onToggle: () => void) => {
-    console.log(clickedTreeItem);
     onToggle();
     handleSelectedTreeitem(treeItem);
   };

@@ -672,6 +672,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          width: '1470px',
         },
         '& .sub_btn_card_btm': {
           width: '85px',
