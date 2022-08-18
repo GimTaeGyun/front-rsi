@@ -35,6 +35,8 @@ const ListItems = (props: {
           overflow: 'hidden',
           display: 'inline',
           minWidth: '150px',
+          boxShadow: '0px 1px 2px #0000000E',
+          borderRadius: '6px',
         }}
       >
         <List>
@@ -49,7 +51,6 @@ const ListItems = (props: {
                 borderTopLeftRadius: '6px',
                 backgroundColor: 'white',
                 overflow: 'hidden',
-
                 boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
                 '&:hover': { bgcolor: '#fff' },
               }}

@@ -71,12 +71,18 @@ const DataTable = (props: { onChange: any }) => {
 
 const styles = {
   dg_styles: {
+    '& .MuiDataGrid-row': {
+      fontFamily: 'NotoSansKRRegular',
+      fontSize: '14px',
+      color: '#000000DE',
+    },
+    '& .MuiDataGrid-row:last-child .MuiDataGrid-cell': { borderBottom: '0px' },
     '& .MuiDataGrid-row:hover': {
       backgroundColor: 'unset',
       cursor: 'pointer',
     },
     '& .MuiDataGrid-row.Mui-selected:hover': {
-      backgroundColor: 'black',
+      backgroundColor: 'unset',
     },
     '& .MuiDataGrid-row.Mui-selected': {
       backgroundColor: 'unset',

@@ -129,7 +129,7 @@ const UpdateOperatorPopup = (props: {
         <DialogContent sx={{ padding: '30px' }}>
           <Box>
             <InputLabel className="sub_formLabel">
-              아이디 <Typography className="sub_label_dot">•</Typography>{' '}
+              아이디 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               id="operator_id"
@@ -185,7 +185,7 @@ const UpdateOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              이름 <Typography className="sub_label_dot">•</Typography>{' '}
+              이름 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
@@ -201,7 +201,7 @@ const UpdateOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              전화번호 <Typography className="sub_label_dot">•</Typography>{' '}
+              전화번호 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
@@ -217,7 +217,7 @@ const UpdateOperatorPopup = (props: {
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
-              이메일 <Typography className="sub_label_dot">•</Typography>{' '}
+              이메일 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth

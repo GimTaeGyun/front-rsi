@@ -10,7 +10,7 @@ const SubmitButton = (props: { onClickUserChange: Function }) => {
         variant="outlined"
         className="sub_btn_primary_outline_common sub_btn_card_btm"
         sx={{
-          fontFamily: 'NotoSansKRMedeum',
+          fontFamily: 'NotoSansKRMedium',
           fontSize: '15px',
         }}
         onClick={() => navigate(-1)}
@@ -25,7 +25,7 @@ const SubmitButton = (props: { onClickUserChange: Function }) => {
         className="sub_btn_primary_fill_common sub_btn_card_btm primaryColor2"
         sx={{
           marginLeft: '15px',
-          fontFamily: 'NotoSansKRRegular',
+          fontFamily: 'NotoSansKR !important',
           fontSize: '15px',
         }}
       >
