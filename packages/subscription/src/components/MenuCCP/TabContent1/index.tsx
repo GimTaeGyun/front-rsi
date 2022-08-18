@@ -114,6 +114,7 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
+      /*
       let tmpData = {
         rnum: 10,
         custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
@@ -131,23 +132,25 @@ const TabContent1 = () => {
           label: '사용',
         },
       };
-      // let tmpData = {
-      //   rnum: 8,
-      //   custId: '232e9b0a3bb22717c5e54ae9df67219e',
-      //   custNm: null,
-      //   custTp: {
-      //     value: 1,
-      //     label: '법인',
-      //   },
-      //   loginId: 'ibk07',
-      //   mobile: null,
-      //   email: null,
-      //   joinedAt: '2022-06-27 15:36',
-      //   status: {
-      //     value: 1,
-      //     label: '사용',
-      //   },
-      // };
+      */
+      let tmpData = {
+        rnum: 8,
+        custId: '232e9b0a3bb22717c5e54ae9df67219e',
+        custNm: null,
+        custTp: {
+          value: 1,
+          label: '법인',
+        },
+        loginId: 'ibk07',
+        mobile: null,
+        email: null,
+        joinedAt: '2022-06-27 15:36',
+        status: {
+          value: 1,
+          label: '사용',
+        },
+      };
+
       if (loaded) return;
 
       (tmpData as any).custTp = tmpData.custTp.value;
