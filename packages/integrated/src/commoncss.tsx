@@ -70,8 +70,16 @@ const css = createTheme({
             fontSize: '20px ',
             lineHeight: '0 ',
             display: 'inline-block',
+            top: '5px',
           },
-
+          '& .MuiTypography-root.sub_cust_label_dot': {
+            color: '#284ad5',
+            fontSize: '20px ',
+            lineHeight: '0 ',
+            display: 'inline-block',
+            position: 'relative',
+            bottom: '3px',
+          },
           '& .sub_card': {
             boxShadow: '0px 1px 5px #0000002E ',
             backgroundColor: 'yellow ',
@@ -615,7 +623,7 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
           },
           '& .MuiOutlinedInput-notchedOutline': {
-            border: '1px solid #0000001F',
+            border: '1px solid #0000001F !important',
           },
         },
         '& .sub_card_formcontrol_input_long': {
@@ -624,7 +632,7 @@ const css = createTheme({
         '& .sub_card_formcontrol_input.Mui-disabled': {
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: '#f9f9f9',
-            border: '1px dashed #0000001F !important',
+            border: '1px dotted #0000001F !important',
           },
         },
         '& .sub_card_formcontrol_input.MuiInputBase-readOnly': {
@@ -634,7 +642,7 @@ const css = createTheme({
           },
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: '#f9f9f9',
-            border: '1px dashed #0000001F !important',
+            border: '1px dotted #0000001F !important',
             zIndex: 0,
           },
           '&:hover fieldset': {
@@ -664,7 +672,7 @@ const css = createTheme({
           },
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: '#f9f9f9',
-            border: '1px dashed #0000001F !important',
+            border: '1px dotted #0000001F !important',
             zIndex: 0,
           },
           '&:hover fieldset': {
