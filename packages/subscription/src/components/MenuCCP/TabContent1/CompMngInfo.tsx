@@ -22,12 +22,13 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
 
   useEffect(() => {
     const datas = {
-      custNm: custNm === undefined ? userData.custNm : custNm,
-      mobile: mobile === undefined ? userData.mobile : mobile,
-      email: email === undefined ? userData.email : email,
-      custDept: custDept === undefined ? userData.custDept : custDept,
-      tel: tel === undefined ? userData.tel : tel,
-      fax: fax === undefined ? userData.fax : fax,
+      custNm: custNm,
+      mobile: mobile,
+      email: email,
+      custDept: custDept,
+      tel: tel,
+      fax: fax,
+      custTp: userData.custTp,
     };
     props.compMngChange(datas);
   }, [custNm, mobile, email, custDept, tel, fax]);

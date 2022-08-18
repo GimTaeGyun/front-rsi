@@ -18,9 +18,10 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
   const [email, setEmail] = React.useState(userData.email);
 
   useEffect(() => {
-    let data = {
+    const data = {
       mobile: mobile,
       email: email,
+      custTp: userData.custTp,
     };
     props.personal(data);
   }, [mobile, email]);
