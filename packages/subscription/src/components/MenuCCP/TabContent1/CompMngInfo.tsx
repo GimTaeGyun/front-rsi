@@ -48,7 +48,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text8"
                   value={custNm}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -68,7 +67,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text9"
                   value={mobile}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -88,7 +86,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text10"
                   value={email}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -109,7 +106,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text8"
                   value={custDept}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -129,7 +125,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text9"
                   value={tel}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -149,7 +144,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text10"
                   value={fax}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -169,7 +163,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 </Box>
                 <Select
                   fullWidth={false}
-                  name="select2"
                   value="탈퇴"
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
@@ -196,11 +189,21 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                     sx={{ flexDirection: 'row' }}
                   >
                     <FormControlLabel
-                      control={<Checkbox disabled checked={true} />}
+                      control={
+                        <Checkbox
+                          disabled
+                          checked={userData.tosInfo[0].tosInfo.promotion.email}
+                        />
+                      }
                       label="이메일"
                     />
                     <FormControlLabel
-                      control={<Checkbox disabled checked={false} />}
+                      control={
+                        <Checkbox
+                          disabled
+                          checked={userData.tosInfo[0].tosInfo.promotion.mobile}
+                        />
+                      }
                       label="SMS"
                     />
                   </FormGroup>

@@ -14,7 +14,7 @@ const SubmitButton = (props: { onClickUserChange: Function }) => {
         뒤로
       </Button>
       <Button
-        onClick={e => {
+        onClick={() => {
           props.onClickUserChange();
         }}
         variant="contained"

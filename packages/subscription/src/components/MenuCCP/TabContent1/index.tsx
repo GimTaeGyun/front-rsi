@@ -25,7 +25,7 @@ const TabContent1 = () => {
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [loaded, setLoaded] = useState(false);
-  const [personalData, setPersonalData] = useState([]);
+  const [personalData, setPersonalData] = useState(Object);
   const [compData, setCompData] = useState(Object);
   const [compMngData, setCompMngData] = useState(Object);
 
@@ -53,7 +53,7 @@ const TabContent1 = () => {
           bizItem: compData.bizItem,
           ceo: compData.ceo,
           corpRegNo: compData.corpRegNo,
-          corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
+          //corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
           corpSize: compData.corpSize,
           corpTp: compData.corpTp,
           cpy_nm: compData.cpyNm,
@@ -61,18 +61,18 @@ const TabContent1 = () => {
           dept: compMngData.custDept,
           email: compMngData.email,
           empSize: compData.empSize,
-          fax: '02-000-0001',
+          fax: compMngData.fax,
           mobile: compMngData.mobile,
           postNo: compData.postNo,
           tel: compMngData.tel,
         },
       ],
-      custId: '232e9b0a3bb22717c5e54ae9df67219e',
-      custTp: 1,
+      custId: sharedCustomerData.custId,
+      custTp: sharedCustomerData.custTp,
       personData: [
         {
-          email: compMngData.email,
-          mobile: compMngData.mobile,
+          email: personalData.email,
+          mobile: personalData.mobile,
         },
       ],
     };
@@ -82,6 +82,11 @@ const TabContent1 = () => {
     );
     if (response.data.msg === '성공') {
       alert('정상적으로 처리 되었습니다.');
+      if (sharedCustomerData.custTp == 3) {
+        setSharedCustomerData({ ...sharedCustomerData, ...data.personData });
+      } else {
+        setSharedCustomerData({ ...sharedCustomerData, ...data.corpData });
+      }
     } else {
       alert('XXXXXXXXXXXXXXXXX');
     }
@@ -89,7 +94,7 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
-      /*let tmpData = {
+      let tmpData = {
         rnum: 10,
         custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
         custNm: '개발자',
@@ -105,24 +110,24 @@ const TabContent1 = () => {
           value: 1,
           label: '사용',
         },
-      };*/
-      let tmpData = {
-        rnum: 8,
-        custId: '232e9b0a3bb22717c5e54ae9df67219e',
-        custNm: null,
-        custTp: {
-          value: 1,
-          label: '법인',
-        },
-        loginId: 'ibk07',
-        mobile: null,
-        email: null,
-        joinedAt: '2022-06-27 15:36',
-        status: {
-          value: 1,
-          label: '사용',
-        },
       };
+      // let tmpData = {
+      //   rnum: 8,
+      //   custId: '232e9b0a3bb22717c5e54ae9df67219e',
+      //   custNm: null,
+      //   custTp: {
+      //     value: 1,
+      //     label: '법인',
+      //   },
+      //   loginId: 'ibk07',
+      //   mobile: null,
+      //   email: null,
+      //   joinedAt: '2022-06-27 15:36',
+      //   status: {
+      //     value: 1,
+      //     label: '사용',
+      //   },
+      // };
       if (loaded) return;
 
       (tmpData as any).custTp = tmpData.custTp.value;
@@ -135,14 +140,12 @@ const TabContent1 = () => {
         },
       );
       tmpData = { ...tmpData, ...response.data.result };
-      //(tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
-      //  ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
-      //  : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
-      (tmpData as any).chemail = false;
-      (tmpData as any).chmobile = false;
-      //(tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
-      //  ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
-      //  : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
+      (tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
+        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
+        : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
+      (tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
+        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
+        : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };
