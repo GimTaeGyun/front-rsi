@@ -88,11 +88,49 @@ const TabContent1 = () => {
   }, [personalData, compData, compMngData, sharedCustomerData]);
 
   const onClickUserChange = async () => {
+    const data = {
+      action: 'mod',
+      corpData: [
+        {
+          address: compData.address,
+          addressDesc: compData.addressDesc,
+          bizItem: compData.bizItem,
+          ceo: compData.ceo,
+          corpRegNo: compData.corpRegNo,
+          //corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
+          corpSize: compData.corpSize,
+          corpTp: compData.corpTp,
+          cpy_nm: compData.cpyNm,
+          custNm: compMngData.custNm,
+          dept: compMngData.custDept,
+          email: compMngData.email,
+          empSize: compData.empSize,
+          fax: compMngData.fax,
+          mobile: compMngData.mobile,
+          postNo: compData.postNo,
+          tel: compMngData.tel,
+        },
+      ],
+      custId: sharedCustomerData.custId,
+      custTp: sharedCustomerData.custTp,
+      personData: [
+        {
+          email: personalData.email,
+          mobile: personalData.mobile,
+        },
+      ],
+    };
     const response = await axios.post(
       '/management/manager/customer/cust/update',
       reqdata,
     );
     if (response.data.msg === '성공') {
+      alert('정상적으로 처리 되었습니다.');
+      if (sharedCustomerData.custTp == 3) {
+        setSharedCustomerData({ ...sharedCustomerData, ...data.personData });
+      } else {
+        setSharedCustomerData({ ...sharedCustomerData, ...data.corpData });
+      }
       setAlertPopupData({
         ...alertPopupData,
         visible: true,
@@ -151,6 +189,7 @@ const TabContent1 = () => {
           label: '사용',
         },
       };
+
       if (loaded) return;
 
       (tmpData as any).custTp = tmpData.custTp.value;
@@ -163,14 +202,12 @@ const TabContent1 = () => {
         },
       );
       tmpData = { ...tmpData, ...response.data.result };
-      //(tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
-      //  ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
-      //  : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
-      (tmpData as any).chemail = false;
-      (tmpData as any).chmobile = false;
-      //(tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
-      //  ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
-      //  : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
+      (tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
+        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
+        : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
+      (tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
+        ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
+        : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };

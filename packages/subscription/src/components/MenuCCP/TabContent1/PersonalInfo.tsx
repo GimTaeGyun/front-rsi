@@ -42,7 +42,6 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text5"
                   value={userData.custNm}
                   className="sub_input_common sub_card_formcontrol_input"
                   readOnly
@@ -60,7 +59,6 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text6"
                   value={mobile}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -80,7 +78,6 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text7"
                   value={email}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {

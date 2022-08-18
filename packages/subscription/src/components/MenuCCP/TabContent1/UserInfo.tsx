@@ -53,9 +53,7 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text1"
                   placeholder=""
-                  name="text1"
                   value={userData.loginId}
                   className="sub_input_common sub_card_formcontrol_input"
                   readOnly
@@ -72,9 +70,7 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text2"
                   placeholder=""
-                  name="text2"
                   value={fomat}
                   className="sub_input_common sub_card_formcontrol_input"
                   readOnly
@@ -91,9 +87,7 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
-                  id="text3"
                   placeholder=""
-                  name="text3"
                   value="2022-01-01 12:00"
                   className="sub_input_common sub_card_formcontrol_input"
                   readOnly
@@ -111,8 +105,6 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                 </Box>
                 <Select
                   fullWidth={false}
-                  id="select1"
-                  name="select1"
                   value={translateCustTp(userData.custTp)}
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
@@ -138,9 +130,7 @@ const Info = (props: { buttonCallback?: Function; userData: any }) => {
                   <OutlinedInput
                     type="password"
                     fullWidth={false}
-                    id="text4"
                     placeholder=""
-                    name="text4"
                     value="abc123"
                     className="sub_input_common sub_card_formcontrol_input"
                     readOnly
