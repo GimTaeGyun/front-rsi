@@ -7,6 +7,7 @@ import {
   Grid,
   OutlinedInput,
   Input,
+  Typography,
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import CardTemplate from './CardTemplate';
@@ -78,7 +79,8 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  법인명<Typography className="sub_label_dot">•</Typography>{' '}
+                  법인명{' '}
+                  <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
@@ -97,7 +99,8 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  대표자명 <Typography className="sub_label_dot">•</Typography>{' '}
+                  대표자명{' '}
+                  <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
@@ -116,7 +119,8 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  법인유형 <Typography className="sub_label_dot">•</Typography>{' '}
+                  법인유형{' '}
+                  <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
                 <Select
                   fullWidth={false}
@@ -139,9 +143,8 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
               >
                 <Box component="span" className="sub_card_formcontrol_label">
                   사업자등록번호{' '}
-                  <Typography className="sub_label_dot">•</Typography>{' '}
+                  <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
-
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
@@ -192,6 +195,12 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                   </Button>
                 </Box>
               </Box>
+            </Grid>
+            <Grid>
+              <Box
+                component="div"
+                className="sub_card_formcontrol_outer_common"
+              ></Box>
             </Grid>
             <Divider sx={{ width: '100%' }} />
             <Grid>

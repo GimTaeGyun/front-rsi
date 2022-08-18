@@ -114,8 +114,7 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
-      /*
-      let tmpData = {
+      /*let tmpData = {
         rnum: 10,
         custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
         custNm: '개발자',
@@ -131,8 +130,8 @@ const TabContent1 = () => {
           value: 1,
           label: '사용',
         },
-      };
-      */
+      };*/
+
       let tmpData = {
         rnum: 8,
         custId: '232e9b0a3bb22717c5e54ae9df67219e',

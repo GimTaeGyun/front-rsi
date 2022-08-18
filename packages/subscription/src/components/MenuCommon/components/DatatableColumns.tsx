@@ -9,6 +9,7 @@ import {
 import React from 'react';
 
 export const columns: GridColDef[] = [
+  { field: '__check__', sortingOrder: ['desc'] },
   {
     field: 'id',
     headerName: 'ID',

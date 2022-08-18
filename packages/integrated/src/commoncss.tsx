@@ -74,7 +74,14 @@ const css = createTheme({
             top: '-10px',
             borderLeft: '5px solid white',
           },
-
+          '& .MuiTypography-root.sub_cust_label_dot': {
+            color: '#284ad5',
+            fontSize: '20px ',
+            lineHeight: '0 ',
+            display: 'inline-block',
+            position: 'relative',
+            bottom: '3px',
+          },
           '& .sub_card': {
             boxShadow: '0px 1px 5px #0000002E ',
             backgroundColor: 'yellow ',
@@ -355,6 +362,25 @@ const css = createTheme({
         '& .sub_card_filter': {
           marginBottom: '20px',
         },
+        '& .sub_card_filter_dropdown': {
+          height: '60px',
+        },
+        '& .sub_card_filter_dropdown.active': {
+          height: '226px',
+        },
+        '& .sub_filter_dropdown_lbl': {
+          paddingLeft: '20px',
+          width: '120px',
+          borderRight: '0 solid red',
+        },
+        '& .sub_filter_dropdown_chk_outer': {
+          width: '120px',
+          '& .MuiTypography-root': {
+            fontFamily: 'NotoSansKRRegular',
+            color: '#000000DE',
+            fontSize: '13px',
+          },
+        },
         '& .sub_listpage_filter_topsection': {
           height: '60px',
           borderBottom: '1px solid #0000001F',
@@ -377,6 +403,14 @@ const css = createTheme({
         },
         '& .sub_listpage_filter_topsection_sub.last': {
           justifyContent: 'end',
+        },
+        '& .sub_listpage_filter_dropdown_row': {
+          width: '100%',
+          height: '56px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'start',
+          borderTop: '1px solid #0000001F',
         },
         '& .sub_listpage_filter_label': {
           color: '#333333',
@@ -601,7 +635,7 @@ const css = createTheme({
         '& .sub_card_formcontrol_input.Mui-disabled': {
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: '#f9f9f9',
-            border: '1px dashed #0000001F !important',
+            border: '1px dotted #0000001F !important',
           },
         },
         '& .sub_card_formcontrol_input.MuiInputBase-readOnly': {
@@ -611,7 +645,7 @@ const css = createTheme({
           },
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: '#f9f9f9',
-            border: '1px dashed #0000001F !important',
+            border: '1px dotted #0000001F !important',
             zIndex: 0,
           },
           '&:hover fieldset': {
@@ -641,7 +675,7 @@ const css = createTheme({
           },
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: '#f9f9f9',
-            border: '1px dashed #0000001F !important',
+            border: '1px dotted #0000001F !important',
             zIndex: 0,
           },
           '&:hover fieldset': {
