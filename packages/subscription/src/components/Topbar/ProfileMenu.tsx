@@ -94,7 +94,7 @@ const ProfileMenu = () => {
                 .default
             }
           />
-          <Typography ml="5px" fontSize="14px" fontFamily="NotoSansKRMedium">
+          <Typography ml="5px" fontSize="14px" fontFamily="NotoSansKRRegular">
             admin
           </Typography>
         </Box>
@@ -113,10 +113,11 @@ const ProfileMenu = () => {
             horizontal: 'right',
           }}
           sx={{
-            minheight: '100px',
+            minHeight: '100px',
             mt: '50px',
             borderRadius: '6px',
             '& .MuiList-root': {
+              border: '1px solid #0000001F',
               borderRadius: '6px',
               padding: 0,
             },
@@ -128,13 +129,17 @@ const ProfileMenu = () => {
             onClick={onClickButton}
             sx={{
               height: '49px',
-              borderBottom: '1px solid',
+              borderBottom: '1px solid ',
               borderColor: '#0000001F',
+              fontFamily: 'NotoSansKRRegular',
             }}
           >
             개인정보 설정
           </MenuItem>
-          <MenuItem onClick={logout} sx={{ height: '49px' }}>
+          <MenuItem
+            onClick={logout}
+            sx={{ height: '49px', fontFamily: 'NotoSansKRRegular' }}
+          >
             로그아웃
           </MenuItem>
         </Menu>

@@ -9,6 +9,10 @@ const SubmitButton = (props: { onClickUserChange: Function }) => {
       <Button
         variant="outlined"
         className="sub_btn_primary_outline_common sub_btn_card_btm"
+        sx={{
+          fontFamily: 'NotoSansKRMedeum',
+          fontSize: '15px',
+        }}
         onClick={() => navigate(-1)}
       >
         뒤로
@@ -19,7 +23,11 @@ const SubmitButton = (props: { onClickUserChange: Function }) => {
         }}
         variant="contained"
         className="sub_btn_primary_fill_common sub_btn_card_btm primaryColor2"
-        sx={{ marginLeft: '15px' }}
+        sx={{
+          marginLeft: '15px',
+          fontFamily: 'NotoSansKRRegular',
+          fontSize: '15px',
+        }}
       >
         저장
       </Button>

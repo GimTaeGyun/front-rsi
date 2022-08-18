@@ -70,6 +70,7 @@ const css = createTheme({
             fontSize: '20px ',
             lineHeight: '0 ',
             display: 'inline-block',
+            top: '5px',
           },
 
           '& .sub_card': {
@@ -588,7 +589,7 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
           },
           '& .MuiOutlinedInput-notchedOutline': {
-            border: '1px solid #0000001F',
+            border: '1px solid #0000001F !important',
           },
         },
         '& .sub_card_formcontrol_input_long': {

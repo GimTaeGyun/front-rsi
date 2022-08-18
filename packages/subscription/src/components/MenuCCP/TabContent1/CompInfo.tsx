@@ -1,4 +1,4 @@
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 
 import {
   Button,
@@ -78,7 +78,7 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  법인명
+                  법인명<Typography className="sub_label_dot">•</Typography>{' '}
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
@@ -97,7 +97,7 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  대표자명
+                  대표자명 <Typography className="sub_label_dot">•</Typography>{' '}
                 </Box>
                 <OutlinedInput
                   fullWidth={false}
@@ -114,16 +114,9 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
               <Box
                 component="div"
                 className="sub_card_formcontrol_outer_common"
-              ></Box>
-            </Grid>
-            <Divider sx={{ width: '100%' }} />
-            <Grid>
-              <Box
-                component="div"
-                className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  법인유형
+                  법인유형 <Typography className="sub_label_dot">•</Typography>{' '}
                 </Box>
                 <Select
                   fullWidth={false}
@@ -138,13 +131,15 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                 </Select>
               </Box>
             </Grid>
+            <Divider sx={{ width: '100%' }} />
             <Grid>
               <Box
                 component="div"
                 className="sub_card_formcontrol_outer_common"
               >
                 <Box component="span" className="sub_card_formcontrol_label">
-                  사업자등록번호
+                  사업자등록번호{' '}
+                  <Typography className="sub_label_dot">•</Typography>{' '}
                 </Box>
 
                 <OutlinedInput
