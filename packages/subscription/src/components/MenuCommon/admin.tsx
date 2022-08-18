@@ -1,6 +1,5 @@
-import { ItemTypes } from '@minoru/react-dnd-treeview';
-import { Box, Button } from '@mui/material';
-import { atom, useAtom } from 'jotai';
+import { Box } from '@mui/material';
+import { useAtom } from 'jotai';
 import React from 'react';
 
 import AppFrame from '../../container/AppFrame';
@@ -13,9 +12,6 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
-import DialogFormTemplate from './components/DialogFormTemplate';
-import FrmUserInfo from './components/FrmUserInfo';
-import FrmOrderDetails from './components/FrmOrderDetails';
 
 const defaultOperPopupData = {
   action: 'add',
