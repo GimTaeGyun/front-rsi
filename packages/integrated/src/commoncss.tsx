@@ -68,9 +68,11 @@ const css = createTheme({
           '& .MuiTypography-root.sub_label_dot': {
             color: '#284ad5',
             fontSize: '20px ',
-            lineHeight: '0 ',
+            minWidth: '20px',
             display: 'inline-block',
-            top: '5px',
+            position: 'absolute',
+            top: '-10px',
+            borderLeft: '5px solid white',
           },
           '& .MuiTypography-root.sub_cust_label_dot': {
             color: '#284ad5',
@@ -103,7 +105,7 @@ const css = createTheme({
               lineHeight: 'normal',
             },
             '& 	.MuiOutlinedInput-input': {
-              fontFamily: 'NotoSansKRMedium',
+              fontFamily: 'NotoSansKRReguler',
               fontStyle: 'normal',
               fontSize: '14px',
             },
@@ -132,6 +134,7 @@ const css = createTheme({
             marginTop: '10px',
             fontSize: '14px',
             border: 'dashed',
+            color: '#f9f9f9',
             backgroundColor: '#F9F9F9',
             borderWidth: '1px',
             borderColor: '#0000003B',
@@ -361,6 +364,25 @@ const css = createTheme({
         '& .sub_card_filter': {
           marginBottom: '20px',
         },
+        '& .sub_card_filter_dropdown': {
+          height: '60px',
+        },
+        '& .sub_card_filter_dropdown.active': {
+          height: '226px',
+        },
+        '& .sub_filter_dropdown_lbl': {
+          paddingLeft: '20px',
+          width: '120px',
+          borderRight: '0 solid red',
+        },
+        '& .sub_filter_dropdown_chk_outer': {
+          width: '120px',
+          '& .MuiTypography-root': {
+            fontFamily: 'NotoSansKRRegular',
+            color: '#000000DE',
+            fontSize: '13px',
+          },
+        },
         '& .sub_listpage_filter_topsection': {
           height: '60px',
           borderBottom: '1px solid #0000001F',
@@ -383,6 +405,14 @@ const css = createTheme({
         },
         '& .sub_listpage_filter_topsection_sub.last': {
           justifyContent: 'end',
+        },
+        '& .sub_listpage_filter_dropdown_row': {
+          width: '100%',
+          height: '56px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'start',
+          borderTop: '1px solid #0000001F',
         },
         '& .sub_listpage_filter_label': {
           color: '#333333',

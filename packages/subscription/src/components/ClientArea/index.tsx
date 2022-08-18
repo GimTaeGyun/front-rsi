@@ -41,14 +41,18 @@ const ClientArea = (props: {
     <Main open={open} drawerWidth={drawerWidth}>
       <Breadcrumbs
         aria-label="breadcrumb"
-        sx={{ fontSize: '14px', fontFamily: 'NotoSansKRRagular' }}
+        sx={{ fontSize: '14px', fontFamily: 'NotoSansKRRegular ' }}
       >
         {breadcrumbs.map((item, index) => {
           if (index == breadcrumbs.length - 1)
             return (
               <Typography
                 key={index}
-                sx={{ color: '#000000DE', fontSize: '14px' }}
+                sx={{
+                  color: '#000000DE',
+                  fontSize: '14px',
+                  fontFamily: 'NotoSansKRRegular ',
+                }}
               >
                 {item.name}
               </Typography>
@@ -58,7 +62,11 @@ const ClientArea = (props: {
               <Link
                 key={index}
                 underline="hover"
-                sx={{ color: '#00000099', fontSize: '14px' }}
+                sx={{
+                  color: '#00000099',
+                  fontSize: '14px',
+                  fontFamily: 'NotoSansKRRegular ',
+                }}
                 component={RouterLink}
                 to={item.link}
               >

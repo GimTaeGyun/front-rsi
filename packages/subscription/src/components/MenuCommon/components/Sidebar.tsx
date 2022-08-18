@@ -151,7 +151,7 @@ const Sidebar = (props: {
   };
 
   return (
-    <Box sx={{ width: '350px', height: '682px' }}>
+    <Box sx={{ width: '350px', height: '633px' }}>
       <Card sx={styles.box_card}>
         <CardHeader
           component="div"
@@ -174,6 +174,8 @@ const Sidebar = (props: {
                       sx={{
                         ...styles.treeview_item,
                         paddingLeft: `${depth * 20 + 10}px`,
+                        fontSize: '15px',
+                        fontFamily: 'NotoSansKRRegular',
                       }}
                       className={
                         selectedTreeitem && selectedTreeitem.id == node.id
@@ -188,7 +190,6 @@ const Sidebar = (props: {
                           <ArrowForwardIos
                             sx={{
                               fontSize: '14px',
-                              color: '#000000DE',
                             }}
                           />
                         ) : (
@@ -199,7 +200,13 @@ const Sidebar = (props: {
                             }}
                           />
                         )}
-                        <Typography component="span">{`${node.text}`}</Typography>
+                        <Typography
+                          component="span"
+                          sx={{
+                            fontSize: '15px',
+                            fontFamily: 'NotoSansKRRegular',
+                          }}
+                        >{`${node.text}`}</Typography>
                         <Typography
                           component="span"
                           sx={{ color: '#000000DE' }}
@@ -218,6 +225,9 @@ const Sidebar = (props: {
                           }}
                           sx={{
                             overflow: 'hidden',
+
+                            fontSize: '15px',
+                            fontFamily: 'NotoSansKRRegular',
                             '&:hover': { bgcolor: 'transparent' },
                           }}
                         >
@@ -239,18 +249,18 @@ const Sidebar = (props: {
             />
           </DndProvider>
         </CardContent>
-        <Box sx={styles.realBox}>
-          <Divider />
-          <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
-            <Button variant="outlined" sx={styles.box2_button}>
-              <ExpandLess />
-            </Button>
-            <Button variant="outlined" sx={styles.box2_button2}>
-              <ExpandMore />
-            </Button>
-          </Box>
-        </Box>
       </Card>
+      <Box sx={styles.realBox}>
+        <Divider />
+        <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
+          <Button variant="outlined" sx={styles.box2_button}>
+            <ExpandLess />
+          </Button>
+          <Button variant="outlined" sx={styles.box2_button2}>
+            <ExpandMore />
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };
@@ -263,6 +273,9 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    borderBottom: '0px !important',
+    borderBottomLeftRadius: '0px !important',
+    borderBottomRightRadius: '0px !important',
     width: '300px',
   },
   box_cardHeader: {
@@ -283,6 +296,7 @@ const styles = {
     height: '44px',
     cursor: 'pointer',
     fontSize: '15px',
+    fontFamily: 'NotoSansKRRegular',
 
     '&:hover': {
       backgroundColor: '#F4F5F7',
@@ -294,8 +308,13 @@ const styles = {
     },
   },
   realBox: {
-    marginTop: 'auto',
+    position: 'bottom',
     height: '49px',
+    boxShadow: '0px 1px 5px #0000002E',
+    borderTop: '0px',
+    borderBottomLeftRadius: '6px !important',
+    borderBottomRightRadius: '6px !important',
+    backgroundColor: '#FFFFFF',
   },
   box2_button: {
     minWidth: '32px',

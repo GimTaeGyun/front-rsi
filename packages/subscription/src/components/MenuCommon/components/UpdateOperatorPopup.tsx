@@ -148,6 +148,7 @@ const UpdateOperatorPopup = (props: {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                width: '348px !important'
                 mt: '5px',
               }}
             >
@@ -157,7 +158,11 @@ const UpdateOperatorPopup = (props: {
                 type="password"
                 placeholder="비밀번호"
                 className="sub_formText"
-                sx={{ mr: '10px', flex: '1', marginTop: '0 !important' }}
+                sx={{
+                  mr: '10px',
+                  flex: '1',
+                  marginTop: '0 !important',
+                }}
                 name="usrPw"
                 value={popupData.usrPw || ''}
                 onChange={handleChange}

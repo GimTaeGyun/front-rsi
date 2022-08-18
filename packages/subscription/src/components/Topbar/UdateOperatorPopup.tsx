@@ -174,11 +174,23 @@ const UpdateOperatorPopupUser = (props: {
                 fullWidth
                 id="operator_id"
                 defaultValue={data.usrId}
+                sx={{
+                  bgcolor: '#f9f9f9 !important',
+                  color: '#666666 !impotant',
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      border: '1px dashed #0000003B !important',
+                    },
+                  },
+                }}
                 className="sub_formText"
               />
             </Box>
             {/* change user password form */}
-            <InputLabel className="sub_formLabel">
+            <InputLabel
+              className="sub_formLabel"
+              sx={{ borderBottom: '0px !important' }}
+            >
               비밀번호 <Typography className="sub_label_dot">•</Typography>{' '}
             </InputLabel>
             <Box
@@ -186,7 +198,7 @@ const UpdateOperatorPopupUser = (props: {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                mt: '15px',
+                mt: '10px',
                 minHeight: '45px',
               }}
             >
@@ -200,7 +212,11 @@ const UpdateOperatorPopupUser = (props: {
                   console.log(pwd);
                 }}
                 className="sub_formText"
-                sx={{ width: '348px', marginTop: '0 !important' }}
+                sx={{
+                  width: '348px',
+                  marginTop: '0 !important',
+                  borderRight: '10px solid white',
+                }}
               ></TextField>
               <Button
                 variant="contained"

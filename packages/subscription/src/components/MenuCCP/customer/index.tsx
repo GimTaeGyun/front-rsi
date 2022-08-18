@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,8 +44,13 @@ const Index = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [searchParam, setSearchParam] = useState(defaultSearchParam);
   const searchTextRef = useRef();
+  const [filterDropdown, setFilterDropdown] = useState(false);
   const [searchCategory, setSearchCategory] = useState('custNm');
   const [tableRows, setTableRows] = useState([]);
+
+  const showDropdownList = () => {
+    setFilterDropdown(!filterDropdown);
+  };
 
   const navigate = useNavigate();
 
@@ -164,8 +169,12 @@ const Index = () => {
 
           {/* Filter Section */}
           <Card
-            className="sub_card_common sub_card_filter"
-            sx={{ width: '100%', height: '60px' }}
+            className={
+              filterDropdown == true
+                ? 'sub_card_common sub_card_filter sub_card_filter_dropdown'
+                : 'sub_card_common sub_card_filter sub_card_filter_dropdown active'
+            }
+            sx={{ width: '100%' }}
           >
             <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
@@ -232,12 +241,16 @@ const Index = () => {
                 className="sub_listpage_filter_topsection_sub last"
                 sx={{ minWidth: '500px' }}
               >
-                <Button variant="text" className="sub_filter_btn_iconlink">
+                <Button
+                  variant="text"
+                  className="sub_filter_btn_iconlink"
+                  onClick={showDropdownList}
+                >
                   상세검색
                   <Box
                     className="btn_add_icon"
                     component="img"
-                    src="/icon_add.png"
+                    src={filterDropdown ? '/icon_add.png' : '/icon_sub.png'}
                   ></Box>
                 </Button>
                 <Button
@@ -252,6 +265,72 @@ const Index = () => {
                 >
                   검색하기
                 </Button>
+              </Box>
+            </Box>
+
+            <Box
+              component="div"
+              className="sub_listpage_filter_dropdown_section"
+            >
+              <Box component="div" className="sub_listpage_filter_dropdown_row">
+                <Box className="sub_filter_dropdown_lbl" component="span">
+                  고객유형
+                </Box>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="기업"
+                  />
+                </FormGroup>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="공공"
+                  />
+                </FormGroup>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="개인"
+                  />
+                </FormGroup>
+              </Box>
+              <Box component="div" className="sub_listpage_filter_dropdown_row">
+                <Box className="sub_filter_dropdown_lbl" component="span">
+                  고객상태
+                </Box>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="사용"
+                  />
+                </FormGroup>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="휴면"
+                  />
+                </FormGroup>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="탈퇴"
+                  />
+                </FormGroup>
+              </Box>
+              <Box component="div" className="sub_listpage_filter_dropdown_row">
+                <Box className="sub_filter_dropdown_lbl" component="span">
+                  구독현황
+                </Box>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="구독중"
+                  />
+                </FormGroup>
+                <FormGroup className="sub_filter_dropdown_chk_outer">
+                  <FormControlLabel control={<Checkbox />} label="종료" />
+                </FormGroup>
               </Box>
             </Box>
           </Card>
