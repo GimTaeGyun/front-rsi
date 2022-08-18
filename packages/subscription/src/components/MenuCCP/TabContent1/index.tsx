@@ -29,8 +29,6 @@ const TabContent1 = () => {
   const [personalData, setPersonalData] = useState(Object);
   const [compData, setCompData] = useState(Object);
   const [compMngData, setCompMngData] = useState(Object);
-  const [reqdata, setReqdata] = useState(Object);
-
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
 
   const personalChange = (data: any) => {
@@ -45,20 +43,22 @@ const TabContent1 = () => {
     setCompMngData(data);
   };
 
-  useEffect(() => {
+  const onClickUserChange = async () => {
+    let data: any = {
+      action: 'mod',
+      custId: sharedCustomerData.custId,
+      custTp: sharedCustomerData.custTp,
+    };
     if (personalData.custTp === 3) {
-      setReqdata({
-        action: 'mod',
-        corpData: [],
-        custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
-        custTp: personalData.custTp,
+      data = {
+        ...data,
         personData: [
           { email: personalData.email, mobile: personalData.mobile },
         ],
-      });
+      };
     } else {
-      setReqdata({
-        action: 'mod',
+      data = {
+        ...data,
         corpData: [
           {
             address: compData.address,
@@ -74,58 +74,19 @@ const TabContent1 = () => {
             dept: compMngData.custDept,
             email: compMngData.email,
             empSize: compData.empSize,
-            fax: '02-000-0001',
+            fax: compMngData.fax,
             mobile: compMngData.mobile,
             postNo: compData.postNo,
             tel: compMngData.tel,
           },
         ],
-        custId: '232e9b0a3bb22717c5e54ae9df67219e',
-        custTp: compMngData.custTp,
-        personData: [],
-      });
+      };
     }
-  }, [personalData, compData, compMngData, sharedCustomerData]);
-
-  const onClickUserChange = async () => {
-    const data = {
-      action: 'mod',
-      corpData: [
-        {
-          address: compData.address,
-          addressDesc: compData.addressDesc,
-          bizItem: compData.bizItem,
-          ceo: compData.ceo,
-          corpRegNo: compData.corpRegNo,
-          //corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
-          corpSize: compData.corpSize,
-          corpTp: compData.corpTp,
-          cpy_nm: compData.cpyNm,
-          custNm: compMngData.custNm,
-          dept: compMngData.custDept,
-          email: compMngData.email,
-          empSize: compData.empSize,
-          fax: compMngData.fax,
-          mobile: compMngData.mobile,
-          postNo: compData.postNo,
-          tel: compMngData.tel,
-        },
-      ],
-      custId: sharedCustomerData.custId,
-      custTp: sharedCustomerData.custTp,
-      personData: [
-        {
-          email: personalData.email,
-          mobile: personalData.mobile,
-        },
-      ],
-    };
     const response = await axios.post(
       '/management/manager/customer/cust/update',
-      reqdata,
+      data,
     );
     if (response.data.msg === '성공') {
-      alert('정상적으로 처리 되었습니다.');
       if (sharedCustomerData.custTp == 3) {
         setSharedCustomerData({ ...sharedCustomerData, ...data.personData });
       } else {
