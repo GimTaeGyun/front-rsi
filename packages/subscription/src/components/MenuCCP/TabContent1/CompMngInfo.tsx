@@ -164,11 +164,11 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 </Box>
                 <Select
                   fullWidth={false}
-                  value="탈퇴"
+                  value={userData.piStoreDays}
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
                 >
-                  <MenuItem value="탈퇴">탈퇴 시 까지</MenuItem>
+                  <MenuItem value="32767">탈퇴 시 까지</MenuItem>
                   <MenuItem value="365">1년</MenuItem>
                 </Select>
               </Box>
