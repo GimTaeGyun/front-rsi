@@ -5,9 +5,9 @@ import React, { useEffect } from 'react';
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import { customerData } from '../../../data/atoms';
-import TabContent1 from '../TabContent1';
-import TabContent2 from '../TabContent2';
-import TabContent3 from '../TabContent3';
+import TabContent1 from '../customer/TabContent1';
+import TabContent2 from '../customer/TabContent2';
+import TabContent3 from '../customer/TabContent3';
 import AlertPopup from '../../Common/AlertPopup';
 
 import TabButton from './components/TopButton';

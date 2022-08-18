@@ -18,7 +18,7 @@ import {
   GridColumnHeaderParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
-import DialogFormTemplate from '../../Common/DialogFormTemplate';
+import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const columns: GridColDef[] = [
   {

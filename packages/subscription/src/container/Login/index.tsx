@@ -248,7 +248,7 @@ const styles = {
     mx: '0',
     pb: '30px',
     width: '100%',
-    minHeight: '438px !important',
+    minHeight: '365px !important',
     borderRadius: '6px',
     boxShadow: '0px 1px 5px #0000001F',
   },

@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import DialogFormTemplate from '../../Common/DialogFormTemplate';
+import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const columns: GridColDef[] = [
   {

@@ -148,7 +148,7 @@ const UpdateOperatorPopup = (props: {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                width: '348px !important'
+                width: '348px !important',
                 mt: '5px',
               }}
             >

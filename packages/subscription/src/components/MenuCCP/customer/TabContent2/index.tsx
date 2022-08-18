@@ -9,7 +9,7 @@ import {
   Typography,
   TablePagination,
 } from '@mui/material';
-import MyDatePicker from '../../Common/MyDatePicker';
+import MyDatePicker from '../../../Common/MyDatePicker';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [

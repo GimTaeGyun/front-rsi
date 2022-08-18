@@ -53,14 +53,14 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       let str_class = 'sub_td_cat sub_td_cat_color1';
-      switch (params.value) {
-        case '개인':
+      switch (params.value.value) {
+        case 3:
           str_class = 'sub_td_cat sub_td_cat_color1';
           break;
-        case '기업':
+        case 1:
           str_class = 'sub_td_cat sub_td_cat_color2';
           break;
-        case '공공':
+        case 2:
           str_class = 'sub_td_cat sub_td_cat_color3';
           break;
         default:
@@ -69,12 +69,12 @@ const columns: GridColDef[] = [
       }
       return (
         <Box component="span" className={str_class}>
-          {params.value}
+          {params.value.label}
         </Box>
       );
     },
   },
-  {
+  /*{
     align: 'center',
     field: 'managerNm',
     headerName: '담당자',
@@ -86,7 +86,7 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-  },
+  },*/
   {
     align: 'center',
     field: 'mobile',
@@ -116,7 +116,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'registerDate',
+    field: 'joinedAt',
     headerName: '가입일',
     width: 140,
     headerAlign: 'center',
@@ -133,7 +133,7 @@ const columns: GridColDef[] = [
       </>
     ),
   },
-  {
+  /*{
     align: 'center',
     field: 'recentPayment',
     headerName: '최종 결제일',
@@ -167,28 +167,24 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       let str_class = 'sub_td_status sub_td_status_color1';
-      let text = '';
       switch (params.value) {
         case 1:
           str_class = 'sub_td_status sub_td_status_color1';
-          text = '구독중';
           break;
         case 2:
           str_class = 'sub_td_status sub_td_status_color2';
-          text = '종료';
           break;
         default:
           str_class = 'sub_td_status sub_td_status_color2';
-          text = '종료';
           break;
       }
       return (
         <Box component="span" className={str_class}>
-          {text}
+          {(params as any).label}
         </Box>
       );
     },
-  },
+  },*/
   {
     align: 'center',
     field: 'status',
@@ -204,28 +200,23 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       let str_class = 'sub_td_sit sub_td_sit_color1';
-      let text = '';
-      switch (params.value) {
+      switch (params.value.value) {
         case 1:
           str_class = 'sub_td_sit sub_td_sit_color1';
-          text = '사용';
           break;
         case 2:
           str_class = 'sub_td_sit sub_td_sit_color2';
-          text = '휴면';
           break;
         case 0:
           str_class = 'sub_td_sit sub_td_sit_color3';
-          text = '탈퇴';
           break;
         default:
           str_class = 'sub_td_sit sub_td_sit_color3';
-          text = '탈퇴';
           break;
       }
       return (
         <Box component="span" className={str_class}>
-          {text}
+          {params.value.label}
         </Box>
       );
     },

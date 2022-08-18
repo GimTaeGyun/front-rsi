@@ -18,34 +18,42 @@ import {
 import DataTable from './components/Datatable';
 
 const defaultSearchParam = {
-  custNm: 'ALL',
-  custTp: 99,
-  dateFrom: '1990-01-01',
-  dateTo: '2099-12-31',
-  email: 'ALL',
-  managerNm: 'ALL',
-  mobile: 'ALL',
-  page: 10,
-  page_no: 1,
-  status: 99,
-  subscriptionStatus: 99,
+  custTp: [],
+  joinedDtFrom: '1990-01-01',
+  joinedDtTo: '2099-12-31',
+  keyword: '',
+  order: 'asc',
+  pageNo: 1,
+  pageSize: 10,
+  searchField: 'ALL',
+  sortField: '',
+  status: [],
 };
 
-const defaultSearchCategory = {
-  custNm: 'ALL',
-  email: 'ALL',
-  managerNm: 'ALL',
-  mobile: 'ALL',
-};
 import MyDatePicker from '../../Common/MyDatePicker';
-import CheckboxSelect from '../../Common/CheckboxSelect';
 const Index = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [searchParam, setSearchParam] = useState(defaultSearchParam);
-  const searchTextRef = useRef();
   const [filterDropdown, setFilterDropdown] = useState(false);
-  const [searchCategory, setSearchCategory] = useState('custNm');
+  const [loaded1, setLoaded1] = useState(false);
+  const [loaded2, setLoaded2] = useState(false);
+  const [loaded3, setLoaded3] = useState(false);
+  const [loaded4, setLoaded4] = useState(false);
+
+  // 검색어 입력 셀렉트박스
+  const [searchCategory, setSearchCategory] = useState({
+    codeSetItems: [{ value: 'ALL', label: '' }],
+    codeSetLabel: '',
+  });
+  const [userCategory, setUserCategory] = useState({
+    codeSetItems: [{ value: 'ALL', label: '' }],
+    codeSetLabel: '',
+  });
+  const [statusCategory, setStatusCategory] = useState({
+    codeSetItems: [{ value: 'ALL', label: '' }],
+    codeSetLabel: '',
+  });
   const [tableRows, setTableRows] = useState([]);
 
   const showDropdownList = () => {
@@ -54,50 +62,101 @@ const Index = () => {
 
   const navigate = useNavigate();
 
-  // 페이지 초기화
-  useEffect(() => {
+  // 셀렉트 박스 불러오기
+  const initSelectBox = (
+    code: string,
+    failMsg: string,
+    setter: any,
+    loadedSetter: any,
+  ) => {
     axios
-      .post('/management/manager/customer/search', defaultSearchParam)
+      .post('/management/subscription/admin/codeset', {
+        code: code,
+        code_grp: 'cu.customer',
+      })
       .then(res => {
-        if (res.data.code === '0000') {
-          let result = res.data.result;
-          result = result.map((item: any) => {
-            return { ...item, id: item.no };
+        if (res.data.code == '0000') {
+          setter(res.data.result);
+          loadedSetter(true);
+        } else {
+          setAlertPopup({
+            ...DefaultAlertPopupData,
+            visible: true,
+            message: failMsg,
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
           });
-          setTableRows(result);
         }
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  // 페이지 초기화
+  useEffect(() => {
+    // 검색어 조건 셀렉트박스
+    initSelectBox(
+      'searchField',
+      '검색어조건 가져오기가 실패하였습니다',
+      setSearchCategory,
+      setLoaded1,
+    );
+    // 고객유형 체크박스
+    initSelectBox(
+      'cust_tp',
+      '고객유형 가져오기가 실패하였습니다',
+      setUserCategory,
+      setLoaded2,
+    );
+    // 고객상태 체크박스
+    initSelectBox(
+      'status',
+      '고객상태 가져오기가 실패하였습니다',
+      setStatusCategory,
+      setLoaded3,
+    );
   }, []);
+
+  // 모든 셀렉트박스 및 체크박스가 로드가 끝나면 테이블의 로우를 가져오기
+  useEffect(() => {
+    if (loaded1 && loaded2 && loaded3 && !loaded4) {
+      let status = statusCategory.codeSetItems.map((item: any) => item.value);
+      let custTp = userCategory.codeSetItems.map((item: any) => item.value);
+      let searchField = searchCategory.codeSetItems[0].value;
+      let paramTmp = {
+        ...searchParam,
+        status: status,
+        custTp: custTp,
+        searchField: searchField,
+        sortField: searchCategory.codeSetItems[1].value,
+      };
+      setSearchParam(paramTmp as any);
+      setLoaded4(true);
+      searchClickEvent(paramTmp);
+    }
+  }, [loaded1, loaded2, loaded3]);
 
   // 페이지값이 변하면 다시 로딩
   useEffect(() => {
-    searchClickEvent();
-  }, [, searchParam.page, searchParam.page_no]);
+    searchClickEvent(null);
+  }, [searchParam.pageSize, searchParam.pageNo]);
 
-  const selectChangedEvent = (e: any) => {
-    let temp = defaultSearchParam;
-    switch (e.target.name) {
-      case 'search-category':
-        temp = {
-          ...searchParam,
-          ...defaultSearchCategory,
-          [e.target.value]:
-            (searchTextRef.current as any).children[0].value == ''
-              ? 'ALL'
-              : (searchTextRef.current as any).children[0].value,
-        };
-        setSearchCategory(e.target.value);
-        break;
-      case 'custTp':
-      case 'status':
-      case 'subscriptionStatus':
-        temp = {
-          ...searchParam,
-          [e.target.name]: e.target.value,
-        };
-        break;
+  const optionChangedEvent = (e: any) => {
+    let temp = searchParam;
+
+    if (Array.isArray((searchParam as any)[e.target.name])) {
+      e.target.checked
+        ? (temp as any)[e.target.name].push(e.target.value)
+        : ((temp as any)[e.target.name] = (temp as any)[e.target.name].map(
+            (item: any) => {
+              if (item != e.target.value) return item;
+            },
+          ));
+    } else {
+      (temp as any)[e.target.name] = e.target.value;
     }
+    console.log(temp);
     setSearchParam(temp);
   };
 
@@ -106,39 +165,30 @@ const Index = () => {
 
     switch (type) {
       case 'from':
-        setSearchParam({ ...searchParam, dateFrom: date });
+        setSearchParam({ ...searchParam, joinedDtFrom: date });
         break;
       case 'to':
-        setSearchParam({ ...searchParam, dateTo: date });
+        setSearchParam({ ...searchParam, joinedDtTo: date });
         break;
     }
   };
 
-  const searchClickEvent = () => {
-    let reqParam = { ...searchParam };
-    if ((searchTextRef.current as any).children[0].value == '')
-      (reqParam as any)[searchCategory] = 'ALL';
-    else
-      (reqParam as any)[searchCategory] = (
-        searchTextRef.current as any
-      ).children[0].value;
-
+  const searchClickEvent = (param: any) => {
+    if (param == null) param = searchParam;
     axios
-      .post('/management/manager/customer/search', reqParam)
+      .post('/management/manager/customer/search', param)
       .then(res => {
         if (res.data.code === '0000') {
           let result = res.data.result;
-          result = result.map((item: any) => {
-            return { ...item, id: item.no };
-          });
+          if (result.total != 0) {
+            result = result.dataRows.map((item: any) => {
+              return { ...item, id: item.rnum };
+            });
+          } else result = [];
           setTableRows(result);
         }
       })
       .catch(e => console.log(e));
-  };
-  const initSearchParam = () => {
-    setSearchParam(defaultSearchParam);
-    setSearchCategory('custNm');
   };
 
   const cellClickEvent = (e: any) => {
@@ -170,7 +220,7 @@ const Index = () => {
           {/* Filter Section */}
           <Card
             className={
-              filterDropdown == true
+              filterDropdown
                 ? 'sub_card_common sub_card_filter sub_card_filter_dropdown'
                 : 'sub_card_common sub_card_filter sub_card_filter_dropdown active'
             }
@@ -179,7 +229,7 @@ const Index = () => {
             <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
                 <Box component="span" className="sub_listpage_filter_label">
-                  검색어 입력
+                  {(searchCategory as any).codeSetLabel}
                 </Box>
                 <Box
                   component="span"
@@ -187,25 +237,26 @@ const Index = () => {
                 >
                   <Select
                     fullWidth={false}
-                    id="search-category"
-                    name="search-category"
-                    value={searchCategory}
+                    name="searchField"
+                    defaultValue="ALL"
                     className="sub_select_common sub_listpage_filter_list"
-                    onChange={selectChangedEvent}
+                    onChange={optionChangedEvent}
                   >
-                    <MenuItem value="custNm">고객명</MenuItem>
-                    <MenuItem value="managerNm">담당자명</MenuItem>
-                    <MenuItem value="email">이메일</MenuItem>
-                    <MenuItem value="mobile">연락처</MenuItem>
+                    {(searchCategory as any).codeSetItems.map((item: any) => (
+                      <MenuItem key={item.value} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
                   </Select>
                   <OutlinedInput
                     fullWidth={false}
-                    id="search-term"
-                    placeholder="검색어 입력"
-                    name="search-term"
+                    placeholder={(searchCategory as any).codeSetLabel}
+                    name="keyword"
                     className="sub_input_common sub_listpage_filter_search"
-                    ref={searchTextRef}
-                    onChange={selectChangedEvent}
+                    onChange={optionChangedEvent}
+                    onKeyDown={e => {
+                      if (e.key == 'Enter') searchClickEvent(null);
+                    }}
                   />
                 </Box>
               </Box>
@@ -223,7 +274,7 @@ const Index = () => {
                     strName="search-date1"
                     strPlaceholder="시작일"
                     objSX={{ marginRight: '8px' }}
-                    value={new Date(searchParam.dateFrom)}
+                    value={new Date(searchParam.joinedDtFrom)}
                     onChange={(e: Date) => dateChanged(e, 'from')}
                   />
                   <MyDatePicker
@@ -232,7 +283,7 @@ const Index = () => {
                     strName="search-date2"
                     strPlaceholder="종료일"
                     objSX={null}
-                    value={new Date(searchParam.dateTo)}
+                    value={new Date(searchParam.joinedDtTo)}
                     onChange={(e: Date) => dateChanged(e, 'to')}
                   />
                 </Box>
@@ -262,6 +313,7 @@ const Index = () => {
                 <Button
                   variant="contained"
                   className="sub_btn_primary_fill_common sub_btn_filter2"
+                  onClick={() => searchClickEvent(null)}
                 >
                   검색하기
                 </Button>
@@ -274,49 +326,49 @@ const Index = () => {
             >
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
-                  고객유형
+                  {userCategory.codeSetLabel}
                 </Box>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="기업"
-                  />
-                </FormGroup>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="공공"
-                  />
-                </FormGroup>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="개인"
-                  />
-                </FormGroup>
+                {userCategory.codeSetItems.map((item: any) => (
+                  <FormGroup
+                    key={item.value}
+                    className="sub_filter_dropdown_chk_outer"
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="custTp"
+                          defaultChecked
+                          value={item.value}
+                          onChange={optionChangedEvent}
+                        />
+                      }
+                      label={item.label}
+                    />
+                  </FormGroup>
+                ))}
               </Box>
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
-                  고객상태
+                  {statusCategory.codeSetLabel}
                 </Box>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="사용"
-                  />
-                </FormGroup>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="휴면"
-                  />
-                </FormGroup>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="탈퇴"
-                  />
-                </FormGroup>
+                {statusCategory.codeSetItems.map((item: any) => (
+                  <FormGroup
+                    key={item.value}
+                    className="sub_filter_dropdown_chk_outer"
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="status"
+                          defaultChecked
+                          value={item.value}
+                          onChange={optionChangedEvent}
+                        />
+                      }
+                      label={item.label}
+                    />
+                  </FormGroup>
+                ))}
               </Box>
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
@@ -324,12 +376,19 @@ const Index = () => {
                 </Box>
                 <FormGroup className="sub_filter_dropdown_chk_outer">
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={
+                      <Checkbox defaultChecked onChange={optionChangedEvent} />
+                    }
                     label="구독중"
                   />
                 </FormGroup>
                 <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel control={<Checkbox />} label="종료" />
+                  <FormControlLabel
+                    control={
+                      <Checkbox defaultChecked onChange={optionChangedEvent} />
+                    }
+                    label="종료"
+                  />
                 </FormGroup>
               </Box>
             </Box>
@@ -355,13 +414,13 @@ const Index = () => {
             <DataTable
               rows={tableRows}
               cellClickEvent={cellClickEvent}
-              rowsPerPage={searchParam.page}
+              rowsPerPage={searchParam.pageSize}
               total={28}
               pageChanged={(e: number) => {
-                setSearchParam({ ...searchParam, page_no: e + 1 });
+                setSearchParam({ ...searchParam, pageNo: e + 1 });
               }}
               rowsChanged={(e: number) => {
-                setSearchParam({ ...searchParam, page: e, page_no: 1 });
+                setSearchParam({ ...searchParam, pageSize: e, pageNo: 1 });
               }}
             />
           </Card>
