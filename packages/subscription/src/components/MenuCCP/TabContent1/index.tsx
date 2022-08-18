@@ -1,5 +1,5 @@
 import axios from '../../../utils/axios';
-import React, { ButtonHTMLAttributes, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
 import CompInfo from './CompInfo';
@@ -11,7 +11,6 @@ import AlertPopup from '../../Common/AlertPopup';
 import * as Yup from 'yup';
 import SubmitButton from './SubmitButton';
 import { useNavigate } from 'react-router-dom';
-import { useHydrateAtoms } from 'jotai/utils';
 
 const validator = Yup.object().shape({
   usrPw: Yup.string()
@@ -114,7 +113,6 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
-      /*
       let tmpData = {
         rnum: 10,
         custId: '6a0c51e2e57af3f7f2186cbe6e0c18f9',
@@ -132,7 +130,7 @@ const TabContent1 = () => {
           label: '사용',
         },
       };
-      */
+      /*
       let tmpData = {
         rnum: 8,
         custId: '232e9b0a3bb22717c5e54ae9df67219e',
@@ -149,7 +147,7 @@ const TabContent1 = () => {
           value: 1,
           label: '사용',
         },
-      };
+      };*/
 
       if (loaded) return;
 
@@ -179,7 +177,7 @@ const TabContent1 = () => {
     let valid = await validator.isValid({ usrPw: value });
     if (valid) {
       axios
-        .post('/management/manager/customer/userpw/update', {
+        .post('/management/manager/customer/custpw/update', {
           usrId: sharedCustomerData.custId,
           usrPw: value,
         })

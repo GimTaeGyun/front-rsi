@@ -193,15 +193,7 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                       control={
                         <Checkbox
                           disabled
-<<<<<<< HEAD
-                          checked={
-                            userData.hasOwnProperty('tosInfo')
-                              ? userData.tosInfo[0].tosInfo.promotion.email
-                              : false
-                          }
-=======
                           checked={userData.tosInfo[0].tosInfo.promotion.email}
->>>>>>> 25c400aeea7e809806722e22e8ef6110fa5cc734
                         />
                       }
                       label="이메일"
@@ -210,15 +202,7 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                       control={
                         <Checkbox
                           disabled
-<<<<<<< HEAD
-                          checked={
-                            userData.hasOwnProperty('tosInfo')
-                              ? userData.tosInfo[0].tosInfo.promotion.mobile
-                              : false
-                          }
-=======
                           checked={userData.tosInfo[0].tosInfo.promotion.mobile}
->>>>>>> 25c400aeea7e809806722e22e8ef6110fa5cc734
                         />
                       }
                       label="SMS"
