@@ -165,9 +165,9 @@ const Index = () => {
           {/* Filter Section */}
           <Card
             className="sub_card_common sub_card_filter"
-            sx={{ width: '100%', height: '112px' }}
+            sx={{ width: '100%', height: '60px' }}
           >
-            <Box className="sub_listpage_filter_topsection">
+            <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
                 <Box component="span" className="sub_listpage_filter_label">
                   검색어 입력
@@ -229,99 +229,30 @@ const Index = () => {
                 </Box>
               </Box>
               <Box
-                className="sub_listpage_filter_topsection_sub"
+                className="sub_listpage_filter_topsection_sub last"
                 sx={{ minWidth: '500px' }}
               >
-                <Box component="span" className="sub_listpage_filter_label">
-                  고객유형
-                </Box>
-                <Box
-                  component="span"
-                  className="sub_listpage_filter_inputgroup"
+                <Button variant="text" className="sub_filter_btn_iconlink">
+                  상세검색
+                  <Box
+                    className="btn_add_icon"
+                    component="img"
+                    src="/icon_add.png"
+                  ></Box>
+                </Button>
+                <Button
+                  variant="outlined"
+                  className="sub_btn_primary_outline_common sub_btn_filter1"
                 >
-                  <CheckboxSelect
-                    names={['전체', '기업', '공공', '개인']}
-                    value={['전체']}
-                    width={116}
-                    margin="0 8px 0 0 !important"
-                    onChangeHandler={selectChangedEvent}
-                  />
-                  {/*<Select
-                    fullWidth={false}
-                    id="search-category21"
-                    name="custTp"
-                    value={searchParam.custTp}
-                    className="sub_select_common sub_listpage_filter_list2"
-                    onChange={selectChangedEvent}
-                  >
-                    <MenuItem value="99">전체</MenuItem>
-                    <MenuItem value="1">기업</MenuItem>
-                    <MenuItem value="2">공공</MenuItem>
-                    <MenuItem value="3">개인</MenuItem>
-                  </Select>
-                  */}
-                  <CheckboxSelect
-                    names={['전체', '구독중', '종료']}
-                    value={['전체']}
-                    width={116}
-                    margin="0 8px 0 0 !important"
-                    onChangeHandler={selectChangedEvent}
-                  />
-                  {/*<Select
-                    fullWidth={false}
-                    id="search-category22"
-                    name="subscriptionStatus"
-                    value={searchParam.subscriptionStatus}
-                    className="sub_select_common sub_listpage_filter_list2"
-                    onChange={selectChangedEvent}
-                  >
-                    <MenuItem value="99">전체</MenuItem>
-                    <MenuItem value="1">구독중</MenuItem>
-                    <MenuItem value="2">종료</MenuItem>
-                  </Select>
-                  */}
-                  {/*<Select
-                    fullWidth={false}
-                    id="search-category23"
-                    name="status"
-                    value={searchParam.status}
-                    className="sub_select_common sub_listpage_filter_list2"
-                    onChange={selectChangedEvent}
-                  >
-                    <MenuItem value="99">전체</MenuItem>
-                    <MenuItem value="1">활동</MenuItem>
-                    <MenuItem value="2">휴면</MenuItem>
-                    <MenuItem value="0">탈퇴</MenuItem>
-                  </Select>
-                  */}
-                  <CheckboxSelect
-                    names={['전체', '활동', '휴면', '탈퇴']}
-                    value={['전체']}
-                    width={116}
-                    margin="0 8px 0 0 !important"
-                    onChangeHandler={selectChangedEvent}
-                  />
-                </Box>
+                  초기화
+                </Button>
+                <Button
+                  variant="contained"
+                  className="sub_btn_primary_fill_common sub_btn_filter2"
+                >
+                  검색하기
+                </Button>
               </Box>
-            </Box>
-            <Box
-              className="sub_listpage_filter_btmsection"
-              sx={{ width: '100%' }}
-            >
-              <Button
-                variant="outlined"
-                className="sub_btn_primary_outline_common sub_btn_filter1"
-                onClick={initSearchParam}
-              >
-                초기화
-              </Button>
-              <Button
-                variant="contained"
-                className="sub_btn_primary_fill_common sub_btn_filter2"
-                onClick={searchClickEvent}
-              >
-                검색하기
-              </Button>
             </Box>
           </Card>
 
