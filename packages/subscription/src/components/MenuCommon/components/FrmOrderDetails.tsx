@@ -5,6 +5,7 @@ import {
   Card,
   CardHeader,
   CardContent,
+  Grid,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -17,6 +18,7 @@ import {
   GridColumnHeaderParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
+import DialogFormTemplate from '../components/DialogFormTemplate';
 
 const columns: GridColDef[] = [
   {
@@ -50,17 +52,59 @@ const rows = [
   { id: 3, serviceNm: 'WIGO DATA', period: '2022-01-01 ~ 2022-10-31' },
 ];
 
-const FrmOrderDetails = () => {
+const FrmOrderDetails = (props: { open: boolean }) => {
   return (
     <>
-      <Card className="sub_dialog_card_orderinfo1">
-        <CardHeader
-          className="sub_dialog_card_orderinfo_header"
-          component="div"
-          title={<Typography>주문서 관리</Typography>}
-        ></CardHeader>
-        <CardContent className="sub_dialog_card_orderinfo_content"></CardContent>
-      </Card>
+      <DialogFormTemplate
+        open={props.open}
+        title="주문 상세 정보"
+        width="1000px"
+        height="802px"
+        children={
+          <>
+            <Card className="sub_dialog_card_orderinfo1">
+              <CardHeader
+                className="sub_dialog_card_orderinfo_header"
+                component="div"
+                title={<Typography>주문서 관리</Typography>}
+              ></CardHeader>
+              <CardContent className="sub_dialog_card_orderinfo_content">
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={0}>
+                    <Grid>
+                      <Box
+                        component="div"
+                        className="sub_card_formcontrol_outer_common"
+                      >
+                        <Box
+                          component="span"
+                          className="sub_card_formcontrol_label"
+                        >
+                          아이디
+                        </Box>
+                        <OutlinedInput
+                          fullWidth={false}
+                          id="text1"
+                          placeholder=""
+                          name="text1"
+                          value=""
+                          className="sub_input_common sub_card_formcontrol_input"
+                          readOnly
+                        />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </CardContent>
+            </Card>
+          </>
+        }
+        footer={
+          <>
+            <Button className="sub_button_white_none">닫기</Button>
+          </>
+        }
+      />
     </>
   );
 };

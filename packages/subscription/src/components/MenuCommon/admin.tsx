@@ -411,18 +411,6 @@ const Admin = () => {
             treeItem={selectedTreeitem}
             handleClose={() => setAddGroupOpen(false)}
           />
-          <DialogFormTemplate
-            open={false}
-            title="주문 상세 정보"
-            width="1000px"
-            height="802px"
-            children={<FrmOrderDetails />}
-            footer={
-              <>
-                <Button className="sub_button_white_none">닫기</Button>
-              </>
-            }
-          />
         </>
       </AppFrame>
       <Box
