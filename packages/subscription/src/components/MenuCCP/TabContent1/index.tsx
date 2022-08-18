@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../../../utils/axios';
+import axios from '../../../utils/axios';
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
 import CompInfo from './CompInfo';
 import CompMngInfo from './CompMngInfo';
 import { useAtom } from 'jotai';
-import PwResetPopup from '../../../Common/PwResetPopup';
-import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
-import AlertPopup from '../../../Common/AlertPopup';
+import PwResetPopup from '../../Common/PwResetPopup';
+import { DefaultAlertPopupData, customerData } from '../../../data/atoms';
+import AlertPopup from '../../Common/AlertPopup';
 import * as Yup from 'yup';
 import SubmitButton from './SubmitButton';
 

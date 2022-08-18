@@ -1,13 +1,13 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import { customerData } from '../../../data/atoms';
-import TabContent1 from './components/TabContent1';
-import TabContent2 from './components/TabContent2';
-import TabContent3 from './components/TabContent3';
+import TabContent1 from '../TabContent1';
+import TabContent2 from '../TabContent2';
+import TabContent3 from '../TabContent3';
 import AlertPopup from '../../Common/AlertPopup';
 
 import TabButton from './components/TopButton';
