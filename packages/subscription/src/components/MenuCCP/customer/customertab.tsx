@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
 
@@ -12,6 +12,7 @@ import AlertPopup from '../../Common/AlertPopup';
 
 import TabButton from './components/TopButton';
 import { useLocation } from 'react-router-dom';
+
 const CustomerTabData = [
   {
     title: '상세정보',

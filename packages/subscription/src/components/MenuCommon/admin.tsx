@@ -411,37 +411,10 @@ const Admin = () => {
             treeItem={selectedTreeitem}
             handleClose={() => setAddGroupOpen(false)}
           />
-          <DialogFormTemplate
-            open={false}
-            title="사용자 정보 수정"
-            width="500px"
-            height="916px"
-            children={<FrmUserInfo />}
-            footer={
-              <>
-                <Button className="sub_button_white_none">취소</Button>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  className="sub_btn_primary_fill_common sub_dialog_button_blue"
-                >
-                  저장
-                </Button>
-              </>
-            }
-          />
-          <DialogFormTemplate
-            open={false}
-            title="주문 상세 정보"
-            width="1000px"
-            height="802px"
-            children={<FrmOrderDetails />}
-            footer={
-              <>
-                <Button className="sub_button_white_none">닫기</Button>
-              </>
-            }
-          />
+          <FrmUserInfo open={true}  />
+          
+          <FrmOrderDetails open={false} />
+
         </>
       </AppFrame>
       <Box
