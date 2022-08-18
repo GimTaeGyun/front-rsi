@@ -137,6 +137,9 @@ const css = createTheme({
             borderWidth: '1px',
             borderColor: '#0000003B',
             fontFamily: 'NotoSansKRRagular',
+            '& .MuiSvgIcon-root': {
+              color: 'black',
+            },
             '&.MuiOutlinedInput-root': {
               '& fieldset': {
                 borderColor: '#0000001F',
