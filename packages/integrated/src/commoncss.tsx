@@ -876,7 +876,7 @@ const css = createTheme({
         '& .MuiDialogContent-root.sub_dialog_content_outer': {
           border: '0 solid #000',
           width: '100%',
-          padding: '15px 30px 0 30px !important',
+          padding: '30px 30px 0 30px !important',
         },
         '& .sub_dialog_input_outer': {
           marginBottom: '13px',
@@ -1013,16 +1013,125 @@ const css = createTheme({
           width: 'inherit !important',
           height: '240px !important',
           boxShadow: 'none',
-          border: '1px solid #0000001F',
+          border: '1px solid #ccc',
           '& .sub_dialog_card_orderinfo_header': {
             width: '100%',
             height: '46px',
-            borderBottom: '1px solid #0000001F',
+            borderBottom: '1px solid #ccc',
           },
-          '& .sub_dialog_card_orderinfo_content': {
+          '& .sub_dialog_card_orderinfo1_content': {
             width: '100%',
             height: '196px',
           },
+          '& .sub_dialog_card_orderinfo1_content.MuiCardContent-root': {
+            padding: '8px 0',
+          },
+        },
+        '& .MuiPaper-root.sub_dialog_card_orderinfo2': {
+          width: 'inherit !important',
+          height: '226px !important',
+          boxShadow: 'none',
+          border: '1px solid #ccc',
+          marginTop: '15px',
+          '& .sub_dialog_card_orderinfo_header': {
+            width: '100%',
+            height: '46px',
+            borderBottom: '1px solid #ccc',
+          },
+          '& .sub_dialog_card_orderinfo2_content': {
+            width: '100%',
+            height: '180px',
+          },
+          '& .sub_dialog_card_orderinfo2_content.MuiCardContent-root': {
+            padding: '0',
+          },
+        },
+        '& .MuiPaper-root.sub_dialog_card_orderinfo3': {
+          width: 'inherit !important',
+          height: '126px !important',
+          boxShadow: 'none',
+          border: '1px solid #ccc',
+          marginTop: '15px',
+          '& .sub_dialog_card_orderinfo_header': {
+            width: '100%',
+            height: '46px',
+            borderBottom: '1px solid #ccc',
+          },
+          '& .sub_dialog_card_orderinfo3_content': {
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            height: '80px',
+          },
+          '& .sub_dialog_card_orderinfo3_content.MuiCardContent-root': {
+            padding: '10px',
+          },
+        },
+        '& .sub_dialog_card_orderinfo_outer_common': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          height: '38px',
+          padding: '0 10px 0 20px',
+        },
+        '& .sub_dialog_card_orderinfo_label': {
+          color: '#333 !important',
+          fontSize: '14px',
+          fontFamily: 'NotoSansKRMedium',
+          letterSpacing: '-0.33px',
+          width: '100px',
+        },
+        '& .sub_dialog_card_orderinfo_input': {
+          width: '324px',
+          height: '38px',
+          backgroundColor: '#fff',
+          '& .MuiOutlinedInput-input': {
+            color: '#666 !important',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #0000001F',
+          },
+        },
+        '& .sub_dialog_card_orderinfo_input.MuiInputBase-readOnly': {
+          '& .MuiInputBase-input': {
+            color: '#666 !important',
+            zIndex: 1,
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: '#f9f9f9',
+            border: '1px dashed #0000001F !important',
+            zIndex: 0,
+          },
+          '&:hover fieldset': {
+            borderColor: '#f9f9f9',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#f9f9f9',
+          },
+        },
+        '& .MuiDataGrid-root.sub_dialog_card_tbl': {
+          border: 'none',
+          '& .MuiDataGrid-cell': {
+            color: '#000000DE',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRRegular',
+          },
+        },
+        '& .color_primary_common': {
+          color: '#284AD5',
+        },
+        '& .MuiInputBase-root.sub_card_dialog_textarea': {
+          padding: '10px',
+          width: '831px',
+          height: '60px',
+          alignItems: 'start',
+        },
+        '& .sub_card_dialog_textarea_btn': {
+          width: '80px',
+          height: '60px',
         },
       },
     },
