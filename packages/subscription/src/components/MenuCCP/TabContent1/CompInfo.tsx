@@ -11,13 +11,8 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import CardTemplate from './CardTemplate';
 declare var daum: any;
-const CompInfo = (props: {
-  buttonCallback?: Function;
-  compChange: Function;
-  userData: any;
-}) => {
+const CompInfo = (props: { compChange: Function; userData: any }) => {
   const { userData } = props;
-  const { buttonCallback = () => {} } = props;
   const [cpyNm, setCpyNm] = useState(userData.cpyNm);
   const [ceo, setCeo] = useState(userData.ceo);
   const [corpTp, setCorpTp] = useState(userData.corpTp);
@@ -56,8 +51,6 @@ const CompInfo = (props: {
     addressDesc,
   ]);
 
-  const zipCodeRef = useRef();
-  const addressRef = useRef();
   const fileUploadRef = useRef();
 
   const addressClickEvent = () => {
@@ -66,8 +59,8 @@ const CompInfo = (props: {
         let address = '';
         if (data.userSelectedType == 'J') address = data.jibunAddress;
         else address = data.roadAddress;
-        (addressRef.current as any).children[0].value = address;
-        (zipCodeRef.current as any).children[0].value = data.zonecode;
+        setAddress(address);
+        setPostNo(data.zonecode);
       },
     }).open();
   };
@@ -90,7 +83,6 @@ const CompInfo = (props: {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text8"
                   value={cpyNm}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -110,7 +102,6 @@ const CompInfo = (props: {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text9"
                   value={ceo}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -123,18 +114,7 @@ const CompInfo = (props: {
               <Box
                 component="div"
                 className="sub_card_formcontrol_outer_common"
-              >
-                <Box component="span" className="sub_card_formcontrol_label">
-                  대표번호
-                </Box>
-                <OutlinedInput
-                  fullWidth={false}
-                  placeholder=""
-                  name="text10"
-                  value="052-202-2114"
-                  className="sub_input_common sub_card_formcontrol_input"
-                />
-              </Box>
+              ></Box>
             </Grid>
             <Divider sx={{ width: '100%' }} />
             <Grid>
@@ -147,7 +127,6 @@ const CompInfo = (props: {
                 </Box>
                 <Select
                   fullWidth={false}
-                  name="select3"
                   value={corpTp}
                   className="sub_select_common sub_card_formcontrol_list"
                   onChange={e => {
@@ -171,12 +150,12 @@ const CompInfo = (props: {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text11"
                   value={corpRegNo}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
                     setCorpRegNo(e.target.value);
                   }}
+                  inputProps={{ maxLength: 10 }}
                 />
               </Box>
             </Grid>
@@ -231,7 +210,6 @@ const CompInfo = (props: {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text11"
                   value={bizItem}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -255,7 +233,6 @@ const CompInfo = (props: {
                     </Box>
                     <Select
                       fullWidth={false}
-                      name="select4"
                       value={corpSize}
                       className="sub_select_common sub_card_formcontrol_list"
                       onChange={e => {
@@ -279,7 +256,6 @@ const CompInfo = (props: {
                     </Box>
                     <Select
                       fullWidth={false}
-                      name="select6"
                       defaultValue={empSize}
                       className="sub_select_common sub_card_formcontrol_list"
                       onChange={e => {
@@ -320,7 +296,6 @@ const CompInfo = (props: {
                     type="text"
                     fullWidth={false}
                     placeholder=""
-                    name="text14"
                     value={postNo}
                     className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_search"
                     onChange={e => {
@@ -357,8 +332,6 @@ const CompInfo = (props: {
                 </Box>
                 <OutlinedInput
                   placeholder=""
-                  ref={addressRef}
-                  name="text15"
                   value={address}
                   className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
                   onChange={e => {
@@ -386,7 +359,6 @@ const CompInfo = (props: {
                 </Box>
                 <OutlinedInput
                   placeholder=""
-                  name="text16"
                   value={addressDesc}
                   className="sub_input_common sub_card_formcontrol_input sub_card_formcontrol_input_long"
                   onChange={e => {

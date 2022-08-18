@@ -22,12 +22,13 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
 
   useEffect(() => {
     const datas = {
-      custNm: custNm === undefined ? userData.custNm : custNm,
-      mobile: mobile === undefined ? userData.mobile : mobile,
-      email: email === undefined ? userData.email : email,
-      custDept: custDept === undefined ? userData.custDept : custDept,
-      tel: tel === undefined ? userData.tel : tel,
-      fax: fax === undefined ? userData.fax : fax,
+      custNm: custNm,
+      mobile: mobile,
+      email: email,
+      custDept: custDept,
+      tel: tel,
+      fax: fax,
+      custTp: userData.custTp,
     };
     props.compMngChange(datas);
   }, [custNm, mobile, email, custDept, tel, fax]);
@@ -48,7 +49,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text8"
                   value={custNm}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -68,7 +68,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text9"
                   value={mobile}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -88,7 +87,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text10"
                   value={email}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -109,7 +107,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text8"
                   value={custDept}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -129,7 +126,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text9"
                   value={tel}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -149,7 +145,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text10"
                   value={fax}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
@@ -169,7 +164,6 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                 </Box>
                 <Select
                   fullWidth={false}
-                  name="select2"
                   value="탈퇴"
                   className="sub_select_common sub_card_formcontrol_list"
                   readOnly
@@ -196,11 +190,37 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                     sx={{ flexDirection: 'row' }}
                   >
                     <FormControlLabel
-                      control={<Checkbox disabled checked={true} />}
+                      control={
+                        <Checkbox
+                          disabled
+<<<<<<< HEAD
+                          checked={
+                            userData.hasOwnProperty('tosInfo')
+                              ? userData.tosInfo[0].tosInfo.promotion.email
+                              : false
+                          }
+=======
+                          checked={userData.tosInfo[0].tosInfo.promotion.email}
+>>>>>>> 25c400aeea7e809806722e22e8ef6110fa5cc734
+                        />
+                      }
                       label="이메일"
                     />
                     <FormControlLabel
-                      control={<Checkbox disabled checked={false} />}
+                      control={
+                        <Checkbox
+                          disabled
+<<<<<<< HEAD
+                          checked={
+                            userData.hasOwnProperty('tosInfo')
+                              ? userData.tosInfo[0].tosInfo.promotion.mobile
+                              : false
+                          }
+=======
+                          checked={userData.tosInfo[0].tosInfo.promotion.mobile}
+>>>>>>> 25c400aeea7e809806722e22e8ef6110fa5cc734
+                        />
+                      }
                       label="SMS"
                     />
                   </FormGroup>

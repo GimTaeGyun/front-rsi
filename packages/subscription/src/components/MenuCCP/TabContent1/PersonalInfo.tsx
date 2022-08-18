@@ -14,13 +14,14 @@ import React, { useEffect } from 'react';
 
 const PersonalInfo = (props: { userData: any; personal: Function }) => {
   const { userData } = props;
-  const [mobile, setMobile] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [mobile, setMobile] = React.useState(userData.mobile);
+  const [email, setEmail] = React.useState(userData.email);
 
   useEffect(() => {
-    let data = {
+    const data = {
       mobile: mobile,
       email: email,
+      custTp: userData.custTp,
     };
     props.personal(data);
   }, [mobile, email]);
@@ -41,7 +42,6 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text5"
                   value={userData.custNm}
                   className="sub_input_common sub_card_formcontrol_input"
                   readOnly
@@ -59,8 +59,7 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text6"
-                  value={userData.mobile}
+                  value={mobile}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
                     setMobile(e.target.value);
@@ -79,8 +78,7 @@ const PersonalInfo = (props: { userData: any; personal: Function }) => {
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""
-                  name="text7"
-                  value={userData.email}
+                  value={email}
                   className="sub_input_common sub_card_formcontrol_input"
                   onChange={e => {
                     setEmail(e.target.value);
