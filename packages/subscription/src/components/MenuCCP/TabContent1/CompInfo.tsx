@@ -1,4 +1,4 @@
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 
 import {
   Button,
@@ -145,7 +145,6 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                   사업자등록번호{' '}
                   <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
-
                 <OutlinedInput
                   fullWidth={false}
                   placeholder=""

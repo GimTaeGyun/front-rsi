@@ -70,6 +70,7 @@ const css = createTheme({
             fontSize: '20px ',
             lineHeight: '0 ',
             display: 'inline-block',
+            top: '5px',
           },
           '& .MuiTypography-root.sub_cust_label_dot': {
             color: '#284ad5',
@@ -365,6 +366,9 @@ const css = createTheme({
           alignItems: 'center',
           justifyContent: 'space-between',
         },
+        '& .sub_listpage_filter_topsection.b-0': {
+          borderBottomWidth: '0',
+        },
         '& .sub_listpage_filter_topsection_sub': {
           display: 'flex',
           minWidth: '490px',
@@ -374,6 +378,9 @@ const css = createTheme({
           justifyContent: 'stretch',
           paddingLeft: '20px',
           paddingRight: '10px',
+        },
+        '& .sub_listpage_filter_topsection_sub.last': {
+          justifyContent: 'end',
         },
         '& .sub_listpage_filter_label': {
           color: '#333333',
@@ -411,14 +418,26 @@ const css = createTheme({
             height: '36px',
           },
         },
+        '& .MuiButton-root.sub_filter_btn_iconlink': {
+          color: '#666',
+          width: '90px',
+          height: '36px',
+          marginRight: '8px !important',
+          fontFamily: 'NotoSansKRRegular !important',
+        },
+        '& .btn_add_icon': {
+          marginLeft: '5px',
+        },
         '& .sub_btn_filter1': {
           width: '84px',
           height: '36px',
           marginRight: '8px !important',
         },
         '& .sub_btn_filter2': {
+          fontFamily: 'NotoSansKRRegular !important',
           width: '84px',
           height: '36px',
+          borderRadius: '6px !important',
         },
         '& .sub_td_cat': {
           fontFamily: 'NotoSansKRMedium',
@@ -577,7 +596,7 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
           },
           '& .MuiOutlinedInput-notchedOutline': {
-            border: '1px solid #0000001F',
+            border: '1px solid #0000001F !important',
           },
         },
         '& .sub_card_formcontrol_input_long': {
