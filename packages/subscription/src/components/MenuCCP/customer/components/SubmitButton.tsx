@@ -1,12 +1,15 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SubmitButton = (props: { onClickUserChange: Function }) => {
+  const navigate = useNavigate();
   return (
     <Box className="sub_listpage_card_btmsection">
       <Button
         variant="outlined"
         className="sub_btn_primary_outline_common sub_btn_card_btm"
+        onClick={() => navigate(-1)}
       >
         뒤로
       </Button>

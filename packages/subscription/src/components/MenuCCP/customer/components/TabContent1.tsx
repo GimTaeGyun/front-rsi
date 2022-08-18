@@ -81,10 +81,9 @@ const TabContent1 = () => {
       data,
     );
     if (response.data.msg === '성공') {
-      navigate('/admin/common/admin');
+      alert('정상적으로 처리 되었습니다.');
     } else {
-      alert('XXX');
-      navigate('/admin/ccp/customer/tab');
+      alert('XXXXXXXXXXXXXXXXX');
     }
   };
 

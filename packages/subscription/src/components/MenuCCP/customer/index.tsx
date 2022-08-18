@@ -139,7 +139,6 @@ const Index = () => {
   const cellClickEvent = (e: any) => {
     if (e.field == 'details') {
       navigate('/admin/ccp/customer/tab', { state: e.row });
-      console.log(e.row);
     }
   };
 
@@ -305,7 +304,10 @@ const Index = () => {
                 </Box>
               </Box>
             </Box>
-            <Box className="sub_listpage_filter_btmsection" sx={{width: '100%'}}>
+            <Box
+              className="sub_listpage_filter_btmsection"
+              sx={{ width: '100%' }}
+            >
               <Button
                 variant="outlined"
                 className="sub_btn_primary_outline_common sub_btn_filter1"

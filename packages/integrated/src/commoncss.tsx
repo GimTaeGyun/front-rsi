@@ -672,6 +672,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          width: '1470px',
         },
         '& .sub_btn_card_btm': {
           width: '85px',
@@ -1011,9 +1012,12 @@ const css = createTheme({
         '& .MuiPaper-root.sub_dialog_card_orderinfo1': {
           width: 'inherit !important',
           height: '240px !important',
+          boxShadow: 'none',
+          border: '1px solid #0000001F',
           '& .sub_dialog_card_orderinfo_header': {
             width: '100%',
             height: '46px',
+            borderBottom: '1px solid #0000001F',
           },
           '& .sub_dialog_card_orderinfo_content': {
             width: '100%',

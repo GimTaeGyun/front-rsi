@@ -52,7 +52,6 @@ const AddGroup = (props: {
     axios
       .post('/management/subscription/admin/usergroup/update', groupData)
       .then(res => {
-        console.log(res);
         if (res.data.code === '0000')
           setAlertPopupData({
             visible: true,
