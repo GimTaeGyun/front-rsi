@@ -75,7 +75,7 @@ const rows = [
   { id: 5, groupNm: '개발부', explanation: '-', detail: '' },
 ];
 
-const FrmAddUserGroup = (props: { open: true }) => {
+const FrmAddUserGroup = (props: { open: boolean }) => {
   return (
     <>
       <DialogFormTemplate

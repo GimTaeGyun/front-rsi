@@ -10,6 +10,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import axios from '../../../../utils/axios';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
+import FrmAddUserGroup from './FrmAddUserGroup';
 
 const columns: GridColDef[] = [
   {
@@ -126,6 +127,7 @@ const columns: GridColDef[] = [
 const TabContent3 = () => {
   const { state } = useLocation();
   const [rows, setRows] = useState([]);
+
   useEffect(() => {
     axios
       .post('/management/manager/customer/userlist/inquiry', {
@@ -139,6 +141,8 @@ const TabContent3 = () => {
 
   return (
     <>
+      <FrmAddUserGroup open={true} />
+
       <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
         <CardHeader
           className="sub_tbl_header_outer_common"

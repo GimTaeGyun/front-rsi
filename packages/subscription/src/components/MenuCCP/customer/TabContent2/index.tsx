@@ -320,7 +320,7 @@ const TabContent2 = () => {
               strName="search-date1"
               strPlaceholder="시작일"
               objSX={{ marginLeft: '8px' }}
-              value={dateFrom}
+              value={dateFrom.toString()}
               onChange={onChange}
             />
 
@@ -330,7 +330,7 @@ const TabContent2 = () => {
               strName="search-date2"
               strPlaceholder="종료일"
               objSX={{ marginLeft: '8px' }}
-              value={dateTo}
+              value={dateTo.toString()}
               onChange={onChanges}
             />
             <Button
