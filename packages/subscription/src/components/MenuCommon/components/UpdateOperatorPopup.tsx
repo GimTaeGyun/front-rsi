@@ -115,7 +115,7 @@ const UpdateOperatorPopup = (props: {
           </IconButton>
         </DialogTitle>
         <Divider />
-        <DialogContent sx={{ padding: '30px' }}>
+        <DialogContent sx={{ padding: '10px 30px 30px 30px' }}>
           <Box>
             <InputLabel className="sub_formLabel" sx={{ marginTop: '0' }}>
               아이디 <Typography className="sub_cust_label_dot">•</Typography>{' '}

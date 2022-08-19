@@ -547,6 +547,16 @@ const css = createTheme({
           fontSize: '13px !important',
           letterSpacing: '-0.33px !important',
         },
+        '& .sub_td_btn_action2': {
+          color: '#666',
+          minWidth: '38px !important',
+          maxWidth: '38px',
+          minHeight: '23px',
+          maxHeight: '23px',
+          borderRadius: '4px !important',
+          fontFamily: 'NotoSansKRMedium',
+          fontSize: '12px !important',
+        },
         '& .sub_pagination_wrapper': {
           borderTop: '1px solid rgba(224, 224, 224, 1)',
           display: 'flex',
@@ -955,7 +965,7 @@ const css = createTheme({
         '& .MuiDialogContent-root.sub_dialog_content_outer': {
           border: '0 solid #000',
           width: '100%',
-          padding: '30px 30px 0 30px !important',
+          padding: '10px 30px 0 30px !important',
         },
         '& .sub_dialog_input_outer': {
           marginBottom: '13px',
@@ -1080,6 +1090,11 @@ const css = createTheme({
           '& .MuiDataGrid-columnHeaderTitleContainer .MuiSvgIcon-root': {
             fontSize: '24px !important',
             color: '#141414',
+          },
+          '& .MuiDataGrid-cellContent': {
+            color: '#000000DE',
+            fontFamily: 'NotoSansKRRegular !important',
+            fontSize: '14px !important',
           },
         },
         '& .sub_dialog_button_blue': {
@@ -1234,6 +1249,14 @@ const css = createTheme({
               height: '44px',
             },
           },
+        },
+        '& .btn_usrgrp_1': {
+          width: '84px',
+          height: '36px',
+        },
+        '& .btn_usrgrp_2': {
+          width: '84px',
+          height: '36px',
         },
       },
     },
