@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { InputLabel } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Box, IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -104,31 +104,20 @@ const UpdateOperatorPopup = (props: {
           },
         }}
       >
-        <DialogTitle sx={{ height: '56px', p: '16px' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
+        <DialogTitle className="sub_dialog_title_outer">
+          <Typography>운영자 정보 수정</Typography>
+          <IconButton
+            color="primary"
+            component="label"
+            onClick={() => handleClose()}
           >
-            <Typography>운영자 정보 수정</Typography>
-            <Button
-              sx={{
-                bgcolor: 'transparent',
-                color: '#000000DE',
-                '&:focus, &:hover': { bgcolor: 'transparent' },
-              }}
-              onClick={() => handleClose()}
-            >
-              <CloseOutlined />
-            </Button>
-          </Box>
+            <CloseOutlined className="sub_dialog_icon_close" />
+          </IconButton>
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ padding: '30px' }}>
           <Box>
-            <InputLabel className="sub_formLabel">
+            <InputLabel className="sub_formLabel" sx={{ marginTop: '0' }}>
               아이디 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
@@ -148,7 +137,6 @@ const UpdateOperatorPopup = (props: {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                width: '348px !important',
                 mt: '5px',
               }}
             >
@@ -159,6 +147,7 @@ const UpdateOperatorPopup = (props: {
                 placeholder="비밀번호"
                 className="sub_formText"
                 sx={{
+                  width: '348px !important',
                   mr: '10px',
                   flex: '1',
                   marginTop: '0 !important',
@@ -290,7 +279,7 @@ const UpdateOperatorPopup = (props: {
           <Button
             variant="contained"
             className="sub_button_blue"
-            sx={{ minheight: '36px', minWeight: '57px', fontSize: '14px' }}
+            sx={{ width: '57px', height: '36px', fontSize: '14px' }}
             onClick={async () => {
               const valid = {
                 usrPw: false,

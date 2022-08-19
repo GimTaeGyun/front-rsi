@@ -107,8 +107,8 @@ const css = createTheme({
               padding: '11px 10px',
               lineHeight: 'normal',
             },
-            '& 	.MuiOutlinedInput-input': {
-              fontFamily: 'NotoSansKRReguler',
+            '& 	.MuiOutlinedInput-input, .MuiInputBase-input': {
+              fontFamily: 'NotoSansKRRegular',
               fontStyle: 'normal',
               fontSize: '14px',
             },
