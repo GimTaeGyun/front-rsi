@@ -29,7 +29,10 @@ const css = createTheme({
           '& .sub_tree_hover': {
             backgroundColor: '#F4F5F7',
             borderRadius: '4px',
-            color: '#284AD5',
+            '& .MuiTypography-root.active_tree': {
+              fontFamily: 'NotoSansKRBold',
+              color: '#284AD5',
+            },
           },
           '& .sub_button_white_noneborder': {
             color: '#284AD5',
@@ -263,6 +266,13 @@ const css = createTheme({
         },
         '& .sub_hideLastSeparator .MuiDataGrid-columnSeparator--sideRight': {
           display: 'none !important',
+        },
+        '& .MuiDataGrid-columnHeader.sub_hideCheckboxSortBtn': {
+          paddingLeft: '0 !important',
+          paddingRight: '0 !important',
+          '& .MuiDataGrid-iconButtonContainer': {
+            display: 'none !important',
+          },
         },
         '& .sub_tbl_header_text_common': {
           color: '#000000DE',
@@ -1201,6 +1211,29 @@ const css = createTheme({
         '& .sub_card_dialog_textarea_btn': {
           width: '80px',
           height: '60px',
+        },
+        '& .MuiPaper-root.sub_sidebar_box_card': {
+          boxShadow: '0px 1px 5px #0000002E',
+          borderRadius: '6px',
+          color: '#000000DE',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          borderBottom: '0px !important',
+          borderBottomLeftRadius: '0px !important',
+          borderBottomRightRadius: '0px !important',
+          width: '350px',
+        },
+        '& .MuiCardContent-root.sub_sidebar_cardContent_list': {
+          paddingTop: '12px',
+          '& ul': {
+            margin: 0,
+            padding: 0,
+            listStyleType: 'none',
+            '& li > .MuiBox-root': {
+              height: '44px',
+            },
+          },
         },
       },
     },
