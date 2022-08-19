@@ -12,7 +12,6 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
-import FrmOrderDetails from '../MenuCCP/customer/TabContent3/FrmOrderDetails';
 
 const defaultOperPopupData = {
   action: 'add',

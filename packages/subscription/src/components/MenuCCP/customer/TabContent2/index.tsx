@@ -56,7 +56,7 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       const moment = require('moment');
-      const date = new Date(params.value);
+      const date = params.value;
       const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
       return <Box>{formatDate}</Box>;
     },
@@ -75,7 +75,7 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       const moment = require('moment');
-      const date = new Date(params.value);
+      const date = params.value;
       const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
       return <Box>{formatDate}</Box>;
     },
@@ -185,9 +185,9 @@ const TabContent2 = () => {
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [open, setOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
-  const defaultFromDate = new Date('1900-01-01');
+  const defaultFromDate = '1900-01-01';
   const [dateFrom, setDateFrom] = useState(defaultFromDate);
-  const defaultToDate = new Date('2099-12-31');
+  const defaultToDate = '2099-12-31';
   const [dateTo, setDateTo] = useState(defaultToDate);
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
@@ -269,8 +269,10 @@ const TabContent2 = () => {
   };
 
   const onClick = (data: any) => {
-    const date = dateFrom;
+    let date: any = new Date(dateFrom);
     date.setMonth(date.getMonth() + data);
+    date =
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     setDateTo(date);
   };
 

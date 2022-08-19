@@ -311,7 +311,7 @@ const TabContent4 = () => {
                 strName="search-date1"
                 strPlaceholder="시작일"
                 objSX={{ marginRight: '8px' }}
-                value={new Date()}
+                value={'1999-01-01'}
               />
               <MyDatePicker
                 strId="search-date2"
@@ -319,7 +319,7 @@ const TabContent4 = () => {
                 strName="search-date2"
                 strPlaceholder="종료일"
                 objSX={null}
-                value={new Date()}
+                value={'1999-01-01'}
               />
             </Box>
           </Box>
