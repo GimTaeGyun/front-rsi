@@ -6,7 +6,7 @@ Axios.defaults.baseURL = 'http://apidev.bflysoft.com:4000';
 Axios.defaults.proxy = { host: 'localhost', port: 4000 };
 
 Axios.interceptors.request.use(config => {
-  if( config.url?.includes('/management/keycloak/refreshtoken') ){
+  if( config.url == '/management/keycloak/refreshtoken' ){
     delete (config.headers as any).Authorization;
   }else if (localStorage.getItem('access-token') != null ){
     const header = `bearer ${  localStorage.getItem('access-token')}`;
@@ -19,7 +19,7 @@ Axios.interceptors.request.use(config => {
 
 Axios.interceptors.response.use(
   response => {
-    if(response.config.url?.includes("/management/keycloak/refreshtoken") &&
+    if(response.config.url == "/management/keycloak/refreshtoken" &&
       response.data.hasOwnProperty("code") && response.data.code != '0000'){
       console.log("response")
       localStorage.clear();
@@ -29,9 +29,9 @@ Axios.interceptors.response.use(
   },
   async error => {
     if (error.response.status == 401 &&
-      !error.config.url.includes('/management/keycloak/refreshtoken') ) {
+      error.config.url != '/management/keycloak/refreshtoken' ) {
       try {
-        if( error.url?.includes('/management/keycloak/refreshtoken') ){
+        if( error.url == '/management/keycloak/refreshtoken' ){
           localStorage.clear();
           console.log(1);
           //location.href = '/admin/login';
@@ -39,6 +39,7 @@ Axios.interceptors.response.use(
         }
         
         const originalRequest = error.config;
+        localStorage.removeItem('access-token');
         const res = await Axios.post('/management/keycloak/refreshtoken', {
           refreshToken: localStorage.getItem('refresh-token')
         });
