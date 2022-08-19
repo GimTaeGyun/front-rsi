@@ -8,6 +8,7 @@ import { customerData } from '../../../data/atoms';
 import TabContent1 from '../customer/TabContent1';
 import TabContent2 from '../customer/TabContent2';
 import TabContent3 from '../customer/TabContent3';
+import TabContent4 from '../customer/TabContent4';
 import AlertPopup from '../../Common/AlertPopup';
 
 import TabButton from './components/TopButton';
@@ -46,7 +47,7 @@ const CustomerTabData = [
     index: 4,
     child: (
       <>
-        <TabContent1 />
+        <TabContent4 />
       </>
     ),
   },
