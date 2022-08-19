@@ -116,9 +116,11 @@ const TabContent1 = () => {
   useEffect(() => {
     const userApi = async () => {
       let tmpData = sharedCustomerData;
-      if (!sharedCustomerData || sharedCustomerData.hasOwnProperty('tosInfo'))
+      console.log('loaded', loaded);
+      if (loaded) {
         return;
-      switch (sharedCustomerData.custTp) {
+      }
+      switch (tmpData.custTp) {
         case '기업':
           tmpData.custTp = 1;
           break;
@@ -133,7 +135,7 @@ const TabContent1 = () => {
       const response = await axios.post(
         '/management/manager/customer/search/detail',
         {
-          custId: sharedCustomerData.custId,
+          custId: tmpData.custId,
           custTp: tmpData.custTp.value,
         },
       );
@@ -145,6 +147,7 @@ const TabContent1 = () => {
       tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
         ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
         : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
+      console.log(tmpData);
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };
