@@ -441,6 +441,14 @@ const css = createTheme({
         '& .sub_listpage_filter_list2:last-child': {
           marginRight: '0',
         },
+        '& .sub_listpage_filter_list3': {
+          width: '175px',
+          height: '36px',
+          marginRight: '8px',
+        },
+        '& .sub_listpage_filter_list3:last-child': {
+          marginRight: '0',
+        },
         '& .sub_listpage_filter_btmsection': {
           height: '52px',
           display: 'flex',
