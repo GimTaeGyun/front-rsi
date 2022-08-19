@@ -13,18 +13,15 @@ const MyDatePicker = (props: {
   value: Date;
   onChange?: Function;
 }) => {
-  const [value, setValue] = React.useState<Date | null>(props.value);
-
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         reduceAnimations={true}
         label=""
         inputFormat="yyyy-MM-dd"
-        value={value}
+        value={props.value}
         onChange={e => {
           props.onChange ? props.onChange(e) : '';
-          setValue(e);
         }}
         renderInput={params => (
           <OutlinedInput

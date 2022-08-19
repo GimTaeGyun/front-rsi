@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,12 +10,17 @@ import {
   TablePagination,
 } from '@mui/material';
 import MyDatePicker from '../../../Common/MyDatePicker';
+import FrmOrderDetails from './FrmOrderDetails';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
+import moment from 'moment';
+import Axios from '../../../../utils/axios';
+import { array } from 'yup';
+import { format } from 'path';
 
 const columns: GridColDef[] = [
   {
     align: 'center',
-    field: 'id',
+    field: 'ordNo',
     headerName: '주문번호',
     width: 120,
     headerAlign: 'center',
@@ -29,7 +34,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'left',
-    field: 'productNm',
+    field: 'prdNm',
     headerName: '상품명',
     width: 380,
     headerAlign: 'center',
@@ -42,7 +47,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'orderDate',
+    field: 'ordDate',
     headerName: '주문일시',
     width: 145,
     headerAlign: 'center',
@@ -52,10 +57,16 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
+    renderCell: params => {
+      const moment = require('moment');
+      const date = new Date(params.value);
+      const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
+      return <Box>{formatDate}</Box>;
+    },
   },
   {
     align: 'center',
-    field: 'paymentDate',
+    field: 'pmtDate',
     headerName: '결제일시',
     width: 143,
     headerAlign: 'center',
@@ -65,10 +76,16 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
+    renderCell: params => {
+      const moment = require('moment');
+      const date = new Date(params.value);
+      const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
+      return <Box>{formatDate}</Box>;
+    },
   },
   {
     align: 'center',
-    field: 'paymentMethod',
+    field: 'pmtMethod',
     headerName: '결제수단',
     width: 93,
     headerAlign: 'center',
@@ -81,7 +98,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'right',
-    field: 'amount',
+    field: 'pmtAmt',
     headerName: '결제금액',
     width: 150,
     headerAlign: 'center',
@@ -95,23 +112,23 @@ const columns: GridColDef[] = [
   {
     align: 'center',
     field: 'status',
-    headerName: '결제상태',
+    headerName: '주문상태',
     width: 93,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderCell: params => {
       let str_class = 'sub_td_ostatus sub_td_ostatus_color1';
-      switch (params.value) {
-        case '입금대기':
+      switch (params.value.value) {
+        case 0:
           str_class = 'sub_td_ostatus sub_td_ostatus_color1';
           break;
-        case '결제완료':
+        case 1:
           str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
-        case '취소요청':
+        case 2:
           str_class = 'sub_td_ostatus sub_td_ostatus_color3';
           break;
-        case '취소완료':
+        case 3:
           str_class = 'sub_td_ostatus sub_td_ostatus_color4';
           break;
         default:
@@ -119,7 +136,7 @@ const columns: GridColDef[] = [
       }
       return (
         <Box component="span" className={str_class}>
-          {params.value}
+          {params.value.value}
         </Box>
       );
     },
@@ -151,6 +168,9 @@ const columns: GridColDef[] = [
         <Button
           variant="outlined"
           className="sub_btn_primary_outline_common sub_td_btn_action"
+          onClick={() => {
+            return <FrmOrderDetails open={true} />;
+          }}
         >
           보기
         </Button>
@@ -275,7 +295,46 @@ const TabContent2 = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [rows, setRows] = React.useState([]);
+  const defaultDate = '1900-01-01';
+  const [dateFrom, setDateFrom] = useState(new Date(defaultDate));
 
+  useEffect(() => {
+    const Api = async () => {
+      const param = {
+        dateFrom: '1900-01-01',
+        dateTo: '9999-12-31',
+        order: 'asc',
+        pageNo: 1,
+        pageSize: 10,
+        searchDateType: 'ALL',
+        sortField: 'ordNo',
+        status: 32767,
+      };
+      const res = await Axios.post(
+        '/management/manager/contract/order/inquiry',
+        param,
+      );
+      const prd = res.data.result.dataRows;
+      const prds = prd.map((item: any) => {
+        item.prd.push({ prdNm: 'ffff' });
+        const prdNm = item.prd.map((item: any) => {
+          return item.prdNm;
+        });
+        return {
+          ...item,
+          id: item.rnum,
+          prdNm: prdNm,
+        };
+      });
+      setRows(prds);
+    };
+    Api();
+  }, []);
+  const onChange = (data: any) => {
+    setDateFrom(new Date(data));
+  };
+  console.log(rows);
   return (
     <>
       {/* Filter Section */}
@@ -305,8 +364,10 @@ const TabContent2 = () => {
               strName="search-date1"
               strPlaceholder="시작일"
               objSX={{ marginLeft: '8px' }}
-              value={new Date()}
+              value={dateFrom}
+              onChange={onChange}
             />
+
             <MyDatePicker
               strId="search-date2"
               strClass="sub_input_common sub_filter2_date"
@@ -364,6 +425,9 @@ const TabContent2 = () => {
           <Button
             variant="outlined"
             className="sub_btn_primary_outline_common sub_btn_filter1"
+            onClick={() => {
+              setDateFrom(new Date(defaultDate));
+            }}
           >
             초기화
           </Button>
@@ -403,6 +467,7 @@ const TabContent2 = () => {
             pageSize={rowsPerPage}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}
             rowsPerPageOptions={[10, 25, 50]}
+            getRowId={row => row.rnum}
             pagination={true}
             checkboxSelection={true}
             components={{
