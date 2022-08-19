@@ -116,7 +116,6 @@ const TabContent1 = () => {
   useEffect(() => {
     const userApi = async () => {
       let tmpData = sharedCustomerData;
-      console.log('loaded', loaded);
       if (loaded) {
         return;
       }
@@ -147,7 +146,6 @@ const TabContent1 = () => {
       tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
         ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
         : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
-      console.log(tmpData);
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };

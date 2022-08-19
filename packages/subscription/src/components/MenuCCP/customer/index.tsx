@@ -180,10 +180,11 @@ const Index = () => {
     };
     param.custTp = userCategory.codeSetItems.map((item: any) => {
       if (item.checked) return parseInt(item.value);
+      return;
     }) as any;
-    console.log(userCategory.codeSetItems);
     param.status = statusCategory.codeSetItems.map((item: any) => {
       if (item.checked) return parseInt(item.value);
+      return;
     }) as any;
 
     axios
