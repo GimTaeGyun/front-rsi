@@ -119,13 +119,13 @@ const Index = () => {
       !loaded
     ) {
       setLoaded(true);
-      searchClickEvent();
+      searchClickEvent(null);
     }
   }, [searchCategory, userCategory, statusCategory]);
 
   // 페이지값이 변하면 다시 로딩
   useEffect(() => {
-    if (loaded) searchClickEvent();
+    if (loaded) searchClickEvent(true);
   }, [pageSize, pageNo]);
 
   const checkedChangedEvent = (e: any) => {
@@ -165,7 +165,7 @@ const Index = () => {
         break;
     }
   };
-  const searchClickEvent = () => {
+  const searchClickEvent = (page: boolean | undefined | null) => {
     let param = {
       custTp: [],
       joinedDtFrom: dateFrom,
@@ -178,6 +178,11 @@ const Index = () => {
       sortField: 'custId',
       status: [],
     };
+    if (!page) {
+      console.log(page);
+      param.pageNo = 1;
+      setPageNo(1);
+    }
     param.custTp = userCategory.codeSetItems.map((item: any) => {
       if (item.checked) return parseInt(item.value);
       return;
@@ -287,7 +292,7 @@ const Index = () => {
                     onChange={e => setKeyword(e.target.value)}
                     value={keyword}
                     onKeyDown={e => {
-                      if (e.key == 'Enter') searchClickEvent();
+                      if (e.key == 'Enter') searchClickEvent(null);
                     }}
                   />
                 </Box>
@@ -346,7 +351,7 @@ const Index = () => {
                 <Button
                   variant="contained"
                   className="sub_btn_primary_fill_common sub_btn_filter2"
-                  onClick={() => searchClickEvent()}
+                  onClick={() => searchClickEvent(null)}
                 >
                   검색하기
                 </Button>
@@ -449,6 +454,7 @@ const Index = () => {
               cellClickEvent={cellClickEvent}
               rowsPerPage={pageSize}
               total={total}
+              page={pageNo}
               pageChanged={(e: number) => setPageNo(e + 1)}
               rowsChanged={(e: number) => setPageSize(e)}
             />

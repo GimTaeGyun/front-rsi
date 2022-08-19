@@ -199,6 +199,8 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: params => {
+      if (params.row.custId == 'e2dbe905af0ff06cc88e55dcf4c543e8')
+        console.log(params.row);
       let str_class = 'sub_td_sit sub_td_sit_color1';
       switch (params.value.value) {
         case 1:
@@ -270,6 +272,7 @@ const DataTable = (props: {
   pageChanged?: Function;
   rowsChanged?: Function;
   total?: number;
+  page: number;
 }) => {
   const {
     rows = [],
@@ -278,8 +281,8 @@ const DataTable = (props: {
     pageChanged = () => {},
     rowsChanged = () => {},
     total = 10,
+    page = 0,
   } = props;
-  const [page, setPage] = React.useState(0);
 
   return (
     <div style={{ height: '626px', width: '100%' }}>
@@ -304,14 +307,12 @@ const DataTable = (props: {
               newPage: number,
             ) => {
               console.log(event);
-              setPage(newPage);
               pageChanged(newPage);
             };
 
             const handleChangeRowsPerPage = (
               event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
             ) => {
-              setPage(0);
               rowsChanged(event.target.value);
             };
 
@@ -339,7 +340,7 @@ const DataTable = (props: {
                     className="sub_pagination"
                     component="div"
                     count={total}
-                    page={page}
+                    page={page - 1}
                     onPageChange={handleChangePage}
                     rowsPerPage={rowsPerPage}
                     onRowsPerPageChange={handleChangeRowsPerPage}

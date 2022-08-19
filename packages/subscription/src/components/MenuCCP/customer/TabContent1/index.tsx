@@ -116,7 +116,7 @@ const TabContent1 = () => {
   useEffect(() => {
     const userApi = async () => {
       let tmpData = sharedCustomerData;
-      if (loaded) {
+      if (loaded || !tmpData) {
         return;
       }
       switch (tmpData.custTp) {
