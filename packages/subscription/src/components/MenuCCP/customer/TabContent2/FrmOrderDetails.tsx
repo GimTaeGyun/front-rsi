@@ -161,7 +161,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
               <CardContent className="sub_dialog_card_orderinfo1_content">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={0}>
-                    <Grid md={6} sx={{ marginBottom: '8px' }}>
+                    <Grid item md={6} sx={{ marginBottom: '8px' }}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -183,7 +183,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                         />
                       </Box>
                     </Grid>
-                    <Grid md={6} sx={{ marginBottom: '8px' }}>
+                    <Grid item md={6} sx={{ marginBottom: '8px' }}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -205,7 +205,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                         />
                       </Box>
                     </Grid>
-                    <Grid md={6} sx={{ marginBottom: '8px' }}>
+                    <Grid item md={6} sx={{ marginBottom: '8px' }}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -227,7 +227,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                         />
                       </Box>
                     </Grid>
-                    <Grid md={6} sx={{ marginBottom: '8px' }}>
+                    <Grid item md={6} sx={{ marginBottom: '8px' }}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -249,7 +249,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                         />
                       </Box>
                     </Grid>
-                    <Grid md={6} sx={{ marginBottom: '8px' }}>
+                    <Grid md={6} item sx={{ marginBottom: '8px' }}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -272,7 +272,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                       </Box>
                     </Grid>
 
-                    <Grid md={6} sx={{ marginBottom: '8px' }}>
+                    <Grid item md={6} sx={{ marginBottom: '8px' }}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -295,7 +295,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                       </Box>
                     </Grid>
 
-                    <Grid md={6}>
+                    <Grid item md={6}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"
@@ -318,7 +318,7 @@ const FrmOrderDetails = (props: { open: boolean }) => {
                       </Box>
                     </Grid>
 
-                    <Grid md={6}>
+                    <Grid item md={6}>
                       <Box
                         component="div"
                         className="sub_dialog_card_orderinfo_outer_common"

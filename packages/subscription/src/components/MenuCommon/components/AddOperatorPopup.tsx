@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import Box from '@mui/material/Box';
+import { Box, IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -93,27 +93,15 @@ const AddOperatorPopup = (props: {
           },
         }}
       >
-        <DialogTitle sx={{ height: '56px', p: '16px' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
+        <DialogTitle className="sub_dialog_title_outer">
+          <Typography>운영자 추가</Typography>
+          <IconButton
+            color="primary"
+            component="label"
+            onClick={() => handleClose()}
           >
-            <Typography>운영자 추가</Typography>
-            <Button
-              sx={{
-                bgcolor: 'transparent',
-                color: '#000000DE',
-                padding: '0 0 0 0',
-                '&:focus, &:hover': { bgcolor: 'transparent' },
-              }}
-              onClick={() => handleClose()}
-            >
-              <CloseOutlined />
-            </Button>
-          </Box>
+            <CloseOutlined className="sub_dialog_icon_close" />
+          </IconButton>
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ padding: '30px' }}>

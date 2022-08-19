@@ -1,5 +1,4 @@
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import {
   GRID_CHECKBOX_SELECTION_COL_DEF,
   GridColDef,
@@ -9,28 +8,37 @@ import {
 import React from 'react';
 
 export const columns: GridColDef[] = [
-  { field: '__check__', sortingOrder: ['desc'] },
+  {
+    align: 'center',
+    headerAlign: 'center',
+    width: 50,
+    headerClassName: 'sub_hideCheckboxSortBtn',
+    field: '__check__',
+    sortingOrder: ['desc'],
+  },
   {
     field: 'id',
     headerName: 'ID',
-    width: 140,
+    width: 125,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
 
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <Typography className="sub_tbl_th_common">
+        {params.colDef.headerName}
+      </Typography>
     ),
   },
   {
     field: 'name',
     headerName: '이름',
-    width: 87,
+    width: 140,
     headerAlign: 'center',
-    sortable: false,
+    sortable: true,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px" aria-expanded="false">
+      <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -38,34 +46,26 @@ export const columns: GridColDef[] = [
   {
     field: 'phone',
     headerName: '전화번호',
-    width: 143,
+    width: 120,
     headerAlign: 'center',
     align: 'center',
-    sortable: false,
+    sortable: true,
     hideSortIcons: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <Typography className="sub_tbl_th_common">
+        {params.colDef.headerName}
+      </Typography>
     ),
   },
   {
     field: 'email',
     headerName: '이메일',
-    width: 200,
+    width: 180,
     headerAlign: 'center',
-    disableColumnMenu: true,
-    sortable: false,
-    hideSortIcons: true,
-    headerClassName: 'datagridMenu',
+    disableColumnMenu: false,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography
-        fontSize="14px"
-        sx={{
-          ':hover': {
-            pointerEvents: 'none !important',
-          },
-        }}
-      >
+      <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -73,13 +73,15 @@ export const columns: GridColDef[] = [
   {
     field: 'status',
     headerName: '상태',
-    width: 89,
+    width: 80,
     headerAlign: 'center',
     align: 'center',
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <Typography className="sub_tbl_th_common">
+        {params.colDef.headerName}
+      </Typography>
     ),
     renderCell: (params: GridRenderCellParams<string>) => (
       <Typography
@@ -104,32 +106,41 @@ export const columns: GridColDef[] = [
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <Typography className="sub_tbl_th_common">
+        {params.colDef.headerName}
+      </Typography>
     ),
   },
   {
     field: 'modifiedDate',
     headerName: '최종 수정일',
-    width: 159,
+    width: 155,
     headerAlign: 'center',
     align: 'center',
     sortable: false,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px">{params.colDef.headerName}</Typography>
+      <>
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+        <IconButton color="primary" component="label">
+          <Box component="img" src="/filter_list.png"></Box>
+        </IconButton>
+      </>
     ),
   },
   {
     field: 'management',
     headerName: '관리',
-    width: 89,
+    width: 80,
     headerAlign: 'center',
     align: 'center',
     sortable: false,
     disableColumnMenu: true,
     headerClassName: 'lastcolumnSeparator',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography fontSize="14px" borderRight="none">
+      <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
       </Typography>
     ),
@@ -140,6 +151,7 @@ export const columns: GridColDef[] = [
           minWidth: '44px',
           height: '30px',
           fontSize: '13px',
+          borderRadius: '4px',
         }}
         className="sub_button_white"
       >

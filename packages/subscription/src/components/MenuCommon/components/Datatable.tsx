@@ -96,6 +96,7 @@ const DataTable = (props: any) => {
           }}
         />
         <DataGrid
+          className="sub_tbl_outer_common"
           rows={rowData}
           columns={columns}
           pageSize={rowData.length}

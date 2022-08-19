@@ -152,14 +152,15 @@ const Sidebar = (props: {
 
   return (
     <Box sx={{ width: '350px', height: '633px' }}>
-      <Card sx={styles.box_card}>
+      <Card className="sub_sidebar_box_card">
         <CardHeader
+          className="box_cardHeader"
           component="div"
           title={'전체 (' + getCnt() + ')'}
           sx={styles.box_cardHeader}
         />
         <Divider />
-        <CardContent sx={styles.cardContent_list}>
+        <CardContent className="sub_sidebar_cardContent_list">
           <DndProvider backend={MultiBackend} options={getBackendOptions()}>
             <Tree
               tree={treedata}
@@ -183,12 +184,18 @@ const Sidebar = (props: {
                           : ''
                       }
                     >
-                      <Box onClick={() => onClick(node, onToggle)}>
+                      <Box
+                        onClick={() => onClick(node, onToggle)}
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                      >
                         {isOpen && hasChild ? (
-                          <ExpandMore sx={{ color: '#000000DE' }} />
+                          <ExpandMore
+                            sx={{ color: isOpen ? '#000000DE' : '#c7c7c7' }}
+                          />
                         ) : hasChild ? (
                           <ArrowForwardIos
                             sx={{
+                              color: '#000000DE',
                               fontSize: '14px',
                             }}
                           />
@@ -196,22 +203,36 @@ const Sidebar = (props: {
                           <ArrowForwardIos
                             sx={{
                               fontSize: '14px',
-                              color: '#00000042',
+                              color: isOpen ? '#000000DE' : '#c7c7c7',
                             }}
                           />
                         )}
                         <Typography
                           component="span"
+                          className={
+                            selectedTreeitem && selectedTreeitem.id == node.id
+                              ? 'active_tree'
+                              : ''
+                          }
                           sx={{
                             fontSize: '15px',
                             fontFamily: 'NotoSansKRRegular',
                           }}
                         >{`${node.text}`}</Typography>
                         <Typography
+                          className={
+                            selectedTreeitem && selectedTreeitem.id == node.id
+                              ? 'active_count'
+                              : ''
+                          }
                           component="span"
-                          sx={{ color: '#000000DE' }}
+                          sx={{
+                            fontSize: '15px',
+                            fontFamily: 'NotoSansKRRegular',
+                            color: '#000000DE',
+                            paddingLeft: '3px',
+                          }}
                         >
-                          {' '}
                           {`(${node?.data.cnt})`}
                         </Typography>
                       </Box>
