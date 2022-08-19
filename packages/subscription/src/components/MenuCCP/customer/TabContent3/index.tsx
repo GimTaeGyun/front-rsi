@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -7,7 +7,8 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-
+import { useLocation } from 'react-router-dom';
+import axios from '../../../../utils/axios';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
@@ -122,73 +123,19 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: 'Kim_Byeongcheol',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-  {
-    id: 'YounHoyeong1',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-  {
-    id: 'YounHoyeong2',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-  {
-    id: 'YounHoyeong3',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-  {
-    id: 'YounHoyeong4',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-  {
-    id: 'YounHoyeong5',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-  {
-    id: 'YounHoyeong6',
-    userName: '김병철',
-    phone: '010-1234-5678',
-    email: 'byeongcheol@gmail.com',
-    usrGroup: '홍보실',
-    dateLastModified: '2022-10-31 12:00',
-    details: '수정',
-  },
-];
 const TabContent3 = () => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const { state } = useLocation();
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    axios
+      .post('/management/manager/customer/userlist/inquiry', {
+        custId: (state as any).custId,
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(e => console.log(e));
+  }, []);
 
   return (
     <>

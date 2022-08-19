@@ -12,6 +12,7 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
+import FrmOrderDetails from '../MenuCCP/customer/TabContent3/FrmOrderDetails';
 
 const defaultOperPopupData = {
   action: 'add',
@@ -232,8 +233,6 @@ const Admin = () => {
           console.log(err);
         });
     } else if (params.field === '__check__') {
-      // 여기에 리스트 체크박스 API 구현
-      console.log(selectedTreeitem?.id);
     }
   };
 

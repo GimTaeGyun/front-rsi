@@ -10,7 +10,7 @@ const MyDatePicker = (props: {
   strName: string;
   strPlaceholder: string;
   objSX: object | null;
-  value: Date;
+  value: string;
   onChange?: Function;
 }) => {
   return (

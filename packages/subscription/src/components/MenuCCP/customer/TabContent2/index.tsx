@@ -12,10 +12,7 @@ import {
 import MyDatePicker from '../../../Common/MyDatePicker';
 import FrmOrderDetails from './FrmOrderDetails';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import moment from 'moment';
 import Axios from '../../../../utils/axios';
-import { array } from 'yup';
-import { format } from 'path';
 
 const columns: GridColDef[] = [
   {
@@ -126,9 +123,15 @@ const columns: GridColDef[] = [
           str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
         case 2:
-          str_class = 'sub_td_ostatus sub_td_ostatus_color3';
+          str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
         case 3:
+          str_class = 'sub_td_ostatus sub_td_ostatus_color3';
+          break;
+        case 4:
+          str_class = 'sub_td_ostatus sub_td_ostatus_color4';
+          break;
+        case 5:
           str_class = 'sub_td_ostatus sub_td_ostatus_color4';
           break;
         default:
@@ -168,9 +171,6 @@ const columns: GridColDef[] = [
         <Button
           variant="outlined"
           className="sub_btn_primary_outline_common sub_td_btn_action"
-          onClick={() => {
-            return <FrmOrderDetails open={true} />;
-          }}
         >
           보기
         </Button>
@@ -179,131 +179,24 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: '0000001',
-    productNm: 'EyeSurfer / 조간신문 / 중앙신문 / 경향신문 외 3종',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '2,700,000원',
-    status: '입금대기',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000002',
-    productNm: 'EyeSurfer Premium Plus / 조간신문 / 중앙신문 / 경향신...',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '300,000,000원',
-    status: '결제완료',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000003',
-    productNm: 'EyeSurfer 온라인 모니터링 서비스',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '132,000원',
-    status: '입금대기',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000004',
-    productNm: 'EyeSurfer / 조간신문 / 중앙신문 / 조선일보 1개월',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '110,000원',
-    status: '취소완료',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000005',
-    productNm: 'EyeSurfer Premium Plus / 조간신문 / 중앙신문 / 경향신...',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '400,000,000원',
-    status: '취소요청',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000006',
-    productNm: 'EyeSurfer V4M / 조간신문 / 중앙신문 / 경향신문 외 3종',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '10,200,500원',
-    status: '결제완료',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000007',
-    productNm: 'EyeSurfer 온라인 모니터링 서비스',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '2,888,000원',
-    status: '입금완료',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000008',
-    productNm: 'EyeEyeSurfer / 조간신문 / 중앙신문 / 경향신문 외 3종',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '27,500원',
-    status: '결제완료',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000009',
-    productNm: 'EyeSurfer / 조간신문 / 중앙신문 / 경향신문 외 3종',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '55,000원',
-    status: '취소요청',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-  {
-    id: '0000010',
-    productNm: 'EyeSurfer / 조간신문 / 중앙신문 / 경향신문 외 3종',
-    orderDate: '2022-01-01 12:00',
-    paymentDate: '2022-10-31 12:00',
-    paymentMethod: '무통장입금',
-    amount: '440,000원',
-    status: '취소완료',
-    orderBy: '현대중공업(주)',
-    details: '보기',
-  },
-];
 const TabContent2 = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [open, setOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
-  const defaultDate = '1900-01-01';
-  const [dateFrom, setDateFrom] = useState(new Date(defaultDate));
+  const defaultFromDate = new Date('1900-01-01');
+  const [dateFrom, setDateFrom] = useState(defaultFromDate);
+  const defaultToDate = new Date('2099-12-31');
+  const [dateTo, setDateTo] = useState(defaultToDate);
+  const [searchDateType, setSearchDateType] = useState('ALL');
+  const [statuss, setStatuss] = useState(32767);
 
   useEffect(() => {
     const Api = async () => {
       const param = {
-        dateFrom: '1900-01-01',
-        dateTo: '9999-12-31',
+        dateFrom: defaultFromDate,
+        dateTo: defaultToDate,
         order: 'asc',
         pageNo: 1,
         pageSize: 10,
@@ -318,6 +211,8 @@ const TabContent2 = () => {
       const prd = res.data.result.dataRows;
       const prds = prd.map((item: any) => {
         item.prd.push({ prdNm: 'ffff' });
+        item.pmtAmt = '_';
+        item.pmtMethod = '_';
         const prdNm = item.prd.map((item: any) => {
           return item.prdNm;
         });
@@ -331,10 +226,67 @@ const TabContent2 = () => {
     };
     Api();
   }, []);
-  const onChange = (data: any) => {
-    setDateFrom(new Date(data));
+
+  const onClickSearch = async () => {
+    const param = {
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+      order: 'asc',
+      pageNo: page + 1,
+      pageSize: rowsPerPage,
+      searchDateType: searchDateType,
+      sortField: 'ordNo',
+      status: statuss,
+    };
+    const res = await Axios.post(
+      '/management/manager/contract/order/inquiry',
+      param,
+    );
+    const prd = res.data.result.dataRows;
+    if (prd === null || prd === undefined) {
+      setRows([]);
+    } else {
+      const prds = prd.map((item: any) => {
+        const prdNm = item.prd.map((item: any) => {
+          return item.prdNm;
+        });
+        return {
+          ...item,
+          id: item.rnum,
+          prdNm: prdNm,
+        };
+      });
+      setRows(prds);
+    }
   };
-  console.log(rows);
+
+  const onChange = (data: any) => {
+    setDateFrom(data);
+  };
+
+  const onChanges = (data: any) => {
+    setDateTo(data);
+  };
+
+  const onClick = (data: any) => {
+    const date = dateFrom;
+    date.setMonth(date.getMonth() + data);
+    setDateTo(date);
+  };
+
+  const cellClickEvent = (params: any, event: any) => {
+    console.log(event);
+    if (params.field == 'details') {
+      setOpen(true);
+      event;
+    }
+  };
+
+  useEffect(() => {
+    onClickSearch();
+  }, [page, rowsPerPage]);
+  console.log(open);
+
   return (
     <>
       {/* Filter Section */}
@@ -351,12 +303,16 @@ const TabContent2 = () => {
               fullWidth={false}
               id="select1"
               name="select1"
-              value="전체"
+              defaultValue="All"
+              value={searchDateType}
               className="sub_select_common sub_filter2_list"
+              onChange={e => {
+                setSearchDateType(e.target.value);
+              }}
             >
-              <MenuItem value="전체">전체</MenuItem>
-              <MenuItem value="주문일">주문일</MenuItem>
-              <MenuItem value="결제일">결제일</MenuItem>
+              <MenuItem value="ALL">전체</MenuItem>
+              <MenuItem value="orderDate">주문일</MenuItem>
+              <MenuItem value="paymentDate">결제일</MenuItem>
             </Select>
             <MyDatePicker
               strId="search-date1"
@@ -374,12 +330,16 @@ const TabContent2 = () => {
               strName="search-date2"
               strPlaceholder="종료일"
               objSX={{ marginLeft: '8px' }}
-              value={new Date()}
+              value={dateTo}
+              onChange={onChanges}
             />
             <Button
               variant="outlined"
               className="sub_btn_secondary_outline_common sub_filter2_btn active"
               sx={{ marginLeft: '8px' }}
+              onClick={() => {
+                onClick(1);
+              }}
             >
               1개월
             </Button>
@@ -387,6 +347,9 @@ const TabContent2 = () => {
               variant="outlined"
               className="sub_btn_secondary_outline_common sub_filter2_btn"
               sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                onClick(3);
+              }}
             >
               3개월
             </Button>
@@ -394,6 +357,9 @@ const TabContent2 = () => {
               variant="outlined"
               className="sub_btn_secondary_outline_common sub_filter2_btn"
               sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                onClick(6);
+              }}
             >
               6개월
             </Button>
@@ -407,16 +373,19 @@ const TabContent2 = () => {
               fullWidth={false}
               id="select2"
               name="select2"
-              value="전체"
+              value={statuss}
               className="sub_select_common sub_filter2_list2"
+              onChange={e => {
+                setStatuss(Number(e.target.value));
+              }}
             >
-              <MenuItem value="전체">전체</MenuItem>
-              <MenuItem value="입금대기">입금대기</MenuItem>
-              <MenuItem value="입금완료">입금완료</MenuItem>
-              <MenuItem value="결제완료">결제완료</MenuItem>
-              <MenuItem value="취소요청">취소요청</MenuItem>
-              <MenuItem value="취소완료">취소완료</MenuItem>
-              <MenuItem value="환불완료">환불완료</MenuItem>
+              <MenuItem value={32767}>전체</MenuItem>
+              <MenuItem value={2}>입금대기</MenuItem>
+              <MenuItem value={3}>입금완료</MenuItem>
+              <MenuItem value={1}>결제완료</MenuItem>
+              <MenuItem value={4}>취소요청</MenuItem>
+              <MenuItem value={5}>취소완료</MenuItem>
+              <MenuItem value={6}>환불완료</MenuItem>
             </Select>
           </Box>
         </Box>
@@ -426,7 +395,9 @@ const TabContent2 = () => {
             variant="outlined"
             className="sub_btn_primary_outline_common sub_btn_filter1"
             onClick={() => {
-              setDateFrom(new Date(defaultDate));
+              setDateFrom(defaultFromDate);
+              setStatuss(32767);
+              setSearchDateType('ALL');
             }}
           >
             초기화
@@ -434,12 +405,12 @@ const TabContent2 = () => {
           <Button
             variant="contained"
             className="sub_btn_primary_fill_common sub_btn_filter2"
+            onClick={onClickSearch}
           >
             검색하기
           </Button>
         </Box>
       </Card>
-
       <Card className="sub_tbl_section_common">
         <CardHeader
           className="sub_tbl_header_outer_common"
@@ -470,6 +441,7 @@ const TabContent2 = () => {
             getRowId={row => row.rnum}
             pagination={true}
             checkboxSelection={true}
+            onCellClick={(params, event) => cellClickEvent(params, event)}
             components={{
               Footer: () => {
                 const handleChangePage = (
@@ -527,6 +499,7 @@ const TabContent2 = () => {
           />
         </div>
       </Card>
+      <FrmOrderDetails open={true} />
     </>
   );
 };
