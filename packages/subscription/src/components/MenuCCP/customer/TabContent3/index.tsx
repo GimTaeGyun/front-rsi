@@ -28,7 +28,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'left',
-    field: 'userName',
+    field: 'usrNm',
     headerName: '사용자명',
     width: 180,
     headerAlign: 'center',
@@ -67,7 +67,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'usrGroup',
+    field: 'grpNm',
     headerName: '사용자 그룹',
     width: 220,
     headerAlign: 'center',
@@ -80,7 +80,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'dateLastModified',
+    field: 'recent_date',
     headerName: '최종 수정일',
     width: 200,
     headerAlign: 'center',
@@ -134,7 +134,11 @@ const TabContent3 = () => {
         custId: (state as any).custId,
       })
       .then(res => {
-        console.log(res.data);
+        setRows(
+          res.data.result.map((item: any) => {
+            return { ...item, id: item.loginId };
+          }),
+        );
       })
       .catch(e => console.log(e));
   }, []);
