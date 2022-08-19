@@ -123,9 +123,15 @@ const columns: GridColDef[] = [
           str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
         case 2:
-          str_class = 'sub_td_ostatus sub_td_ostatus_color3';
+          str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
         case 3:
+          str_class = 'sub_td_ostatus sub_td_ostatus_color3';
+          break;
+        case 4:
+          str_class = 'sub_td_ostatus sub_td_ostatus_color4';
+          break;
+        case 5:
           str_class = 'sub_td_ostatus sub_td_ostatus_color4';
           break;
         default:
@@ -179,10 +185,10 @@ const TabContent2 = () => {
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [open, setOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
-  const defaultFromDate = '1900-01-01';
-  const [dateFrom, setDateFrom] = useState(new Date(defaultFromDate));
-  const defaultToDate = '9999-12-31';
-  const [dateTo, setDateTo] = useState(new Date(defaultToDate));
+  const defaultFromDate = new Date('1900-01-01');
+  const [dateFrom, setDateFrom] = useState(defaultFromDate);
+  const defaultToDate = new Date('2099-12-31');
+  const [dateTo, setDateTo] = useState(defaultToDate);
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
 
@@ -237,39 +243,47 @@ const TabContent2 = () => {
       param,
     );
     const prd = res.data.result.dataRows;
-    const prds = prd.map((item: any) => {
-      const prdNm = item.prd.map((item: any) => {
-        return item.prdNm;
+    if (prd === null || prd === undefined) {
+      setRows([]);
+    } else {
+      const prds = prd.map((item: any) => {
+        const prdNm = item.prd.map((item: any) => {
+          return item.prdNm;
+        });
+        return {
+          ...item,
+          id: item.rnum,
+          prdNm: prdNm,
+        };
       });
-      return {
-        ...item,
-        id: item.rnum,
-        prdNm: prdNm,
-      };
-    });
-    setRows(prds);
+      setRows(prds);
+    }
   };
 
   const onChange = (data: any) => {
-    setDateFrom(new Date(data));
+    setDateFrom(data);
   };
 
   const onChanges = (data: any) => {
-    setDateTo(new Date(data));
+    setDateTo(data);
   };
 
   const onClick = (data: any) => {
     const date = dateFrom;
     date.setMonth(date.getMonth() + data);
-    setDateTo(new Date(date));
+    setDateTo(date);
   };
 
   const cellClickEvent = (params: any, event: any) => {
     if (params.field == 'details') {
       setOpen(true);
+      event;
     }
   };
 
+  useEffect(() => {
+    onClickSearch();
+  }, [page, rowsPerPage]);
   console.log(open);
 
   return (
@@ -380,7 +394,7 @@ const TabContent2 = () => {
             variant="outlined"
             className="sub_btn_primary_outline_common sub_btn_filter1"
             onClick={() => {
-              setDateFrom(new Date(defaultFromDate));
+              setDateFrom(defaultFromDate);
               setStatuss(32767);
               setSearchDateType('ALL');
             }}
@@ -484,7 +498,7 @@ const TabContent2 = () => {
           />
         </div>
       </Card>
-      <FrmOrderDetails open={open} />
+      <FrmOrderDetails open={true} />
     </>
   );
 };
