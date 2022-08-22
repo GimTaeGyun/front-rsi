@@ -1,18 +1,20 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
-import { DataGrid } from '@mui/x-data-grid';
-import React from 'react';
+import {
+  DataGridPro,
+  GridSortModel,
+  useGridApiRef,
+} from '@mui/x-data-grid-pro';
+import React, { useEffect } from 'react';
 
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
-import { ITreeItem } from './Sidebar';
 
 const DataTable = (props: any) => {
   const {
@@ -26,27 +28,22 @@ const DataTable = (props: any) => {
   } = props;
   //const [rows, setRows] = React.useState(rowData);
   const [searchTxt, setSearchTxt] = React.useState('');
-
-  React.useEffect(() => {
-    if (treeItem) {
-      /*const users: any = treeItem.data?.users ?? [];
-
-      const tableRows = users.map((user: any) => ({
-        id: user.usrId,
-        name: user.usrNm,
-        phone: user.phone,
-        email: user.email,
-        modifiedDate: user.mod_at,
-        status: user.status,
-        description: '',
-      }));
-      
-      setRows(tableRows);*/
-    }
-  }, [treeItem]);
+  const [sortModel, setSortModel] = React.useState<GridSortModel>([
+    { field: '__check__', sort: 'desc' },
+  ]);
+  const [after, setAfter] = React.useState(true);
 
   const rowNum = 8;
+  const dataGridApiRef = useGridApiRef();
+  const sortModelChanged = (e: any) => {
+    if (sortModel.length > 1) sortModel.pop();
+    if (e.length != 0) sortModel.push(e[0]);
+    setSortModel([...sortModel]);
+  };
 
+  useEffect(() => {
+    dataGridApiRef.current.applySorting();
+  }, [after]);
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={styles.card}>
@@ -95,7 +92,7 @@ const DataTable = (props: any) => {
             },
           }}
         />
-        <DataGrid
+        <DataGridPro
           className="sub_tbl_outer_common"
           rows={rowData}
           columns={columns}
@@ -103,11 +100,12 @@ const DataTable = (props: any) => {
           rowCount={rowNum}
           disableSelectionOnClick
           checkboxSelection
+          onSortModelChange={sortModelChanged}
+          apiRef={dataGridApiRef}
           sx={{
             borderRadius: 0,
             fontSize: '14px',
             fontFamily: 'NotoSansKRRagular',
-
             '.MuiDataGrid-columnSeparator--sideRight': {},
           }}
           components={{
@@ -116,13 +114,14 @@ const DataTable = (props: any) => {
           componentsProps={{
             footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
           }}
-          sortModel={[{ field: '__check__', sort: 'desc' }]}
+          sortModel={sortModel}
           onCellClick={(params, event) => {
             cellClickEvent(params, event);
           }}
           selectionModel={checkboxSelectedIds}
           onSelectionModelChange={newSelectionModel => {
             setCheckboxSelectedIds(newSelectionModel);
+            setAfter(!after);
           }}
         />
       </Card>
