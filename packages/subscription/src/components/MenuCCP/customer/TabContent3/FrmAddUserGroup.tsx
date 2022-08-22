@@ -76,6 +76,14 @@ const rows = [
 ];
 
 const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
+  const [custGrpNm, setCustGrpNm] = React.useState('');
+  const handle_updatingCustGrpNm = (e: any) => {
+    setCustGrpNm(e.target.value);
+  };
+  const [description, setDescription] = React.useState('');
+  const handle_updatingDescription = (e: any) => {
+    setDescription(e.target.value);
+  };
   return (
     <>
       <DialogFormTemplate
@@ -92,11 +100,12 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
               </InputLabel>
               <OutlinedInput
                 fullWidth
-                id="text1"
-                placeholder=""
-                name="text1"
-                value="생성할 그룹명을 입력해 주세요."
+                id="custGrpNm"
+                placeholder="생성할 그룹명을 입력해 주세요."
+                name="custGrpNm"
+                value={custGrpNm}
                 className="sub_input_common sub_card_dialog_input"
+                onChange={handle_updatingCustGrpNm}
               />
             </Box>
 
@@ -106,11 +115,12 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
               </InputLabel>
               <OutlinedInput
                 fullWidth
-                id="text1"
-                placeholder=""
-                name="text1"
-                value="생성할 그룹명을 입력해 주세요."
+                id="description"
+                placeholder="설명을 입력해 주세요."
+                name="description"
+                value={description}
                 className="sub_input_common sub_card_dialog_input"
+                onChange={handle_updatingDescription}
               />
             </Box>
 
@@ -162,7 +172,14 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
         }
         footer={
           <>
-            <Button className="sub_button_white_none">취소</Button>
+            <Button
+              className="sub_button_white_none"
+              onClick={() => {
+                props.handleClose();
+              }}
+            >
+              취소
+            </Button>
             <Button
               color="primary"
               variant="contained"

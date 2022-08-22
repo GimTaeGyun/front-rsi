@@ -522,7 +522,9 @@ const TabContent2 = () => {
           />
         </div>
       </Card>
-      {open && <FrmOrderDetails open={open} handleClose={hide_dialogOrderDetails} />}
+      {open && (
+        <FrmOrderDetails open={open} handleClose={hide_dialogOrderDetails} />
+      )}
     </>
   );
 };

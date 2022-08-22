@@ -403,7 +403,9 @@ const FrmOrderDetails = (props: { open: boolean; handleClose: Function }) => {
         </Card>
         <Button
           className="sub_button_white_none"
-          onClick={() => props.handleClose}
+          onClick={() => {
+            props.handleClose();
+          }}
         >
           닫기
         </Button>
