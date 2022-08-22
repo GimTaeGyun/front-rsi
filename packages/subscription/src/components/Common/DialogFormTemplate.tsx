@@ -30,7 +30,7 @@ const DialogFormTemplate = (props: {
         open={open}
         onClose={() => handleClose()}
         sx={{
-          '& .MuiPaper-root:first-child': {
+          '& .MuiPaper-root:first-of-type': {
             width: props.width,
             height: props.height,
           },
