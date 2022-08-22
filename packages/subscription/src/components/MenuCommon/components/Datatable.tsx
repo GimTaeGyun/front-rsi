@@ -43,7 +43,7 @@ const DataTable = (props: any) => {
 
   useEffect(() => {
     dataGridApiRef.current.applySorting();
-  }, [after]);
+  }, [after, checkboxSelectedIds]);
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={styles.card}>

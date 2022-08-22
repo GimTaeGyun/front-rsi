@@ -356,7 +356,7 @@ const UpdateOperatorPopupUser = (props: {
         <AlertPopup
           message="모든 변동사항이 저장되었습니다."
           buttontext="확인"
-          closeCallback={() => {
+          leftCallback={() => {
             setIsOpen(false);
           }}
         />
@@ -367,7 +367,7 @@ const UpdateOperatorPopupUser = (props: {
         <AlertPopup
           message="비밀번호가 변경되었습니다."
           buttontext="확인"
-          closeCallback={() => {
+          leftCallback={() => {
             setIsOpenPassword(false);
           }}
         />

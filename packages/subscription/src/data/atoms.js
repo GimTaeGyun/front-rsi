@@ -97,5 +97,5 @@ export {
   CheckLoginId,
   GetSidebarData,
   AlertPopupData,
-  customerData
+  customerData,
 };

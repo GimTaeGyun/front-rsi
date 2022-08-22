@@ -1117,7 +1117,7 @@ const css = createTheme({
           },
           '& .sub_dialog_card_orderinfo1_content': {
             width: '100%',
-            height: '196px',
+            height: 'auto',
           },
           '& .sub_dialog_card_orderinfo1_content.MuiCardContent-root': {
             padding: '8px 0',

@@ -5,20 +5,30 @@ const AlertPopup = (props: {
   message: string;
   buttontext: string;
   rightButtonText?: string;
-  closeCallback?: Function;
+  leftCallback?: Function;
   rightCallback?: Function;
+  okLeftRight?: string;
 }) => {
+  const { okLeftRight = 'left' } = props;
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => {
     setOpen(true);
   };
-  const handleClose = () => {
+  const handleLeft = () => {
     setOpen(false);
-    props.closeCallback ? props.closeCallback() : '';
+    props.leftCallback ? props.leftCallback() : '';
   };
   const handleRight = () => {
     setOpen(false);
     props.rightCallback ? props.rightCallback() : '';
+  };
+  const handleClose = () => {
+    setOpen(false);
+    props.rightButtonText
+      ? okLeftRight == 'left'
+        ? handleRight()
+        : handleLeft()
+      : handleLeft();
   };
 
   return (
@@ -42,7 +52,7 @@ const AlertPopup = (props: {
                 color="primary"
                 variant="contained"
                 sx={styles.btn}
-                onClick={handleClose}
+                onClick={handleLeft}
               >
                 {props.buttontext}
               </Button>
