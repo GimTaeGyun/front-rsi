@@ -309,7 +309,6 @@ const TabContent2 = () => {
   useEffect(() => {
     onClickSearch();
   }, [page, rowsPerPage]);
-  console.log(open);
 
   return (
     <>
