@@ -185,7 +185,7 @@ const TabContent3 = () => {
           setAlertPopupData({ ...alertPopupData, visible: false });
           axios
             .post('/management/subscription/customer/user/delete', {
-              userId: selectedRows.map((item: any) => item.usrId),
+              usrId: selectedRows.map((item: any) => item.usrId),
             })
             .then(res => {
               if (res.data.code == '0000') {
