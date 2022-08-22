@@ -4,9 +4,7 @@ import {
   Box,
   Button,
   InputLabel,
-  MenuItem,
   OutlinedInput,
-  Select,
   Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
@@ -14,7 +12,7 @@ import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 import * as Yup from 'yup';
 import axios from '../../../../utils/axios';
 import AlertPopup from '../../../Common/AlertPopup';
-import { AlertPopupData, customerData } from '../../../../data/atoms';
+import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
 
 const validationSchema = Yup.object().shape({
   custGrpNm: Yup.string().required(),
@@ -98,7 +96,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
     custId: sharedCustomerData.custId,
   };
 
-  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [alertPopup, setAlertPopup] = React.useState(DefaultAlertPopupData);
   const defaultAlertPopup = {
     visible: true,
     leftText: '확인',
@@ -109,7 +107,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
     rightText: '',
     message: '',
   };
-
+  console.log(alertPopup);
   const [popupData, setPopupData] = React.useState(defaultFormData);
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
 
@@ -238,9 +236,12 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
               <Button
                 variant="contained"
                 className="sub_btn_primary_fill_common btn_usrgrp_2"
-                onClick={async e => {
-                  console.log(e);
-                  if (await validationSchema.isValid(popupData)) {
+                onClick={async () => {
+                  if (
+                    (await validationSchema.isValid(popupData)) &&
+                    popupData.custGrpNm.length < 100 &&
+                    popupData.description.length < 100
+                  ) {
                     handleSubmit();
                   } else {
                     setDataValid({
@@ -249,6 +250,18 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                           popupData.custGrpNm,
                         )),
                     });
+                    let tmp = alertPopup;
+                    tmp.leftCallback = () => {
+                      setAlertPopup({
+                        ...tmp,
+                        visible: false,
+                      });
+                    };
+                    if (popupData.custGrpNm.length > 100)
+                      tmp.message = '잘못된 형식입니다.';
+                    else if (popupData.description.length > 100)
+                      tmp.message = '100자 이내로 입력해주세요.';
+                    setAlertPopup({ ...tmp, visible: true });
                   }
                 }}
               >
