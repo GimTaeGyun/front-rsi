@@ -151,50 +151,40 @@ const FrmOrderDetails = (props: {
 }) => {
   const { data } = props;
   const [person, setPerson] = useState('');
-  const [ordDate, setOrdDate] = useState(Date);
-  const [pmtDate, setPmtDate] = useState(Date);
-
-  const datas = {
-    ordNo: data.ordNo === undefined ? '  ' : data.ordNo,
-  };
+  const [ordDate, setOrdDate] = useState();
+  const [pmtDate, setPmtDate] = useState();
 
   useEffect(() => {
-    if (data.status && data.ordDate && data.pmtDate) {
-      switch (data.status.value) {
-        case '1':
-          setPerson('결제대기중');
-          break;
-        case '2':
-          setPerson('결제완료');
-          break;
-        case '3':
-          setPerson('입금대기중');
-          break;
-        case '4':
-          setPerson('졀제취소');
-          break;
-        case '5':
-          setPerson('환불처리중');
-          break;
-        case '6':
-          setPerson('환불완료');
-          break;
-      }
-
-      const formatDate = moment(data.ordDate).format('YYYY-MM-DD HH:MM');
-      const formatChargeDate = moment(data.pmtDate).format('YYYY-MM-DD HH:MM');
-      setOrdDate(formatDate);
-      setPmtDate(formatChargeDate);
-    } else {
-      setPerson(' ');
-      setOrdDate(' ');
-      setPmtDate(' ');
-    }
+    const moment = require('moment');
+    const formatDate = moment(data.ordDate).format('YYYY-MM-DD HH:MM');
+    const formatChargeDate = moment(data.pmtDate).format('YYYY-MM-DD HH:MM');
+    setOrdDate(formatDate);
+    setPmtDate(formatChargeDate);
   }, [data]);
 
-  const moment = require('moment');
+  useEffect(() => {
+    switch (data.status.value) {
+      case 0:
+        setPerson('결제대기중');
+        break;
+      case 1:
+        setPerson('결제완료');
+        break;
+      case 2:
+        setPerson('입금대기중');
+        break;
+      case 3:
+        setPerson('결제취소');
+        break;
+      case 4:
+        setPerson('환불처리중');
+        break;
+      case 5:
+        setPerson('환불완료');
+        break;
+    }
+  }, [props.open]);
 
-  console.log(data);
   return (
     <>
       <Dialog
@@ -207,7 +197,7 @@ const FrmOrderDetails = (props: {
       >
         <Card
           className="sub_dialog_card_orderinfo1"
-          sx={{ minWidth: '94%', minHeight: '239px !important' }}
+          sx={{ minWidth: '100%', minHeight: '239px !important' }}
         >
           <CardHeader
             className="sub_dialog_card_orderinfo_header"
@@ -233,7 +223,7 @@ const FrmOrderDetails = (props: {
                       id="text1"
                       placeholder=""
                       name="text1"
-                      value={datas.ordNo}
+                      value={data.ordNo || ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -255,7 +245,7 @@ const FrmOrderDetails = (props: {
                       id="text2"
                       placeholder=""
                       name="text2"
-                      value={ordDate !== undefined ? ordDate : ''}
+                      value={ordDate || ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -277,7 +267,7 @@ const FrmOrderDetails = (props: {
                       id="text3"
                       placeholder=""
                       name="text3"
-                      value={data.ordBy !== undefined ? data.ordBy : ''}
+                      value={data.ordBy || ' '}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -321,7 +311,7 @@ const FrmOrderDetails = (props: {
                       id="text5"
                       placeholder=""
                       name="text5"
-                      value={data.pmtMethod !== undefined ? data.pmtMethod : ''}
+                      value={data.pmtMethod || ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -343,7 +333,7 @@ const FrmOrderDetails = (props: {
                       fullWidth={false}
                       id="text6"
                       placeholder=""
-                      value={pmtDate !== undefined ? pmtDate : ''}
+                      value={pmtDate || ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -366,7 +356,7 @@ const FrmOrderDetails = (props: {
                       id="text7"
                       placeholder=""
                       name="text7"
-                      value={person !== undefined ? person : ''}
+                      value={person || ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -389,7 +379,7 @@ const FrmOrderDetails = (props: {
                       id="text8"
                       placeholder=""
                       name="text8"
-                      value={data.pmtAmt !== undefined ? data.pmtAmt : ''}
+                      value={data.pmtAmt || ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
