@@ -359,7 +359,7 @@ const TabContent2 = () => {
             />
             <Button
               variant="outlined"
-              className="sub_btn_secondary_outline_common sub_filter2_btn active"
+              className="sub_btn_secondary_outline_common sub_filter2_btn"
               sx={{ marginLeft: '8px' }}
               onClick={() => {
                 onClick(1);
@@ -404,11 +404,12 @@ const TabContent2 = () => {
               }}
             >
               <MenuItem value={32767}>전체</MenuItem>
-              <MenuItem value={2}>입금대기</MenuItem>
-              <MenuItem value={3}>입금완료</MenuItem>
+              <MenuItem value={0}>결제대기중</MenuItem>
               <MenuItem value={1}>결제완료</MenuItem>
-              <MenuItem value={4}>취소요청</MenuItem>
-              <MenuItem value={5}>취소완료</MenuItem>
+              <MenuItem value={2}>입금대기중</MenuItem>
+              <MenuItem value={3}>입금완료</MenuItem>
+              <MenuItem value={4}>결제취소</MenuItem>
+              <MenuItem value={5}>환불처리중</MenuItem>
               <MenuItem value={6}>환불완료</MenuItem>
             </Select>
           </Box>

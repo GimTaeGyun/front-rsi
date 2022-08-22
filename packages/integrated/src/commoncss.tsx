@@ -935,7 +935,7 @@ const css = createTheme({
         '& .sub_filter2_btn': {
           width: '68px',
           height: '36px',
-          '&.active': {
+          ':focus': {
             color: '#fff !important',
             backgroundColor: '#284AD5 !important',
             borderColor: '#284AD5 !important',
