@@ -21,15 +21,13 @@ const validator = Yup.object().shape({
 });
 
 const TabContent1 = () => {
-  const navigate = useNavigate();
-  const { state } = useLocation();
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [loaded, setLoaded] = useState(false);
   const [personalData, setPersonalData] = useState(Object);
   const [compData, setCompData] = useState(Object);
   const [compMngData, setCompMngData] = useState(Object);
-
+  console.log(sharedCustomerData);
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
 
   const personalChange = (data: any) => {
@@ -210,7 +208,7 @@ const TabContent1 = () => {
         <AlertPopup
           message={alertPopupData.message}
           buttontext={alertPopupData.leftText}
-          closeCallback={alertPopupData.leftCallback}
+          leftCallback={alertPopupData.leftCallback}
         />
       ) : (
         ''

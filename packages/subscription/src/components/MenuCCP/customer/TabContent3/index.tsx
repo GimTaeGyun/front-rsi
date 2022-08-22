@@ -151,6 +151,10 @@ const TabContent3 = () => {
   };
 
   useEffect(() => {
+    updateTableList();
+  }, []);
+
+  const updateTableList = () => {
     axios
       .post('/management/manager/customer/userlist/inquiry', {
         custId: (state as any).custId,
@@ -164,10 +168,9 @@ const TabContent3 = () => {
         setTotal(res.data.result.length);
       })
       .catch(e => console.log(e));
-  }, []);
+  };
 
   const deleteClickEvent = () => {
-    console.log(alertPopupData);
     if (selectedRows.length > 0) {
       setAlertPopupData({
         ...DefaultAlertPopupData,
@@ -176,6 +179,33 @@ const TabContent3 = () => {
         rightText: '취소',
         rightCallback: () => {
           setAlertPopupData({ ...alertPopupData, visible: false });
+        },
+        leftCallback: () => {
+          let popupData = alertPopupData;
+          setAlertPopupData({ ...alertPopupData, visible: false });
+          axios
+            .post('/management/subscription/customer/user/delete', {
+              userId: selectedRows.map((item: any) => item.usrId),
+            })
+            .then(res => {
+              if (res.data.code == '0000') {
+                popupData.message = '선택한 사용자 삭제가 완료되었습니다.';
+                popupData.rightText = '';
+                updateTableList();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              popupData.message = '사용자 삭제가 실패하였습니다.';
+            })
+            .finally(() => {
+              popupData.visible = true;
+              popupData.leftCallback = () => {
+                setAlertPopupData({ ...alertPopupData, visible: false });
+              };
+
+              setAlertPopupData({ ...alertPopupData, ...popupData });
+            });
         },
       });
     }
@@ -189,7 +219,9 @@ const TabContent3 = () => {
         <AlertPopup
           message={alertPopupData.message}
           buttontext={alertPopupData.leftText}
-          closeCallback={alertPopupData.leftCallback}
+          rightButtonText={alertPopupData.rightText}
+          rightCallback={alertPopupData.rightCallback}
+          leftCallback={alertPopupData.leftCallback}
         />
       ) : (
         ''
@@ -230,6 +262,7 @@ const TabContent3 = () => {
             columns={columns}
             checkboxSelection={true}
             onSelectionModelChange={selectChangedEvent}
+            disableSelectionOnClick
             components={{
               Footer: () => {
                 return (
