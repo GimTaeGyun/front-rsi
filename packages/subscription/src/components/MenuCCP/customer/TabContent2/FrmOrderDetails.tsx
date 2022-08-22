@@ -144,7 +144,11 @@ const rows = [
   },
 ];
 
-const FrmOrderDetails = (props: { open: boolean; handleClose: Function }) => {
+const FrmOrderDetails = (props: {
+  open: boolean;
+  handleClose: Function;
+  data?: any;
+}) => {
   const { data } = props;
   const [person, setPerson] = useState('');
   const [ordDate, setOrdDate] = useState(Date);
