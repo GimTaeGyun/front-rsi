@@ -13,22 +13,18 @@ import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
 const DialogFormTemplate = (props: {
   open: boolean;
+  handleClose: Function;
   width: string;
   height: string;
   title: string;
   children: any;
   footer: any;
 }) => {
-  const [open, setOpen] = React.useState(props.open);
-  const handleClose = () => {
-    setOpen(!open);
-  };
   return (
     <>
       <Dialog
+        open={props.open}
         className="sub_dialog_main"
-        open={open}
-        onClose={() => handleClose()}
         sx={{
           '& .MuiPaper-root:first-of-type': {
             width: props.width,
@@ -41,7 +37,9 @@ const DialogFormTemplate = (props: {
           <IconButton
             color="primary"
             component="label"
-            onClick={() => handleClose()}
+            onClick={() => {
+              props.handleClose();
+            }}
           >
             <CloseOutlined className="sub_dialog_icon_close" />
           </IconButton>

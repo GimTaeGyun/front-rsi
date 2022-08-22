@@ -143,14 +143,11 @@ const rows = [
   },
 ];
 
-const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
+const FrmOrderDetails = (props: { open: boolean; handleClose: Function }) => {
   return (
     <>
       <Dialog
         open={props.open}
-        onClose={() => {
-          props.onClose();
-        }}
         sx={{
           '& .MuiPaper-root': {
             minWidth: '1000px !important',
@@ -406,9 +403,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
         </Card>
         <Button
           className="sub_button_white_none"
-          onClick={() => {
-            props.onClose();
-          }}
+          onClick={() => props.handleClose}
         >
           닫기
         </Button>

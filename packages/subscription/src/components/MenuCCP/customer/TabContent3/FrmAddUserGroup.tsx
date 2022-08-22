@@ -75,11 +75,12 @@ const rows = [
   { id: 5, groupNm: '개발부', explanation: '-', detail: '' },
 ];
 
-const FrmAddUserGroup = (props: { open: boolean }) => {
+const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
   return (
     <>
       <DialogFormTemplate
         open={props.open}
+        handleClose={props.handleClose}
         title="사용자 정보 수정"
         width="500px"
         height="710px"

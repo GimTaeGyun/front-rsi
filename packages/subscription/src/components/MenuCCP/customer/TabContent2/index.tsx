@@ -203,6 +203,13 @@ const TabContent2 = () => {
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
 
+  const show_dialogOrderDetails = () => {
+    setOpen(true);
+  };
+  const hide_dialogOrderDetails = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     const Api = async () => {
       const param = {
@@ -515,7 +522,7 @@ const TabContent2 = () => {
           />
         </div>
       </Card>
-      <FrmOrderDetails open={open} onClose={onCloseOrderDetails} />
+      {open && <FrmOrderDetails open={open} handleClose={hide_dialogOrderDetails} />}
     </>
   );
 };

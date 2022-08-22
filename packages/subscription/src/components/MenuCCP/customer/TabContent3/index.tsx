@@ -13,6 +13,7 @@ import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import FrmAddUserGroup from './FrmAddUserGroup';
 import AlertPopup from '../../../Common/AlertPopup';
 import { DefaultAlertPopupData } from '../../../../data/atoms';
+import FrmUserInfo from './FrmUserInfo';
 
 const columns: GridColDef[] = [
   {
@@ -132,6 +133,23 @@ const TabContent3 = () => {
   const [total, setTotal] = useState(0);
   const [selectedRows, setSelectedRows] = useState([]);
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
+  const [dialogAddUserGroup, setDialogAddUserGroup] = useState(false);
+  const [dialogAddUser, setDialogAddUser] = useState(false);
+
+  const show_dialogAddUserGroup = () => {
+    setDialogAddUserGroup(true);
+  };
+  const hide_dialogAddUserGroup = () => {
+    setDialogAddUserGroup(false);
+  };
+
+  const show_dialogAddUser = () => {
+    setDialogAddUser(true);
+  };
+  const hide_dialogAddUser = () => {
+    setDialogAddUser(false);
+  };
+
   useEffect(() => {
     axios
       .post('/management/manager/customer/userlist/inquiry', {
@@ -147,6 +165,7 @@ const TabContent3 = () => {
       })
       .catch(e => console.log(e));
   }, []);
+
   const deleteClickEvent = () => {
     console.log(alertPopupData);
     if (selectedRows.length > 0) {
@@ -166,7 +185,6 @@ const TabContent3 = () => {
   };
   return (
     <>
-      <FrmAddUserGroup open={true} />
       {alertPopupData.visible ? (
         <AlertPopup
           message={alertPopupData.message}
@@ -176,6 +194,16 @@ const TabContent3 = () => {
       ) : (
         ''
       )}
+      {dialogAddUserGroup && (
+        <FrmAddUserGroup
+          open={dialogAddUserGroup}
+          handleClose={hide_dialogAddUserGroup}
+        />
+      )}
+      {dialogAddUser && (
+        <FrmUserInfo open={dialogAddUser} handleClose={hide_dialogAddUser} />
+      )}
+
       <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
         <CardHeader
           className="sub_tbl_header_outer_common"
@@ -210,12 +238,14 @@ const TabContent3 = () => {
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_btn_footer_add"
+                        onClick={show_dialogAddUserGroup}
                       >
                         사용자 그룹 추가
                       </Button>
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_btn_footer_save"
+                        onClick={show_dialogAddUser}
                       >
                         사용자 추가
                       </Button>
