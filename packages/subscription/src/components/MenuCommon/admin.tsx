@@ -347,7 +347,7 @@ const Admin = () => {
               buttontext={alertPopup.leftText}
               rightButtonText={alertPopup.rightText}
               rightCallback={alertPopup.rightCallback}
-              closeCallback={alertPopup.leftCallback}
+              leftCallback={alertPopup.leftCallback}
             />
           ) : undefined}
           <Box

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAtom } from 'jotai';
 import {
   Box,
   Button,
@@ -10,6 +11,18 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
+import * as Yup from 'yup';
+import axios from '../../../../utils/axios';
+import AlertPopup from '../../../Common/AlertPopup';
+import { AlertPopupData, customerData } from '../../../../data/atoms';
+
+const validationSchema = Yup.object().shape({
+  custGrpNm: Yup.string().required(),
+});
+
+const defaultFormValidation = {
+  custGrpNm: false,
+};
 
 const columns: GridColDef[] = [
   {
@@ -76,16 +89,81 @@ const rows = [
 ];
 
 const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
-  const [custGrpNm, setCustGrpNm] = React.useState('');
-  const handle_updatingCustGrpNm = (e: any) => {
-    setCustGrpNm(e.target.value);
+  const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
+  const defaultFormData = {
+    action: 'add',
+    custGrpNm: '',
+    description: '',
+    custGrpNo: null,
+    custId: sharedCustomerData.custId,
   };
-  const [description, setDescription] = React.useState('');
-  const handle_updatingDescription = (e: any) => {
-    setDescription(e.target.value);
+
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
   };
+
+  const [popupData, setPopupData] = React.useState(defaultFormData);
+  const [dataValid, setDataValid] = React.useState(defaultFormValidation);
+
+  const [custGrpNm, setCustGrpNm] = React.useState(defaultFormData.custGrpNm);
+  const [description, setDescription] = React.useState(
+    defaultFormData.description,
+  );
+
+  const handleSubmit = () => {
+    axios
+      .post('/management/subscription/customer/usergroup/update', popupData)
+      .then(res => {
+        if (res.data.code == '0000') {
+          setAlertPopup({
+            ...defaultAlertPopup,
+            leftCallback: () => {
+              setDescription('');
+              setCustGrpNm('');
+              setDataValid(defaultFormValidation);
+              setPopupData(defaultFormData);
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+            message: '새로운 사용자 그룹이 추가되었습니다.',
+          });
+        } else {
+          setAlertPopup({
+            ...defaultAlertPopup,
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+            message: '그룹에 사용자가 존재합니다.',
+          });
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  // 열고 닫을 때마다 리셋
+  React.useEffect(() => {
+    setDataValid(defaultFormValidation);
+  }, [open]);
   return (
     <>
+      {alertPopup.visible ? (
+        <AlertPopup
+          message={alertPopup.message}
+          buttontext={alertPopup.leftText}
+          rightButtonText={alertPopup.rightText}
+          rightCallback={alertPopup.rightCallback}
+          leftCallback={alertPopup.leftCallback}
+        />
+      ) : undefined}
       <DialogFormTemplate
         open={props.open}
         handleClose={props.handleClose}
@@ -99,13 +177,20 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                 그룹명 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
               <OutlinedInput
+                autoFocus={true}
+                autoComplete="false"
                 fullWidth
                 id="custGrpNm"
+                className="sub_input_common sub_card_dialog_input"
                 placeholder="생성할 그룹명을 입력해 주세요."
                 name="custGrpNm"
+                error={dataValid.custGrpNm}
                 value={custGrpNm}
-                className="sub_input_common sub_card_dialog_input"
-                onChange={handle_updatingCustGrpNm}
+                onChange={e => {
+                  //e.target.value = e.target.value;
+                  setCustGrpNm(e.target.value);
+                  setPopupData({ ...popupData, custGrpNm: e.target.value });
+                }}
               />
             </Box>
 
@@ -114,13 +199,18 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                 그룹 설명
               </InputLabel>
               <OutlinedInput
+                autoComplete="false"
                 fullWidth
                 id="description"
                 placeholder="설명을 입력해 주세요."
                 name="description"
-                value={description}
                 className="sub_input_common sub_card_dialog_input"
-                onChange={handle_updatingDescription}
+                value={description}
+                onChange={e => {
+                  //e.target.value = e.target.value;
+                  setDescription(e.target.value);
+                  setPopupData({ ...popupData, description: e.target.value });
+                }}
               />
             </Box>
 
@@ -137,12 +227,30 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                 variant="outlined"
                 className="sub_btn_primary_outline_common btn_usrgrp_1"
                 sx={{ marginRight: '8px' }}
+                onClick={() => {
+                  setDescription('');
+                  setCustGrpNm('');
+                  setPopupData(defaultFormData);
+                }}
               >
                 초기화
               </Button>
               <Button
                 variant="contained"
                 className="sub_btn_primary_fill_common btn_usrgrp_2"
+                onClick={async e => {
+                  console.log(e);
+                  if (await validationSchema.isValid(popupData)) {
+                    handleSubmit();
+                  } else {
+                    setDataValid({
+                      custGrpNm:
+                        !(await validationSchema.fields.custGrpNm.isValid(
+                          popupData.custGrpNm,
+                        )),
+                    });
+                  }
+                }}
               >
                 추가하기
               </Button>
@@ -177,13 +285,6 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
               onClick={() => {
                 props.handleClose();
               }}
-            >
-              취소
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              className="sub_btn_primary_fill_common sub_dialog_button_blue"
             >
               닫기
             </Button>
