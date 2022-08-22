@@ -17,6 +17,7 @@ import {
   DialogActions,
   DialogContent,
   Divider,
+  IconButton,
 } from '@mui/material';
 import {
   DataGrid,
@@ -24,6 +25,7 @@ import {
   GridColumnHeaderParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const columns: GridColDef[] = [
@@ -155,15 +157,20 @@ const FrmOrderDetails = (props: {
 }) => {
   const { data } = props;
   const [person, setPerson] = useState('');
-  const [ordDate, setOrdDate] = useState();
-  const [pmtDate, setPmtDate] = useState();
+  const [ordDate, setOrdDate] = useState('');
+  const [pmtDate, setPmtDate] = useState('');
+  console.log(data);
 
   useEffect(() => {
     const moment = require('moment');
     const formatDate = moment(data.ordDate).format('YYYY-MM-DD HH:MM');
-    const formatChargeDate = moment(data.pmtDate).format('YYYY-MM-DD HH:MM');
+    if (data.pmtDate) {
+      const formatChargeDate = moment(data.pmtDate).format('YYYY-MM-DD HH:MM');
+      setPmtDate(formatChargeDate);
+    } else {
+      setPmtDate(' ');
+    }
     setOrdDate(formatDate);
-    setPmtDate(formatChargeDate);
   }, [data]);
 
   useEffect(() => {
@@ -206,7 +213,14 @@ const FrmOrderDetails = (props: {
             padding: '12px 24px 24px 20px',
           }}
         >
-          주문 상세 정보
+          <Typography>운영자 정보 수정</Typography>
+          <IconButton
+            color="primary"
+            component="label"
+            onClick={() => props.handleClose()}
+          >
+            <CloseOutlined className="sub_dialog_icon_close" />
+          </IconButton>
         </DialogTitle>
         <Divider />
         <Card className="sub_dialog_card_orderinfo1">
