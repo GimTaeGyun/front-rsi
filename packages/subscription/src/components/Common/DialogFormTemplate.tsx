@@ -26,7 +26,7 @@ const DialogFormTemplate = (props: {
         open={props.open}
         className="sub_dialog_main"
         sx={{
-          '& .MuiPaper-root:first-child': {
+          '& .MuiPaper-root:first-of-type': {
             width: props.width,
             height: props.height,
           },
