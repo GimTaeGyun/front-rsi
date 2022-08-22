@@ -115,31 +115,42 @@ const columns: GridColDef[] = [
     disableColumnMenu: true,
     renderCell: params => {
       let str_class = 'sub_td_ostatus sub_td_ostatus_color1';
+      let datas = '';
       switch (params.value.value) {
         case 0:
+          datas = '결제대기중';
           str_class = 'sub_td_ostatus sub_td_ostatus_color1';
           break;
         case 1:
+          datas = '결제완료';
           str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
         case 2:
-          str_class = 'sub_td_ostatus sub_td_ostatus_color2';
+          datas = '입금대기중';
+          str_class = 'sub_td_ostatus sub_td_ostatus_color1';
           break;
         case 3:
-          str_class = 'sub_td_ostatus sub_td_ostatus_color3';
+          datas = '입금완료';
+          str_class = 'sub_td_ostatus sub_td_ostatus_color2';
           break;
         case 4:
+          datas = '취소요청';
           str_class = 'sub_td_ostatus sub_td_ostatus_color4';
           break;
         case 5:
-          str_class = 'sub_td_ostatus sub_td_ostatus_color4';
+          datas = '환불처리중';
+          str_class = 'sub_td_ostatus sub_td_ostatus_color3';
+          break;
+        case 5:
+          datas = '환불완료';
+          str_class = 'sub_td_ostatus sub_td_ostatus_color5';
           break;
         default:
           break;
       }
       return (
         <Box component="span" className={str_class}>
-          {params.value.value}
+          {datas}
         </Box>
       );
     },
@@ -282,6 +293,9 @@ const TabContent2 = () => {
       setOpen(true);
       event;
     }
+  };
+  const onCloseOrderDetails = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -501,7 +515,7 @@ const TabContent2 = () => {
           />
         </div>
       </Card>
-      <FrmOrderDetails open={true} />
+      <FrmOrderDetails open={open} onClose={onCloseOrderDetails} />
     </>
   );
 };
