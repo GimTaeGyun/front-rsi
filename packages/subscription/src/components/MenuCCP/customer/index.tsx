@@ -222,8 +222,6 @@ const Index = () => {
     setKeyword('');
     setDateFrom('1990-01-01');
     setDateTo('2099-12-31');
-    setOrder('asc');
-    setSortField('custId');
     setUserCategory({
       ...userCategory,
       codeSetItems: userCategory.codeSetItems.map((item: any) => {
@@ -244,11 +242,12 @@ const Index = () => {
     }
   };
   const sortModelChanged = (e: any) => {
-    switch (e[0].field) {
-      case 'custNm':
-      case 'mobile':
-        setOrder(e[0].sort);
-        setSortField(e[0].field);
+    if (e.length > 1) {
+      setOrder(e[0].sort);
+      setSortField(e[0].field);
+    } else {
+      setOrder('asc');
+      setSortField('custId');
     }
   };
 
