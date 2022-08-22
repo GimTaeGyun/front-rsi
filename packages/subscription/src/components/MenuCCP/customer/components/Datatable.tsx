@@ -204,8 +204,6 @@ const columns: GridColDef[] = [
       </Typography>
     ),
     renderCell: params => {
-      if (params.row.custId == 'e2dbe905af0ff06cc88e55dcf4c543e8')
-        console.log(params.row);
       let str_class = 'sub_td_sit sub_td_sit_color1';
       switch (params.value.value) {
         case 1:

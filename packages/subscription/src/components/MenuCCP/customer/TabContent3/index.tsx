@@ -11,6 +11,9 @@ import { useLocation } from 'react-router-dom';
 import axios from '../../../../utils/axios';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import FrmAddUserGroup from './FrmAddUserGroup';
+import AlertPopup from '../../../Common/AlertPopup';
+import { DefaultAlertPopupData } from '../../../../data/atoms';
+import FrmUserInfo from './FrmUserInfo';
 
 const columns: GridColDef[] = [
   {
@@ -127,6 +130,25 @@ const columns: GridColDef[] = [
 const TabContent3 = () => {
   const { state } = useLocation();
   const [rows, setRows] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
+  const [dialogAddUserGroup, setDialogAddUserGroup] = useState(false);
+  const [dialogAddUser, setDialogAddUser] = useState(false);
+
+  const show_dialogAddUserGroup = () => {
+    setDialogAddUserGroup(true);
+  };
+  const hide_dialogAddUserGroup = () => {
+    setDialogAddUserGroup(false);
+  };
+
+  const show_dialogAddUser = () => {
+    setDialogAddUser(true);
+  };
+  const hide_dialogAddUser = () => {
+    setDialogAddUser(false);
+  };
 
   useEffect(() => {
     axios
@@ -139,13 +161,48 @@ const TabContent3 = () => {
             return { ...item, id: item.loginId };
           }),
         );
+        setTotal(res.data.result.length);
       })
       .catch(e => console.log(e));
   }, []);
 
+  const deleteClickEvent = () => {
+    console.log(alertPopupData);
+    if (selectedRows.length > 0) {
+      setAlertPopupData({
+        ...DefaultAlertPopupData,
+        visible: true,
+        message: '선택한 사용자를 삭제 하시겠습니까?',
+        rightText: '취소',
+        rightCallback: () => {
+          setAlertPopupData({ ...alertPopupData, visible: false });
+        },
+      });
+    }
+  };
+  const selectChangedEvent = (e: any) => {
+    setSelectedRows([...rows.filter((item: any) => e.includes(item.id))]);
+  };
   return (
     <>
-      <FrmAddUserGroup open={true} />
+      {alertPopupData.visible ? (
+        <AlertPopup
+          message={alertPopupData.message}
+          buttontext={alertPopupData.leftText}
+          closeCallback={alertPopupData.leftCallback}
+        />
+      ) : (
+        ''
+      )}
+      {dialogAddUserGroup && (
+        <FrmAddUserGroup
+          open={dialogAddUserGroup}
+          handleClose={hide_dialogAddUserGroup}
+        />
+      )}
+      {dialogAddUser && (
+        <FrmUserInfo open={dialogAddUser} handleClose={hide_dialogAddUser} />
+      )}
 
       <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
         <CardHeader
@@ -159,7 +216,7 @@ const TabContent3 = () => {
               justifyContent="space-between"
             >
               <Typography className="sub_tbl_header_text_common">
-                전체 사용자 (7)
+                전체 사용자 ({total})
               </Typography>
             </Box>
           }
@@ -172,6 +229,7 @@ const TabContent3 = () => {
             rows={rows}
             columns={columns}
             checkboxSelection={true}
+            onSelectionModelChange={selectChangedEvent}
             components={{
               Footer: () => {
                 return (
@@ -180,12 +238,14 @@ const TabContent3 = () => {
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_btn_footer_add"
+                        onClick={show_dialogAddUserGroup}
                       >
                         사용자 그룹 추가
                       </Button>
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_btn_footer_save"
+                        onClick={show_dialogAddUser}
                       >
                         사용자 추가
                       </Button>
@@ -193,6 +253,7 @@ const TabContent3 = () => {
                         variant="outlined"
                         className="sub_btn_primary_outline_common sub_btn_footer_export"
                         sx={{ marginLeft: '8px' }}
+                        onClick={deleteClickEvent}
                       >
                         선택 사용자 삭제
                       </Button>
