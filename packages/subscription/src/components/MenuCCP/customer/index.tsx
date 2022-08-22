@@ -18,6 +18,7 @@ import {
 import DataTable from './components/Datatable';
 
 import MyDatePicker from '../../Common/MyDatePicker';
+import { useGridApiRef } from '@mui/x-data-grid-pro';
 let defaultSearchParam = {};
 
 const Index = () => {
@@ -29,9 +30,12 @@ const Index = () => {
   const [dateTo, setDateTo] = useState('2099-12-31');
   const [pageSize, setPageSize] = useState(10);
   const [pageNo, setPageNo] = useState(1);
+  const [sortField, setSortField] = useState('custId');
+  const [order, setOrder] = useState('asc');
   const [filterDropdown, setFilterDropdown] = useState(false);
   const [total, setTotal] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const dataGridApiRef = useGridApiRef();
 
   // 검색어 입력 셀렉트박스
   const [searchCategory, setSearchCategory] = useState({
@@ -124,9 +128,10 @@ const Index = () => {
   }, [searchCategory, userCategory, statusCategory]);
 
   // 페이지값이 변하면 다시 로딩
+  // 정렬 값 변하면 다시 로딩
   useEffect(() => {
     if (loaded) searchClickEvent(true);
-  }, [pageSize, pageNo]);
+  }, [pageSize, pageNo, order, sortField]);
 
   const checkedChangedEvent = (e: any) => {
     let res: any;
@@ -171,15 +176,14 @@ const Index = () => {
       joinedDtFrom: dateFrom,
       joinedDtTo: dateTo,
       keyword: keyword,
-      order: 'asc',
+      order: order,
       pageNo: pageNo,
       pageSize: pageSize,
       searchField: searchField,
-      sortField: 'custId',
+      sortField: sortField,
       status: [],
     };
     if (!page) {
-      console.log(page);
       param.pageNo = 1;
       setPageNo(1);
     }
@@ -208,11 +212,18 @@ const Index = () => {
       })
       .catch(e => console.log(e));
   };
+
+  useEffect(() => {
+    dataGridApiRef.current.applySorting();
+  }, [tableRows]);
+
   const initClickEvent = () => {
     setSearchField('ALL');
     setKeyword('');
     setDateFrom('1990-01-01');
     setDateTo('2099-12-31');
+    setOrder('asc');
+    setSortField('custId');
     setUserCategory({
       ...userCategory,
       codeSetItems: userCategory.codeSetItems.map((item: any) => {
@@ -230,6 +241,14 @@ const Index = () => {
   const cellClickEvent = (e: any) => {
     if (e.field == 'details') {
       navigate('/admin/ccp/customer/tab', { state: e.row });
+    }
+  };
+  const sortModelChanged = (e: any) => {
+    switch (e[0].field) {
+      case 'custNm':
+      case 'mobile':
+        setOrder(e[0].sort);
+        setSortField(e[0].field);
     }
   };
 
@@ -455,8 +474,10 @@ const Index = () => {
               rowsPerPage={pageSize}
               total={total}
               page={pageNo}
+              apiRef={dataGridApiRef}
               pageChanged={(e: number) => setPageNo(e + 1)}
               rowsChanged={(e: number) => setPageSize(e)}
+              sortModelChanged={sortModelChanged}
             />
           </Card>
         </>

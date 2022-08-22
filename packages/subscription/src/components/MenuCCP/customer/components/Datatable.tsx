@@ -7,7 +7,12 @@ import {
   TablePagination,
   Typography,
 } from '@mui/material';
-import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
+import {
+  DataGridPro,
+  GridColDef,
+  GridColumnHeaderParams,
+  GridSortItem,
+} from '@mui/x-data-grid-pro';
 import * as React from 'react';
 
 const columns: GridColDef[] = [
@@ -273,6 +278,8 @@ const DataTable = (props: {
   rowsChanged?: Function;
   total?: number;
   page: number;
+  sortModelChanged?: Function;
+  apiRef?: any;
 }) => {
   const {
     rows = [],
@@ -282,11 +289,13 @@ const DataTable = (props: {
     rowsChanged = () => {},
     total = 10,
     page = 0,
+    sortModelChanged = () => {},
+    apiRef,
   } = props;
 
   return (
     <div style={{ height: '626px', width: '100%' }}>
-      <DataGrid
+      <DataGridPro
         className="sub_tbl_outer_common"
         headerHeight={57}
         disableSelectionOnClick
@@ -299,6 +308,8 @@ const DataTable = (props: {
         rowCount={total}
         paginationMode="server"
         checkboxSelection={true}
+        onSortModelChange={sortModelChanged as any}
+        apiRef={apiRef}
         onCellClick={(params, event) => cellClickEvent(params, event)}
         components={{
           Footer: () => {
