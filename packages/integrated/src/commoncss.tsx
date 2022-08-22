@@ -883,12 +883,15 @@ const css = createTheme({
           color: '#284AD5',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color2': {
-          color: '결제완료',
+          color: '#000000DE',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color3': {
-          color: '#E50012',
+          color: '#284ad5',
         },
         '& .sub_td_ostatus.sub_td_ostatus_color4': {
+          color: '#E50012',
+        },
+        '& .sub_td_ostatus.sub_td_ostatus_color5': {
           color: '#999999',
         },
 
@@ -1104,7 +1107,6 @@ const css = createTheme({
 
         //
         '& .MuiPaper-root.sub_dialog_card_orderinfo1': {
-          width: 'inherit !important',
           height: '240px !important',
           boxShadow: 'none',
           border: '1px solid #ccc',
