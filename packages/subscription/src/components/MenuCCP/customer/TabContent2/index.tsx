@@ -157,7 +157,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'orderBy',
+    field: 'ordBy',
     headerName: '주문자',
     width: 150,
     headerAlign: 'center',
@@ -202,6 +202,7 @@ const TabContent2 = () => {
   const [dateTo, setDateTo] = useState(defaultToDate);
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
+  const [detailrows, setDetailrows] = useState();
 
   useEffect(() => {
     const Api = async () => {
@@ -288,10 +289,9 @@ const TabContent2 = () => {
   };
 
   const cellClickEvent = (params: any, event: any) => {
-    console.log(event);
     if (params.field == 'details') {
       setOpen(true);
-      event;
+      setDetailrows(params.row);
     }
   };
   const onCloseOrderDetails = () => {
@@ -515,7 +515,11 @@ const TabContent2 = () => {
           />
         </div>
       </Card>
-      <FrmOrderDetails open={open} onClose={onCloseOrderDetails} />
+      <FrmOrderDetails
+        open={open}
+        data={detailrows}
+        onClose={onCloseOrderDetails}
+      />
     </>
   );
 };

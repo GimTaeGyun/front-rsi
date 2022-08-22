@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import {
   Box,
   Button,
@@ -143,7 +144,57 @@ const rows = [
   },
 ];
 
-const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
+const FrmOrderDetails = (props: {
+  open: boolean;
+  onClose: Function;
+  data: any;
+}) => {
+  const { data } = props;
+  const [person, setPerson] = useState('');
+  const [ordDate, setOrdDate] = useState(Date);
+  const [pmtDate, setPmtDate] = useState(Date);
+
+  const datas = {
+    ordNo: data.ordNo === undefined ? '  ' : data.ordNo,
+  };
+
+  useEffect(() => {
+    if (data.status && data.ordDate && data.pmtDate) {
+      switch (data.status.value) {
+        case '1':
+          setPerson('결제대기중');
+          break;
+        case '2':
+          setPerson('결제완료');
+          break;
+        case '3':
+          setPerson('입금대기중');
+          break;
+        case '4':
+          setPerson('졀제취소');
+          break;
+        case '5':
+          setPerson('환불처리중');
+          break;
+        case '6':
+          setPerson('환불완료');
+          break;
+      }
+
+      const formatDate = moment(data.ordDate).format('YYYY-MM-DD HH:MM');
+      const formatChargeDate = moment(data.pmtDate).format('YYYY-MM-DD HH:MM');
+      setOrdDate(formatDate);
+      setPmtDate(formatChargeDate);
+    } else {
+      setPerson(' ');
+      setOrdDate(' ');
+      setPmtDate(' ');
+    }
+  }, [data]);
+
+  const moment = require('moment');
+
+  console.log(data);
   return (
     <>
       <Dialog
@@ -178,14 +229,14 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       component="span"
                       className="sub_dialog_card_orderinfo_label"
                     >
-                      아이디
+                      주문번호
                     </Box>
                     <OutlinedInput
                       fullWidth={false}
                       id="text1"
                       placeholder=""
                       name="text1"
-                      value="0000001"
+                      value={datas.ordNo}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -207,7 +258,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       id="text2"
                       placeholder=""
                       name="text2"
-                      value="2022-01-01 12:00"
+                      value={ordDate !== undefined ? ordDate : ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -229,7 +280,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       id="text3"
                       placeholder=""
                       name="text3"
-                      value="현대중공업(주)"
+                      value={data.ordBy !== undefined ? data.ordBy : ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -273,7 +324,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       id="text5"
                       placeholder=""
                       name="text5"
-                      value="입금대기"
+                      value={data.pmtMethod !== undefined ? data.pmtMethod : ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -295,8 +346,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       fullWidth={false}
                       id="text6"
                       placeholder=""
-                      name="text6"
-                      value="-"
+                      value={pmtDate !== undefined ? pmtDate : ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -319,7 +369,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       id="text7"
                       placeholder=""
                       name="text7"
-                      value="무통장입금"
+                      value={person !== undefined ? person : ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -342,7 +392,7 @@ const FrmOrderDetails = (props: { open: boolean; onClose: Function }) => {
                       id="text8"
                       placeholder=""
                       name="text8"
-                      value="2,700,000원"
+                      value={data.pmtAmt !== undefined ? data.pmtAmt : ''}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
