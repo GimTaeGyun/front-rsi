@@ -13,6 +13,8 @@ import MyDatePicker from '../../../Common/MyDatePicker';
 import FrmOrderDetails from './FrmOrderDetails';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import Axios from '../../../../utils/axios';
+import axios from 'axios';
+import { Code } from '@mui/icons-material';
 
 const columns: GridColDef[] = [
   {
@@ -299,7 +301,18 @@ const TabContent2 = () => {
     console.log(event);
     if (params.field == 'details') {
       setOpen(true);
-      setDetailrows(params.row);
+      const detailApi = async () => {
+        const param = { ordNo: '2208112243000000032' };
+        const res = await Axios.post(
+          '/management/manager/contract/orderdetail/inquiry',
+          param,
+        );
+        const data = res.data.result;
+        setDetailrows(res.data);
+        console.log(data);
+        console.log(detailrows);
+      };
+      detailApi();
     }
   };
   const onCloseOrderDetails = () => {
@@ -309,7 +322,6 @@ const TabContent2 = () => {
   useEffect(() => {
     onClickSearch();
   }, [page, rowsPerPage]);
-  console.log(open);
 
   return (
     <>
