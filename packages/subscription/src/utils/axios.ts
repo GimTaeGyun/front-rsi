@@ -28,15 +28,8 @@ Axios.interceptors.response.use(
     return response;
   },
   async error => {
-    if (error.response.status == 401 &&
-      error.config.url != '/management/keycloak/refreshtoken' ) {
+    if (error.response.status == 401 ) {
       try {
-        if( error.url == '/management/keycloak/refreshtoken' ){
-          localStorage.clear();
-          console.log(1);
-          //location.href = '/admin/login';
-          return;
-        }
         
         const originalRequest = error.config;
         localStorage.removeItem('access-token');
@@ -52,14 +45,14 @@ Axios.interceptors.response.use(
         }else{
           localStorage.clear();
           console.log(2);
-          //location.href = '/admin/login';
+          location.href = '/admin/login';
           return;
         }
       } catch (error) {
         localStorage.clear();
         console.log(error);
         console.log(3);
-        //location.href = '/admin/login';
+        location.href = '/admin/login';
         return;
       }
     }else{
