@@ -13,6 +13,10 @@ import {
   Select,
   Typography,
   Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  Divider,
 } from '@mui/material';
 import {
   DataGrid,
@@ -191,14 +195,21 @@ const FrmOrderDetails = (props: {
         open={props.open}
         sx={{
           '& .MuiPaper-root': {
-            minWidth: '1000px !important',
+            maxWidth: '1000px !important',
           },
         }}
       >
-        <Card
-          className="sub_dialog_card_orderinfo1"
-          sx={{ minWidth: '100%', minHeight: '239px !important' }}
+        <DialogTitle
+          sx={{
+            width: '1000px',
+            height: '56px',
+            padding: '12px 24px 24px 20px',
+          }}
         >
+          주문 상세 정보
+        </DialogTitle>
+        <Divider />
+        <Card className="sub_dialog_card_orderinfo1">
           <CardHeader
             className="sub_dialog_card_orderinfo_header"
             component="div"
@@ -207,7 +218,7 @@ const FrmOrderDetails = (props: {
           <CardContent className="sub_dialog_card_orderinfo1_content">
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={0}>
-                <Grid item md={6} sx={{ marginBottom: '8px' }}>
+                <Grid item sx={{ marginBottom: '8px' }}>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -229,7 +240,7 @@ const FrmOrderDetails = (props: {
                     />
                   </Box>
                 </Grid>
-                <Grid item md={6} sx={{ marginBottom: '8px' }}>
+                <Grid item sx={{ marginBottom: '8px' }}>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -251,7 +262,7 @@ const FrmOrderDetails = (props: {
                     />
                   </Box>
                 </Grid>
-                <Grid item md={6} sx={{ marginBottom: '8px' }}>
+                <Grid item sx={{ marginBottom: '8px' }}>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -273,7 +284,7 @@ const FrmOrderDetails = (props: {
                     />
                   </Box>
                 </Grid>
-                <Grid item md={6} sx={{ marginBottom: '8px' }}>
+                <Grid item sx={{ marginBottom: '8px' }}>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -295,7 +306,7 @@ const FrmOrderDetails = (props: {
                     />
                   </Box>
                 </Grid>
-                <Grid item md={6} sx={{ marginBottom: '8px' }}>
+                <Grid item sx={{ marginBottom: '8px' }}>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -318,7 +329,7 @@ const FrmOrderDetails = (props: {
                   </Box>
                 </Grid>
 
-                <Grid item md={6} sx={{ marginBottom: '8px' }}>
+                <Grid item sx={{ marginBottom: '8px' }}>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -340,7 +351,7 @@ const FrmOrderDetails = (props: {
                   </Box>
                 </Grid>
 
-                <Grid md={6}>
+                <Grid>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -363,7 +374,7 @@ const FrmOrderDetails = (props: {
                   </Box>
                 </Grid>
 
-                <Grid item md={6}>
+                <Grid item>
                   <Box
                     component="div"
                     className="sub_dialog_card_orderinfo_outer_common"
@@ -427,6 +438,7 @@ const FrmOrderDetails = (props: {
           ></CardHeader>
           <CardContent className="sub_dialog_card_orderinfo3_content">
             <OutlinedInput
+              sx={{ padding: '0 !impotrant', justyfyContent: 'center' }}
               multiline={true}
               maxRows={2}
               fullWidth={false}
@@ -436,13 +448,24 @@ const FrmOrderDetails = (props: {
               value=""
               className="sub_input_common sub_card_dialog_textarea"
             />
-            <Button className="sub_btn_primary_fill_common sub_card_dialog_textarea_btn">
+            <Button
+              className="sub_btn_primary_fill_common sub_card_dialog_textarea_btn"
+              sx={{ padding: '0 !impotrant', justyfyContent: 'center' }}
+            >
               저장
             </Button>
           </CardContent>
         </Card>
         <Button
           className="sub_button_white_none"
+          sx={{
+            width: '41px',
+            height: '36px',
+            fontSize: '14px',
+            marginTop: '31px',
+            marginBottom: '16px',
+            alignSelf: 'center',
+          }}
           onClick={() => {
             props.handleClose();
           }}

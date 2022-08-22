@@ -1055,7 +1055,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '100%',
+          width: '960px',
           height: '70px',
           borderTop: '1px solid #E0E0E0',
           //marginTop: '30px',
@@ -1107,35 +1107,40 @@ const css = createTheme({
 
         //
         '& .MuiPaper-root.sub_dialog_card_orderinfo1': {
-          height: '240px !important',
+          width: '940px !important',
+          height: '239px !important',
           boxShadow: 'none',
           border: '1px solid #ccc',
+          marginTop: '29px',
+          marginLeft: '30px',
           '& .sub_dialog_card_orderinfo_header': {
-            width: '100%',
+            width: '940px !important',
             height: '46px',
             borderBottom: '1px solid #ccc',
           },
           '& .sub_dialog_card_orderinfo1_content': {
-            width: '100%',
-            height: 'auto',
+            width: '940px !important',
+            height: '196px',
           },
           '& .sub_dialog_card_orderinfo1_content.MuiCardContent-root': {
             padding: '8px 0',
           },
         },
         '& .MuiPaper-root.sub_dialog_card_orderinfo2': {
-          width: 'inherit !important',
+          width: '940px !important',
           height: '226px !important',
           boxShadow: 'none',
           border: '1px solid #ccc',
           marginTop: '15px',
+
+          marginLeft: '30px',
           '& .sub_dialog_card_orderinfo_header': {
-            width: '100%',
+            width: '940px !important',
             height: '46px',
             borderBottom: '1px solid #ccc',
           },
           '& .sub_dialog_card_orderinfo2_content': {
-            width: '100%',
+            width: '940px !important',
             height: '180px',
           },
           '& .sub_dialog_card_orderinfo2_content.MuiCardContent-root': {
@@ -1143,24 +1148,26 @@ const css = createTheme({
           },
         },
         '& .MuiPaper-root.sub_dialog_card_orderinfo3': {
-          width: 'inherit !important',
+          width: '940px !important',
           height: '126px !important',
           boxShadow: 'none',
           border: '1px solid #ccc',
           marginTop: '15px',
+          marginLeft: '30px',
           '& .sub_dialog_card_orderinfo_header': {
-            width: '100%',
+            width: '940px !important',
             height: '46px',
             borderBottom: '1px solid #ccc',
           },
           '& .sub_dialog_card_orderinfo3_content': {
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100%',
-            height: '80px',
+            width: '940px',
+            height: '98px',
           },
           '& .sub_dialog_card_orderinfo3_content.MuiCardContent-root': {
-            padding: '10px',
+            alignItems: 'center',
+            justyfyContent: 'center',
           },
         },
         '& .sub_dialog_card_orderinfo_outer_common': {
