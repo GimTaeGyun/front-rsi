@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import axios from '../../../../utils/axios';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import FrmAddUserGroup from './FrmAddUserGroup';
+import FrmUserInfo from './FrmUserInfo';
 
 const columns: GridColDef[] = [
   {
@@ -127,6 +128,22 @@ const columns: GridColDef[] = [
 const TabContent3 = () => {
   const { state } = useLocation();
   const [rows, setRows] = useState([]);
+  const [dialogAddUserGroup, setDialogAddUserGroup] = useState(false);
+  const [dialogAddUser, setDialogAddUser] = useState(false);
+
+  const show_dialogAddUserGroup = () => {
+    setDialogAddUserGroup(true);
+  };
+  const hide_dialogAddUserGroup = () => {
+    setDialogAddUserGroup(false);
+  };
+
+  const show_dialogAddUser = () => {
+    setDialogAddUser(true);
+  };
+  const hide_dialogAddUser = () => {
+    setDialogAddUser(false);
+  };
 
   useEffect(() => {
     axios
@@ -145,7 +162,15 @@ const TabContent3 = () => {
 
   return (
     <>
-      <FrmAddUserGroup open={true} />
+      {dialogAddUserGroup && (
+        <FrmAddUserGroup
+          open={dialogAddUserGroup}
+          handleClose={hide_dialogAddUserGroup}
+        />
+      )}
+      {dialogAddUser && (
+        <FrmUserInfo open={dialogAddUser} handleClose={hide_dialogAddUser} />
+      )}
 
       <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
         <CardHeader
@@ -180,12 +205,14 @@ const TabContent3 = () => {
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_btn_footer_add"
+                        onClick={show_dialogAddUserGroup}
                       >
                         사용자 그룹 추가
                       </Button>
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_btn_footer_save"
+                        onClick={show_dialogAddUser}
                       >
                         사용자 추가
                       </Button>

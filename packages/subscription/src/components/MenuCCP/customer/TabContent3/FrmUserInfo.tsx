@@ -43,11 +43,12 @@ const rows = [
   { id: 3, serviceNm: 'WIGO DATA', period: '2022-01-01 ~ 2022-10-31' },
 ];
 
-const FrmUserInfo = (props: { open: boolean }) => {
+const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
   return (
     <>
       <DialogFormTemplate
         open={props.open}
+        handleClose={props.handleClose}
         title="사용자 정보 수정"
         width="500px"
         height="916px"

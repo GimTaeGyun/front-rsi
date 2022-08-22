@@ -142,10 +142,11 @@ const rows = [
   },
 ];
 
-const FrmOrderDetails = (props: { open: boolean }) => {
+const FrmOrderDetails = (props: { open: boolean; handleClose: Function }) => {
   return (
     <>
       <DialogFormTemplate
+        handleClose={props.handleClose}
         open={props.open}
         title="주문 상세 정보"
         width="1000px"
