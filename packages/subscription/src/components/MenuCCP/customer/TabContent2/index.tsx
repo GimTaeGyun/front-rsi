@@ -296,6 +296,7 @@ const TabContent2 = () => {
   };
 
   const cellClickEvent = (params: any, event: any) => {
+    console.log(event);
     if (params.field == 'details') {
       setOpen(true);
       setDetailrows(params.row);

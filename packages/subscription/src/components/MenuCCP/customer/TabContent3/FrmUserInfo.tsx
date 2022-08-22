@@ -164,7 +164,14 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
         }
         footer={
           <>
-            <Button className="sub_button_white_none">취소</Button>
+            <Button
+              className="sub_button_white_none"
+              onClick={() => {
+                props.handleClose();
+              }}
+            >
+              취소
+            </Button>
             <Button
               color="primary"
               variant="contained"

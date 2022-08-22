@@ -147,7 +147,7 @@ const rows = [
 const FrmOrderDetails = (props: {
   open: boolean;
   handleClose: Function;
-  data: any;
+  data?: any;
 }) => {
   const { data } = props;
   const [person, setPerson] = useState('');
