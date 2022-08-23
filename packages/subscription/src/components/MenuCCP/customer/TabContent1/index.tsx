@@ -177,7 +177,7 @@ const TabContent1 = () => {
       setAlertPopupData({
         ...alertPopupData,
         visible: true,
-        message: '비밀번호는 대소문자, 특수문자를 포함한 8~16자입니다',
+        message: '비밀번호는 대소문자, 특수문자를 포함한 8~16자입니다.',
         leftCallback: () => {
           setAlertPopupData({ ...alertPopupData, visible: false });
         },

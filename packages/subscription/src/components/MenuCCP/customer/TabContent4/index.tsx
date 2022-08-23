@@ -431,27 +431,7 @@ const TabContent4 = () => {
 
                 return (
                   <Box className="sub_pagination_wrapper" component="div">
-                    <Box component="div" className="sub_pagination_outer">
-                      <Button
-                        variant="contained"
-                        className="sub_btn_primary_fill_common sub_btn_footer_add"
-                      >
-                        사용자 그룹 추가
-                      </Button>
-                      <Button
-                        variant="contained"
-                        className="sub_btn_primary_fill_common sub_btn_footer_save"
-                      >
-                        사용자 추가
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        className="sub_btn_primary_outline_common sub_btn_footer_export"
-                        sx={{ marginLeft: '8px' }}
-                      >
-                        선택 사용자 삭제
-                      </Button>
-                    </Box>
+                    <Box component="div" className="sub_pagination_outer"></Box>
 
                     <Box component="div" className="sub_pagination_outer">
                       <TablePagination

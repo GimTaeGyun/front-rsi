@@ -35,6 +35,7 @@ const columns: GridColDef[] = [
     field: 'prdNm',
     headerName: '상품명',
     width: 380,
+    sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -85,6 +86,7 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'pmtMethod',
     headerName: '결제수단',
+    sortable: false,
     width: 93,
     headerAlign: 'center',
     disableColumnMenu: true,
@@ -98,6 +100,7 @@ const columns: GridColDef[] = [
     align: 'right',
     field: 'pmtAmt',
     headerName: '결제금액',
+    sortable: false,
     width: 150,
     headerAlign: 'center',
     disableColumnMenu: true,
@@ -110,7 +113,8 @@ const columns: GridColDef[] = [
   {
     align: 'center',
     field: 'status',
-    headerName: '주문상태',
+    headerName: '결제상태',
+    sortable: false,
     width: 93,
     headerAlign: 'center',
     disableColumnMenu: true,
@@ -161,6 +165,7 @@ const columns: GridColDef[] = [
     field: 'ordBy',
     headerName: '주문자',
     width: 150,
+    sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
   },
@@ -469,6 +474,7 @@ const TabContent2 = () => {
         <div style={{ height: '626px', width: '100%' }}>
           <DataGrid
             className="sub_tbl_outer_common"
+            disableSelectionOnClick
             headerHeight={57}
             rowHeight={52}
             rows={rows}

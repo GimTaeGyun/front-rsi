@@ -2,7 +2,7 @@ import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 const PwResetPopup = (props: {
   open: boolean;
@@ -11,8 +11,13 @@ const PwResetPopup = (props: {
   okCallback?: Function;
 }) => {
   const [inputText, setInputText] = React.useState('');
-  const {open, saved=false, closeCallback=()=>{}, okCallback=()=>{}} = props;
-  
+  const {
+    open,
+    saved = false,
+    closeCallback = () => {},
+    okCallback = () => {},
+  } = props;
+
   useEffect(() => {
     if (!saved) setInputText('');
   }, [open]);
@@ -43,7 +48,8 @@ const PwResetPopup = (props: {
           <Box component="div" sx={styles.popup_inner}>
             <Box component="div" sx={styles.popup_message}>
               <Typography component="div" sx={styles.msg}>
-                새 비밀번호 <Typography component="div" className="sub_label_dot">•</Typography>{' '}
+                새 비밀번호{' '}
+                <Typography className="sub_cust_label_dot">•</Typography>
               </Typography>
               <TextField
                 sx={styles.input_text}
@@ -77,7 +83,7 @@ const styles = {
   modal: {
     '& .MuiBox-root:focus-visible': {
       outline: 'unset',
-      border: "1px solid #0000001F"
+      border: '1px solid #0000001F',
     },
   },
   msg: {
@@ -87,12 +93,12 @@ const styles = {
     marginBottom: '10px',
     fontSize: '14px',
     lineHeight: '25px',
-    letterSpacing:"-0.35px",
+    letterSpacing: '-0.35px',
   },
   btnOk: {
-    minWidth: '46px',
-    width: '46px',
-    height: '30px',
+    minWidth: '57px',
+    width: '57px',
+    height: '36px',
     px: '0',
     color: '#fff',
     marginRight: '10px',
@@ -100,6 +106,7 @@ const styles = {
     backgroundColor: '#284AD5',
     boxShadow: '0px 3px 3px #0000002E',
     fontFamily: 'NotoSansKR',
+    fontSize: '14px',
     ':hover': {
       borderColor: '#0615B2',
       backgroundColor: '#0615B2',
@@ -107,16 +114,16 @@ const styles = {
     },
   },
   btnCancel: {
-    minWidth: '46px',
-    width: '46px',
-    height: '30px',
+    minWidth: '41px',
+    width: '41px',
+    height: '36px',
     px: '0',
     color: '#284ad5',
     marginRight: '10px',
-    fontFamily: 'NotoSansKR',
-    borderColor: '#ffffff',
-    backgroundColor: '#ffffff',
-    boxShadow: '0px 3px 3px #0000002E',
+    fontFamily: 'NotoSansKRMedium',
+    fontSize: '14px',
+    borderColor: 'var(--unnamed-color-284ad5)',
+    backgroundColor: 'var(--unnamed-color-284ad5)',
   },
   popup_header: {
     width: '100%',

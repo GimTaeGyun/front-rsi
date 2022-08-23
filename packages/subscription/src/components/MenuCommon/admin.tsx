@@ -65,7 +65,7 @@ const Admin = () => {
         leftCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
         },
-        message: '사용할 수 없는 아이디입니다',
+        message: '사용할 수 없는 아이디입니다.',
       });
     } else {
       axios
@@ -81,7 +81,7 @@ const Admin = () => {
                 setIsCheckedId(false);
                 setOperPopupData(defaultOperPopupData);
               },
-              message: '새로운 운영자 추가가 완료되었습니다',
+              message: '새로운 운영자 추가가 완료되었습니다.',
             });
           }
         })
@@ -112,7 +112,7 @@ const Admin = () => {
             leftCallback: () => {
               setAlertPopup({ ...alertPopup, visible: false });
             },
-            message: '사용할 수 있는 아이디입니다',
+            message: '사용할 수 있는 아이디입니다.',
           });
           setIsCheckedId(true);
         } else {
@@ -121,7 +121,7 @@ const Admin = () => {
             leftCallback: () => {
               setAlertPopup({ ...alertPopup, visible: false });
             },
-            message: '사용할 수 없는 아이디입니다',
+            message: '사용할 수 없는 아이디입니다.',
           });
           setIsCheckedId(false);
         }
@@ -142,7 +142,7 @@ const Admin = () => {
         if (res.data.code == '0000') {
           setAlertPopup({
             ...defaultAlertPopup,
-            message: '비밀번호가 변경되었습니다',
+            message: '비밀번호가 변경되었습니다.',
           });
           return;
         }
@@ -178,7 +178,7 @@ const Admin = () => {
           setRows(tmpRows);
           setAlertPopup({
             ...defaultAlertPopup,
-            message: '모든 변동사항이 저장되었습니다',
+            message: '모든 변동사항이 저장되었습니다.',
           });
           setUpdateOperOpen(false);
         }
@@ -295,7 +295,7 @@ const Admin = () => {
               .then(() => {
                 setAlertPopup({
                   ...alertPopup,
-                  message: '운영자 그룹 삭제가 완료되었습니다',
+                  message: '운영자 그룹 삭제가 완료되었습니다.',
                   leftText: '확인',
                   leftCallback: refreshSidbar.refresh,
                 });

@@ -97,19 +97,19 @@ const Index = () => {
     // 검색어 조건 셀렉트박스
     initOption(
       'searchField',
-      '검색어조건 가져오기가 실패하였습니다',
+      '검색어조건 가져오기가 실패하였습니다.',
       setSearchCategory,
     );
     // 고객유형 체크박스
     initOption(
       'cust_tp',
-      '고객유형 가져오기가 실패하였습니다',
+      '고객유형 가져오기가 실패하였습니다.',
       setUserCategory,
     );
     // 고객상태 체크박스
     initOption(
       'status',
-      '고객상태 가져오기가 실패하였습니다',
+      '고객상태 가져오기가 실패하였습니다.',
       setStatusCategory,
     );
   }, []);

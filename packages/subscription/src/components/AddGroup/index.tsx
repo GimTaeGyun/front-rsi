@@ -57,8 +57,8 @@ const AddGroup = (props: {
             visible: true,
             message:
               groupData.action === 'mod'
-                ? '운영자 그룹 수정이 완료되었습니다'
-                : '새로운 운영자 그룹이 추가되었습니다',
+                ? '운영자 그룹 수정이 완료되었습니다.'
+                : '새로운 운영자 그룹이 추가되었습니다.',
             leftCallback: () => {
               setAlertPopupData({ ...alertPopupData, visible: false });
             },
@@ -87,8 +87,8 @@ const AddGroup = (props: {
             visible: true,
             message:
               res.data.code === '0000'
-                ? '사용할 수 있는 그룹명입니다'
-                : '사용할 수 없는 그룹명입니다',
+                ? '사용할 수 있는 그룹명입니다.'
+                : '사용할 수 없는 그룹명입니다.',
             leftCallback: () => {
               setAlertPopupData({ ...alertPopupData, visible: false });
             },

@@ -386,6 +386,8 @@ const css = createTheme({
         '& .sub_filter_dropdown_lbl': {
           paddingLeft: '20px',
           width: '120px',
+          fontSize: '14px',
+          letterSpacing: '-0.35px',
           borderRight: '0 solid red',
         },
         '& .sub_filter_dropdown_chk_outer': {
@@ -431,7 +433,7 @@ const css = createTheme({
           color: '#333333',
           fontFamily: 'NotoSansKRMedium',
           fontSize: '14px',
-          letterSpacing: '-0.35',
+          letterSpacing: '-0.35px',
           borderRight: '30px solid white',
         },
         '& .sub_listpage_filter_search': {

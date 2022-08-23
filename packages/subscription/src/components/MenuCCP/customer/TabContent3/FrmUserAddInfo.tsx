@@ -54,11 +54,11 @@ const errMsg = {
   loginPw: [
     '비밀번호를 입력해 주세요',
     '비밀번호는 8~16자로 입력해 주세요',
-    '잘못된 형식의 비밀번호입니다',
+    '잘못된 형식의 비밀번호입니다.',
   ],
-  usrNm: '잘못된 형식입니다',
-  email: '잘못된 형식입니다',
-  phone: '잘못된 형식입니다',
+  usrNm: '잘못된 형식입니다.',
+  email: '잘못된 형식입니다.',
+  phone: '잘못된 형식입니다.',
   service: '사용 서비스를 선택해 주세요',
 };
 const validationSchema = Yup.object().shape({
@@ -150,7 +150,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
             leftCallback: () => {
               setAlertPopup({ ...alertPopup, visible: false });
             },
-            message: '사용할 수 있는 아이디입니다',
+            message: '사용할 수 있는 아이디입니다.',
           });
         } else {
           setIsLoginAvailable(false);
@@ -159,7 +159,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
             leftCallback: () => {
               setAlertPopup({ ...alertPopup, visible: false });
             },
-            message: '사용할 수 없는 아이디입니다',
+            message: '사용할 수 없는 아이디입니다.',
           });
         }
       })
