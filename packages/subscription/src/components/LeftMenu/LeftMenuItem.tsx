@@ -54,6 +54,8 @@ const LeftMenuItem = (props: {
           disablePadding
           sx={{
             bgcolor: '#2544C4',
+            borderTop: '8px solid #2544C4',
+            borderBottom: '8px solid #2544C4',
           }}
         >
           {menuItem.items.map((child, key) => (
@@ -90,6 +92,9 @@ const LeftMenuItem = (props: {
                       height: '15px',
                       '&:hover': {
                         color: '#fff',
+                      },
+                      ':focus': {
+                        fontSize: 'NotoSandsKRMedium !important',
                       },
                     },
                   }}
