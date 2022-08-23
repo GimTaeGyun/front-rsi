@@ -202,7 +202,7 @@ const TabContent2 = () => {
   const [dateTo, setDateTo] = useState(defaultToDate);
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
-  const [detailrows, setDetailrows] = useState();
+  const [rowDetail, setRowDetail] = useState({});
 
   const show_dialogOrderDetails = () => {
     setOpen(true);
@@ -298,8 +298,25 @@ const TabContent2 = () => {
   const cellClickEvent = (params: any, event: any) => {
     console.log(event);
     if (params.field == 'details') {
-      setOpen(true);
-      setDetailrows(params.row);
+      const api = async () => {
+        const param = { ordNo: '2208112243000000032' };
+        try {
+          const res = await axios.post(
+            '/management/manager/contract/orderdetail/inquiry',
+            param,
+          );
+          setRowDetail(res.data.result);
+          setOpen(true);
+        } catch (e) {
+          console.log('error');
+        }
+      };
+      api();
+      useEffect(() => {
+        setOpen(true);
+      }, [rowDetail]);
+
+      console.log(rowDetail);
     }
   };
   const onCloseOrderDetails = () => {
@@ -309,6 +326,8 @@ const TabContent2 = () => {
   useEffect(() => {
     onClickSearch();
   }, [page, rowsPerPage]);
+
+  console.log(rowDetail);
 
   return (
     <>
@@ -527,7 +546,7 @@ const TabContent2 = () => {
         <FrmOrderDetails
           open={open}
           handleClose={hide_dialogOrderDetails}
-          data={detailrows}
+          data={rowDetail}
         />
       )}
     </>

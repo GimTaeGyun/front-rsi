@@ -17,6 +17,7 @@ import {
   DialogActions,
   DialogContent,
   Divider,
+  IconButton,
 } from '@mui/material';
 import {
   DataGrid,
@@ -24,6 +25,7 @@ import {
   GridColumnHeaderParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const columns: GridColDef[] = [
@@ -43,7 +45,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'left',
-    field: 'info',
+    field: 'name',
     headerName: '상품 정보',
     width: 420,
     headerAlign: 'center',
@@ -71,7 +73,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'total',
+    field: 'totalPrice',
     headerName: '합계 금액',
     width: 118,
     headerAlign: 'center',
@@ -121,73 +123,43 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: '0000011',
-    info: 'EyeSurfer / 조간신문 / 중앙신문 / 경향신문',
-    quantity: '1',
-    total: '1,000,000원',
-    discount: '100,000원',
-    net: '900,000원',
-  },
-  {
-    id: '0000012',
-    info: 'EyeSurfer / 조간신문 / 중앙신문 / 경향신문',
-    quantity: '1',
-    total: '1,000,000원',
-    discount: '100,000원',
-    net: '900,000원',
-  },
-  {
-    id: '0000013',
-    info: 'EyeSurfer / 조간신문 / 중앙신문 / 경향신문',
-    quantity: '1',
-    total: '1,000,000원',
-    discount: '100,000원',
-    net: '900,000원',
-  },
-];
-
 const FrmOrderDetails = (props: {
   open: boolean;
   handleClose: Function;
   data?: any;
 }) => {
   const { data } = props;
-  const [person, setPerson] = useState('');
-  const [ordDate, setOrdDate] = useState();
-  const [pmtDate, setPmtDate] = useState();
+  const [person, setPerson] = useState(data.ordStatus);
+  const [ordDate, setOrdDate] = useState('');
+  const [pmtDate, setPmtDate] = useState('');
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     const moment = require('moment');
-    const formatDate = moment(data.ordDate).format('YYYY-MM-DD HH:MM');
-    const formatChargeDate = moment(data.pmtDate).format('YYYY-MM-DD HH:MM');
-    setOrdDate(formatDate);
-    setPmtDate(formatChargeDate);
-  }, [data]);
-
-  useEffect(() => {
-    switch (data.status.value) {
-      case 0:
-        setPerson('결제대기중');
-        break;
-      case 1:
-        setPerson('결제완료');
-        break;
-      case 2:
-        setPerson('입금대기중');
-        break;
-      case 3:
-        setPerson('결제취소');
-        break;
-      case 4:
-        setPerson('환불처리중');
-        break;
-      case 5:
-        setPerson('환불완료');
-        break;
+    const formatDate = moment(data.ordDt).format('YYYY-MM-DD HH:MM');
+    if (data.pmtDt) {
+      const formatChargeDate = moment(data.pmtDt).format('YYYY-MM-DD HH:MM');
+      setPmtDate(formatChargeDate);
+    } else {
+      setPmtDate(' ');
     }
-  }, [props.open]);
+    setOrdDate(formatDate);
+    const rowData = data.ordProducts[0];
+    const discount = -rowData.discount / rowData.prdPrice;
+    const mapRow = rowData.prdItems.map((item: any) => {
+      return {
+        ...item,
+        id: item.prdItemId,
+        name: item.prdItemNm,
+        quantity: item.quantity,
+        unitPrice: item.rowunitPrice,
+        totalPrice: item.supplyAmt,
+        discount: item.supplyAmt * discount,
+        net: item.supplyAmt - item.supplyAmt * discount,
+      };
+    });
+    setRows(mapRow);
+  }, [data]);
 
   return (
     <>
@@ -206,7 +178,14 @@ const FrmOrderDetails = (props: {
             padding: '12px 24px 24px 20px',
           }}
         >
-          주문 상세 정보
+          <Typography>운영자 정보 수정</Typography>
+          <IconButton
+            color="primary"
+            component="label"
+            onClick={() => props.handleClose()}
+          >
+            <CloseOutlined className="sub_dialog_icon_close" />
+          </IconButton>
         </DialogTitle>
         <Divider />
         <Card className="sub_dialog_card_orderinfo1">
@@ -278,7 +257,7 @@ const FrmOrderDetails = (props: {
                       id="text3"
                       placeholder=""
                       name="text3"
-                      value={data.ordBy || ' '}
+                      value={data.orderer || ' '}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />
@@ -300,7 +279,7 @@ const FrmOrderDetails = (props: {
                       id="text4"
                       placeholder=""
                       name="text4"
-                      value="010-0000-0000"
+                      value={data.ordererContact}
                       className="sub_input_common sub_dialog_card_orderinfo_input"
                       readOnly
                     />

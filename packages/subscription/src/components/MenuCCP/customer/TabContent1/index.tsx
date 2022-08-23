@@ -27,7 +27,6 @@ const TabContent1 = () => {
   const [personalData, setPersonalData] = useState(Object);
   const [compData, setCompData] = useState(Object);
   const [compMngData, setCompMngData] = useState(Object);
-  console.log(sharedCustomerData);
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
 
   const personalChange = (data: any) => {
