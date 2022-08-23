@@ -209,7 +209,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
       <DialogFormTemplate
         open={props.open}
         handleClose={props.handleClose}
-        title="사용자 정보 수정"
+        title="사용자 추가"
         width="500px"
         height="916px"
         children={

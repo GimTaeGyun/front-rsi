@@ -156,7 +156,7 @@ const UpdateOperatorPopup = (props: {
                 value={popupData.usrPw || ''}
                 onChange={handleChange}
                 error={dataValid.usrPw}
-                label={dataValid.usrPw ? validationMsg.usrPw : ''}
+                helperText={dataValid.usrPw ? validationMsg.usrPw : ''}
               />
               <Button
                 variant="contained"
@@ -185,7 +185,7 @@ const UpdateOperatorPopup = (props: {
               value={popupData.usrNm || ''}
               onChange={handleChange}
               error={dataValid.usrNm}
-              label={dataValid.usrNm ? validationMsg.usrNm : ''}
+              helperText={dataValid.usrNm ? validationMsg.usrNm : ''}
             />
           </Box>
           <Box>
@@ -201,7 +201,7 @@ const UpdateOperatorPopup = (props: {
               value={popupData.phone || ''}
               onChange={handleChange}
               error={dataValid.phone}
-              label={dataValid.phone ? validationMsg.phone : ''}
+              helperText={dataValid.phone ? validationMsg.phone : ''}
             />
           </Box>
           <Box>
@@ -217,7 +217,7 @@ const UpdateOperatorPopup = (props: {
               value={popupData.email || ''}
               onChange={handleChange}
               error={dataValid.email}
-              label={dataValid.email ? validationMsg.email : ''}
+              helperText={dataValid.email ? validationMsg.email : ''}
             />
           </Box>
           <Box>

@@ -123,7 +123,7 @@ const AddOperatorPopup = (props: {
                 id="operator_id"
                 placeholder="아이디"
                 error={dataValid.usrId}
-                label={dataValid.usrId ? validationMsg.usrId : ''}
+                helperText={dataValid.usrId ? validationMsg.usrId : ''}
                 onChange={e => {
                   e.target.value = e.target.value.substring(0, 20);
                   handleChange(e);
@@ -158,7 +158,7 @@ const AddOperatorPopup = (props: {
               type="password"
               placeholder="비밀번호"
               error={dataValid.usrPw}
-              label={dataValid.usrPw ? validationMsg.usrPw : ''}
+              helperText={dataValid.usrPw ? validationMsg.usrPw : ''}
               className="sub_formText"
               name="usrPw"
               onChange={e => {
@@ -179,7 +179,7 @@ const AddOperatorPopup = (props: {
               className="sub_formText"
               name="usrNm"
               error={dataValid.usrNm}
-              label={dataValid.usrNm ? validationMsg.usrNm : ''}
+              helperText={dataValid.usrNm ? validationMsg.usrNm : ''}
               onChange={e => {
                 handleChange(e);
                 setPopupData({ ...popupData, usrNm: e.target.value });
@@ -197,7 +197,7 @@ const AddOperatorPopup = (props: {
               className="sub_formText"
               name="phone"
               error={dataValid.phone}
-              label={dataValid.phone ? validationMsg.phone : ''}
+              helperText={dataValid.phone ? validationMsg.phone : ''}
               onChange={e => {
                 e.target.value = e.target.value.substring(0, 13);
                 handleChange(e);
@@ -216,7 +216,7 @@ const AddOperatorPopup = (props: {
               className="sub_formText"
               name="email"
               error={dataValid.email}
-              label={dataValid.email ? validationMsg.email : ''}
+              helperText={dataValid.email ? validationMsg.email : ''}
               onChange={e => {
                 handleChange(e);
                 setPopupData({ ...popupData, email: e.target.value });

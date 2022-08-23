@@ -17,7 +17,6 @@ const MyDatePicker = (props: {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         reduceAnimations={true}
-        label=""
         inputFormat="yyyy-MM-dd"
         value={props.value}
         onChange={e => {

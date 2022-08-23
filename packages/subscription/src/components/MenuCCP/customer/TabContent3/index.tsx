@@ -13,7 +13,7 @@ import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import FrmAddUserGroup from './FrmAddUserGroup';
 import AlertPopup from '../../../Common/AlertPopup';
 import { DefaultAlertPopupData } from '../../../../data/atoms';
-import FrmUserInfo from './FrmUserInfo';
+import FrmUserInfo from './FrmUserAddInfo';
 import FrmUserUpdateInfo from './FrmUserUpdateInfo';
 
 const columns: GridColDef[] = [
@@ -223,6 +223,37 @@ const TabContent3 = () => {
       setUpdateUserInfo(e.row);
     }
   };
+
+  const userUpdateSubmitEvent = (data: any) => {
+    axios
+      .post('/management/subscription/customer/user/update', {
+        action: 'mod',
+        email: data.email,
+        grpNo: data.grpNo,
+        loginId: data.loginId,
+        loginPw: data.loginPw,
+        phone: data.phone,
+        service: data.service,
+        usrId: data.usrId,
+        usrNm: data.usrNm,
+      })
+      .then(res => {
+        if (res.data.code == '0000') {
+          setAlertPopupData({
+            ...DefaultAlertPopupData,
+            visible: true,
+            message: '모든 변동사항이 저장되었습니다.',
+            leftCallback: () => {
+              setAlertPopupData({ ...alertPopupData, visible: false });
+            },
+          });
+          setDialogUserUpdate(false);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
   return (
     <>
       {alertPopupData.visible ? (
@@ -258,6 +289,7 @@ const TabContent3 = () => {
           }}
           open={dialogUserUpdate}
           data={updateUserInfo}
+          submitEvent={userUpdateSubmitEvent}
         />
       )}
 

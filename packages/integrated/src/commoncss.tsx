@@ -994,6 +994,15 @@ const css = createTheme({
           '& .MuiOutlinedInput-notchedOutline': {
             border: '1px solid #0000001F',
           },
+          '& .MuiTextField-root': { height: '42px' },
+          '& input': {
+            height: '42px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            color: '#666 !important',
+            fontSize: '14px',
+            fontFamily: 'NotoSansKRRegular',
+          },
         },
         '& .sub_card_dialog_input.Mui-disabled': {
           '& .MuiOutlinedInput-notchedOutline': {
