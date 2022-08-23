@@ -31,6 +31,19 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
       custTp: userData.custTp,
     };
     props.compMngChange(datas);
+  }, [userData]);
+
+  useEffect(() => {
+    const datas = {
+      custNm: custNm,
+      mobile: mobile,
+      email: email,
+      custDept: custDept,
+      tel: tel,
+      fax: fax,
+      custTp: userData.custTp,
+    };
+    props.compMngChange(datas);
   }, [custNm, mobile, email, custDept, tel, fax]);
 
   return (

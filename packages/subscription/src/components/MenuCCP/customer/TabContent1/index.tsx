@@ -21,6 +21,7 @@ const validator = Yup.object().shape({
 });
 
 const TabContent1 = () => {
+  const { state } = useLocation();
   const [pwResetPopupOpen, setPwResetPopupOpen] = useState(false);
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [loaded, setLoaded] = useState(false);
@@ -112,45 +113,32 @@ const TabContent1 = () => {
 
   useEffect(() => {
     const userApi = async () => {
-      let tmpData = sharedCustomerData;
-      if (loaded || !tmpData) {
-        return;
-      }
-      switch (tmpData.custTp) {
-        case '기업':
-          tmpData.custTp = 1;
-          break;
-        case '공공':
-          tmpData.custTp = 2;
-          break;
-        case '개인':
-          tmpData.custTp = 3;
-          break;
-      }
-
+      let tmpData = {};
+      Object.assign(tmpData, state); //state 복사
+      (tmpData as any).custTp = (tmpData as any).custTp.value;
       const response = await axios.post(
         '/management/manager/customer/search/detail',
         {
-          custId: tmpData.custId,
-          custTp: tmpData.custTp.value,
+          custId: (tmpData as any).custId,
+          custTp: (tmpData as any).custTp,
         },
       );
-      tmpData = { ...tmpData, ...response.data.result };
+      tmpData = { ...(tmpData as any), ...response.data.result };
 
-      if (tmpData.tosInfo) {
-        tmpData.tosInfo[0].tosInfo.promotion.email == 'true'
-          ? (tmpData.tosInfo[0].tosInfo.promotion.email = true)
-          : (tmpData.tosInfo[0].tosInfo.promotion.email = false);
+      if ((tmpData as any).tosInfo) {
+        (tmpData as any).tosInfo[0].tosInfo.promotion.email == 'true'
+          ? ((tmpData as any).tosInfo[0].tosInfo.promotion.email = true)
+          : ((tmpData as any).tosInfo[0].tosInfo.promotion.email = false);
 
-        tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
-          ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
-          : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
+        (tmpData as any).tosInfo[0].tosInfo.promotion.mobile == 'true'
+          ? ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = true)
+          : ((tmpData as any).tosInfo[0].tosInfo.promotion.mobile = false);
       }
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };
     userApi();
-  }, [sharedCustomerData]);
+  }, []);
 
   const pwOkCallback = async (value: any) => {
     let valid = await validator.isValid({ usrPw: value });
