@@ -133,6 +133,7 @@ const FrmOrderDetails = (props: {
   const [ordDate, setOrdDate] = useState('');
   const [pmtDate, setPmtDate] = useState('');
   const [rows, setRows] = useState([]);
+  const [memo, setMemo] = useState('');
 
   useEffect(() => {
     const moment = require('moment');
@@ -437,8 +438,11 @@ const FrmOrderDetails = (props: {
               id="text9"
               placeholder="관리자 메모를 작성해 주세요."
               name="text9"
-              value=""
+              value={memo}
               className="sub_input_common sub_card_dialog_textarea"
+              onChange={e => {
+                setMemo(e.target.value);
+              }}
             />
             <Button
               className="sub_btn_primary_fill_common sub_card_dialog_textarea_btn"

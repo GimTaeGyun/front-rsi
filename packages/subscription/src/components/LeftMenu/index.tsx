@@ -109,11 +109,7 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
       </Toolbar>
       <Box sx={{ overflow: 'auto' }}>
         {menuItems.map((menuItem: any, index) => (
-          <List
-            disablePadding
-            key={`list-item-${index}`}
-            sx={{ textDecorationLine: 'none' }}
-          >
+          <List disablePadding key={`list-item-${index}`}>
             <LeftMenuMenuItem
               defaultOpen={
                 window.location.pathname.includes(menuLink[menuItem.menuId])
