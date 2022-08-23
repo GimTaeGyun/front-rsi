@@ -144,18 +144,17 @@ const FrmOrderDetails = (props: {
       setPmtDate(' ');
     }
     setOrdDate(formatDate);
-    const rowData = data.ordProducts[0];
-    const discount = -rowData.discount / rowData.prdPrice;
-    const mapRow = rowData.prdItems.map((item: any) => {
+    const rowData = data.ordProducts;
+    const mapRow = rowData.map((item: any) => {
       return {
         ...item,
-        id: item.prdItemId,
-        name: item.prdItemNm,
-        quantity: item.quantity,
+        id: item.prdId,
+        name: item.prdNm,
+        quantity: 1,
         unitPrice: item.rowunitPrice,
-        totalPrice: item.supplyAmt,
-        discount: item.supplyAmt * discount,
-        net: item.supplyAmt - item.supplyAmt * discount,
+        totalPrice: item.prdPrice,
+        discount: -item.discount,
+        net: item.supplyAmt,
       };
     });
     setRows(mapRow);
@@ -175,13 +174,23 @@ const FrmOrderDetails = (props: {
           sx={{
             width: '1000px',
             height: '56px',
-            padding: '12px 24px 24px 20px',
+            padding: '16px 20px 16px 16px',
+            justifyItems: 'space-between',
           }}
         >
-          <Typography>운영자 정보 수정</Typography>
+          <Typography
+            sx={{
+              width: '300px',
+              justifySelf: 'center',
+              float: 'left',
+            }}
+          >
+            주문 상세 정보
+          </Typography>
           <IconButton
             color="primary"
             component="label"
+            sx={{ padding: '0', float: 'right', justifySelf: 'center' }}
             onClick={() => props.handleClose()}
           >
             <CloseOutlined className="sub_dialog_icon_close" />

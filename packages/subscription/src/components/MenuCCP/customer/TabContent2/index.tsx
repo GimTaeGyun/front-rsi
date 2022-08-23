@@ -13,6 +13,7 @@ import MyDatePicker from '../../../Common/MyDatePicker';
 import FrmOrderDetails from './FrmOrderDetails';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import { axios } from '../../../../utils/axios';
+import { Code } from '@mui/icons-material';
 
 const columns: GridColDef[] = [
   {
@@ -312,9 +313,6 @@ const TabContent2 = () => {
         }
       };
       api();
-      useEffect(() => {
-        setOpen(true);
-      }, [rowDetail]);
 
       console.log(rowDetail);
     }
@@ -326,8 +324,6 @@ const TabContent2 = () => {
   useEffect(() => {
     onClickSearch();
   }, [page, rowsPerPage]);
-
-  console.log(rowDetail);
 
   return (
     <>
