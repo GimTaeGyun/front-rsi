@@ -233,9 +233,14 @@ const Sidebar = (props: {
                           />
                         ) : (
                           <ArrowForwardIos
+                            className={
+                              selectedTreeitem && selectedTreeitem.id == node.id
+                                ? 'sub_arrow'
+                                : ''
+                            }
                             sx={{
                               fontSize: '14px',
-                              color: isOpen ? '#000000DE' : '#c7c7c7',
+                              color: '#c7c7c7',
                             }}
                           />
                         )}
@@ -249,6 +254,9 @@ const Sidebar = (props: {
                           sx={{
                             fontSize: '15px',
                             fontFamily: 'NotoSansKRRegular',
+                            ':focus': {
+                              color: '#c7c7c7 !important',
+                            },
                           }}
                         >{`${node.text}`}</Typography>
                         <Typography

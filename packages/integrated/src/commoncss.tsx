@@ -1276,6 +1276,9 @@ const css = createTheme({
           width: '84px',
           height: '36px',
         },
+        '& .sub_arrow': {
+          color: 'black !important',
+        },
       },
     },
   },
