@@ -7,6 +7,7 @@ import { ArrowForwardIos } from '@mui/icons-material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
+import { ClickAwayListener } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -161,11 +162,15 @@ const Sidebar = (props: {
     return sum;
   };
 
+  const closeListItem = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box
       sx={{
         width: '350px',
-        maxHeight: '633px',
+        maxHeight: '682px',
       }}
     >
       <Card className="sub_sidebar_box_card">
@@ -297,13 +302,20 @@ const Sidebar = (props: {
                       </Box>
                     </Box>
                   </Tooltip>
-                  <ListItems
-                    anchorEl={anchorEl}
-                    id={+node.id}
-                    realNum={realNum}
-                    treeItem={clickedTreeItem}
-                    clickCallback={treeMoreIconCallback}
-                  />
+                  <ClickAwayListener
+                    onClickAway={() => {
+                      setAnchorEl(null);
+                    }}
+                  >
+                    <ListItems
+                      anchorEl={anchorEl}
+                      id={+node.id}
+                      realNum={realNum}
+                      treeItem={clickedTreeItem}
+                      clickCallback={treeMoreIconCallback}
+                      close={closeListItem}
+                    />
+                  </ClickAwayListener>
                 </>
               )}
               initialOpen={true}
@@ -311,29 +323,6 @@ const Sidebar = (props: {
           </DndProvider>
         </CardContent>
       </Card>
-      <Box sx={styles.realBox}>
-        <Divider />
-        <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
-          <Button
-            variant="outlined"
-            sx={styles.box2_button}
-            onClick={() => {
-              scrollDown();
-            }}
-          >
-            <ExpandLess />
-          </Button>
-          <Button
-            variant="outlined"
-            sx={styles.box2_button2}
-            onClick={() => {
-              scrollUp();
-            }}
-          >
-            <ExpandMore />
-          </Button>
-        </Box>
-      </Box>
     </Box>
   );
 };
@@ -346,15 +335,11 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    borderBottom: '0px !important',
-    borderBottomLeftRadius: '0px !important',
-    borderBottomRightRadius: '0px !important',
     width: '300px',
   },
   box_cardHeader: {
     '& .MuiTypography-root': {
       fontSize: '16px',
-      zIndex: '150px !important',
     },
   },
   cardContent_list: {
@@ -380,15 +365,6 @@ const styles = {
       backgroundColor: '#F4F5F7',
       borderRadius: '4px',
     },
-  },
-  realBox: {
-    position: 'bottom',
-    height: '49px',
-    boxShadow: '0px 1px 5px #0000002E',
-    borderTop: '0px',
-    borderBottomLeftRadius: '6px !important',
-    borderBottomRightRadius: '6px !important',
-    backgroundColor: '#FFFFFF',
   },
   box2_button: {
     minWidth: '32px',

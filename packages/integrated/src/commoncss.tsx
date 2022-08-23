@@ -1252,9 +1252,6 @@ const css = createTheme({
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          borderBottom: '0px !important',
-          borderBottomLeftRadius: '0px !important',
-          borderBottomRightRadius: '0px !important',
           width: '350px',
         },
         '& .MuiCardContent-root.sub_sidebar_cardContent_list': {
