@@ -57,7 +57,11 @@ const LeftMenuItem = (props: {
           }}
         >
           {menuItem.items.map((child, key) => (
-            <Link key={key} to={child.link ? child.link : '#'}>
+            <Link
+              style={{ textDecoration: 'none' }}
+              key={key}
+              to={child.link ? child.link : '#'}
+            >
               <ListItem
                 sx={{
                   height: '30px',
@@ -74,6 +78,7 @@ const LeftMenuItem = (props: {
                 <ListItemText
                   primary={child.title}
                   sx={{
+                    textDecorationLine: 'none',
                     height: '23px',
                     lineHeight: 'normal',
                     fontFamily: 'NotoSansKRRegular',

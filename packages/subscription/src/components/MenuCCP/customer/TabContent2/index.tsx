@@ -300,11 +300,10 @@ const TabContent2 = () => {
     console.log(event);
     if (params.field == 'details') {
       const api = async () => {
-        const param = { ordNo: '2208112243000000032' };
         try {
           const res = await axios.post(
             '/management/manager/contract/orderdetail/inquiry',
-            param,
+            { ordNo: '2208112243000000032' },
           );
           setRowDetail(res.data.result);
           setOpen(true);
@@ -313,8 +312,6 @@ const TabContent2 = () => {
         }
       };
       api();
-
-      console.log(rowDetail);
     }
   };
   const onCloseOrderDetails = () => {
