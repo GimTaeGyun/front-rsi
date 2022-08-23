@@ -4,7 +4,7 @@ import {
   Button,
   InputLabel,
   MenuItem,
-  OutlinedInput,
+  TextField,
   Select,
   Typography,
 } from '@mui/material';
@@ -46,15 +46,27 @@ const rows = [
   { id: 2, serviceNm: 'WIGO MON', period: '2022-01-01 ~ 2022-10-31' },
   { id: 3, serviceNm: 'WIGO DATA', period: '2022-01-01 ~ 2022-10-31' },
 ];
-
+const errMsg = {
+  loginId: [
+    '아이디를 입력해 주세요',
+    '5~20자 영문 소문자, 숫자로 입력해 주세요',
+  ],
+  loginPw: [
+    '비밀번호를 입력해 주세요',
+    '비밀번호는 8~16자로 입력해 주세요',
+    '잘못된 형식의 비밀번호입니다',
+  ],
+  usrNm: '잘못된 형식입니다',
+  email: '잘못된 형식입니다',
+  phone: '잘못된 형식입니다',
+  service: '사용 서비스를 선택해 주세요',
+};
 const validationSchema = Yup.object().shape({
   loginId: Yup.string()
     .required()
-    .min(8)
-    .max(16)
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_=])[A-Za-z\d@$!%*#?&_=]{8,}$/,
-    ),
+    .min(4)
+    .max(20)
+    .matches(/^[a-z0-9]*$/),
   loginPw: Yup.string()
     .required()
     .min(8)
@@ -62,21 +74,19 @@ const validationSchema = Yup.object().shape({
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_=])[A-Za-z\d@$!%*#?&_=]{8,}$/,
     ),
-  usrNm: Yup.string().required(),
-  email: Yup.string().email().required(),
-  phone: Yup.string().max(13).required(),
-  grpNo: Yup.string(),
-  service: Yup.array(),
+  usrNm: Yup.string().required().max(100),
+  email: Yup.string().email().required().max(256),
+  phone: Yup.string().max(20).required(),
+  service: Yup.array().required(),
 });
 
 const defaultFormValidation = {
-  loginId: false,
-  loginPw: false,
-  usrNm: false,
-  phone: false,
-  email: false,
-  grpNo: false,
-  service: false,
+  loginId: { err: false, msg: '' },
+  loginPw: { err: false, msg: '' },
+  usrNm: { err: false, msg: '' },
+  phone: { err: false, msg: '' },
+  email: { err: false, msg: '' },
+  service: { err: false, msg: '' },
 };
 
 const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
@@ -204,6 +214,84 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
     }
   };
 
+  const checkValidation = async () => {
+    let tmp = {
+      loginId: { err: false, msg: '' },
+      loginPw: { err: false, msg: '' },
+      usrNm: { err: false, msg: '' },
+      phone: { err: false, msg: '' },
+      email: { err: false, msg: '' },
+      service: { err: false, msg: '' },
+    };
+    // loginId 길이 0
+    if (popupData.loginId.length == 0) {
+      tmp.loginId.err = true;
+      tmp.loginId.msg = errMsg.loginId[0];
+    }
+    // loginId 형식
+    if (!(await validationSchema.fields.loginId.isValid(popupData.loginId))) {
+      tmp.loginId.err = true;
+      tmp.loginId.msg = errMsg.loginId[1];
+    }
+    while (true) {
+      // 비밀번호 길이 0
+      if (popupData.loginPw.length == 0) {
+        tmp.loginPw.err = true;
+        tmp.loginPw.msg = errMsg.loginPw[0];
+        break;
+      }
+      // 비밀번호 길이 범위 밖
+      if (popupData.loginPw.length < 8 || popupData.loginPw.length > 16) {
+        tmp.loginPw.err = true;
+        tmp.loginPw.msg = errMsg.loginPw[1];
+        break;
+      }
+      // 비밀번호 형식 이상
+      if (!(await validationSchema.fields.loginPw.isValid(popupData.loginPw))) {
+        tmp.loginPw.err = true;
+        tmp.loginPw.msg = errMsg.loginPw[2];
+        break;
+      }
+      tmp.loginPw.err = false;
+      tmp.loginPw.msg = '';
+      break;
+    }
+    // 유저 이름 형식 이상
+    if (!(await validationSchema.fields.usrNm.isValid(popupData.usrNm))) {
+      tmp.usrNm.err = true;
+      tmp.usrNm.msg = errMsg.usrNm;
+    } else {
+      tmp.usrNm.err = false;
+      tmp.usrNm.msg = '';
+    }
+    // 전화번호
+    if (!(await validationSchema.fields.phone.isValid(popupData.phone))) {
+      tmp.phone.err = true;
+      tmp.phone.msg = errMsg.phone;
+    } else {
+      tmp.phone.err = false;
+      tmp.phone.msg = '';
+    }
+    // email
+    if (!(await validationSchema.fields.email.isValid(popupData.email))) {
+      tmp.email.err = true;
+      tmp.email.msg = errMsg.email;
+    } else {
+      tmp.email.err = false;
+      tmp.email.msg = '';
+    }
+
+    setDataValid({ ...tmp });
+
+    return !(
+      tmp.email.err ||
+      tmp.loginId.err ||
+      tmp.loginPw.err ||
+      tmp.phone.err ||
+      tmp.usrNm.err
+    );
+  };
+
   return (
     <>
       <DialogFormTemplate
@@ -227,14 +315,15 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 alignItems: 'center',
               }}
             >
-              <OutlinedInput
+              <TextField
                 fullWidth
                 id="loginId"
                 className="sub_input_common sub_card_dialog_input"
                 placeholder="8~16자, 영문 대소문자, 숫자, 특수문자 입력 가능"
                 name="loginId"
                 value={loginId}
-                error={dataValid.loginId}
+                error={dataValid.loginId.err}
+                helperText={dataValid.loginId.msg}
                 onChange={e => {
                   setIsLoginAvailable(false);
                   setLoginId(e.target.value);
@@ -261,7 +350,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
               <InputLabel className="sub_dialog_formLabel">
                 비밀번호 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
-              <OutlinedInput
+              <TextField
                 type="password"
                 fullWidth
                 id="loginPw"
@@ -269,7 +358,8 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 placeholder="8~16자, 영문, 숫자, 특수문자 조합"
                 name="loginPw"
                 value={loginPw}
-                error={dataValid.loginPw}
+                error={dataValid.loginPw.err}
+                helperText={dataValid.loginPw.msg}
                 onChange={e => {
                   //e.target.value = e.target.value;
                   setLoginPw(e.target.value);
@@ -282,14 +372,15 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
               <InputLabel className="sub_dialog_formLabel">
                 이름 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
-              <OutlinedInput
+              <TextField
                 fullWidth
                 id="usrNm"
                 className="sub_input_common sub_card_dialog_input"
                 placeholder="이름"
                 name="usrNm"
                 value={usrNm}
-                error={dataValid.usrNm}
+                error={dataValid.usrNm.err}
+                helperText={dataValid.usrNm.msg}
                 onChange={e => {
                   //e.target.value = e.target.value;
                   setUsrNm(e.target.value);
@@ -302,14 +393,15 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
               <InputLabel className="sub_dialog_formLabel">
                 전화번호 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
-              <OutlinedInput
+              <TextField
                 fullWidth
                 id="phone"
                 className="sub_input_common sub_card_dialog_input"
                 placeholder="전화번호"
                 name="phone"
                 value={phone}
-                error={dataValid.phone}
+                error={dataValid.phone.err}
+                helperText={dataValid.phone.msg}
                 onChange={e => {
                   //e.target.value = e.target.value;
                   setPhone(e.target.value);
@@ -322,14 +414,15 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
               <InputLabel className="sub_dialog_formLabel">
                 이메일 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
-              <OutlinedInput
+              <TextField
                 fullWidth
                 id="email"
                 className="sub_input_common sub_card_dialog_input"
                 placeholder="이메일 주소"
                 name="email"
                 value={email}
-                error={dataValid.email}
+                error={dataValid.email.err}
+                helperText={dataValid.email.msg}
                 onChange={e => {
                   //e.target.value = e.target.value;
                   setEmail(e.target.value);
@@ -340,7 +433,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
 
             <Box component="div" className="sub_dialog_input_outer">
               <InputLabel className="sub_dialog_formLabel">
-                사용자 그룹 <Typography className="sub_label_dot">•</Typography>
+                사용자 그룹
               </InputLabel>
               <Select
                 fullWidth={true}
@@ -348,7 +441,6 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 className="sub_select_common sub_dialog_list"
                 name="grpNo"
                 value={grpNo}
-                error={dataValid.grpNo}
                 onChange={e => {
                   //e.target.value = e.target.value;
                   setGrpNo(e.target.value);
@@ -395,34 +487,9 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
               color="primary"
               variant="contained"
               className="sub_btn_primary_fill_common sub_dialog_button_blue"
-              onClick={async e => {
-                console.log(e);
-                if (await validationSchema.isValid(popupData)) {
+              onClick={async () => {
+                if (await checkValidation()) {
                   handleSubmit();
-                } else {
-                  setDataValid({
-                    loginId: !(await validationSchema.fields.loginId.isValid(
-                      popupData.loginId,
-                    )),
-                    loginPw: !(await validationSchema.fields.loginPw.isValid(
-                      popupData.loginPw,
-                    )),
-                    email: !(await validationSchema.fields.email.isValid(
-                      popupData.email,
-                    )),
-                    phone: !(await validationSchema.fields.phone.isValid(
-                      popupData.phone,
-                    )),
-                    usrNm: !(await validationSchema.fields.usrNm.isValid(
-                      popupData.usrNm,
-                    )),
-                    grpNo: !(await validationSchema.fields.grpNo.isValid(
-                      popupData.grpNo,
-                    )),
-                    service: !(await validationSchema.fields.service.isValid(
-                      popupData.service,
-                    )),
-                  });
                 }
               }}
             >
