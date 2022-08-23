@@ -407,15 +407,6 @@ const Admin = () => {
           />
         </>
       </AppFrame>
-      <Box
-        sx={{
-          width: '100%',
-          height: '400px',
-          zIndex: 300,
-          backgroundColor: 'white',
-          position: 'absolute',
-        }}
-      ></Box>
     </>
   );
 };

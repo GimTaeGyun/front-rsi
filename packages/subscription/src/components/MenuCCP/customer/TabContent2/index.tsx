@@ -203,6 +203,7 @@ const TabContent2 = () => {
   const [dateTo, setDateTo] = useState(defaultToDate);
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
+  const [total, setTotal] = useState(0);
   const [rowDetail, setRowDetail] = useState({});
 
   const show_dialogOrderDetails = () => {
@@ -266,6 +267,7 @@ const TabContent2 = () => {
     if (prd === null || prd === undefined) {
       setRows([]);
     } else {
+      setTotal(res.data.result.total);
       const prds = prd.map((item: any) => {
         const prdNm = item.prd.map((item: any) => {
           return item.prdNm;
@@ -300,11 +302,10 @@ const TabContent2 = () => {
     console.log(event);
     if (params.field == 'details') {
       const api = async () => {
-        const param = { ordNo: '2208112243000000032' };
         try {
           const res = await axios.post(
             '/management/manager/contract/orderdetail/inquiry',
-            param,
+            { ordNo: '2208112243000000032' },
           );
           setRowDetail(res.data.result);
           setOpen(true);
@@ -313,8 +314,6 @@ const TabContent2 = () => {
         }
       };
       api();
-
-      console.log(rowDetail);
     }
   };
   const onCloseOrderDetails = () => {
@@ -462,7 +461,7 @@ const TabContent2 = () => {
               justifyContent="space-between"
             >
               <Typography className="sub_tbl_header_text_common">
-                주문 현황 리스트 (300)
+                주문 현황 리스트 ({total})
               </Typography>
             </Box>
           }

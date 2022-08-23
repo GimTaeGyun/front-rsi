@@ -426,7 +426,11 @@ const FrmOrderDetails = (props: {
           ></CardHeader>
           <CardContent className="sub_dialog_card_orderinfo3_content">
             <OutlinedInput
-              sx={{ padding: '0 !impotrant', justyfyContent: 'center' }}
+              sx={{
+                padding: '0 !impotrant',
+                justyfyContent: 'center',
+                marginRight: '9px',
+              }}
               multiline={true}
               maxRows={2}
               fullWidth={false}
