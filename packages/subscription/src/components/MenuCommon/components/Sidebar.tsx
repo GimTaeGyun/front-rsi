@@ -162,8 +162,8 @@ const Sidebar = (props: {
     return sum;
   };
 
-  const closeListItem = () => {
-    setAnchorEl(null);
+  const closeListItem = (data: any) => {
+    setAnchorEl(data);
   };
 
   return (
@@ -302,20 +302,15 @@ const Sidebar = (props: {
                       </Box>
                     </Box>
                   </Tooltip>
-                  <ClickAwayListener
-                    onClickAway={() => {
-                      setAnchorEl(null);
-                    }}
-                  >
-                    <ListItems
-                      anchorEl={anchorEl}
-                      id={+node.id}
-                      realNum={realNum}
-                      treeItem={clickedTreeItem}
-                      clickCallback={treeMoreIconCallback}
-                      close={closeListItem}
-                    />
-                  </ClickAwayListener>
+
+                  <ListItems
+                    anchorEl={anchorEl}
+                    id={+node.id}
+                    realNum={realNum}
+                    treeItem={clickedTreeItem}
+                    clickCallback={treeMoreIconCallback}
+                    close={closeListItem}
+                  />
                 </>
               )}
               initialOpen={true}

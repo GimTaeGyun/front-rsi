@@ -93,9 +93,6 @@ const LeftMenuItem = (props: {
                       '&:hover': {
                         color: '#fff',
                       },
-                      ':focus': {
-                        fontSize: 'NotoSandsKRMedium !important',
-                      },
                     },
                   }}
                 />
