@@ -1055,7 +1055,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '960px',
+          width: '500px',
           height: '70px',
           borderTop: '1px solid #E0E0E0',
           //marginTop: '30px',

@@ -1,14 +1,18 @@
-import axios from 'axios';
+import Axios from 'axios';
 
-const Axios = axios.create();
+const axios = Axios.create();
 
+axios.defaults.baseURL = 'http://apidev.bflysoft.com:4000';
+axios.defaults.proxy = { host: 'localhost', port: 4000 };
+
+// 자꾸 루프를 돌아서 interceptor를 조작하지않은 axios를 리프레시 토큰에 이용
 Axios.defaults.baseURL = 'http://apidev.bflysoft.com:4000';
 Axios.defaults.proxy = { host: 'localhost', port: 4000 };
 
-Axios.interceptors.request.use(config => {
-  if( config.url == '/management/keycloak/refreshtoken' ){
-    delete (config.headers as any).Authorization;
-  }else if (localStorage.getItem('access-token') != null ){
+
+
+axios.interceptors.request.use(config => {
+  if (localStorage.getItem('access-token') != null ){
     const header = `bearer ${  localStorage.getItem('access-token')}`;
     (config.headers as any).Authorization = header;
   }else{
@@ -17,20 +21,13 @@ Axios.interceptors.request.use(config => {
   return config;
 });
 
-Axios.interceptors.response.use(
+axios.interceptors.response.use(
   response => {
-    if(response.config.url == "/management/keycloak/refreshtoken" &&
-      response.data.hasOwnProperty("code") && response.data.code != '0000'){
-      console.log("response")
-      localStorage.clear();
-      //location.href="/admin/login"
-    }
     return response;
   },
   async error => {
-    if (error.response.status == 401 ) {
+    if (error.response.status == 401) {
       try {
-        
         const originalRequest = error.config;
         localStorage.removeItem('access-token');
         const res = await Axios.post('/management/keycloak/refreshtoken', {
@@ -41,7 +38,7 @@ Axios.interceptors.response.use(
           localStorage.setItem('access-token', res.data.access_token);
           localStorage.setItem('refresh-token', res.data.refresh_token);
           (originalRequest.headers as any).Authorization = `bearer ${  res.data.accessToken}`;
-          return await Axios.request(originalRequest);
+          return await axios.request(originalRequest);
         }else{
           localStorage.clear();
           console.log(2);
@@ -61,4 +58,4 @@ Axios.interceptors.response.use(
       return Promise.reject(error);
     }
 });
-export default Axios;
+export {Axios, axios};

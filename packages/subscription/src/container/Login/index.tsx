@@ -15,7 +15,7 @@ import {
 import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import Axios from '../../utils/axios';
+import { Axios } from '../../utils/axios';
 import Image from '../../../public/assets/images/admin_bkg.png';
 
 const AdminLogin = () => {
@@ -41,8 +41,6 @@ const AdminLogin = () => {
         localStorage.setItem('access-token', fetch.data.result.accessToken);
         localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
         localStorage.setItem('usrId', usrId);
-        Axios.defaults.headers.common['Authorization'] =
-          'bearer ' + fetch.data.result.accessToken;
         setIsLogin(true);
         navigate('/admin/common/admin');
       } else {

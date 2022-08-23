@@ -1,4 +1,4 @@
-import axios from '@administrator/subscription/src/utils/axios';
+import { axios } from '@administrator/subscription/src/utils/axios';
 import DesktopMacIcon from '@mui/icons-material/DesktopMac';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';

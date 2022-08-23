@@ -1,4 +1,4 @@
-import axios from '../../../../utils/axios';
+import { axios } from '../../../../utils/axios';
 import React, { useEffect, useState } from 'react';
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
@@ -137,13 +137,16 @@ const TabContent1 = () => {
         },
       );
       tmpData = { ...tmpData, ...response.data.result };
-      tmpData.tosInfo[0].tosInfo.promotion.email == 'true'
-        ? (tmpData.tosInfo[0].tosInfo.promotion.email = true)
-        : (tmpData.tosInfo[0].tosInfo.promotion.email = false);
 
-      tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
-        ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
-        : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
+      if (tmpData.tosInfo) {
+        tmpData.tosInfo[0].tosInfo.promotion.email == 'true'
+          ? (tmpData.tosInfo[0].tosInfo.promotion.email = true)
+          : (tmpData.tosInfo[0].tosInfo.promotion.email = false);
+
+        tmpData.tosInfo[0].tosInfo.promotion.mobile == 'true'
+          ? (tmpData.tosInfo[0].tosInfo.promotion.mobile = true)
+          : (tmpData.tosInfo[0].tosInfo.promotion.mobile = false);
+      }
       setSharedCustomerData(tmpData);
       setLoaded(true);
     };

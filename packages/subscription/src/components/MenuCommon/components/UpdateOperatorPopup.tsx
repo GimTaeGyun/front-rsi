@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 
-import axios from '../../../utils/axios';
+import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 
 const MenuItem = styled(MuiMenuItem)({
@@ -122,7 +122,7 @@ const UpdateOperatorPopup = (props: {
             </InputLabel>
             <TextField
               id="operator_id"
-              placeholder="아이디"
+              placeholder="8~16자, 영문 대소문자, 숫자, 특수문자 입력 가능"
               className="sub_formText"
               disabled
               onChange={handleChange}
@@ -144,7 +144,7 @@ const UpdateOperatorPopup = (props: {
                 fullWidth
                 id="password"
                 type="password"
-                placeholder="비밀번호"
+                placeholder="8~16자, 영문, 숫자, 특수문자 조합"
                 className="sub_formText"
                 sx={{
                   width: '348px !important',

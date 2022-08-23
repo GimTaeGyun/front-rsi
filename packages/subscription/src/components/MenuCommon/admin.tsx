@@ -4,7 +4,7 @@ import React from 'react';
 
 import AppFrame from '../../container/AppFrame';
 import { AlertPopupData, GetSidebarData } from '../../data/atoms';
-import axios from '../../utils/axios';
+import { axios } from '../../utils/axios';
 import AddGroup from '../AddGroup';
 import AlertPopup from '../Common/AlertPopup';
 import AddOperatorPopup from './components/AddOperatorPopup'; // 운영자수정 팝업

@@ -1,10 +1,8 @@
 import React from 'react';
 import {
   Box,
-  Button,
   IconButton,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Typography,
@@ -24,9 +22,10 @@ const DialogFormTemplate = (props: {
     <>
       <Dialog
         open={props.open}
+        onClose={() => props.handleClose()}
         className="sub_dialog_main"
         sx={{
-          '& .MuiPaper-root:first-of-type': {
+          '& .MuiPaper-root': {
             width: props.width,
             height: props.height,
           },

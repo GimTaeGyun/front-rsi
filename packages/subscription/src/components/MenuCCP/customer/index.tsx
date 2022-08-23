@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import axios from '../../../utils/axios';
+import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import {
   Card,

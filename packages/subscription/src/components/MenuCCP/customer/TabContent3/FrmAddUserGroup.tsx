@@ -10,7 +10,7 @@ import {
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 import * as Yup from 'yup';
-import axios from '../../../../utils/axios';
+import { axios } from '../../../../utils/axios';
 import AlertPopup from '../../../Common/AlertPopup';
 import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
 

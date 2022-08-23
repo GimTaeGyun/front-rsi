@@ -25,7 +25,7 @@ import { Formik, useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
-import Axios from '../../utils/axios';
+import { axios } from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
 
 const UpdateOperatorPopupUser = (props: {
@@ -48,7 +48,7 @@ const UpdateOperatorPopupUser = (props: {
     };
     if (pwd.length >= 6 && pwd.length <= 16) {
       try {
-        const fetch = await Axios.post(
+        const fetch = await axios.post(
           '/management/subscription/admin/userpw/update',
           userPasswordParam,
         );
@@ -100,7 +100,7 @@ const UpdateOperatorPopupUser = (props: {
           usrTp: data.usrTp,
         };
         try {
-          const fetch = await Axios.post(
+          const fetch = await axios.post(
             '/management/subscription/admin/user/update',
             userParam,
           );

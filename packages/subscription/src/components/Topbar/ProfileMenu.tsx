@@ -7,7 +7,7 @@ import { borderBottom, height } from '@mui/system';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Axios from '../../utils/axios';
+import { axios } from '../../utils/axios';
 import UpdateOperatorPopupUser from './UdateOperatorPopup';
 
 const MenuItem = styled(MuiMenuItem)({
@@ -34,7 +34,7 @@ const ProfileMenu = () => {
   React.useEffect(() => {
     const userApi = async () => {
       try {
-        const response = await Axios.post(
+        const response = await axios.post(
           '/management/subscription/admin/userinfo/inquiry',
           {
             usrId: localStorage.getItem('usrId'),

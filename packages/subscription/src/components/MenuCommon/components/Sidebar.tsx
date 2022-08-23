@@ -21,7 +21,7 @@ import React from 'react';
 import { DndProvider } from 'react-dnd';
 
 import { GetSidebarData } from '../../../data/atoms';
-import Axios from '../../../utils/axios';
+import { axios } from '../../../utils/axios';
 import ListItems from './ListItems';
 
 interface IUsrGrp {
@@ -57,9 +57,10 @@ const Sidebar = (props: {
   const [clickedTreeItem, setClickedTreeItem] = React.useState<any>();
 
   const getData = async () => {
-    await Axios.post('/management/subscription/admin/usergroup/inquiry', {
-      usr_grp_id: 1,
-    })
+    await axios
+      .post('/management/subscription/admin/usergroup/inquiry', {
+        usr_grp_id: 1,
+      })
       .then(res => {
         setData(res.data.result);
       })

@@ -12,7 +12,7 @@ import {
 import MyDatePicker from '../../../Common/MyDatePicker';
 import FrmOrderDetails from './FrmOrderDetails';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import Axios from '../../../../utils/axios';
+import { axios } from '../../../../utils/axios';
 
 const columns: GridColDef[] = [
   {
@@ -223,7 +223,7 @@ const TabContent2 = () => {
         sortField: 'ordNo',
         status: 32767,
       };
-      const res = await Axios.post(
+      const res = await axios.post(
         '/management/manager/contract/order/inquiry',
         param,
       );
@@ -257,7 +257,7 @@ const TabContent2 = () => {
       sortField: 'ordNo',
       status: statuss,
     };
-    const res = await Axios.post(
+    const res = await axios.post(
       '/management/manager/contract/order/inquiry',
       param,
     );

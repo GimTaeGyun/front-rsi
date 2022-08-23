@@ -138,7 +138,7 @@ const ModifySettingsPopup = (props: {
               fullWidth
               disabled
               id="operator_id"
-              placeholder="아이디"
+              placeholder="8~16자, 영문 대소문자, 숫자, 특수문자 입력 가능"
               value="bflysoft1"
             />
           </Box>
@@ -158,7 +158,7 @@ const ModifySettingsPopup = (props: {
             >
               <TextField
                 id="operator_id"
-                placeholder="아이디"
+                placeholder="8~16자, 영문, 숫자, 특수문자 조합"
                 type="password"
                 value="pass1234"
                 sx={{ mr: '10px', flex: '1' }}

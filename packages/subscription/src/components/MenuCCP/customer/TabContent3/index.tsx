@@ -8,12 +8,13 @@ import {
   Typography,
 } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import axios from '../../../../utils/axios';
+import { axios } from '../../../../utils/axios';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import FrmAddUserGroup from './FrmAddUserGroup';
 import AlertPopup from '../../../Common/AlertPopup';
 import { DefaultAlertPopupData } from '../../../../data/atoms';
 import FrmUserInfo from './FrmUserInfo';
+import FrmUserUpdateInfo from './FrmUserUpdateInfo';
 
 const columns: GridColDef[] = [
   {
@@ -103,7 +104,7 @@ const columns: GridColDef[] = [
   {
     headerClassName: 'sub_hideLastSeparator',
     align: 'center',
-    field: 'details',
+    field: 'update',
     headerName: '수정',
     width: 110,
     headerAlign: 'center',
@@ -135,6 +136,8 @@ const TabContent3 = () => {
   const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
   const [dialogAddUserGroup, setDialogAddUserGroup] = useState(false);
   const [dialogAddUser, setDialogAddUser] = useState(false);
+  const [dialogUserUpdate, setDialogUserUpdate] = useState(false);
+  const [updateUserInfo, setUpdateUserInfo] = useState(null);
 
   const show_dialogAddUserGroup = () => {
     setDialogAddUserGroup(true);
@@ -213,6 +216,13 @@ const TabContent3 = () => {
   const selectChangedEvent = (e: any) => {
     setSelectedRows([...rows.filter((item: any) => e.includes(item.id))]);
   };
+
+  const cellClickEvent = (e: any) => {
+    if (e.field == 'update') {
+      setDialogUserUpdate(true);
+      setUpdateUserInfo(e.row);
+    }
+  };
   return (
     <>
       {alertPopupData.visible ? (
@@ -226,14 +236,29 @@ const TabContent3 = () => {
       ) : (
         ''
       )}
+
+      {/* 사용자 그룹 추가 다이얼로그 */}
       {dialogAddUserGroup && (
         <FrmAddUserGroup
           open={dialogAddUserGroup}
           handleClose={hide_dialogAddUserGroup}
         />
       )}
+
+      {/*사용자 추가 다이얼로그*/}
       {dialogAddUser && (
         <FrmUserInfo open={dialogAddUser} handleClose={hide_dialogAddUser} />
+      )}
+
+      {/* 사용자 정보 수정 다이얼로그 */}
+      {dialogUserUpdate && (
+        <FrmUserUpdateInfo
+          handleClose={() => {
+            setDialogUserUpdate(false);
+          }}
+          open={dialogUserUpdate}
+          data={updateUserInfo}
+        />
       )}
 
       <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
@@ -263,6 +288,7 @@ const TabContent3 = () => {
             checkboxSelection={true}
             onSelectionModelChange={selectChangedEvent}
             disableSelectionOnClick
+            onCellClick={cellClickEvent}
             components={{
               Footer: () => {
                 return (

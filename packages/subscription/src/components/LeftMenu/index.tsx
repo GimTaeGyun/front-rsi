@@ -8,7 +8,7 @@ import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 
-import axios from '../../utils/axios';
+import { axios } from '../../utils/axios';
 import LeftMenuMenuItem from './LeftMenuItem';
 const menuLink = [
   '###', // 0 root

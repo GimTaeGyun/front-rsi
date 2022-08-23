@@ -195,7 +195,11 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                       control={
                         <Checkbox
                           disabled
-                          checked={userData.tosInfo[0].tosInfo.promotion.email}
+                          checked={
+                            userData.tosInfo
+                              ? userData.tosInfo[0].tosInfo.promotion.email
+                              : false
+                          }
                         />
                       }
                       label="이메일"
@@ -204,7 +208,11 @@ const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
                       control={
                         <Checkbox
                           disabled
-                          checked={userData.tosInfo[0].tosInfo.promotion.mobile}
+                          checked={
+                            userData.tosInfo
+                              ? userData.tosInfo[0].tosInfo.promotion.mobile
+                              : false
+                          }
                         />
                       }
                       label="SMS"
