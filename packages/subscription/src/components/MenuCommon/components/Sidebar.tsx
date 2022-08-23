@@ -70,6 +70,16 @@ const Sidebar = (props: {
       });
   };
 
+  const scrollDown = () => {
+    const down = document.getElementById('scroll') as HTMLElement;
+    down.scrollBy(0, -350);
+  };
+
+  const scrollUp = () => {
+    const up = document.getElementById('scroll') as HTMLElement;
+    up.scrollBy(0, 350);
+  };
+
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
@@ -152,7 +162,12 @@ const Sidebar = (props: {
   };
 
   return (
-    <Box sx={{ width: '350px', height: '633px' }}>
+    <Box
+      sx={{
+        width: '350px',
+        maxHeight: '633px',
+      }}
+    >
       <Card className="sub_sidebar_box_card">
         <CardHeader
           className="box_cardHeader"
@@ -161,7 +176,22 @@ const Sidebar = (props: {
           sx={styles.box_cardHeader}
         />
         <Divider />
-        <CardContent className="sub_sidebar_cardContent_list">
+        <CardContent
+          id="scroll"
+          className="sub_sidebar_cardContent_list"
+          sx={{
+            zIndex: 'auto',
+            overflow: 'scroll',
+            borderTop: '12px solid #fff',
+            borderBottom: '12px solid #fff',
+            borderLeft: '16px solid #fff',
+            borderRight: '16px solid #fff',
+            padding: '0 !important',
+            '::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+        >
           <DndProvider backend={MultiBackend} options={getBackendOptions()}>
             <Tree
               tree={treedata}
@@ -178,6 +208,7 @@ const Sidebar = (props: {
                         paddingLeft: `${depth * 20 + 10}px`,
                         fontSize: '15px',
                         fontFamily: 'NotoSansKRRegular',
+                        zIndex: 'auto',
                       }}
                       className={
                         selectedTreeitem && selectedTreeitem.id == node.id
@@ -275,10 +306,22 @@ const Sidebar = (props: {
       <Box sx={styles.realBox}>
         <Divider />
         <Box sx={{ py: '8px', width: '100%', textAlign: 'center' }}>
-          <Button variant="outlined" sx={styles.box2_button}>
+          <Button
+            variant="outlined"
+            sx={styles.box2_button}
+            onClick={() => {
+              scrollDown();
+            }}
+          >
             <ExpandLess />
           </Button>
-          <Button variant="outlined" sx={styles.box2_button2}>
+          <Button
+            variant="outlined"
+            sx={styles.box2_button2}
+            onClick={() => {
+              scrollUp();
+            }}
+          >
             <ExpandMore />
           </Button>
         </Box>
@@ -303,6 +346,7 @@ const styles = {
   box_cardHeader: {
     '& .MuiTypography-root': {
       fontSize: '16px',
+      zIndex: '150px !important',
     },
   },
   cardContent_list: {
