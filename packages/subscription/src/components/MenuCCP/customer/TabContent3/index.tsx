@@ -248,6 +248,15 @@ const TabContent3 = () => {
             },
           });
           setDialogUserUpdate(false);
+        } else {
+          setAlertPopupData({
+            ...DefaultAlertPopupData,
+            visible: true,
+            message: '수정이 실패하였습니다.',
+            leftCallback: () => {
+              setAlertPopupData({ ...alertPopupData, visible: false });
+            },
+          });
         }
       })
       .catch(e => {

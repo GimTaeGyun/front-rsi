@@ -105,10 +105,10 @@ const FrmUserUpdateInfo = (props: {
   });
 
   const submitEvent = async () => {
-    // 비밀번호 길이 0
     let err = error;
     // const defaultError를 사용하였음에도 값이 자꾸 바뀌어서 else를 매번 붙여서 다시 리셋해줌
     while (true) {
+      // 비밀번호 길이 0
       if (data?.loginPw.length == 0) {
         (err as any).loginPw.err = true;
         (err as any).loginPw.msg = errMsg.loginPw[0];

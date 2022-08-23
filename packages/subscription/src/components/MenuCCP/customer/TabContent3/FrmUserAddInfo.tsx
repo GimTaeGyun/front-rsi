@@ -138,7 +138,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
     }
     axios
       .post('/management/subscription/customer/check', {
-        field: 'idCheck',
+        field: 'usrIdCheck',
         value1: loginId,
         value2: null,
       })
