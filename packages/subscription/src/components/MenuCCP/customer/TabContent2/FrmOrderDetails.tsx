@@ -144,18 +144,17 @@ const FrmOrderDetails = (props: {
       setPmtDate(' ');
     }
     setOrdDate(formatDate);
-    const rowData = data.ordProducts[0];
-    const discount = -rowData.discount / rowData.prdPrice;
-    const mapRow = rowData.prdItems.map((item: any) => {
+    const rowData = data.ordProducts;
+    const mapRow = rowData.map((item: any) => {
       return {
         ...item,
-        id: item.prdItemId,
-        name: item.prdItemNm,
-        quantity: item.quantity,
+        id: item.prdId,
+        name: item.prdNm,
+        quantity: 1,
         unitPrice: item.rowunitPrice,
-        totalPrice: item.supplyAmt,
-        discount: item.supplyAmt * discount,
-        net: item.supplyAmt - item.supplyAmt * discount,
+        totalPrice: item.prdPrice,
+        discount: -item.discount,
+        net: item.supplyAmt,
       };
     });
     setRows(mapRow);
