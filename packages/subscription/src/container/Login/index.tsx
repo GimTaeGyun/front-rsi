@@ -37,7 +37,7 @@ const AdminLogin = () => {
       params,
     );
     try {
-      if (fetch.data.code == '0000') {
+      if (fetch.data.code === '0000') {
         localStorage.setItem('access-token', fetch.data.result.accessToken);
         localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
         localStorage.setItem('usrId', usrId);

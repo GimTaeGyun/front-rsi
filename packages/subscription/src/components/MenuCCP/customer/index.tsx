@@ -278,7 +278,7 @@ const Index = () => {
                 ? 'sub_card_common sub_card_filter sub_card_filter_dropdown'
                 : 'sub_card_common sub_card_filter sub_card_filter_dropdown active'
             }
-            sx={{ width: '100%' }}
+            sx={{ width: '1470px' }}
           >
             <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
