@@ -15,6 +15,7 @@ const css = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         ':root': {
+          '& .MuiPaper-root': { boxShadow: '0px 3px 3px #0000002E' },
           '& .lastcolumnSeparator': {
             '.MuiDataGrid-columnSeparator': {
               display: 'none',
@@ -1279,6 +1280,16 @@ const css = createTheme({
         },
         '& .sub_arrow': {
           color: 'black !important',
+        },
+        '& li.sub_menuitem_little': {
+          fontFamily: 'NotoSansKRRegular',
+          fontSize: '13px',
+          lineHeight: '24px',
+          letterSpacing: '-0.33px',
+          color: '#000000DE',
+        },
+        '& .sub_select_paper_little': {
+          height: '186px',
         },
       },
     },
