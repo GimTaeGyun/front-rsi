@@ -240,11 +240,7 @@ const Sidebar = (props: {
                           sx={{ display: 'flex', alignItems: 'center' }}
                         >
                           {isOpen && hasChild ? (
-                            <ExpandMore
-                              sx={{
-                                color: isOpen ? '#000000DE' : '#c7c7c7',
-                              }}
-                            />
+                            <ExpandMore sx={{ color: '#000000DE' }} />
                           ) : hasChild ? (
                             <ArrowForwardIos
                               sx={{
@@ -255,12 +251,6 @@ const Sidebar = (props: {
                             />
                           ) : (
                             <ArrowForwardIos
-                              className={
-                                selectedTreeitem &&
-                                selectedTreeitem.id == node.id
-                                  ? 'sub_arrow'
-                                  : ''
-                              }
                               sx={{
                                 fontSize: '14px',
                                 color: '#c7c7c7',

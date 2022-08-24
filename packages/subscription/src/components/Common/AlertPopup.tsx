@@ -34,6 +34,7 @@ const AlertPopup = (props: {
   return (
     <>
       <Modal
+        hideBackdrop
         sx={styles.modal}
         open={open}
         onClose={handleClose}
@@ -51,6 +52,7 @@ const AlertPopup = (props: {
               <Button
                 color="primary"
                 variant="contained"
+                className="sub_button_blue"
                 sx={styles.btn}
                 onClick={handleLeft}
               >
@@ -60,7 +62,8 @@ const AlertPopup = (props: {
                 <Button
                   color="primary"
                   variant="contained"
-                  sx={styles.btn}
+                  className="sub_button_white"
+                  sx={styles.btn2}
                   onClick={handleRight}
                 >
                   {props.rightButtonText}
@@ -93,19 +96,22 @@ const styles = {
   },
   btn: {
     minWidth: '46px',
-    width: '46px',
     height: '30px',
-    px: '0',
-    color: '#fff',
-    marginRight: '10px',
-    borderColor: '#284AD5',
-    backgroundColor: '#284AD5',
     boxShadow: '0px 3px 3px #0000002E',
-
+    ml: '10px',
+    fontFamily: 'NotoSandsKRMedeum',
     ':hover': {
-      borderColor: '#0615B2',
-      backgroundColor: '#0615B2',
-      boxShadow: '0px 3px 3px #0000002E',
+      backgroundColor: '#284AD5',
+    },
+  },
+  btn2: {
+    minWidth: '46px',
+    height: '30px',
+    boxShadow: '0px 3px 3px #0000002E',
+    ml: '10px',
+    fontFamily: 'NotoSandsKRMedeum',
+    ':hover': {
+      backgroundColor: 'transparent',
     },
   },
   popup_inner: {
@@ -114,18 +120,19 @@ const styles = {
     px: '30px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'column',
   },
   popup_message: {
     width: '100%',
     height: '32px',
+    marginTop: '33px',
     textAlign: 'left',
   },
   popup_btn: {
     width: '100%',
     height: '32px',
     textAlign: 'right',
+    marginBottom: '30px',
   },
   popup_outer: {
     display: 'block',

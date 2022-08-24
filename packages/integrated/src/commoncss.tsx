@@ -50,6 +50,7 @@ const css = createTheme({
             color: '#284AD5',
             border: '1px solid #284AD5',
             borderRadius: '6px',
+            backgroundColor: '#fff',
           },
 
           '& .sub_button_white_none': {
@@ -58,6 +59,7 @@ const css = createTheme({
             color: '#284AD5',
             borderColor: '#F9F9F9',
             borderRadius: '6px',
+            backgroundColor: '#fff',
           },
 
           '& .sub_button_blue': {
@@ -188,9 +190,9 @@ const css = createTheme({
 
         //This is all outlined input style class
         '& .sub_input_common': {
-          color: '#00000099',
-          fontFamily: 'NotoSansKRRegular',
-          fontSize: '13px',
+          color: '#00000099 !important',
+          fontFamily: 'NotoSansKRRegular !important',
+          fontSize: '13px !important',
           '& input::placeholder': {
             color: '#00000099',
             opacity: '1',
@@ -284,8 +286,8 @@ const css = createTheme({
         //This is all outlined select style class
         '& .sub_select_common': {
           color: '#000000DE',
-          fontFamily: 'NotoSansKRRegular',
-          fontSize: '13px',
+          fontFamily: 'NotoSansKRRegular !important',
+          fontSize: '13px !important',
           '& .MuiOutlinedInput-notchedOutline': {
             borderRadius: '4px',
             borderColor: '#0000001F',
