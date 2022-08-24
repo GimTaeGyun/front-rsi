@@ -45,6 +45,10 @@ const MyDatePicker = (props: {
                 borderColor: `${active ? '#1976d2 !important' : ''}`,
                 borderWidth: `${active ? '2px !important' : ''}`,
               },
+              '& .MuiInputBase-root': {
+                fontFamily: 'NotoSansKRReguler',
+                fontSize: '13px',
+              },
             }}
             {...params}
             onFocus={() => setActive(true)}
