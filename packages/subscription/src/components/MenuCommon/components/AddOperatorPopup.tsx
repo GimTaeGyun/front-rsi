@@ -237,37 +237,37 @@ const AddOperatorPopup = (props: {
             >
               <MenuItem
                 value="DEFAULT"
-                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
               >
                 기본
               </MenuItem>
               <MenuItem
                 value="SYSUSER"
-                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
               >
                 슈퍼바이저
               </MenuItem>
               <MenuItem
                 value=""
-                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
               >
                 개발자
               </MenuItem>
               <MenuItem
                 value=""
-                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
               >
                 통합관리자 어드민
               </MenuItem>
               <MenuItem
                 value=""
-                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
               >
                 재무회계 담당자
               </MenuItem>
               <MenuItem
                 value=""
-                sx={{ fontFamily: 'NotoSansKR', fontSize: '14px' }}
+                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
               >
                 영업 담당자
               </MenuItem>

@@ -295,9 +295,18 @@ const Index = () => {
                     value={searchField}
                     className="sub_select_common sub_listpage_filter_list"
                     onChange={e => setSearchField(e.target.value)}
+                    MenuProps={{
+                      PaperProps: {
+                        className: 'sub_select_paper_little',
+                      },
+                    }}
                   >
                     {(searchCategory as any).codeSetItems.map((item: any) => (
-                      <MenuItem key={item.value} value={item.value}>
+                      <MenuItem
+                        key={item.value}
+                        value={item.value}
+                        className="sub_menuitem_little"
+                      >
                         {item.label}
                       </MenuItem>
                     ))}

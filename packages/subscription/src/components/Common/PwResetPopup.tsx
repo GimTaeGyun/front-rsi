@@ -105,7 +105,7 @@ const styles = {
     borderColor: '#284AD5',
     backgroundColor: '#284AD5',
     boxShadow: '0px 3px 3px #0000002E',
-    fontFamily: 'NotoSansKR',
+    fontFamily: 'NotoSansKRRegular',
     fontSize: '14px',
     ':hover': {
       borderColor: '#0615B2',
@@ -188,7 +188,7 @@ const styles = {
       height: '42px',
     },
     '& input': {
-      fontFamily: 'NotoSansKr',
+      fontFamily: 'NotoSansKRRegular',
     },
   },
 };
