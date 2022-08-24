@@ -99,12 +99,16 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
       anchor="left"
       open={open}
     >
-      <Toolbar sx={{ mt: '64px', height: '74px' }}>
+      <Toolbar sx={{ mt: '64px', height: '74px', padding: '9px !important' }}>
         <Box
           component="img"
           alt="logo"
           src={require('@administrator/subscription/public/assets/images/logo_bfly.png')}
-          sx={{ borderTop: '6px solid #284AD5', maxnHeight: '74px' }}
+          sx={{
+            borderTop: '6px solid #284AD5',
+            maxnHeight: '74px',
+            paddingRight: '8px',
+          }}
         />
       </Toolbar>
       <Box sx={{ overflow: 'auto' }}>

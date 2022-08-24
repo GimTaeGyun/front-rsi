@@ -144,6 +144,7 @@ const UpdateOperatorPopupUser = (props: {
                 color: '#000000DE',
                 float: 'right',
                 padding: '0 0 0 0',
+                minWidth: '24px !important',
                 '&:focus, &:hover': { bgcolor: 'transparent' },
               }}
               onClick={handleClose}
@@ -156,17 +157,11 @@ const UpdateOperatorPopupUser = (props: {
         {/* change user form */}
         <form onSubmit={handleSubmit}>
           <DialogContent sx={{ padding: '30px' }}>
-            <Box
-              sx={{
-                mb: '15px',
-              }}
-            ></Box>
-            <Box
-              sx={{
-                mb: '15px',
-              }}
-            >
-              <InputLabel className="sub_formLabel">
+            <Box>
+              <InputLabel
+                className="sub_formLabel"
+                sx={{ marginTop: '0 !important' }}
+              >
                 아이디 <Typography className="sub_label_dot">•</Typography>{' '}
               </InputLabel>
               <TextField

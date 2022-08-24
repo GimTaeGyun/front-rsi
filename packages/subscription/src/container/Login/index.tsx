@@ -147,6 +147,7 @@ const AdminLogin = () => {
           <CardActions sx={styles.loginbutton_outer}>
             <OnClose />
             <Button
+              aria-label="primary"
               sx={styles.loginbutton}
               className="sub_button_blue"
               onClick={onClick}
@@ -183,6 +184,7 @@ const styles = {
     p: '0',
     mt: '19px',
     flexDirection: 'column',
+    boxShadow: '0px 1px 5px #0000002E !important',
   },
   loginbutton: {
     display: 'block',

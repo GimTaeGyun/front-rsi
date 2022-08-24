@@ -52,7 +52,12 @@ const SidebarListItem = (props: {
         </ListItemText>
       </ListItemButton>
       <Box sx={{ float: 'right' }}>
-        <IconButton aria-label="more" id="long-button" onClick={handleClickSub}>
+        <IconButton
+          aria-label="more"
+          id="long-button"
+          sx={{ position: 'absolute' }}
+          onClick={handleClickSub}
+        >
           <GridMoreVertIcon />
         </IconButton>
         <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />
@@ -60,7 +65,13 @@ const SidebarListItem = (props: {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" sx={{ height: '44px' }} disablePadding>
           {item.items.map(
-            (subMenu, index) => subMenu.items && <SidebarListItemSub key={`parent-submenu-list-${index}`} item={subMenu} />,
+            (subMenu, index) =>
+              subMenu.items && (
+                <SidebarListItemSub
+                  key={`parent-submenu-list-${index}`}
+                  item={subMenu}
+                />
+              ),
           )}
         </List>
       </Collapse>

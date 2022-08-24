@@ -45,7 +45,7 @@ const DataTable = (props: any) => {
     dataGridApiRef.current.applySorting();
   }, [after, checkboxSelectedIds]);
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '1090px' }}>
       <Card sx={styles.card}>
         <CardHeader
           component="div"
@@ -73,7 +73,7 @@ const DataTable = (props: any) => {
                 startAdornment={
                   <InputAdornment position="start">
                     <IconButton
-                      sx={{ color: '#000000DE' }}
+                      sx={{ color: '#000000DE', paddingRight: '0px' }}
                       onClick={() => {
                         searchCallback(searchTxt);
                       }}
