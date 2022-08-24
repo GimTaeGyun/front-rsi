@@ -12,7 +12,7 @@ const ListItems = (props: {
   id: number;
   clickCallback?: Function[];
   treeItem?: ITreeItem;
-  close: Function;
+  close?: Function;
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -30,7 +30,7 @@ const ListItems = (props: {
     <>
       <ClickAwayListener
         onClickAway={() => {
-          props.close(null);
+          props.close ? props.close(null) : '';
         }}
       >
         <Popper
