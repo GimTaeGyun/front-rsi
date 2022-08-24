@@ -15,6 +15,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import zIndex from '@mui/material/styles/zIndex';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
@@ -148,7 +149,7 @@ const Sidebar = (props: {
   };
 
   const onDrop = () => {
-    console.log('onDrop');
+    console.log('');
   };
 
   const onClick = (treeItem: any, onToggle: () => void) => {
@@ -187,8 +188,8 @@ const Sidebar = (props: {
           sx={{
             zIndex: 'auto',
             overflow: 'scroll',
-            borderTop: '12px solid #fff',
-            borderBottom: '12px solid #fff',
+            borderTop: '16px solid #fff',
+            borderBottom: '16px solid #fff',
             borderLeft: '16px solid #fff',
             borderRight: '16px solid #fff',
             padding: '0 !important',
@@ -206,94 +207,120 @@ const Sidebar = (props: {
               onDrop={onDrop}
               render={(node, { depth, isOpen, hasChild, onToggle }) => (
                 <>
-                  <Tooltip title={node.data.description} sx={{ p: 0 }} arrow>
-                    <Box
+                  <Box
+                    sx={{
+                      display: 'inline-flex !important',
+                    }}
+                  >
+                    <Tooltip
+                      title={node.data.description}
                       sx={{
-                        ...styles.treeview_item,
-                        paddingLeft: `${depth * 20 + 10}px`,
-                        fontSize: '15px',
-                        fontFamily: 'NotoSansKRRegular',
-                        zIndex: 'auto',
+                        p: 0,
+                        float: 'left',
+                        minWidth: '284px !important',
                       }}
-                      className={
-                        selectedTreeitem && selectedTreeitem.id == node.id
-                          ? 'sub_tree_hover'
-                          : ''
-                      }
+                      arrow
                     >
                       <Box
-                        onClick={() => onClick(node, onToggle)}
-                        sx={{ display: 'flex', alignItems: 'center' }}
+                        sx={{
+                          ...styles.treeview_item,
+                          paddingLeft: `${depth * 20 + 10}px`,
+                          fontSize: '15px',
+                          fontFamily: 'NotoSansKRRegular',
+                          zIndex: 'auto',
+                        }}
+                        className={
+                          selectedTreeitem && selectedTreeitem.id == node.id
+                            ? 'sub_tree_hover'
+                            : ''
+                        }
                       >
-                        {isOpen && hasChild ? (
-                          <ExpandMore sx={{ color: '#000000DE' }} />
-                        ) : hasChild ? (
-                          <ArrowForwardIos
+                        <Box
+                          onClick={() => onClick(node, onToggle)}
+                          sx={{ display: 'flex', alignItems: 'center' }}
+                        >
+                          {isOpen && hasChild ? (
+                            <ExpandMore
+                              sx={{
+                                color: isOpen ? '#000000DE' : '#c7c7c7',
+                              }}
+                            />
+                          ) : hasChild ? (
+                            <ArrowForwardIos
+                              sx={{
+                                color: '#000000DE',
+                                fontSize: '14px',
+                                marginRight: '6px',
+                              }}
+                            />
+                          ) : (
+                            <ArrowForwardIos
+                              className={
+                                selectedTreeitem &&
+                                selectedTreeitem.id == node.id
+                                  ? 'sub_arrow'
+                                  : ''
+                              }
+                              sx={{
+                                fontSize: '14px',
+                                color: '#c7c7c7',
+                                marginRight: '6px',
+                              }}
+                            />
+                          )}
+                          <Typography
+                            component="span"
+                            className={
+                              selectedTreeitem && selectedTreeitem.id == node.id
+                                ? 'active_tree'
+                                : ''
+                            }
                             sx={{
+                              fontSize: '15px',
+                              fontFamily: 'NotoSansKRRegular',
+                              ':focus': {
+                                color: '#c7c7c7 !important',
+                              },
+                            }}
+                          >{`${node.text}`}</Typography>
+                          <Typography
+                            className={
+                              selectedTreeitem && selectedTreeitem.id == node.id
+                                ? 'active_count'
+                                : ''
+                            }
+                            component="span"
+                            sx={{
+                              fontSize: '15px',
+                              fontFamily: 'NotoSansKRRegular',
                               color: '#000000DE',
-                              fontSize: '14px',
+                              paddingLeft: '3px',
                             }}
-                          />
-                        ) : (
-                          <ArrowForwardIos
-                            sx={{
-                              fontSize: '14px',
-                              color: '#c7c7c7',
-                            }}
-                          />
-                        )}
-                        <Typography
-                          component="span"
-                          className={
-                            selectedTreeitem && selectedTreeitem.id == node.id
-                              ? 'active_tree'
-                              : ''
-                          }
-                          sx={{
-                            fontSize: '15px',
-                            fontFamily: 'NotoSansKRRegular',
-                            ':focus': {
-                              color: '#c7c7c7 !important',
-                            },
-                          }}
-                        >{`${node.text}`}</Typography>
-                        <Typography
-                          className={
-                            selectedTreeitem && selectedTreeitem.id == node.id
-                              ? 'active_count'
-                              : ''
-                          }
-                          component="span"
-                          sx={{
-                            fontSize: '15px',
-                            fontFamily: 'NotoSansKRRegular',
-                            color: '#000000DE',
-                            paddingLeft: '3px',
-                          }}
-                        >
-                          {`(${node?.data.cnt})`}
-                        </Typography>
+                          >
+                            {`(${node?.data.cnt})`}
+                          </Typography>
+                        </Box>
                       </Box>
-                      <Box>
-                        <IconButton
-                          aria-label="more"
-                          id="long-button"
-                          onClick={e => {
-                            handleClickSub(e);
-                            setClickedTreeItem(node);
-                          }}
-                          sx={{
-                            overflow: 'hidden',
-                            fontSize: '15px',
-                            fontFamily: 'NotoSansKRRegular',
-                            '&:hover': { bgcolor: 'transparent' },
-                          }}
-                        >
-                          <MoreVertOutlined />
-                        </IconButton>
-                      </Box>
+                    </Tooltip>
+                    <Box sx={{ float: 'right' }}>
+                      <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        onClick={e => {
+                          handleClickSub(e);
+                          setClickedTreeItem(node);
+                        }}
+                        sx={{
+                          overflow: 'hidden',
+                          fontSize: '15px',
+                          fontFamily: 'NotoSansKRRegular',
+                          '&:hover': { bgcolor: 'transparent' },
+                        }}
+                      >
+                        <MoreVertOutlined />
+                      </IconButton>
                     </Box>
-                  </Tooltip>
+                  </Box>
 
                   <ListItems
                     anchorEl={anchorEl}
@@ -339,6 +366,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    width: '288px',
     height: '44px',
     cursor: 'pointer',
     fontSize: '15px',

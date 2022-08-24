@@ -43,6 +43,7 @@ const ListItems = (props: {
             minWidth: '150px',
             boxShadow: '0px 1px 2px #0000000E',
             borderRadius: '6px',
+            right: '-22px !important',
           }}
         >
           <List>
