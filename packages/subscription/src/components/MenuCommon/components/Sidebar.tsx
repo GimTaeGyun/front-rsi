@@ -144,7 +144,7 @@ const Sidebar = (props: {
 
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+    setAnchorEl(anchorEl == event.currentTarget ? null : event.currentTarget);
   };
 
   const onDrop = () => {
@@ -226,9 +226,7 @@ const Sidebar = (props: {
                         sx={{ display: 'flex', alignItems: 'center' }}
                       >
                         {isOpen && hasChild ? (
-                          <ExpandMore
-                            sx={{ color: isOpen ? '#000000DE' : '#c7c7c7' }}
-                          />
+                          <ExpandMore sx={{ color: '#000000DE' }} />
                         ) : hasChild ? (
                           <ArrowForwardIos
                             sx={{
@@ -238,11 +236,6 @@ const Sidebar = (props: {
                           />
                         ) : (
                           <ArrowForwardIos
-                            className={
-                              selectedTreeitem && selectedTreeitem.id == node.id
-                                ? 'sub_arrow'
-                                : ''
-                            }
                             sx={{
                               fontSize: '14px',
                               color: '#c7c7c7',
@@ -291,7 +284,6 @@ const Sidebar = (props: {
                           }}
                           sx={{
                             overflow: 'hidden',
-
                             fontSize: '15px',
                             fontFamily: 'NotoSansKRRegular',
                             '&:hover': { bgcolor: 'transparent' },
