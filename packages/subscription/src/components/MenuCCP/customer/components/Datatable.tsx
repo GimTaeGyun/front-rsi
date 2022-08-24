@@ -125,16 +125,14 @@ const columns: GridColDef[] = [
     headerName: '가입일',
     width: 140,
     headerAlign: 'center',
-    disableColumnMenu: true,
+    filterable: false,
     sortable: false,
+    disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <>
         <Typography className="sub_tbl_th_common">
           {params.colDef.headerName}
         </Typography>
-        <IconButton color="primary" component="label">
-          <Box component="img" src="/filter_list.png"></Box>
-        </IconButton>
       </>
     ),
   },
@@ -244,7 +242,13 @@ const columns: GridColDef[] = [
       return (
         <Button
           variant="outlined"
-          className="sub_btn_primary_outline_common sub_td_btn_action"
+          sx={{
+            minWidth: '44px',
+            height: '30px',
+            fontSize: '13px',
+            borderRadius: '4px',
+          }}
+          className="sub_button_white"
         >
           보기
         </Button>

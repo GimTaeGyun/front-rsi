@@ -369,6 +369,7 @@ const Index = () => {
                 <Button
                   variant="contained"
                   className="sub_btn_primary_fill_common sub_btn_filter2"
+                  sx={{ marginRight: '10px' }}
                   onClick={() => searchClickEvent(null)}
                 >
                   검색하기

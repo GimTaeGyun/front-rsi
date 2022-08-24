@@ -40,7 +40,7 @@ const MyDatePicker = (props: {
             className={props.strClass}
             sx={{
               ...props.objSX,
-              svg: { color: `${active ? '#1976d2' : ''}` },
+              svg: { color: `${active ? '#1976d2' : '#000000'}` },
               fieldset: {
                 borderColor: `${active ? '#1976d2 !important' : ''}`,
                 borderWidth: `${active ? '2px !important' : ''}`,

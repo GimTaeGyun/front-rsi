@@ -275,9 +275,9 @@ const Admin = () => {
       setAlertPopup({
         ...alertPopup,
         visible: true,
-        message: '운영자그룹을 삭제하시겠습니까?',
-        leftText: '취소',
-        rightText: '삭제',
+        message: '운영자 그룹을 삭제 하시겠습니까?',
+        leftText: '확인',
+        rightText: '취소',
         leftCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
         },
