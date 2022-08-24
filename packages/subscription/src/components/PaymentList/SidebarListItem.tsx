@@ -52,12 +52,7 @@ const SidebarListItem = (props: {
         </ListItemText>
       </ListItemButton>
       <Box sx={{ float: 'right' }}>
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          sx={{ position: 'absolute' }}
-          onClick={handleClickSub}
-        >
+        <IconButton aria-label="more" id="long-button" onClick={handleClickSub}>
           <GridMoreVertIcon />
         </IconButton>
         <ListItems opensub={opensub} anchorEl={anchorEl} id={item.id} />

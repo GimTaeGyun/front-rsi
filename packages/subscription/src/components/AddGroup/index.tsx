@@ -5,6 +5,7 @@ import {
   Typography,
   TextField,
   InputLabel,
+  Divider,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import * as React from 'react';
@@ -203,6 +204,7 @@ const AddGroup = (props: {
               </Box>
             </Box>
           </Box>
+          <Divider />
           <Box sx={styles.popup_footer}>
             <Button onClick={handleClose} className="sub_button_white_none">
               취소
@@ -266,7 +268,6 @@ const styles = {
     mb: '9px',
     color: '#333',
     fontSize: '14px',
-    fontFamily: 'NotoSansKRMedium',
     letterSpacing: '-0.35px',
   },
   btn_submit: {
@@ -276,7 +277,6 @@ const styles = {
     borderColor: '#284AD5',
     backgroundColor: '#284AD5',
     boxShadow: '0px 3px 3px #0000002E',
-    fontFamily: 'NotoSansKRMedium',
     ':hover': {
       borderColor: '#0615B2',
       backgroundColor: '#0615B2',
@@ -308,11 +308,16 @@ const styles = {
   },
   close_btn: { width: '24px', height: '24px', cursor: 'pointer' },
   popup_title: {
+    fontFamily: 'NotoSandsKRReguler',
     fontSize: '16px',
     fontColor: '#000000DE',
-    fontFamily: 'NotoSansKRMedium',
   },
-  popup_content: { width: '100%', height: '534px', px: '30px', pt: '30px' },
+  popup_content: {
+    width: '100%',
+    px: '30px',
+    mt: '30px',
+    mb: '30px',
+  },
   popup_footer: {
     display: 'flex',
     alignItems: 'center',

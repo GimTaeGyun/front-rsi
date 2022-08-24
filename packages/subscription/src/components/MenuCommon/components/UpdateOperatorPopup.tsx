@@ -124,6 +124,11 @@ const UpdateOperatorPopup = (props: {
               id="operator_id"
               placeholder="8~16자, 영문 대소문자, 숫자, 특수문자 입력 가능"
               className="sub_formText"
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { border: '1px dashed #0000003B !important' },
+                },
+              }}
               disabled
               onChange={handleChange}
               name="usrId"

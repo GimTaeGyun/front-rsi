@@ -30,7 +30,12 @@ const MyDatePicker = (props: {
             placeholder={props.strPlaceholder}
             name={props.strName}
             className={props.strClass}
-            sx={props.objSX}
+            sx={{
+              '& .MuiInputBase-root': {
+                fontFamily: 'NotoSandsKRRegular !important',
+                fontSize: '13px !important',
+              },
+            }}
             {...params}
           />
         )}
