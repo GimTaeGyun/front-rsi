@@ -168,7 +168,7 @@ const styles = {
     height: '56px',
     padding: '16px',
     fontSize: '16px',
-    fontFamily: 'NotoSansKRBold',
+    fontFamily: 'NotoSansKRMedium',
     letterSpacing: '-0.4px',
     lineHeight: '20px',
     color: '#000000DE',

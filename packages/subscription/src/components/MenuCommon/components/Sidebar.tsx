@@ -145,7 +145,7 @@ const Sidebar = (props: {
 
   const handleClickSub = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+    setAnchorEl(anchorEl == event.currentTarget ? null : event.currentTarget);
   };
 
   const onDrop = () => {
