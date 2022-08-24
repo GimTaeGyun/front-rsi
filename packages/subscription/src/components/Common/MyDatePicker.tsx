@@ -3,6 +3,7 @@ import OutlinedInput from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers-pro';
+import { useState } from 'react';
 
 const MyDatePicker = (props: {
   strId: string;
@@ -13,6 +14,8 @@ const MyDatePicker = (props: {
   value: string;
   onChange?: Function;
 }) => {
+  const [active, setActive] = useState(false);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
@@ -21,6 +24,11 @@ const MyDatePicker = (props: {
         value={props.value}
         onChange={e => {
           props.onChange ? props.onChange(e) : '';
+        }}
+        componentsProps={{
+          actionBar: {
+            actions: ['today'],
+          },
         }}
         renderInput={params => (
           <OutlinedInput
@@ -31,14 +39,20 @@ const MyDatePicker = (props: {
             name={props.strName}
             className={props.strClass}
             sx={{
-              '& .MuiInputBase-root': {
-                fontFamily: 'NotoSandsKRRegular !important',
-                fontSize: '13px !important',
+              ...props.objSX,
+              svg: { color: `${active ? '#1976d2' : ''}` },
+              fieldset: {
+                borderColor: `${active ? '#1976d2 !important' : ''}`,
+                borderWidth: `${active ? '2px !important' : ''}`,
               },
             }}
             {...params}
+            onFocus={() => setActive(true)}
+            onBlur={() => setActive(false)}
           />
         )}
+        onOpen={() => setActive(true)}
+        onClose={() => setActive(false)}
       />
     </LocalizationProvider>
   );
