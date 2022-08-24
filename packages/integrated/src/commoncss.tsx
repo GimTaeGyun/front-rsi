@@ -288,6 +288,7 @@ const css = createTheme({
           color: '#000000DE',
           fontFamily: 'NotoSansKRRegular !important',
           fontSize: '13px !important',
+
           '& .MuiOutlinedInput-notchedOutline': {
             borderRadius: '4px',
             borderColor: '#0000001F',
