@@ -302,7 +302,10 @@ const TabContent3 = () => {
         />
       )}
 
-      <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
+      <Card
+        className="sub_tbl_section_common"
+        sx={{ marginTop: '20px', width: '1470px' }}
+      >
         <CardHeader
           className="sub_tbl_header_outer_common"
           component="div"
