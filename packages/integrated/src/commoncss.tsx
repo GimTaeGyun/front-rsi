@@ -472,10 +472,6 @@ const css = createTheme({
             width: '175px',
             height: '36px',
           },
-          '& .active fieldset': {
-            borderColor: '#1976d2',
-            borderWidth: '2px',
-          },
         },
         '& .MuiButton-root.sub_filter_btn_iconlink': {
           color: '#666',
