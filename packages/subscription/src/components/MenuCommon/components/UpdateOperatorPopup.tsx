@@ -54,6 +54,13 @@ const defaultFormValidation = {
   email: false,
 };
 
+const values = {
+  usrPw: '',
+  usrNm: '',
+  phone: '',
+  email: '',
+};
+
 const validationMsg = {
   usrPw: '대소문자, 숫자, 특수문자 포함 8~16 글자 입력해주세요',
   usrNm: '필수입력',
@@ -76,16 +83,17 @@ const UpdateOperatorPopup = (props: {
     value = defaultValue,
   } = props;
 
-  // 열고 닫을 때마다 초기화
-  useEffect(() => {
-    setPopupData({ ...value, action: 'mod' });
-    setDataValid(defaultFormValidation);
-  }, [open]);
-
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
 
   // API REQUESTBODY
   const [popupData, setPopupData] = React.useState(defaultValue);
+
+  // 열고 닫을 때마다 초기화
+  useEffect(() => {
+    setPopupData({ ...value, action: 'mod' });
+    setDataValid(defaultFormValidation);
+    setPopupData(values);
+  }, [open]);
 
   // 운영자 추가 수정 form 값 변경이벤트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

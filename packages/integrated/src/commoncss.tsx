@@ -1298,6 +1298,16 @@ const css = createTheme({
         '& .sub_select_paper_little': {
           height: '186px',
         },
+        '& .sub_select_paper_little0': {
+          height: '72px',
+        },
+        '& .sub_select_paper_little1': {
+          height: '238px',
+        },
+        '& .sub_select_button': {
+          fontFamily: 'NotoSansKRReguler',
+          fontSize: '13px',
+        },
       },
     },
   },

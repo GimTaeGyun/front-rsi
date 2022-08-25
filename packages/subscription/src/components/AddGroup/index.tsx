@@ -16,6 +16,12 @@ import AlertPopup from '../Common/AlertPopup';
 import { ITreeItem } from '../MenuCommon/components/Sidebar';
 import DataTable from './Datatable';
 
+const defaultValue = {
+  usrGrpNm: '',
+  description: '',
+  usrRoleId: [],
+};
+
 const AddGroup = (props: {
   title: string;
   open: boolean;
@@ -23,11 +29,7 @@ const AddGroup = (props: {
   handleClose: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
 }) => {
   const { title, open, treeItem, handleClose } = props;
-  const [formData, setFormData] = React.useState({
-    usrGrpNm: '',
-    description: '',
-    usrRoleId: [],
-  });
+  const [formData, setFormData] = React.useState(defaultValue);
   const [errors, setErrors] = React.useState({
     usrGrpNm: false,
   });
@@ -119,6 +121,10 @@ const AddGroup = (props: {
 
     setFormData({ ...formData, [name]: value });
   };
+
+  React.useEffect(() => {
+    setFormData(defaultValue);
+  }, [open]);
 
   return (
     <>

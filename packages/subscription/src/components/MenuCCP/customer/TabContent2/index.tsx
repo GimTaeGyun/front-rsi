@@ -348,6 +348,11 @@ const TabContent2 = () => {
               defaultValue="All"
               value={searchDateType}
               className="sub_select_common sub_filter2_list"
+              MenuProps={{
+                PaperProps: {
+                  className: 'sub_select_paper_little0',
+                },
+              }}
               onChange={e => {
                 setSearchDateType(e.target.value);
               }}
@@ -419,6 +424,14 @@ const TabContent2 = () => {
               className="sub_select_common sub_filter2_list2"
               onChange={e => {
                 setStatuss(Number(e.target.value));
+              }}
+              MenuProps={{
+                PaperProps: {
+                  className: 'sub_select_paper_little1',
+                },
+                MenuListProps: {
+                  className: 'sub_select_button',
+                },
               }}
             >
               <MenuItem value={32767}>전체</MenuItem>
