@@ -14,6 +14,13 @@ const css = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        '&::-webkit-scrollbar': {
+          width: '4px',
+          borderRadius: '2px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#00000061',
+        },
         ':root': {
           '& .MuiPaper-root': { boxShadow: '0px 3px 3px #0000002E' },
           '& .lastcolumnSeparator': {
