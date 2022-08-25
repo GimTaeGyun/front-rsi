@@ -34,6 +34,8 @@ const Index = () => {
   const [filterDropdown, setFilterDropdown] = useState(false);
   const [total, setTotal] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [a, setA] = useState(true);
+  const [b, setB] = useState(true);
   const dataGridApiRef = useGridApiRef();
 
   // 검색어 입력 셀렉트박스
@@ -235,6 +237,8 @@ const Index = () => {
         return { ...item, checked: true };
       }),
     });
+    setA(true);
+    setB(true);
   };
 
   const cellClickEvent = (e: any) => {
@@ -302,43 +306,15 @@ const Index = () => {
                       },
                     }}
                   >
-                    {(searchCategory as any).codeSetItems.map((item: any) => {
-                      switch (item.value) {
-                        case 'ALL':
-                          return (
-                            <MenuItem
-                              key={item.value}
-                              value={item.value}
-                              className="sub_menuitem_little_start"
-                            >
-                              {item.label}
-                            </MenuItem>
-                          );
-                          break;
-
-                        case 'email':
-                          return (
-                            <MenuItem
-                              key={item.value}
-                              value={item.value}
-                              className="sub_menuitem_little_end"
-                            >
-                              {item.label}
-                            </MenuItem>
-                          );
-                          break;
-                        default:
-                          return (
-                            <MenuItem
-                              key={item.value}
-                              value={item.value}
-                              className="sub_menuitem_little"
-                            >
-                              {item.label}
-                            </MenuItem>
-                          );
-                      }
-                    })}
+                    {(searchCategory as any).codeSetItems.map((item: any) => (
+                      <MenuItem
+                        key={item.value}
+                        value={item.value}
+                        className="sub_menuitem_little"
+                      >
+                        {item.label}
+                      </MenuItem>
+                    ))}
                   </Select>
                   <OutlinedInput
                     fullWidth={false}
@@ -472,7 +448,12 @@ const Index = () => {
                 <FormGroup className="sub_filter_dropdown_chk_outer">
                   <FormControlLabel
                     control={
-                      <Checkbox defaultChecked onChange={checkedChangedEvent} />
+                      <Checkbox
+                        onChange={e => {
+                          setA(e.target.checked);
+                        }}
+                        checked={a}
+                      />
                     }
                     label="구독중"
                   />
@@ -480,7 +461,12 @@ const Index = () => {
                 <FormGroup className="sub_filter_dropdown_chk_outer">
                   <FormControlLabel
                     control={
-                      <Checkbox defaultChecked onChange={checkedChangedEvent} />
+                      <Checkbox
+                        onChange={e => {
+                          setB(e.target.checked);
+                        }}
+                        checked={b}
+                      />
                     }
                     label="종료"
                   />

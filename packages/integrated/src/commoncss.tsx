@@ -1293,6 +1293,12 @@ const css = createTheme({
           lineHeight: '24px',
           letterSpacing: '-0.33px',
           color: '#000000DE',
+          '&:first-child': {
+            marginTop: '8px !important',
+          },
+          '&:last-child': {
+            marginBottom: '8px !important',
+          },
         },
         '& li.sub_menuitem_little_start': {
           fontFamily: 'NotoSansKRRegular',
