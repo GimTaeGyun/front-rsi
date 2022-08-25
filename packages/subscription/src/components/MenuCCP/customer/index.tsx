@@ -159,7 +159,9 @@ const Index = () => {
   };
 
   const dateChanged = (e: Date, type: string) => {
-    let date = e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate();
+    let date = e
+      ? e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate()
+      : '';
     switch (type) {
       case 'from':
         setDateFrom(date);
