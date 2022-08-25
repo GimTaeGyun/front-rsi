@@ -1117,7 +1117,7 @@ const css = createTheme({
           '& .MuiDataGrid-cellContent': {
             color: '#000000DE',
             fontFamily: 'NotoSansKRRegular !important',
-            fontSize: '14px !important',
+            fontSize: '13px !important',
           },
         },
         '& .sub_dialog_button_blue': {

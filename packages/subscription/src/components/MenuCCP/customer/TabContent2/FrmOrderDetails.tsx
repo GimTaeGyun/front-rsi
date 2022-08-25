@@ -202,7 +202,15 @@ const FrmOrderDetails = (props: {
           <CardHeader
             className="sub_dialog_card_orderinfo_header"
             component="div"
-            title={<Typography>주문서 관리</Typography>}
+            title={
+              <Typography
+                sx={{
+                  fontSize: '14px ',
+                }}
+              >
+                주문서 관리
+              </Typography>
+            }
           ></CardHeader>
           <CardContent className="sub_dialog_card_orderinfo1_content">
             <Box sx={{ flexGrow: 1 }}>
@@ -397,7 +405,15 @@ const FrmOrderDetails = (props: {
           <CardHeader
             className="sub_dialog_card_orderinfo_header"
             component="div"
-            title={<Typography>주문 상품 정보</Typography>}
+            title={
+              <Typography
+                sx={{
+                  fontSize: '14px ',
+                }}
+              >
+                주문 상품 정보
+              </Typography>
+            }
           ></CardHeader>
           <CardContent className="sub_dialog_card_orderinfo2_content">
             <DataGrid
@@ -423,7 +439,15 @@ const FrmOrderDetails = (props: {
           <CardHeader
             className="sub_dialog_card_orderinfo_header"
             component="div"
-            title={<Typography>메모</Typography>}
+            title={
+              <Typography
+                sx={{
+                  fontSize: '14px ',
+                }}
+              >
+                메모
+              </Typography>
+            }
           ></CardHeader>
           <CardContent className="sub_dialog_card_orderinfo3_content">
             <OutlinedInput
