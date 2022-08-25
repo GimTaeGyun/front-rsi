@@ -216,8 +216,6 @@ const Index = () => {
     dataGridApiRef.current.applySorting();
   }, [tableRows]);
 
-  console.log(searchField);
-
   const initClickEvent = () => {
     setSearchField('ALL');
     setKeyword('');
@@ -338,13 +336,6 @@ const Index = () => {
                             </MenuItem>
                           );
                       }
-                      <MenuItem
-                        key={item.value}
-                        value={item.value}
-                        className="sub_menuitem_little"
-                      >
-                        {item.label}
-                      </MenuItem>;
                     })}
                   </Select>
                   <OutlinedInput
