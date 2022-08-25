@@ -23,6 +23,8 @@ const MyDatePicker = (props: {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         reduceAnimations={true}
+        minDate={new Date('1900-01-01')}
+        maxDate={new Date('2099-12-31')}
         inputFormat="yyyy-MM-dd"
         value={props.value}
         showDaysOutsideCurrentMonth={true}
@@ -71,10 +73,12 @@ const MyDatePicker = (props: {
               borderRadius: '6px',
               boxShadow: '0px 3px 3px #0000002E',
             },
+            '.MuiYearPicker-root .PrivatePickersYear-root:first-child': {
+              padding: '0px !important',
+            },
             '.MuiCalendarPicker-root': {
               width: '244px',
               margin: '0px',
-              overflow: 'hidden',
             },
             '.MuiCalendarPicker-root div:first-child': {
               paddingLeft: '15px',
