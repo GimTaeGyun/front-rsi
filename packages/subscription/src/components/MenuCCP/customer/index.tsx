@@ -1,6 +1,6 @@
 import { Box, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@mui/material';
 import DataTable from './components/Datatable';
-
 import MyDatePicker from '../../Common/MyDatePicker';
 import { useGridApiRef } from '@mui/x-data-grid-pro';
 let defaultSearchParam = {};
