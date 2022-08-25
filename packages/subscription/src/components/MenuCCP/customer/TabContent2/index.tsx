@@ -348,13 +348,24 @@ const TabContent2 = () => {
               defaultValue="All"
               value={searchDateType}
               className="sub_select_common sub_filter2_list"
+              MenuProps={{
+                PaperProps: {
+                  className: 'sub_select_paper_little0',
+                },
+              }}
               onChange={e => {
                 setSearchDateType(e.target.value);
               }}
             >
-              <MenuItem value="ALL">전체</MenuItem>
-              <MenuItem value="orderDate">주문일</MenuItem>
-              <MenuItem value="paymentDate">결제일</MenuItem>
+              <MenuItem className="sub_menuitem_little_start" value="ALL">
+                전체
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value="orderDate">
+                주문일
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little_end" value="paymentDate">
+                결제일
+              </MenuItem>
             </Select>
             <MyDatePicker
               strId="search-date1"
@@ -420,15 +431,36 @@ const TabContent2 = () => {
               onChange={e => {
                 setStatuss(Number(e.target.value));
               }}
+              MenuProps={{
+                PaperProps: {
+                  className: 'sub_select_paper_little1 ',
+                },
+              }}
             >
-              <MenuItem value={32767}>전체</MenuItem>
-              <MenuItem value={0}>결제대기중</MenuItem>
-              <MenuItem value={1}>결제완료</MenuItem>
-              <MenuItem value={2}>입금대기중</MenuItem>
-              <MenuItem value={3}>입금완료</MenuItem>
-              <MenuItem value={4}>결제취소</MenuItem>
-              <MenuItem value={5}>환불처리중</MenuItem>
-              <MenuItem value={6}>환불완료</MenuItem>
+              <MenuItem className="sub_menuitem_little_start" value={32767}>
+                전체
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value={0}>
+                결제대기중
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value={1}>
+                결제완료
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value={2}>
+                입금대기중
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value={3}>
+                입금완료
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value={4}>
+                결제취소
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little" value={5}>
+                환불처리중
+              </MenuItem>
+              <MenuItem className="sub_menuitem_little_end" value={6}>
+                환불완료
+              </MenuItem>
             </Select>
           </Box>
         </Box>

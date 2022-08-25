@@ -283,6 +283,11 @@ const TabContent4 = () => {
                 name="search-category"
                 value="전체"
                 className="sub_select_common sub_listpage_filter_list"
+                MenuProps={{
+                  PaperProps: {
+                    className: 'sub_select_paper_little1 ',
+                  },
+                }}
               >
                 <MenuItem value="전체">전체</MenuItem>
                 <MenuItem value="구독문의">구독문의</MenuItem>

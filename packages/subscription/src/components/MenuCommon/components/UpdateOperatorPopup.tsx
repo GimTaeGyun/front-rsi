@@ -76,16 +76,16 @@ const UpdateOperatorPopup = (props: {
     value = defaultValue,
   } = props;
 
+  const [dataValid, setDataValid] = React.useState(defaultFormValidation);
+
+  // API REQUESTBODY
+  const [popupData, setPopupData] = React.useState(defaultValue);
+
   // 열고 닫을 때마다 초기화
   useEffect(() => {
     setPopupData({ ...value, action: 'mod' });
     setDataValid(defaultFormValidation);
   }, [open]);
-
-  const [dataValid, setDataValid] = React.useState(defaultFormValidation);
-
-  // API REQUESTBODY
-  const [popupData, setPopupData] = React.useState(defaultValue);
 
   // 운영자 추가 수정 form 값 변경이벤트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
