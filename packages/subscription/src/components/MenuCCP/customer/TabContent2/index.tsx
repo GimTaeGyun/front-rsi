@@ -350,7 +350,7 @@ const TabContent2 = () => {
               className="sub_select_common sub_filter2_list"
               MenuProps={{
                 PaperProps: {
-                  className: 'sub_select_paper_little0',
+                  className: 'sub_select_paper_little',
                 },
               }}
               onChange={e => {

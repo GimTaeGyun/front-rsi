@@ -1317,13 +1317,10 @@ const css = createTheme({
           marginBottom: '8px',
         },
         '& .sub_select_paper_little': {
-          height: '186px',
-        },
-        '& .sub_select_paper_little0': {
-          height: '88px',
+          maxHeight: '186px !important',
         },
         '& .sub_select_paper_little1': {
-          height: '254px',
+          maxHeight: '254px !important',
         },
       },
     },
