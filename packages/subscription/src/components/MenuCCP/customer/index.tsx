@@ -216,6 +216,8 @@ const Index = () => {
     dataGridApiRef.current.applySorting();
   }, [tableRows]);
 
+  console.log(searchField);
+
   const initClickEvent = () => {
     setSearchField('ALL');
     setKeyword('');
@@ -300,15 +302,50 @@ const Index = () => {
                       },
                     }}
                   >
-                    {(searchCategory as any).codeSetItems.map((item: any) => (
+                    {(searchCategory as any).codeSetItems.map((item: any) => {
+                      switch (item.value) {
+                        case 'ALL':
+                          return (
+                            <MenuItem
+                              key={item.value}
+                              value={item.value}
+                              className="sub_menuitem_little_start"
+                            >
+                              {item.label}
+                            </MenuItem>
+                          );
+                          break;
+
+                        case 'email':
+                          return (
+                            <MenuItem
+                              key={item.value}
+                              value={item.value}
+                              className="sub_menuitem_little_end"
+                            >
+                              {item.label}
+                            </MenuItem>
+                          );
+                          break;
+                        default:
+                          return (
+                            <MenuItem
+                              key={item.value}
+                              value={item.value}
+                              className="sub_menuitem_little"
+                            >
+                              {item.label}
+                            </MenuItem>
+                          );
+                      }
                       <MenuItem
                         key={item.value}
                         value={item.value}
                         className="sub_menuitem_little"
                       >
                         {item.label}
-                      </MenuItem>
-                    ))}
+                      </MenuItem>;
+                    })}
                   </Select>
                   <OutlinedInput
                     fullWidth={false}

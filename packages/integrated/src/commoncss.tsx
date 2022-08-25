@@ -459,7 +459,6 @@ const css = createTheme({
         '& .sub_listpage_filter_list2': {
           width: '116px',
           height: '36px',
-          marginRight: '8px',
         },
         '& .sub_listpage_filter_list2:last-child': {
           marginRight: '0',
@@ -1295,18 +1294,30 @@ const css = createTheme({
           letterSpacing: '-0.33px',
           color: '#000000DE',
         },
+        '& li.sub_menuitem_little_start': {
+          fontFamily: 'NotoSansKRRegular',
+          fontSize: '13px',
+          lineHeight: '24px',
+          letterSpacing: '-0.33px',
+          color: '#000000DE',
+          marginTop: '8px',
+        },
+        '& li.sub_menuitem_little_end': {
+          fontFamily: 'NotoSansKRRegular',
+          fontSize: '13px',
+          lineHeight: '24px',
+          letterSpacing: '-0.33px',
+          color: '#000000DE',
+          marginBottom: '8px',
+        },
         '& .sub_select_paper_little': {
           height: '186px',
         },
         '& .sub_select_paper_little0': {
-          height: '72px',
+          height: '88px',
         },
         '& .sub_select_paper_little1': {
-          height: '238px',
-        },
-        '& .sub_select_button': {
-          fontFamily: 'NotoSansKRReguler',
-          fontSize: '13px',
+          height: '254px',
         },
       },
     },

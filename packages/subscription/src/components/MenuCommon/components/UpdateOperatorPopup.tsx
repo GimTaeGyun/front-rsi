@@ -54,13 +54,6 @@ const defaultFormValidation = {
   email: false,
 };
 
-const values = {
-  usrPw: '',
-  usrNm: '',
-  phone: '',
-  email: '',
-};
-
 const validationMsg = {
   usrPw: '대소문자, 숫자, 특수문자 포함 8~16 글자 입력해주세요',
   usrNm: '필수입력',
@@ -92,7 +85,6 @@ const UpdateOperatorPopup = (props: {
   useEffect(() => {
     setPopupData({ ...value, action: 'mod' });
     setDataValid(defaultFormValidation);
-    setPopupData(values);
   }, [open]);
 
   // 운영자 추가 수정 form 값 변경이벤트
