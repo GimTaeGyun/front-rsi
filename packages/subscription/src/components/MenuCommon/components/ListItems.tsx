@@ -1,3 +1,4 @@
+import { treeItemClasses } from '@mui/lab';
 import { ClickAwayListener, Popper, Typography } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -23,7 +24,7 @@ const ListItems = (props: {
   }, [realNum]);
 
   const clickCallback = (index: any) => {
-    props.clickCallback ? props.clickCallback[index](props) : '';
+    props.clickCallback ? props.clickCallback[index](props.treeItem) : '';
   };
 
   return (
@@ -80,71 +81,75 @@ const ListItems = (props: {
                 />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => clickCallback(1)}
-                component="a"
-                href="#simple-list"
-                sx={{
-                  border: '1px solid #0000001F',
-                  height: '40px',
-                  borderTop: '0.5px solid #0000001F',
-                  borderBottom: 'none',
-                  backgroundColor: 'white',
-                  boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
-                  overflow: 'hidden',
-                  '&:hover': { bgcolor: '#fff' },
-                }}
-              >
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Typography
-                      sx={{
-                        fontSize: '13px',
-                        fontFamily: 'NotoSansKRRegular',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      그룹 수정
-                    </Typography>
-                  }
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => clickCallback(2)}
-                component="a"
-                href="#simple-list"
-                sx={{
-                  border: '1px solid #0000001F',
-                  height: '40px',
-                  borderTop: '0.5px solid #0000001F',
-                  borderBottomRightRadius: '6px',
-                  borderBottomLeftRadius: '6px',
-                  boxShadow: 'rgb(149 157 165 / 20%) 2px 2px 2px',
-                  backgroundColor: 'white',
-                  overflow: 'hidden',
-                  '&:hover': { bgcolor: '#fff' },
-                }}
-              >
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Typography
-                      sx={{
-                        fontSize: '13px',
-                        fontFamily: 'NotoSansKRRegular',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      그룹 삭제
-                    </Typography>
-                  }
-                />
-              </ListItemButton>
-            </ListItem>
+            {props.treeItem?.id != 1 ? (
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => clickCallback(1)}
+                  component="a"
+                  href="#simple-list"
+                  sx={{
+                    border: '1px solid #0000001F',
+                    height: '40px',
+                    borderTop: '0.5px solid #0000001F',
+                    borderBottom: 'none',
+                    backgroundColor: 'white',
+                    boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
+                    overflow: 'hidden',
+                    '&:hover': { bgcolor: '#fff' },
+                  }}
+                >
+                  <ListItemText
+                    disableTypography
+                    primary={
+                      <Typography
+                        sx={{
+                          fontSize: '13px',
+                          fontFamily: 'NotoSansKRRegular',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        그룹 수정
+                      </Typography>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            ) : null}
+            {props.treeItem?.id != 1 ? (
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => clickCallback(2)}
+                  component="a"
+                  href="#simple-list"
+                  sx={{
+                    border: '1px solid #0000001F',
+                    height: '40px',
+                    borderTop: '0.5px solid #0000001F',
+                    borderBottomRightRadius: '6px',
+                    borderBottomLeftRadius: '6px',
+                    boxShadow: 'rgb(149 157 165 / 20%) 2px 2px 2px',
+                    backgroundColor: 'white',
+                    overflow: 'hidden',
+                    '&:hover': { bgcolor: '#fff' },
+                  }}
+                >
+                  <ListItemText
+                    disableTypography
+                    primary={
+                      <Typography
+                        sx={{
+                          fontSize: '13px',
+                          fontFamily: 'NotoSansKRRegular',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        그룹 삭제
+                      </Typography>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            ) : null}
           </List>
         </Popper>
       </ClickAwayListener>

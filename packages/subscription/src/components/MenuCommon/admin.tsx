@@ -27,6 +27,7 @@ const defaultOperPopupData = {
 const Admin = () => {
   const [addGroupTitle, setAddGroupTitle] = React.useState('');
   const [selectedTreeitem, setSelectedTreeitem] = React.useState<ITreeItem>();
+  const [adminGroupData, setAdminGroupData] = React.useState();
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
@@ -263,45 +264,65 @@ const Admin = () => {
 
   // 사이드바 트리 아이콘의 ...icon 클릭 이벨트
   const treeMoreIconCallback = [
-    () => {
+    (treeItem: any) => {
       setAddGroupTitle('운영자 그룹 추가');
       setAddGroupOpen(true);
+      setAdminGroupData(treeItem);
     },
-    () => {
+    (treeItem: any) => {
       setAddGroupTitle('운영자 그룹 수정');
       setAddGroupOpen(true);
+      setAdminGroupData(treeItem);
     },
-    (selectedMoreIcon: any) => {
-      selectedMoreIcon = selectedMoreIcon.treeItem;
+    (treeItem: any) => {
+      treeItem;
       setAlertPopup({
         ...alertPopup,
         visible: true,
         message: '운영자 그룹을 삭제 하시겠습니까?',
         leftText: '확인',
         rightText: '취소',
-        leftCallback: () => {
-          setAlertPopup({ ...alertPopup, visible: false });
-        },
         rightCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
-          if (selectedMoreIcon) {
+        },
+        leftCallback: () => {
+          if (treeItem) {
             axios
               .post('/management/subscription/admin/usergroup/update', {
                 action: 'del',
-                uppUsrGrpId:
-                  selectedMoreIcon.parent == 1 ? null : selectedMoreIcon.parent,
-                usrGrpId: selectedMoreIcon.id,
-                usrGrpNm: selectedMoreIcon.text,
+                uppUsrGrpId: treeItem.parent == 1 ? null : treeItem.parent,
+                usrGrpId: treeItem.id,
+                usrGrpNm: treeItem.text,
               })
-              .then(() => {
+              .then(res => {
+                if (res.data.code === '0000') {
+                  refreshSidbar.refresh();
+                  setAlertPopup({
+                    ...alertPopup,
+                    message: '운영자 그룹 삭제가 완료되었습니다.',
+                    leftText: '확인',
+                    rightText: '',
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                    },
+                  });
+                } else {
+                  setAlertPopup({
+                    ...alertPopup,
+                    message: '운영자 그룹 삭제가 실패하였습니다.',
+                    rightText: '',
+                    leftText: '확인',
+                  });
+                }
+              })
+              .catch(() => {
                 setAlertPopup({
                   ...alertPopup,
-                  message: '운영자 그룹 삭제가 완료되었습니다.',
+                  message: '운영자 그룹 삭제가 실패하였습니다.',
+                  rightText: '',
                   leftText: '확인',
-                  leftCallback: refreshSidbar.refresh,
                 });
-              })
-              .catch(() => {});
+              });
           }
         },
       });
@@ -403,7 +424,7 @@ const Admin = () => {
           <AddGroup
             title={addGroupTitle}
             open={addGroupOpen}
-            treeItem={selectedTreeitem}
+            treeItem={adminGroupData}
             handleClose={() => setAddGroupOpen(false)}
           />
         </>

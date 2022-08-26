@@ -175,12 +175,43 @@ const Sidebar = (props: {
       }}
     >
       <Card className="sub_sidebar_box_card">
-        <CardHeader
-          className="box_cardHeader"
-          component="div"
-          title={'전체 (' + getCnt() + ')'}
-          sx={styles.box_cardHeader}
-        />
+        <Box>
+          <CardHeader
+            component="div"
+            title={'전체 (' + getCnt() + ')'}
+            sx={{
+              ...styles.box_cardHeader,
+              display: 'inline-block',
+            }}
+          />
+          <Box
+            sx={{
+              display: 'inline-block',
+              float: 'right',
+              marginTop: '8px',
+              marginRight: '6px',
+            }}
+          >
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              onClick={e => {
+                handleClickSub(e);
+                setClickedTreeItem({ id: 1, data: { uppUsrGrpId: 0 } });
+              }}
+              sx={{
+                overflow: 'hidden',
+                fontSize: '15px',
+                fontFamily: 'NotoSansKRRegular',
+                '&:hover': { bgcolor: 'transparent' },
+              }}
+            >
+              <MoreVertOutlined />
+            </IconButton>
+          </Box>
+        </Box>
+        {/*sx={{ float: 'right' }}>*/}
+
         <Divider />
         <CardContent
           id="scroll"
@@ -276,11 +307,6 @@ const Sidebar = (props: {
                             }}
                           >{`${node.text}`}</Typography>
                           <Typography
-                            className={
-                              selectedTreeitem && selectedTreeitem.id == node.id
-                                ? 'active_count'
-                                : ''
-                            }
                             component="span"
                             sx={{
                               fontSize: '15px',
