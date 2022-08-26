@@ -114,7 +114,7 @@ export const columns: GridColDef[] = [
   {
     field: 'modifiedDate',
     headerName: '최종 수정일',
-    width: 255,
+    width: 245,
     headerAlign: 'center',
     align: 'center',
     sortable: false,
