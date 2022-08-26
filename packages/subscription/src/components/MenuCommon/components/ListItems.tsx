@@ -36,7 +36,7 @@ const ListItems = (props: {
         <Popper
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-          placement="left"
+          placement="left-start"
           sx={{
             overflow: 'hidden',
             display: 'inline',
@@ -44,6 +44,7 @@ const ListItems = (props: {
             boxShadow: '0px 1px 2px #0000000E',
             borderRadius: '6px',
             right: '-22px !important',
+            top: '44px !important',
           }}
         >
           <List>

@@ -189,7 +189,7 @@ const Sidebar = (props: {
             zIndex: 'auto',
             overflow: 'scroll',
             borderTop: '16px solid #fff',
-            borderBottom: '16px solid #fff',
+            borderBottom: '72px solid #fff',
             borderLeft: '16px solid #fff',
             borderRight: '16px solid #fff',
             padding: '0 !important',

@@ -216,7 +216,7 @@ const Admin = () => {
 
   // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
-    if (params.field === 'management') {
+    if (params.field !== '__check__') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
           usrId: params.id,
