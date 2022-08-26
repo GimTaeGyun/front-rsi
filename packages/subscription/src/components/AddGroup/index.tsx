@@ -10,7 +10,7 @@ import {
 import { useAtom } from 'jotai';
 import * as React from 'react';
 
-import { AlertPopupData } from '../../data/atoms';
+import { AlertPopupData, GetSidebarData } from '../../data/atoms';
 import { axios } from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
 import { ITreeItem } from '../MenuCommon/components/Sidebar';
@@ -35,6 +35,10 @@ const AddGroup = (props: {
   });
   const [submitted, setSubmitted] = React.useState(false);
   const [alertPopupData, setAlertPopupData] = useAtom(AlertPopupData);
+  const [getSidebarData] = useAtom(GetSidebarData);
+  React.useEffect(() => {
+    console.log(treeItem);
+  }, [open]);
   const addGroup = () => {
     setSubmitted(true);
 
@@ -44,10 +48,10 @@ const AddGroup = (props: {
     }
 
     const groupData = {
-      action: 'add',
+      action: title === '운영자 그룹 수정' ? 'mod' : 'add',
       description: formData.description,
       uppUsrGrpId: treeItem?.data?.uppUsrGrpId,
-      usrGrpId: treeItem?.id,
+      usrGrpId: title === '운영자 그룹 수정' ? treeItem?.id : null,
       usrGrpNm: formData.usrGrpNm,
       usrRoleId: formData.usrRoleId,
     };
@@ -55,7 +59,8 @@ const AddGroup = (props: {
     axios
       .post('/management/subscription/admin/usergroup/update', groupData)
       .then(res => {
-        if (res.data.code === '0000')
+        if (res.data.code === '0000') {
+          getSidebarData.refresh();
           setAlertPopupData({
             visible: true,
             message:
@@ -69,6 +74,7 @@ const AddGroup = (props: {
             leftText: '확인',
             rightText: '',
           });
+        }
       })
       .catch(err => {
         handleClose(err);

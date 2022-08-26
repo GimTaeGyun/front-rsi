@@ -23,7 +23,7 @@ const ListItems = (props: {
   }, [realNum]);
 
   const clickCallback = (index: any) => {
-    props.clickCallback ? props.clickCallback[index](props) : '';
+    props.clickCallback ? props.clickCallback[index](props.treeItem) : '';
   };
 
   return (

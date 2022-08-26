@@ -274,11 +274,6 @@ const Sidebar = (props: {
                             }}
                           >{`${node.text}`}</Typography>
                           <Typography
-                            className={
-                              selectedTreeitem && selectedTreeitem.id == node.id
-                                ? 'active_count'
-                                : ''
-                            }
                             component="span"
                             sx={{
                               fontSize: '15px',
