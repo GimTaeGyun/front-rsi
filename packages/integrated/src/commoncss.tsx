@@ -237,7 +237,7 @@ const css = createTheme({
             backgroundColor: '#fff !important',
           },
           '& .MuiDataGrid-row:hover': {
-            backgroundColor: '#fff !important',
+            backgroundColor: 'f4f5f7 !important',
             cursor: 'pointer !important',
           },
           '& .MuiDataGrid-row.Mui-selected': {
@@ -1321,6 +1321,13 @@ const css = createTheme({
         },
         '& .sub_select_paper_little1': {
           maxHeight: '254px !important',
+        },
+        '& .sub_row_hover': {
+          '&.MuiDataGrid-root': {
+            ':hover': {
+              backgroundColor: 'black',
+            },
+          },
         },
       },
     },

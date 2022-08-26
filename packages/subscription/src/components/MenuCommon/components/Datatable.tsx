@@ -106,7 +106,11 @@ const DataTable = (props: any) => {
             borderRadius: 0,
             fontSize: '14px',
             fontFamily: 'NotoSansKRRagular',
-            '.MuiDataGrid-columnSeparator--sideRight': {},
+            '& .MuiDataGrid-root': {
+              '& .MuiDataGrid-row:hover': {
+                color: 'red',
+              },
+            },
           }}
           components={{
             Footer: DatatableFooter,
@@ -116,6 +120,7 @@ const DataTable = (props: any) => {
           }}
           componentsProps={{
             footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
+            row: {},
           }}
           sortModel={sortModel}
           onCellClick={(params, event) => {

@@ -114,11 +114,12 @@ export const columns: GridColDef[] = [
   {
     field: 'modifiedDate',
     headerName: '최종 수정일',
-    width: 155,
+    width: 245,
     headerAlign: 'center',
     align: 'center',
     sortable: false,
     disableColumnMenu: false,
+    headerClassName: 'lastcolumnSeparator',
     renderHeader: (params: GridColumnHeaderParams) => (
       <>
         <Typography className="sub_tbl_th_common">
@@ -128,35 +129,6 @@ export const columns: GridColDef[] = [
           <Box component="img" src="/filter_list.png"></Box>
         </IconButton>*/}
       </>
-    ),
-  },
-  {
-    field: 'management',
-    headerName: '관리',
-    width: 80,
-    headerAlign: 'center',
-    align: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    headerClassName: 'lastcolumnSeparator',
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: () => (
-      <Button
-        variant="outlined"
-        sx={{
-          minWidth: '44px',
-          height: '30px',
-          fontSize: '13px',
-          borderRadius: '4px',
-        }}
-        className="sub_button_white"
-      >
-        수정
-      </Button>
     ),
   },
 ];
