@@ -118,16 +118,16 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     sortable: false,
-    disableColumnMenu: true,
+    disableColumnMenu: false,
     headerClassName: 'lastcolumnSeparator',
     renderHeader: (params: GridColumnHeaderParams) => (
       <>
         <Typography className="sub_tbl_th_common">
           {params.colDef.headerName}
         </Typography>
-        <IconButton color="primary" component="label">
+        {/*<IconButton color="primary" component="label">
           <Box component="img" src="/filter_list.png"></Box>
-        </IconButton>
+        </IconButton>*/}
       </>
     ),
   },
