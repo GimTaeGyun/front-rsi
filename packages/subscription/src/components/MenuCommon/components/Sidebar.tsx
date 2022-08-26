@@ -181,12 +181,20 @@ const Sidebar = (props: {
           title={'전체 (' + getCnt() + ')'}
           sx={styles.box_cardHeader}
         />
+        <ListItems
+          anchorEl={anchorEl}
+          id={1}
+          realNum={realNum}
+          treeItem={clickedTreeItem}
+          clickCallback={treeMoreIconCallback}
+          close={closeListItem}
+        />
         <Divider />
         <CardContent
           id="scroll"
           className="sub_sidebar_cardContent_list"
           sx={{
-            overflow: anchorEl ? 'hidden' : 'scroll',
+            overflow: 'scroll',
             borderTop: '16px solid #fff',
             borderBottom: '72px solid #fff',
             borderLeft: '16px solid #fff',
@@ -195,6 +203,9 @@ const Sidebar = (props: {
             '::-webkit-scrollbar': {
               display: 'none',
             },
+          }}
+          onScroll={() => {
+            setAnchorEl(null);
           }}
         >
           <DndProvider backend={MultiBackend} options={getBackendOptions()}>

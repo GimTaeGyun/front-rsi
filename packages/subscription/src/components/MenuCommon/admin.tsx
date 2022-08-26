@@ -282,11 +282,10 @@ const Admin = () => {
         message: '운영자 그룹을 삭제 하시겠습니까?',
         leftText: '확인',
         rightText: '취소',
-        leftCallback: () => {
-          setAlertPopup({ ...alertPopup, visible: false });
-        },
         rightCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
+        },
+        leftCallback: () => {
           if (treeItem) {
             axios
               .post('/management/subscription/admin/usergroup/update', {
@@ -295,15 +294,35 @@ const Admin = () => {
                 usrGrpId: treeItem.id,
                 usrGrpNm: treeItem.text,
               })
-              .then(() => {
+              .then(res => {
+                if (res.data.code === '0000') {
+                  refreshSidbar.refresh();
+                  setAlertPopup({
+                    ...alertPopup,
+                    message: '운영자 그룹 삭제가 완료되었습니다.',
+                    leftText: '확인',
+                    rightText: '',
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                    },
+                  });
+                } else {
+                  setAlertPopup({
+                    ...alertPopup,
+                    message: '운영자 그룹 삭제가 실패하였습니다.',
+                    rightText: '',
+                    leftText: '확인',
+                  });
+                }
+              })
+              .catch(() => {
                 setAlertPopup({
                   ...alertPopup,
-                  message: '운영자 그룹 삭제가 완료되었습니다.',
+                  message: '운영자 그룹 삭제가 실패하였습니다.',
+                  rightText: '',
                   leftText: '확인',
-                  leftCallback: refreshSidbar.refresh,
                 });
-              })
-              .catch(() => {});
+              });
           }
         },
       });

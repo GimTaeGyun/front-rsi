@@ -50,7 +50,12 @@ const AddGroup = (props: {
     const groupData = {
       action: title === '운영자 그룹 수정' ? 'mod' : 'add',
       description: formData.description,
-      uppUsrGrpId: treeItem?.data?.uppUsrGrpId,
+      uppUsrGrpId:
+        title === '운영자 그룹 수정'
+          ? treeItem?.data?.uppUsrGrpId
+          : treeItem?.id == 1
+          ? null
+          : treeItem?.id,
       usrGrpId: title === '운영자 그룹 수정' ? treeItem?.id : null,
       usrGrpNm: formData.usrGrpNm,
       usrRoleId: formData.usrRoleId,
