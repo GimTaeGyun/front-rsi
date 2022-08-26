@@ -45,6 +45,7 @@ const ListItems = (props: {
             borderRadius: '6px',
             right: '-22px !important',
             top: '44px !important',
+            zIndex: '-5px',
           }}
         >
           <List>

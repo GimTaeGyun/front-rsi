@@ -186,8 +186,7 @@ const Sidebar = (props: {
           id="scroll"
           className="sub_sidebar_cardContent_list"
           sx={{
-            zIndex: 'auto',
-            overflow: 'scroll',
+            overflow: anchorEl ? 'hidden' : 'scroll',
             borderTop: '16px solid #fff',
             borderBottom: '72px solid #fff',
             borderLeft: '16px solid #fff',
@@ -311,7 +310,6 @@ const Sidebar = (props: {
                       </IconButton>
                     </Box>
                   </Box>
-
                   <ListItems
                     anchorEl={anchorEl}
                     id={+node.id}
@@ -326,6 +324,12 @@ const Sidebar = (props: {
             />
           </DndProvider>
         </CardContent>
+
+        <Box
+          sx={{ position: 'relative', top: '-56px', backgroundColor: '#fff' }}
+        >
+          <Divider />
+        </Box>
       </Card>
     </Box>
   );

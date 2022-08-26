@@ -106,17 +106,9 @@ const DataTable = (props: any) => {
             borderRadius: 0,
             fontSize: '14px',
             fontFamily: 'NotoSansKRRagular',
-            '& .MuiDataGrid-root': {
-              '& .MuiDataGrid-row:hover': {
-                color: 'red',
-              },
-            },
           }}
           components={{
             Footer: DatatableFooter,
-            ColumnFilteredIcon: () => (
-              <Box component="img" src="/filter_list.png"></Box>
-            ),
           }}
           componentsProps={{
             footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
