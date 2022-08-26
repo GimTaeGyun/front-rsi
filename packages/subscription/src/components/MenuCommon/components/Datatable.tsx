@@ -110,6 +110,9 @@ const DataTable = (props: any) => {
           }}
           components={{
             Footer: DatatableFooter,
+            ColumnFilteredIcon: () => (
+              <Box component="img" src="/filter_list.png"></Box>
+            ),
           }}
           componentsProps={{
             footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
