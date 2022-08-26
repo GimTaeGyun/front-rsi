@@ -97,7 +97,8 @@ const styles = {
   btn: {
     minWidth: '46px',
     height: '30px',
-    boxShadow: '0px 3px 3px #0000002E',
+    shadow: 'none !important',
+    fontSize: '13px',
     ml: '10px',
     fontFamily: 'NotoSandsKRMedeum',
     ':hover': {
@@ -107,9 +108,12 @@ const styles = {
   btn2: {
     minWidth: '46px',
     height: '30px',
-    boxShadow: '0px 3px 3px #0000002E',
     ml: '10px',
+    boxShadow: '0 !important',
+    fontSize: '13px',
     fontFamily: 'NotoSandsKRMedeum',
+    border: '1px solid #cccccc !important',
+    transition: 'none',
     ':hover': {
       backgroundColor: 'transparent',
     },
