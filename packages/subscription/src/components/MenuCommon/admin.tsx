@@ -198,6 +198,7 @@ const Admin = () => {
         usr_grp_id: params.id,
       })
       .then(res => {
+        console.log(res);
         if (res.data.code === '0000') {
           if (res.data.result.length == 0) {
             setCheckboxSelectedIds([]);
@@ -218,6 +219,7 @@ const Admin = () => {
 
   // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
+    console.log(params.value);
     if (params.field !== '__check__') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
@@ -234,6 +236,27 @@ const Admin = () => {
           console.log(err);
         });
     } else if (params.field === '__check__') {
+      if (params.value === false) {
+        const mod = async () => {
+          const res = axios.post('/management/subscription/admin/user/delete', {
+            action: 'mod',
+            usrGrpId: [selectedTreeitem?.id],
+            usrId: [params.id],
+          });
+          refreshSidbar.refresh;
+        };
+        mod();
+      } else {
+        const del = async () => {
+          const res = axios.post('/management/subscription/admin/user/delete', {
+            action: 'del',
+            usrGrpId: [selectedTreeitem?.id],
+            usrId: [params.id],
+          });
+          refreshSidbar.refresh;
+        };
+        del();
+      }
     }
   };
 

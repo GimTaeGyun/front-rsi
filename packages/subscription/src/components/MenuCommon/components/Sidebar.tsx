@@ -19,7 +19,7 @@ import zIndex from '@mui/material/styles/zIndex';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 
 import { GetSidebarData } from '../../../data/atoms';
@@ -72,20 +72,10 @@ const Sidebar = (props: {
       });
   };
 
-  const scrollDown = () => {
-    const down = document.getElementById('scroll') as HTMLElement;
-    down.scrollBy(0, -350);
-  };
-
-  const scrollUp = () => {
-    const up = document.getElementById('scroll') as HTMLElement;
-    up.scrollBy(0, 350);
-  };
-
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
-  }, []);
+  }, [selectedTreeitem]);
 
   const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
     let treeItems: Array<ITreeItem> = [];
@@ -127,7 +117,6 @@ const Sidebar = (props: {
           treeItems = [...treeItems, ...formatTreedataItems(subGrp)];
         });
       }
-
       if (selectedTreeitem == null) {
         const cnt = getCnt();
         handleSelectedTreeitem({
