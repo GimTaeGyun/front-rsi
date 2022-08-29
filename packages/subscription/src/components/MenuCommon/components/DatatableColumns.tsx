@@ -12,9 +12,11 @@ export const columns: GridColDef[] = [
     align: 'center',
     headerAlign: 'center',
     width: 50,
-    headerClassName: 'sub_hideCheckboxSortBtn',
     field: '__check__',
     sortingOrder: ['desc'],
+    renderHeader: (params: GridColumnHeaderParams) => (
+      <Typography className="sub_tbl_th_common">선택</Typography>
+    ),
   },
   {
     field: 'id',
