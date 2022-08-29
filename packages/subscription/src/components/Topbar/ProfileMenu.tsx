@@ -29,7 +29,8 @@ const ProfileMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const [user, setUser] = React.useState('');
+  const [user, setUser] = React.useState({});
+  const [userInfo, setUserInfo] = React.useState('');
 
   React.useEffect(() => {
     const userApi = async () => {
@@ -41,7 +42,14 @@ const ProfileMenu = () => {
           },
         );
         if (response.data.code == '0000') {
-          setUser(response.data.result);
+          const users = response.data.result;
+          setUser(users);
+          setUserInfo(
+            (users.usrId ? users.usrId : '') +
+              '(' +
+              (users.usrNm ? users.usrNm : '') +
+              ')',
+          );
         } else {
           navigate('/admin/login');
         }
@@ -87,15 +95,9 @@ const ProfileMenu = () => {
             handleClose={handleClose}
             data={user}
           />
-          <Box
-            component="img"
-            src={
-              require('@administrator/subscription/public/assets/images/account_circle.svg')
-                .default
-            }
-          />
+          <Box />
           <Typography ml="5px" fontSize="14px" fontFamily="NotoSansKRRegular">
-            admin
+            {userInfo}
           </Typography>
         </Box>
 
