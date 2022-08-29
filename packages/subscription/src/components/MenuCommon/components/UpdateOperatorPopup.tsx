@@ -309,23 +309,9 @@ const UpdateOperatorPopup = (props: {
                 )),
               };
               setDataValid(valid);
-              const param = {
-                action: 'mod',
-                usrNm: popupData.usrNm,
-                email: popupData.email,
-                phone: popupData.phone,
-                usrTp: popupData.usrTp,
-                status: popupData.status,
-                description: popupData.description,
-              };
-              if (
-                !valid.usrPw &&
-                !valid.usrNm &&
-                !valid.email &&
-                !valid.phone
-              ) {
-                handleOk(param);
-              }
+
+              if (!valid.usrPw && !valid.usrNm && !valid.email && !valid.phone)
+                handleOk(popupData);
             }}
           >
             저장
