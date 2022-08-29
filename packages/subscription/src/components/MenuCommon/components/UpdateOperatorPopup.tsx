@@ -14,8 +14,10 @@ import MuiSelect from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
+import { AlertPopupData } from '../../../data/atoms';
 
 import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
@@ -25,6 +27,7 @@ const MenuItem = styled(MuiMenuItem)({
     backgroundColor: '#ebebeb',
   },
 });
+
 const defaultValue = {
   action: 'mod',
   email: '',
@@ -36,6 +39,7 @@ const defaultValue = {
   usrTp: 'DEFAULT',
   description: '',
 };
+
 const validationSchema = Yup.object().shape({
   usrNm: Yup.string().required(),
   email: Yup.string().email().required(),
@@ -238,7 +242,12 @@ const UpdateOperatorPopup = (props: {
               className="sub_select_form"
             >
               <MenuItem value="DEFAULT">기본</MenuItem>
-              <MenuItem value="SYSUSER">시스템사용자</MenuItem>
+              <MenuItem value="SYSUSER">시스템 어드민</MenuItem>
+              <MenuItem value="SUPERVISOR">슈퍼바이저</MenuItem>
+              <MenuItem value="DEVELOPMENT">개발자</MenuItem>
+              <MenuItem value="ADMIN">통합관리자 어드민</MenuItem>
+              <MenuItem value="FINANCE">재무회계 담당자</MenuItem>
+              <MenuItem value="SALES">영업 담당자</MenuItem>
             </Select>
           </Box>
           <Box>
@@ -287,6 +296,7 @@ const UpdateOperatorPopup = (props: {
             sx={{ width: '57px', height: '36px', fontSize: '14px' }}
             onClick={async () => {
               const valid = {
+                action: 'mod',
                 usrPw: false,
                 usrNm: !(await validationSchema.fields.usrNm.isValid(
                   popupData.usrNm,
@@ -299,6 +309,7 @@ const UpdateOperatorPopup = (props: {
                 )),
               };
               setDataValid(valid);
+
               if (!valid.usrPw && !valid.usrNm && !valid.email && !valid.phone)
                 handleOk(popupData);
             }}
