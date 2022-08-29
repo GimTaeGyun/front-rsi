@@ -299,8 +299,8 @@ const UpdateOperatorPopup = (props: {
                 )),
               };
               setDataValid(valid);
-              //if (!valid.usrPw && !valid.usrNm && !valid.email && !valid.phone)
-              //handleOk(popupData);
+              if (!valid.usrPw && !valid.usrNm && !valid.email && !valid.phone)
+                handleOk(popupData);
             }}
           >
             저장

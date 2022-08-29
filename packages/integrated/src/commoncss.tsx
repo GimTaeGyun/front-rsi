@@ -147,7 +147,7 @@ const css = createTheme({
             marginTop: '10px',
             fontSize: '14px',
             border: 'dashed',
-            color: '#f9f9f9',
+            color: '#666666',
             backgroundColor: '#F9F9F9',
             borderWidth: '1px',
             borderColor: '#0000003B',
