@@ -31,6 +31,7 @@ const Admin = () => {
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
+  const [refreshSelect, setRefreshSelect] = React.useState(0);
 
   const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
@@ -243,16 +244,16 @@ const Admin = () => {
           usrId: params.id,
         };
         const mod = async () => {
-          const res = axios.post(
+          const res = await axios.post(
             '/management/subscription/admin/usergroup/map/update',
             param,
           );
+          setRefreshSelect(refreshSelect + 1);
         };
         mod();
-        refreshSidbar.refresh();
       } else {
         const del = async () => {
-          const res = axios.post(
+          const res = await axios.post(
             '/management/subscription/admin/usergroup/map/update',
             {
               action: 'del',
@@ -260,9 +261,9 @@ const Admin = () => {
               usrId: params.id,
             },
           );
+          setRefreshSelect(refreshSelect - 1);
         };
         del();
-        refreshSidbar.refresh();
       }
     }
   };
@@ -412,6 +413,7 @@ const Admin = () => {
               onSelect={item => setSelectedTreeitem(item)}
               treeMoreIconCallback={treeMoreIconCallback}
               treeItemClickEvent={treeItemClickEvent}
+              refreshBar={refreshSelect}
             />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable

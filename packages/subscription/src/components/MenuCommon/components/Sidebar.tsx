@@ -48,6 +48,7 @@ const Sidebar = (props: {
   onSelect: (treeItem: ITreeItem) => void;
   treeMoreIconCallback?: Function[];
   treeItemClickEvent: Function;
+  refreshBar: any;
 }) => {
   const { onSelect, treeMoreIconCallback, treeItemClickEvent } = props;
 
@@ -75,7 +76,7 @@ const Sidebar = (props: {
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
-  }, []);
+  }, [selectedTreeitem, props.refreshBar]);
 
   const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
     let treeItems: Array<ITreeItem> = [];
@@ -128,7 +129,7 @@ const Sidebar = (props: {
       }
       setTreedata(treeItems);
     }
-  }, [data]);
+  }, [data, props.refreshBar]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
