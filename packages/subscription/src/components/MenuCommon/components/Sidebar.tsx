@@ -187,6 +187,7 @@ const Sidebar = (props: {
             sx={{
               ...styles.box_cardHeader,
               display: 'inline-block',
+              cursor: 'pointer',
             }}
             onClick={headerOnclick}
           />
