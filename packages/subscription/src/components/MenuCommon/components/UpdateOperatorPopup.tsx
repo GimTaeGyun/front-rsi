@@ -240,6 +240,7 @@ const UpdateOperatorPopup = (props: {
               onChange={e => {
                 setPopupData({ ...popupData, usrTp: e.target.value as string });
               }}
+              sx={{ fontFamily: 'NotoSansKRMedium !important' }}
               className="sub_select_form"
             >
               <MenuItem value="DEFAULT">기본</MenuItem>
@@ -264,6 +265,7 @@ const UpdateOperatorPopup = (props: {
                   status: e.target.value as number,
                 });
               }}
+              sx={{ fontFamily: 'NotoSansKRMedium !important' }}
             >
               <MenuItem value={1}>사용</MenuItem>
               <MenuItem value={0}>종료</MenuItem>
@@ -311,8 +313,14 @@ const UpdateOperatorPopup = (props: {
               };
               setDataValid(valid);
 
-              if (!valid.usrPw && !valid.usrNm && !valid.email && !valid.phone)
+              if (
+                !valid.usrPw &&
+                !valid.usrNm &&
+                !valid.email &&
+                !valid.phone
+              ) {
                 handleOk(popupData);
+              }
             }}
           >
             저장
