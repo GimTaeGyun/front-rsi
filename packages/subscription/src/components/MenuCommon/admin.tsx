@@ -447,12 +447,13 @@ const Admin = () => {
             }}
           />
           {/* 그룹 추가 팝업 */}
-          <AddGroup
-            title={addGroupTitle}
-            open={addGroupOpen}
-            treeItem={adminGroupData}
-            handleClose={() => setAddGroupOpen(false)}
-          />
+          {addGroupOpen && (
+            <AddGroup
+              title={addGroupTitle}
+              treeItem={adminGroupData}
+              handleClose={() => setAddGroupOpen(false)}
+            />
+          )}
         </>
       </AppFrame>
     </>
