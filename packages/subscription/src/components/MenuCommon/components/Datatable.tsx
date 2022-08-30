@@ -48,10 +48,6 @@ const DataTable = (props: any) => {
   };
 
   useEffect(() => {
-    isRow;
-  }, [rowData]);
-
-  useEffect(() => {
     dataGridApiRef.current.applySorting();
   }, [after, checkboxSelectedIds]);
 
