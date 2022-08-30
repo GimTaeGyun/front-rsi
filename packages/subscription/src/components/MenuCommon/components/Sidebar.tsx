@@ -141,6 +141,15 @@ const Sidebar = (props: {
     console.log('');
   };
 
+  const headerOnclick = () => {
+    handleSelectedTreeitem({
+      id: 0,
+      text: '전체',
+      parent: 0,
+      data: { cnt: getCnt() },
+    });
+  };
+
   const onClick = (treeItem: any, onToggle: () => void) => {
     onToggle();
     handleSelectedTreeitem(treeItem);
@@ -172,6 +181,7 @@ const Sidebar = (props: {
               ...styles.box_cardHeader,
               display: 'inline-block',
             }}
+            onClick={headerOnclick}
           />
           <Box
             sx={{
@@ -212,6 +222,7 @@ const Sidebar = (props: {
             borderLeft: '16px solid #fff',
             borderRight: '16px solid #fff',
             padding: '0 !important',
+            height: '626px',
             '::-webkit-scrollbar': {
               display: 'none',
             },
@@ -343,7 +354,9 @@ const Sidebar = (props: {
           </DndProvider>
         </CardContent>
 
-        <Box sx={{ position: 'relative', top: 'px', backgroundColor: '#fff' }}>
+        <Box
+          sx={{ position: 'relative', top: '-53px', backgroundColor: '#fff' }}
+        >
           <Divider />
         </Box>
       </Card>
