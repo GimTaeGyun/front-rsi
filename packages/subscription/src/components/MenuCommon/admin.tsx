@@ -237,23 +237,28 @@ const Admin = () => {
         });
     } else if (params.field === '__check__') {
       if (params.value === false) {
+        const param = {
+          action: 'mod',
+          usrGrpId: selectedTreeitem?.id,
+          usrId: params.id,
+        };
         const mod = async () => {
-          const res = axios.post('/management/subscription/admin/user/delete', {
-            action: 'mod',
-            usrGrpId: [selectedTreeitem?.id],
-            usrId: [params.id],
-          });
-          refreshSidbar.refresh;
+          const res = axios.post(
+            '/management/subscription/admin/usergroup/map/update',
+            param,
+          );
         };
         mod();
       } else {
         const del = async () => {
-          const res = axios.post('/management/subscription/admin/user/delete', {
-            action: 'del',
-            usrGrpId: [selectedTreeitem?.id],
-            usrId: [params.id],
-          });
-          refreshSidbar.refresh;
+          const res = axios.post(
+            '/management/subscription/admin/usergroup/map/update',
+            {
+              action: 'del',
+              usrGrpId: selectedTreeitem?.id,
+              usrId: params.id,
+            },
+          );
         };
         del();
       }
