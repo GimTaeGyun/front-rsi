@@ -169,7 +169,7 @@ const css = createTheme({
             marginTop: '10px',
             fontFamily: 'NotoSansKRRagular !important',
             fontSize: '14px',
-            font: 'none',
+            fontWeight: '550',
             '&.MuiOutlinedInput-root': {
               '& fieldset': {
                 borderColor: '#0000001F',
