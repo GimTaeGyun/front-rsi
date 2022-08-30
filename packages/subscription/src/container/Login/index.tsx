@@ -67,16 +67,19 @@ const AdminLogin = () => {
       setUsrId(cookies.rememberId);
       setIsRemember(true);
     }
-  }, [cookies.rememberId]);
+  }, []);
 
   useEffect(() => {
-    removeCookie('rememberId');
-    isRemember
-      ? setCookie('rememberId', usrId, {
-          maxAge: 200000000,
-        })
-      : removeCookie('rememberId');
-  }, [usrId]);
+    if (isRemember) {
+      removeCookie('rememberId');
+      setCookie('rememberId', usrId, {
+        path: '/admin',
+        maxAge: 200000000,
+      });
+    } else {
+      removeCookie('rememberId');
+    }
+  }, [usrId, isRemember]);
 
   const OnClose = () => {
     if (!isLogin) {
