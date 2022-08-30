@@ -249,6 +249,7 @@ const Admin = () => {
           );
         };
         mod();
+        refreshSidbar.refresh();
       } else {
         const del = async () => {
           const res = axios.post(
@@ -261,6 +262,7 @@ const Admin = () => {
           );
         };
         del();
+        refreshSidbar.refresh();
       }
     }
   };
@@ -357,13 +359,6 @@ const Admin = () => {
     },
   ];
 
-  //checkBox disable 이벤트
-  const isRowSelectable = useMemo(() => {
-    return (node: any) => {
-      return node.row.status === 1 ? true : false;
-    };
-  }, []);
-
   // 검색 이벤트
   const search = (value: any) => {
     axios
@@ -423,7 +418,6 @@ const Admin = () => {
                 rowData={rows}
                 cellClickEvent={cellClickEvent}
                 treeItem={selectedTreeitem}
-                isRowSelectable={isRowSelectable}
                 searchCallback={search}
                 checkboxSelectedIds={checkboxSelectedIds}
                 footerSecondCallback={() => {

@@ -75,7 +75,7 @@ const Sidebar = (props: {
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
-  }, [selectedTreeitem]);
+  }, [data]);
 
   const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
     let treeItems: Array<ITreeItem> = [];
