@@ -31,6 +31,7 @@ const Admin = () => {
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
+  const [refreshSelect, setRefreshSelect] = React.useState(0);
 
   const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
@@ -51,7 +52,7 @@ const Admin = () => {
   const [rows, setRows] = React.useState([]);
 
   /* 팝업 시작 */
-  const [openAddOperPopup, setOpenAddOperPopup] = React.useState(false); // 운영자 추가 팝업 on/off
+  const [openAddOperPopup, setAddOpenOperPopup] = React.useState(false); // 운영자 추가 팝업 on/off
   // 운영자 추가 팝업 ID 중복확인
   const [isCheckedId, setIsCheckedId] = React.useState(false);
   // 운영자 추가/수정 API REQUESTBODY 및 form data
@@ -78,12 +79,12 @@ const Admin = () => {
               ...defaultAlertPopup,
               leftCallback: () => {
                 setAlertPopup({ ...alertPopup, visible: false });
+                setAddOpenOperPopup(false);
                 setIsCheckedId(false);
                 setOperPopupData(defaultOperPopupData);
               },
               message: '새로운 운영자 추가가 완료되었습니다.',
             });
-            setOpenAddOperPopup(false);
           }
         })
         .catch(() => {});
@@ -181,7 +182,6 @@ const Admin = () => {
             ...defaultAlertPopup,
             message: '모든 변동사항이 저장되었습니다.',
             leftCallback: () => {
-              refreshSidbar.refresh();
               setAlertPopup({ ...alertPopup, visible: false });
             },
           });
@@ -379,6 +379,10 @@ const Admin = () => {
       });
   };
 
+  const setAddGroup = (data: any) => {
+    setAddGroupOpen(data);
+  };
+
   return (
     <>
       <AppFrame
@@ -417,7 +421,7 @@ const Admin = () => {
                 searchCallback={search}
                 checkboxSelectedIds={checkboxSelectedIds}
                 footerSecondCallback={() => {
-                  setOpenAddOperPopup(true);
+                  setAddOpenOperPopup(true);
                 }}
                 setCheckboxSelectedIds={setCheckboxSelectedIds}
               />
@@ -437,7 +441,7 @@ const Admin = () => {
             open={openAddOperPopup}
             handleMiddle={handleExistBtn}
             handleClose={() => {
-              setOpenAddOperPopup(false);
+              setAddOpenOperPopup(false);
               setIsCheckedId(false);
               setOperPopupData(defaultOperPopupData);
             }}

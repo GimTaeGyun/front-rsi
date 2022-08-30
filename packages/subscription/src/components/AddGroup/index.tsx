@@ -37,10 +37,7 @@ const AddGroup = (props: {
           usrRoleId: [],
         },
   );
-  useEffect(() => {
-    console.log('formData', formData);
-    console.log('treeItem', treeItem);
-  }, [formData, treeItem]);
+
   const [errors, setErrors] = React.useState({
     usrGrpNm: false,
   });
