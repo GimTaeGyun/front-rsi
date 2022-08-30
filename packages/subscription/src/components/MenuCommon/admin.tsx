@@ -429,27 +429,29 @@ const Admin = () => {
           </Box>
           <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
           {/* 운영자 수정 팝업 */}
-          <UpdateOperatorPopup
-            open={updateOperOpen}
-            handleClose={() => setUpdateOperOpen(false)}
-            handleMiddle={chnagePw}
-            handleOk={operUpdateSaveBtn}
-            value={operPopupData}
-          />
+          {updateOperOpen && (
+            <UpdateOperatorPopup
+              handleClose={() => setUpdateOperOpen(false)}
+              handleMiddle={chnagePw}
+              handleOk={operUpdateSaveBtn}
+              value={operPopupData}
+            />
+          )}
           {/* 운영자 추가 팝업 */}
-          <AddOperatorPopup
-            open={openAddOperPopup}
-            handleMiddle={handleExistBtn}
-            handleClose={() => {
-              setAddOpenOperPopup(false);
-              setIsCheckedId(false);
-              setOperPopupData(defaultOperPopupData);
-            }}
-            handleOk={operPopupSaveBtn}
-            handleChange={(e: any) => {
-              handleChange(e, 'add');
-            }}
-          />
+          {openAddOperPopup && (
+            <AddOperatorPopup
+              handleMiddle={handleExistBtn}
+              handleClose={() => {
+                setAddOpenOperPopup(false);
+                setIsCheckedId(false);
+                setOperPopupData(defaultOperPopupData);
+              }}
+              handleOk={operPopupSaveBtn}
+              handleChange={(e: any) => {
+                handleChange(e, 'add');
+              }}
+            />
+          )}
           {/* 그룹 추가 팝업 */}
           {addGroupOpen && (
             <AddGroup

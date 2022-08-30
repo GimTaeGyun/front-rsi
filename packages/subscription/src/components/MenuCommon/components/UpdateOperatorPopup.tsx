@@ -67,14 +67,12 @@ const validationMsg = {
 };
 
 const UpdateOperatorPopup = (props: {
-  open: boolean;
   handleClose: Function;
   handleMiddle: Function;
   handleOk: Function;
   value: any;
 }) => {
   const {
-    open,
     handleClose,
     handleMiddle = () => {},
     handleOk = () => {},
@@ -114,7 +112,7 @@ const UpdateOperatorPopup = (props: {
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
-        open={open}
+        open={true}
         onClose={() => handleClose()}
         sx={{
           '& .MuiPaper-root': {
