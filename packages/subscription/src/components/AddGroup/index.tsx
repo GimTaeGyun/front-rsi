@@ -26,6 +26,7 @@ const AddGroup = (props: {
   title: string;
   open: boolean;
   treeItem?: ITreeItem;
+  setAddGroup: Function;
   handleClose: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
 }) => {
   const { title, open, treeItem, handleClose } = props;
@@ -79,6 +80,7 @@ const AddGroup = (props: {
             leftText: '확인',
             rightText: '',
           });
+          props.setAddGroup(false);
         }
       })
       .catch(err => {

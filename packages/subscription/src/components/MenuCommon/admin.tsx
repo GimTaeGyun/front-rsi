@@ -51,7 +51,7 @@ const Admin = () => {
   const [rows, setRows] = React.useState([]);
 
   /* 팝업 시작 */
-  const [openAddOperPopup, setAddOpenOperPopup] = React.useState(false); // 운영자 추가 팝업 on/off
+  const [openAddOperPopup, setOpenAddOperPopup] = React.useState(false); // 운영자 추가 팝업 on/off
   // 운영자 추가 팝업 ID 중복확인
   const [isCheckedId, setIsCheckedId] = React.useState(false);
   // 운영자 추가/수정 API REQUESTBODY 및 form data
@@ -78,12 +78,12 @@ const Admin = () => {
               ...defaultAlertPopup,
               leftCallback: () => {
                 setAlertPopup({ ...alertPopup, visible: false });
-                setAddOpenOperPopup(false);
                 setIsCheckedId(false);
                 setOperPopupData(defaultOperPopupData);
               },
               message: '새로운 운영자 추가가 완료되었습니다.',
             });
+            setOpenAddOperPopup(false);
           }
         })
         .catch(() => {});
@@ -416,7 +416,7 @@ const Admin = () => {
                 searchCallback={search}
                 checkboxSelectedIds={checkboxSelectedIds}
                 footerSecondCallback={() => {
-                  setAddOpenOperPopup(true);
+                  setOpenAddOperPopup(true);
                 }}
                 setCheckboxSelectedIds={setCheckboxSelectedIds}
               />
@@ -436,7 +436,7 @@ const Admin = () => {
             open={openAddOperPopup}
             handleMiddle={handleExistBtn}
             handleClose={() => {
-              setAddOpenOperPopup(false);
+              setOpenAddOperPopup(false);
               setIsCheckedId(false);
               setOperPopupData(defaultOperPopupData);
             }}
