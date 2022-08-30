@@ -31,7 +31,6 @@ const Admin = () => {
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
-  const [refreshSelect, setRefreshSelect] = React.useState(0);
 
   const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
@@ -219,7 +218,7 @@ const Admin = () => {
   };
 
   // 테이블 클릭이벤트
-  const cellClickEvent = (params: any) => {
+  const cellClickEvent = async (params: any) => {
     if (params.field !== '__check__') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
@@ -242,27 +241,21 @@ const Admin = () => {
           usrGrpId: selectedTreeitem?.id,
           usrId: params.id,
         };
-        const mod = async () => {
-          const res = await axios.post(
-            '/management/subscription/admin/usergroup/map/update',
-            param,
-          );
-          setRefreshSelect(refreshSelect + 1);
-        };
-        mod();
+        const res = await axios.post(
+          '/management/subscription/admin/usergroup/map/update',
+          param,
+        );
+        refreshSidbar.refresh();
       } else {
-        const del = async () => {
-          const res = await axios.post(
-            '/management/subscription/admin/usergroup/map/update',
-            {
-              action: 'del',
-              usrGrpId: selectedTreeitem?.id,
-              usrId: params.id,
-            },
-          );
-          setRefreshSelect(refreshSelect - 1);
-        };
-        del();
+        const res = await axios.post(
+          '/management/subscription/admin/usergroup/map/update',
+          {
+            action: 'del',
+            usrGrpId: selectedTreeitem?.id,
+            usrId: params.id,
+          },
+        );
+        refreshSidbar.refresh();
       }
     }
   };
@@ -412,7 +405,6 @@ const Admin = () => {
               onSelect={item => setSelectedTreeitem(item)}
               treeMoreIconCallback={treeMoreIconCallback}
               treeItemClickEvent={treeItemClickEvent}
-              refreshBar={refreshSelect}
             />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <DataTable
