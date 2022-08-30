@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import CustomerTab from './components/MenuCCP/customer/customertab';
 import CustomerIndex from './components/MenuCCP/customer/index';
 import AdminMenu from './components/MenuCommon/admin';
+import Items from './components/MenuCommon/items';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
 
@@ -21,6 +22,7 @@ const Subscription = () => {
         <Route path="tab" element={<CustomerTab />} />
         <Route path="" element={<CustomerIndex />} />
       </Route>
+      <Route path="/admin/common/items" element={<Items />}></Route>
     </Routes>
   );
 };
