@@ -15,7 +15,7 @@ import TextField from '@mui/material/TextField';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isConstructorDeclaration } from 'typescript';
 import * as Yup from 'yup';
 import { AlertPopupData } from '../../../data/atoms';
@@ -67,20 +67,16 @@ const validationMsg = {
 };
 
 const UpdateOperatorPopup = (props: {
-  open: boolean;
   handleClose: Function;
   handleMiddle: Function;
   handleOk: Function;
   value: any;
-  selectItems: any;
 }) => {
   const {
-    open,
     handleClose,
     handleMiddle = () => {},
     handleOk = () => {},
     value = defaultValue,
-    selectItems,
   } = props;
 
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
@@ -94,6 +90,19 @@ const UpdateOperatorPopup = (props: {
     setDataValid(defaultFormValidation);
   }, [open]);
 
+  // selectItem
+  const [selectItems, setSelectItems] = useState([]);
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post('/management/subscription/admin/codeset', {
+        code: 'usr_tp',
+        code_grp: 'app.user',
+      });
+      setSelectItems(res.data.result.codeSetItems);
+    };
+    api();
+  }, []);
+
   // 운영자 추가 수정 form 값 변경이벤트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -103,7 +112,7 @@ const UpdateOperatorPopup = (props: {
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
-        open={open}
+        open={true}
         onClose={() => handleClose()}
         sx={{
           '& .MuiPaper-root': {

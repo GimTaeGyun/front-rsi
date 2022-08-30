@@ -13,7 +13,8 @@ import Select from '@mui/material/Select';
 import MuiSelect from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { axios } from '../../../utils/axios';
 import * as Yup from 'yup';
 
 const MenuItem = styled(MuiMenuItem)({
@@ -40,6 +41,7 @@ const defaultFormData = {
   usrNm: '',
   phone: '',
   email: '',
+  usrTp: 'DEFAULT',
 };
 
 const defaultFormValidation = {
@@ -59,14 +61,12 @@ const validationMsg = {
 };
 
 const AddOperatorPopup = (props: {
-  open: boolean;
   handleClose?: Function;
   handleOk?: Function;
   handleMiddle?: Function;
   handleChange?: Function;
 }) => {
   const {
-    open = false,
     handleClose = () => {},
     handleOk = () => {},
     handleMiddle = () => {},
@@ -76,16 +76,23 @@ const AddOperatorPopup = (props: {
   const [popupData, setPopupData] = React.useState(defaultFormData);
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
 
-  // 열고 닫을 때마다 리셋
-  React.useEffect(() => {
-    setPopupData(defaultFormData);
-    setDataValid(defaultFormValidation);
-  }, [open]);
+  // selectItem
+  const [selectItems, setSelectItems] = useState([]);
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post('/management/subscription/admin/codeset', {
+        code: 'usr_tp',
+        code_grp: 'app.user',
+      });
+      setSelectItems(res.data.result.codeSetItems);
+    };
+    api();
+  }, []);
 
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
-        open={open}
+        open={true}
         onClose={() => handleClose()}
         sx={{
           '& .MuiPaper-root': {
@@ -228,49 +235,16 @@ const AddOperatorPopup = (props: {
             <Select
               fullWidth
               id="category"
+              value={popupData.usrTp || ''}
               name="usrTp"
-              className="sub_select_form"
-              defaultValue="DEFAULT"
               onChange={e => {
-                handleChange(e);
+                setPopupData({ ...popupData, usrTp: e.target.value as string });
               }}
+              className="sub_select_form"
             >
-              <MenuItem
-                value="DEFAULT"
-                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
-              >
-                기본
-              </MenuItem>
-              <MenuItem
-                value="SYSUSER"
-                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
-              >
-                슈퍼바이저
-              </MenuItem>
-              <MenuItem
-                value=""
-                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
-              >
-                개발자
-              </MenuItem>
-              <MenuItem
-                value=""
-                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
-              >
-                통합관리자 어드민
-              </MenuItem>
-              <MenuItem
-                value=""
-                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
-              >
-                재무회계 담당자
-              </MenuItem>
-              <MenuItem
-                value=""
-                sx={{ fontFamily: 'NotoSansKRRegular', fontSize: '14px' }}
-              >
-                영업 담당자
-              </MenuItem>
+              {selectItems.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))}
             </Select>
           </Box>
           <Box>
