@@ -16,6 +16,7 @@ import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
+import { isConstructorDeclaration } from 'typescript';
 import * as Yup from 'yup';
 import { AlertPopupData } from '../../../data/atoms';
 
@@ -256,16 +257,16 @@ const UpdateOperatorPopup = (props: {
               fullWidth
               className="sub_select_form"
               id="status"
-              value={popupData.status || ''}
+              value={popupData.status}
               onChange={e => {
                 setPopupData({
                   ...popupData,
-                  status: e.target.value as any,
+                  status: e.target.value as number,
                 });
               }}
             >
-              <MenuItem value="1">사용</MenuItem>
-              <MenuItem value="0">종료</MenuItem>
+              <MenuItem value={1}>사용</MenuItem>
+              <MenuItem value={0}>종료</MenuItem>
             </Select>
           </Box>
           <Box>

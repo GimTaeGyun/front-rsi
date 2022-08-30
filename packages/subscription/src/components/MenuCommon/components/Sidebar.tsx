@@ -343,9 +343,7 @@ const Sidebar = (props: {
           </DndProvider>
         </CardContent>
 
-        <Box
-          sx={{ position: 'relative', top: '-56px', backgroundColor: '#fff' }}
-        >
+        <Box sx={{ position: 'relative', top: 'px', backgroundColor: '#fff' }}>
           <Divider />
         </Box>
       </Card>

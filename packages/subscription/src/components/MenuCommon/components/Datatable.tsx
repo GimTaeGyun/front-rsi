@@ -6,12 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
+import { GridCellParams } from '@mui/x-data-grid';
 import {
   DataGridPro,
   GridSortModel,
   useGridApiRef,
 } from '@mui/x-data-grid-pro';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { isConstructorDeclaration } from 'typescript';
 
 import { columns } from './DatatableColumns';
 import DatatableFooter from './DatatableFooter';
@@ -40,6 +42,15 @@ const DataTable = (props: any) => {
     if (e.length != 0) sortModel.push(e[0]);
     setSortModel([...sortModel]);
   };
+
+  const isRow = (node: any) => {
+    return node.row.status === 1 || node.row.status === '사용' ? true : false;
+  };
+
+  useEffect(() => {
+    isRow;
+    console.log(isRow);
+  }, [rowData]);
 
   useEffect(() => {
     dataGridApiRef.current.applySorting();
@@ -101,6 +112,7 @@ const DataTable = (props: any) => {
           rowCount={rowNum}
           disableSelectionOnClick
           checkboxSelection
+          isRowSelectable={isRow}
           onSortModelChange={sortModelChanged}
           apiRef={dataGridApiRef}
           sx={{
@@ -113,7 +125,6 @@ const DataTable = (props: any) => {
           }}
           componentsProps={{
             footer: { handleSecondBtn: footerSecondCallback, rowData: rowData },
-            row: {},
           }}
           sortModel={sortModel}
           onCellClick={(params, event) => {

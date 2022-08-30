@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import AppFrame from '../../container/AppFrame';
 import { AlertPopupData, GetSidebarData } from '../../data/atoms';
@@ -238,7 +238,7 @@ const Admin = () => {
     } else if (params.field === '__check__') {
       if (params.value === false) {
         const param = {
-          action: 'mod',
+          action: 'add',
           usrGrpId: selectedTreeitem?.id,
           usrId: params.id,
         };
@@ -357,6 +357,13 @@ const Admin = () => {
     },
   ];
 
+  //checkBox disable 이벤트
+  const isRowSelectable = useMemo(() => {
+    return (node: any) => {
+      return node.row.status === 1 ? true : false;
+    };
+  }, []);
+
   // 검색 이벤트
   const search = (value: any) => {
     axios
@@ -416,6 +423,7 @@ const Admin = () => {
                 rowData={rows}
                 cellClickEvent={cellClickEvent}
                 treeItem={selectedTreeitem}
+                isRowSelectable={isRowSelectable}
                 searchCallback={search}
                 checkboxSelectedIds={checkboxSelectedIds}
                 footerSecondCallback={() => {
