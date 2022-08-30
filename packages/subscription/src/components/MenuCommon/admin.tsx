@@ -181,6 +181,7 @@ const Admin = () => {
             ...defaultAlertPopup,
             message: '모든 변동사항이 저장되었습니다.',
             leftCallback: () => {
+              refreshSidbar.refresh();
               setAlertPopup({ ...alertPopup, visible: false });
             },
           });
