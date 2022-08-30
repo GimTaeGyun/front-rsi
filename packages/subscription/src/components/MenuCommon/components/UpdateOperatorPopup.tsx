@@ -72,6 +72,7 @@ const UpdateOperatorPopup = (props: {
   handleMiddle: Function;
   handleOk: Function;
   value: any;
+  selectItems: any;
 }) => {
   const {
     open,
@@ -79,6 +80,7 @@ const UpdateOperatorPopup = (props: {
     handleMiddle = () => {},
     handleOk = () => {},
     value = defaultValue,
+    selectItems,
   } = props;
 
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
@@ -242,13 +244,9 @@ const UpdateOperatorPopup = (props: {
               }}
               className="sub_select_form"
             >
-              <MenuItem value="DEFAULT">기본</MenuItem>
-              <MenuItem value="SYSUSER">시스템 어드민</MenuItem>
-              <MenuItem value="SUPERVISOR">슈퍼바이저</MenuItem>
-              <MenuItem value="DEVELOPMENT">개발자</MenuItem>
-              <MenuItem value="ADMIN">통합관리자 어드민</MenuItem>
-              <MenuItem value="FINANCE">재무회계 담당자</MenuItem>
-              <MenuItem value="SALES">영업 담당자</MenuItem>
+              {selectItems.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))}
             </Select>
           </Box>
           <Box>
