@@ -60,7 +60,12 @@ const LeftMenuItem = (props: {
         >
           {menuItem.items.map((child, key) => (
             <Link
-              style={{ textDecoration: 'none' }}
+              style={{
+                textDecoration: 'none',
+                ':active': {
+                  backgroundColor: 'black',
+                },
+              }}
               key={key}
               to={child.link ? child.link : '#'}
             >

@@ -49,7 +49,6 @@ const DataTable = (props: any) => {
 
   useEffect(() => {
     isRow;
-    console.log(isRow);
   }, [rowData]);
 
   useEffect(() => {
