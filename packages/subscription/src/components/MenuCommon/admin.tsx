@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import AppFrame from '../../container/AppFrame';
 import { AlertPopupData, GetSidebarData } from '../../data/atoms';
@@ -31,6 +31,7 @@ const Admin = () => {
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
+  const [refreshSelect, setRefreshSelect] = React.useState(0);
 
   const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
@@ -180,9 +181,10 @@ const Admin = () => {
           setAlertPopup({
             ...defaultAlertPopup,
             message: '모든 변동사항이 저장되었습니다.',
-            leftCallback: refreshSidbar.refresh,
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
           });
-          console.log(alertPopup);
           setUpdateOperOpen(false);
         }
       })
@@ -219,7 +221,7 @@ const Admin = () => {
   };
 
   // 테이블 클릭이벤트
-  const cellClickEvent = (params: any) => {
+  const cellClickEvent = async (params: any) => {
     if (params.field !== '__check__') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {
@@ -238,29 +240,25 @@ const Admin = () => {
     } else if (params.field === '__check__') {
       if (params.value === false) {
         const param = {
-          action: 'mod',
+          action: 'add',
           usrGrpId: selectedTreeitem?.id,
           usrId: params.id,
         };
-        const mod = async () => {
-          const res = axios.post(
-            '/management/subscription/admin/usergroup/map/update',
-            param,
-          );
-        };
-        mod();
+        const res = await axios.post(
+          '/management/subscription/admin/usergroup/map/update',
+          param,
+        );
+        refreshSidbar.refresh();
       } else {
-        const del = async () => {
-          const res = axios.post(
-            '/management/subscription/admin/usergroup/map/update',
-            {
-              action: 'del',
-              usrGrpId: selectedTreeitem?.id,
-              usrId: params.id,
-            },
-          );
-        };
-        del();
+        const res = await axios.post(
+          '/management/subscription/admin/usergroup/map/update',
+          {
+            action: 'del',
+            usrGrpId: selectedTreeitem?.id,
+            usrId: params.id,
+          },
+        );
+        refreshSidbar.refresh();
       }
     }
   };
@@ -381,6 +379,10 @@ const Admin = () => {
       });
   };
 
+  const setAddGroup = (data: any) => {
+    setAddGroupOpen(data);
+  };
+
   return (
     <>
       <AppFrame
@@ -427,34 +429,37 @@ const Admin = () => {
           </Box>
           <ModifySettingsPopup open={open} handleClose={() => setOpen(false)} />
           {/* 운영자 수정 팝업 */}
-          <UpdateOperatorPopup
-            open={updateOperOpen}
-            handleClose={() => setUpdateOperOpen(false)}
-            handleMiddle={chnagePw}
-            handleOk={operUpdateSaveBtn}
-            value={operPopupData}
-          />
+          {updateOperOpen && (
+            <UpdateOperatorPopup
+              handleClose={() => setUpdateOperOpen(false)}
+              handleMiddle={chnagePw}
+              handleOk={operUpdateSaveBtn}
+              value={operPopupData}
+            />
+          )}
           {/* 운영자 추가 팝업 */}
-          <AddOperatorPopup
-            open={openAddOperPopup}
-            handleMiddle={handleExistBtn}
-            handleClose={() => {
-              setAddOpenOperPopup(false);
-              setIsCheckedId(false);
-              setOperPopupData(defaultOperPopupData);
-            }}
-            handleOk={operPopupSaveBtn}
-            handleChange={(e: any) => {
-              handleChange(e, 'add');
-            }}
-          />
+          {openAddOperPopup && (
+            <AddOperatorPopup
+              handleMiddle={handleExistBtn}
+              handleClose={() => {
+                setAddOpenOperPopup(false);
+                setIsCheckedId(false);
+                setOperPopupData(defaultOperPopupData);
+              }}
+              handleOk={operPopupSaveBtn}
+              handleChange={(e: any) => {
+                handleChange(e, 'add');
+              }}
+            />
+          )}
           {/* 그룹 추가 팝업 */}
-          <AddGroup
-            title={addGroupTitle}
-            open={addGroupOpen}
-            treeItem={adminGroupData}
-            handleClose={() => setAddGroupOpen(false)}
-          />
+          {addGroupOpen && (
+            <AddGroup
+              title={addGroupTitle}
+              treeItem={adminGroupData}
+              handleClose={() => setAddGroupOpen(false)}
+            />
+          )}
         </>
       </AppFrame>
     </>

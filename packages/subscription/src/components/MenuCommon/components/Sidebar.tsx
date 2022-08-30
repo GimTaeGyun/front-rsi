@@ -75,7 +75,7 @@ const Sidebar = (props: {
   React.useEffect(() => {
     getData();
     setRefreshSidbar({ refresh: getData });
-  }, [selectedTreeitem]);
+  }, []);
 
   const formatTreedataItems = (subGrp: IUsrGrp): ITreeItem[] => {
     let treeItems: Array<ITreeItem> = [];
@@ -125,6 +125,13 @@ const Sidebar = (props: {
           parent: 0,
           data: { cnt: cnt },
         });
+      } else {
+        for (var treeItem of treeItems) {
+          if (treeItem.id === selectedTreeitem.id) {
+            handleSelectedTreeitem(treeItem);
+            break;
+          }
+        }
       }
       setTreedata(treeItems);
     }
@@ -139,6 +146,15 @@ const Sidebar = (props: {
 
   const onDrop = () => {
     console.log('');
+  };
+
+  const headerOnclick = () => {
+    handleSelectedTreeitem({
+      id: 0,
+      text: '전체',
+      parent: 0,
+      data: { cnt: getCnt() },
+    });
   };
 
   const onClick = (treeItem: any, onToggle: () => void) => {
@@ -171,7 +187,9 @@ const Sidebar = (props: {
             sx={{
               ...styles.box_cardHeader,
               display: 'inline-block',
+              cursor: 'pointer',
             }}
+            onClick={headerOnclick}
           />
           <Box
             sx={{
@@ -212,6 +230,7 @@ const Sidebar = (props: {
             borderLeft: '16px solid #fff',
             borderRight: '16px solid #fff',
             padding: '0 !important',
+            height: '626px',
             '::-webkit-scrollbar': {
               display: 'none',
             },
@@ -344,7 +363,7 @@ const Sidebar = (props: {
         </CardContent>
 
         <Box
-          sx={{ position: 'relative', top: '-56px', backgroundColor: '#fff' }}
+          sx={{ position: 'relative', top: '-53px', backgroundColor: '#fff' }}
         >
           <Divider />
         </Box>

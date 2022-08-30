@@ -15,7 +15,8 @@ import TextField from '@mui/material/TextField';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { isConstructorDeclaration } from 'typescript';
 import * as Yup from 'yup';
 import { AlertPopupData } from '../../../data/atoms';
 
@@ -66,14 +67,12 @@ const validationMsg = {
 };
 
 const UpdateOperatorPopup = (props: {
-  open: boolean;
   handleClose: Function;
   handleMiddle: Function;
   handleOk: Function;
   value: any;
 }) => {
   const {
-    open,
     handleClose,
     handleMiddle = () => {},
     handleOk = () => {},
@@ -91,6 +90,19 @@ const UpdateOperatorPopup = (props: {
     setDataValid(defaultFormValidation);
   }, [open]);
 
+  // selectItem
+  const [selectItems, setSelectItems] = useState([]);
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post('/management/subscription/admin/codeset', {
+        code: 'usr_tp',
+        code_grp: 'app.user',
+      });
+      setSelectItems(res.data.result.codeSetItems);
+    };
+    api();
+  }, []);
+
   // 운영자 추가 수정 form 값 변경이벤트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -100,7 +112,7 @@ const UpdateOperatorPopup = (props: {
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
-        open={open}
+        open={true}
         onClose={() => handleClose()}
         sx={{
           '& .MuiPaper-root': {
@@ -241,13 +253,9 @@ const UpdateOperatorPopup = (props: {
               }}
               className="sub_select_form"
             >
-              <MenuItem value="DEFAULT">기본</MenuItem>
-              <MenuItem value="SYSUSER">시스템 어드민</MenuItem>
-              <MenuItem value="SUPERVISOR">슈퍼바이저</MenuItem>
-              <MenuItem value="DEVELOPMENT">개발자</MenuItem>
-              <MenuItem value="ADMIN">통합관리자 어드민</MenuItem>
-              <MenuItem value="FINANCE">재무회계 담당자</MenuItem>
-              <MenuItem value="SALES">영업 담당자</MenuItem>
+              {selectItems.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))}
             </Select>
           </Box>
           <Box>
@@ -256,16 +264,16 @@ const UpdateOperatorPopup = (props: {
               fullWidth
               className="sub_select_form"
               id="status"
-              value={popupData.status || ''}
+              value={popupData.status}
               onChange={e => {
                 setPopupData({
                   ...popupData,
-                  status: e.target.value as any,
+                  status: e.target.value as number,
                 });
               }}
             >
-              <MenuItem value="1">사용</MenuItem>
-              <MenuItem value="0">종료</MenuItem>
+              <MenuItem value={1}>사용</MenuItem>
+              <MenuItem value={0}>종료</MenuItem>
             </Select>
           </Box>
           <Box>
@@ -310,8 +318,14 @@ const UpdateOperatorPopup = (props: {
               };
               setDataValid(valid);
 
-              if (!valid.usrPw && !valid.usrNm && !valid.email && !valid.phone)
+              if (
+                !valid.usrPw &&
+                !valid.usrNm &&
+                !valid.email &&
+                !valid.phone
+              ) {
                 handleOk(popupData);
+              }
             }}
           >
             저장

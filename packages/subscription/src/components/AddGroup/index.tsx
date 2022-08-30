@@ -8,7 +8,7 @@ import {
   Divider,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 
 import { AlertPopupData, GetSidebarData } from '../../data/atoms';
 import { axios } from '../../utils/axios';
@@ -24,21 +24,27 @@ const defaultValue = {
 
 const AddGroup = (props: {
   title: string;
-  open: boolean;
   treeItem?: ITreeItem;
   handleClose: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
 }) => {
-  const { title, open, treeItem, handleClose } = props;
-  const [formData, setFormData] = React.useState(defaultValue);
+  const { title, treeItem, handleClose } = props;
+  const [formData, setFormData] = React.useState(
+    title.includes('추가')
+      ? defaultValue
+      : {
+          usrGrpNm: treeItem?.text,
+          description: treeItem?.data.description,
+          usrRoleId: [],
+        },
+  );
+
   const [errors, setErrors] = React.useState({
     usrGrpNm: false,
   });
   const [submitted, setSubmitted] = React.useState(false);
   const [alertPopupData, setAlertPopupData] = useAtom(AlertPopupData);
   const [getSidebarData] = useAtom(GetSidebarData);
-  React.useEffect(() => {
-    console.log(treeItem);
-  }, [open]);
+
   const addGroup = () => {
     setSubmitted(true);
 
@@ -133,10 +139,6 @@ const AddGroup = (props: {
     setFormData({ ...formData, [name]: value });
   };
 
-  React.useEffect(() => {
-    setFormData(defaultValue);
-  }, [open]);
-
   return (
     <>
       {submitted && errors.usrGrpNm && (
@@ -144,7 +146,7 @@ const AddGroup = (props: {
       )}
       <Modal
         sx={styles.modal}
-        open={open}
+        open={true}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"

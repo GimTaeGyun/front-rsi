@@ -17,6 +17,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { Axios } from '../../utils/axios';
 import Image from '../../../public/assets/images/admin_bkg.png';
+var cryptojs = require('crypto-js');
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');
@@ -29,7 +30,10 @@ const AdminLogin = () => {
   const onClick = async () => {
     const params = {
       usrId: usrId,
-      usrPw: usrPwd,
+      usrPw: cryptojs.AES.encrypt(
+        usrPwd,
+        process.env.REACT_APP_SECRETKEY,
+      ).toString(),
     };
     localStorage.clear();
     const fetch = await Axios.post(
@@ -63,16 +67,19 @@ const AdminLogin = () => {
       setUsrId(cookies.rememberId);
       setIsRemember(true);
     }
-  }, [cookies.rememberId]);
+  }, []);
 
   useEffect(() => {
-    removeCookie('rememberId');
-    isRemember
-      ? setCookie('rememberId', usrId, {
-          maxAge: 200000000,
-        })
-      : removeCookie('rememberId');
-  }, [usrId]);
+    if (isRemember) {
+      removeCookie('rememberId');
+      setCookie('rememberId', usrId, {
+        path: '/admin',
+        maxAge: 200000000,
+      });
+    } else {
+      removeCookie('rememberId');
+    }
+  }, [usrId, isRemember]);
 
   const OnClose = () => {
     if (!isLogin) {
