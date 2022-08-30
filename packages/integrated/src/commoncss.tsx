@@ -116,14 +116,15 @@ const css = createTheme({
             '& .MuiOutlinedInput-input': {
               padding: '11px 10px',
               lineHeight: 'normal',
+              fontFamily: 'NotoSansKRRegular',
             },
             '& 	.MuiOutlinedInput-input, .MuiInputBase-input': {
               fontFamily: 'NotoSansKRRegular',
-              fontStyle: 'normal',
               fontSize: '14px',
             },
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
+                fontFamily: 'NotoSansKRRegular',
                 borderColor: '#0000001F',
                 borderWidth: '1px',
               },
@@ -166,12 +167,15 @@ const css = createTheme({
           '& .sub_select_form': {
             height: '42px',
             marginTop: '10px',
-            fontFamily: 'NotoSansKRRagular',
+            fontFamily: 'NotoSansKRRagular !important',
             fontSize: '14px',
+            font: 'none',
             '&.MuiOutlinedInput-root': {
               '& fieldset': {
                 borderColor: '#0000001F',
                 borderWidth: '1px',
+
+                fontFamily: 'NotoSansKRRagular !important',
               },
               '&:hover fieldset': {
                 borderColor: '#0000001F',
