@@ -182,6 +182,7 @@ const Admin = () => {
             message: '모든 변동사항이 저장되었습니다.',
             leftCallback: refreshSidbar.refresh,
           });
+          console.log(alertPopup);
           setUpdateOperOpen(false);
         }
       })
@@ -219,7 +220,6 @@ const Admin = () => {
 
   // 테이블 클릭이벤트
   const cellClickEvent = (params: any) => {
-    console.log(params.value);
     if (params.field !== '__check__') {
       axios
         .post('/management/subscription/admin/userinfo/inquiry', {

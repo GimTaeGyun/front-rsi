@@ -37,12 +37,18 @@ const AdminLogin = () => {
       params,
     );
     try {
-      if (fetch.data.code === '0000') {
-        localStorage.setItem('access-token', fetch.data.result.accessToken);
-        localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
-        localStorage.setItem('usrId', usrId);
-        setIsLogin(true);
-        navigate('/admin/common/admin');
+      const data = fetch.data;
+      console.log(data.result);
+      if (data.code === '0000') {
+        if (data.result.usrStatus === 1) {
+          localStorage.setItem('access-token', fetch.data.result.accessToken);
+          localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
+          localStorage.setItem('usrId', usrId);
+          setIsLogin(true);
+          navigate('/admin/common/admin');
+        } else {
+          setIsLogin(false);
+        }
       } else {
         setIsLogin(false);
       }
@@ -60,12 +66,13 @@ const AdminLogin = () => {
   }, [cookies.rememberId]);
 
   useEffect(() => {
+    removeCookie('rememberId');
     isRemember
       ? setCookie('rememberId', usrId, {
           maxAge: 200000000,
         })
       : removeCookie('rememberId');
-  }, [isRemember]);
+  }, [usrId]);
 
   const OnClose = () => {
     if (!isLogin) {
