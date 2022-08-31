@@ -12,6 +12,7 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
+import cryptojs from 'crypto-js';
 
 const defaultOperPopupData = {
   action: 'add',
@@ -70,24 +71,36 @@ const Admin = () => {
         message: '사용할 수 없는 아이디입니다.',
       });
     } else {
-      axios
-        .post('/management/subscription/admin/user/update', operPopupData)
-        .then(res => {
-          if (res.data.code == '0000') {
-            //setRows());
-            setAlertPopup({
-              ...defaultAlertPopup,
-              leftCallback: () => {
-                setAlertPopup({ ...alertPopup, visible: false });
-                setAddOpenOperPopup(false);
-                setIsCheckedId(false);
-                setOperPopupData(defaultOperPopupData);
-              },
-              message: '새로운 운영자 추가가 완료되었습니다.',
-            });
-          }
-        })
-        .catch(() => {});
+      let tmpParam = operPopupData;
+      (tmpParam.usrPw = cryptojs.AES.encrypt(
+        tmpParam.usrPw,
+        cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+        {
+          iv: cryptojs.enc.Utf8.parse(
+            process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+          ),
+          padding: cryptojs.pad.Pkcs7,
+          mode: cryptojs.mode.CBC,
+        },
+      ).toString()),
+        axios
+          .post('/management/subscription/admin/user/update', tmpParam)
+          .then(res => {
+            if (res.data.code == '0000') {
+              //setRows());
+              setAlertPopup({
+                ...defaultAlertPopup,
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                  setAddOpenOperPopup(false);
+                  setIsCheckedId(false);
+                  setOperPopupData(defaultOperPopupData);
+                },
+                message: '새로운 운영자 추가가 완료되었습니다.',
+              });
+            }
+          })
+          .catch(() => {});
     }
   };
 
@@ -138,7 +151,17 @@ const Admin = () => {
     axios
       .post('/management/subscription/admin/userpw/update', {
         usrId: operPopupData.usrId,
-        usrPw: pw,
+        usrPw: cryptojs.AES.encrypt(
+          pw,
+          cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+          {
+            iv: cryptojs.enc.Utf8.parse(
+              process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+            ),
+            padding: cryptojs.pad.Pkcs7,
+            mode: cryptojs.mode.CBC,
+          },
+        ).toString(),
       })
       .then(res => {
         if (res.data.code == '0000') {
