@@ -13,7 +13,7 @@ import React, { useEffect } from 'react';
 import { AlertPopupData, GetSidebarData } from '../../data/atoms';
 import { axios } from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
-import { ITreeItem } from '../MenuCommon/components/Sidebar';
+import { ITreeItem } from '../MenuCommon/admin/components/Sidebar';
 import DataTable from './Datatable';
 
 const defaultValue = {

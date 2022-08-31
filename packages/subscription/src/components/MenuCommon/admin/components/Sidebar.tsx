@@ -22,8 +22,8 @@ import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 
-import { GetSidebarData } from '../../../data/atoms';
-import { axios } from '../../../utils/axios';
+import { GetSidebarData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 import ListItems from './ListItems';
 
 interface IUsrGrp {

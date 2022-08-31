@@ -14,7 +14,7 @@ import MuiSelect from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react';
-import { axios } from '../../../utils/axios';
+import { axios } from '../../../../utils/axios';
 import * as Yup from 'yup';
 
 const MenuItem = styled(MuiMenuItem)({
