@@ -1443,6 +1443,73 @@ const css = createTheme({
           alignItems: 'center',
           justifyContent: 'center',
         },
+        '& .rc-tree-title': {
+          fontSize: '13px ',
+          fontFamily: 'NotoSansKRMedium',
+        },
+        '& .sub_rc_parentNode .rc-tree-title': {
+          color: '#000000DE',
+          padding: '0 3px',
+        },
+        '& .sub_rc_childNode .rc-tree-title': {
+          color: '#999',
+        },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__close':
+          {
+            display: 'none',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__open':
+          {
+            display: 'none',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__docu':
+          {
+            display: 'none',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-switcher.rc-tree-switcher_open':
+          {
+            width: '24px',
+            height: '24px',
+            backgroundImage: 'url(/icon_parent.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-switcher.rc-tree-switcher_close':
+          {
+            width: '24px',
+            height: '24px',
+            backgroundImage: 'url(/icon_more.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree.rc-tree-show-line .rc-tree-treenode:not(:last-child) > .rc-tree-switcher-noop':
+          {
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree.rc-tree-show-line .rc-tree-treenode:last-child > .rc-tree-switcher-noop':
+          {
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-switcher.rc-tree-switcher-noop':
+          {
+            width: '24px',
+            height: '24px',
+            backgroundImage: 'url(/icon_more_disabled.png)',
+            backgroundRepeat: 'no-repeat',
+          },
+        '& .rc-tree-node-selected': {
+          backgroundColor: '#284AD51F',
+          boxShadow: 'unset',
+          opacity: '1',
+        },
+        '& .rc-tree .rc-tree-treenode': {
+          lineHeight: '22px',
+          paddingLeft: '5px',
+          paddingRight: '5px',
+        },
+        '& .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper': {
+          height: '22px',
+        },
       },
     },
   },
