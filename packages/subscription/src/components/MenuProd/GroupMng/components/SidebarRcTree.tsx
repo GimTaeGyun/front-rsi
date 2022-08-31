@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 import Tree, { TreeNode } from 'rc-tree';
+import { axios } from '../../../../utils/axios';
 
 const styles = {
   box_card: {
@@ -68,30 +69,30 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: { treeItem?: any }) => {
-  const { treeItem } = props;
-
-  const defaultProps = {
-    keys: ['0'],
-  };
+const SidebarRcTree = (props: { setuppGrp: Function }) => {
   const [selKey, setselKey] = React.useState('');
-  const [defaultExpandedKeys, setdefaultExpandedKeys] = React.useState(
-    defaultProps.keys,
-  );
-  const [defaultSelectedKeys, setdefaultSelectedKeys] = React.useState(
-    defaultProps.keys,
-  );
-  const [defaultCheckedKeys, setdefaultCheckedKeys] = React.useState(
-    defaultProps.keys,
-  );
+  const [treeItem, setTreeITem] = React.useState(Object);
+
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post(
+        '/management/manager/product/group/inquiry',
+        {
+          p_prd_grp_id: 0,
+        },
+      );
+      setTreeITem(res.data.result);
+    };
+    api();
+  }, []);
 
   const onExpand = (expandedKeys: any) => {
     console.log('onExpand', expandedKeys);
   };
 
   const onSelect = (selectedKeys: any, info: any) => {
-    console.log('selected', selectedKeys, info);
-    setselKey(info.node.props.eventKey);
+    setselKey(info.node.pos + '-' + selectedKeys.toString());
+    props.setuppGrp(selectedKeys);
   };
 
   const onCheck = (checkedKeys: any, info: any) => {
@@ -99,11 +100,13 @@ const SidebarRcTree = (props: { treeItem?: any }) => {
   };
 
   const onEdit = () => {
-    setTimeout(() => {
-      console.log('current key: ', selKey);
-    }, 0);
+    console.log(selKey);
+    return (
+      <>
+        <TreeNode title=" " key="9" pos={selKey}></TreeNode>
+      </>
+    );
   };
-
   const onDel = (e: any) => {
     if (!window.confirm('sure to delete?')) {
       return;
@@ -111,13 +114,16 @@ const SidebarRcTree = (props: { treeItem?: any }) => {
     e.stopPropagation();
   };
 
-  const arrayloop = (data: any) => {
+  const arrayloop = (data: any, pos: any) => {
     if (data.childrens) {
-      return data.childrens.map((item: any) => (
-        <TreeNode title={item.title} key={item.key}>
-          {arrayloop(item)}
-        </TreeNode>
-      ));
+      return data.childrens.map((item: any) => {
+        const postPos = pos + '-' + item.key;
+        return (
+          <TreeNode title={item.title} key={item.key} pos={postPos}>
+            {arrayloop(item, postPos)}
+          </TreeNode>
+        );
+      });
     } else {
       return '';
     }
@@ -164,11 +170,8 @@ const SidebarRcTree = (props: { treeItem?: any }) => {
                 className="myCls"
                 showLine
                 checkable={false}
-                defaultExpandAll
-                defaultExpandedKeys={defaultExpandedKeys}
+                onSelect={onSelect}
                 onExpand={onExpand}
-                defaultSelectedKeys={defaultSelectedKeys}
-                defaultCheckedKeys={defaultCheckedKeys}
                 onActiveChange={key => console.log('Active:', key)}
               >
                 {treeItem ? (
@@ -176,8 +179,9 @@ const SidebarRcTree = (props: { treeItem?: any }) => {
                     className="sub_rc_parentNode"
                     title={treeItem.title}
                     key={treeItem.key}
+                    pos="0"
                   >
-                    {treeItem ? arrayloop(treeItem) : ''}
+                    {treeItem ? arrayloop(treeItem, treeItem.key) : ''}
                   </TreeNode>
                 ) : (
                   ''
@@ -196,6 +200,7 @@ const SidebarRcTree = (props: { treeItem?: any }) => {
             <Button
               variant="contained"
               className="sub_btn_primary_fill_common sub_btn_footer_save"
+              onClick={onEdit}
             >
               그룹 등록
             </Button>
