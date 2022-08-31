@@ -185,7 +185,6 @@ const Items = () => {
                     ? 'sub_items_filter2_card'
                     : 'sub_items_filter2_card active'
                 }
-                sx={{ marginBottom: '20px' }}
               >
                 <CardContent className="sub_items_filter2_container">
                   <Box component="div" className="sub_items_filter2_content">
@@ -216,7 +215,11 @@ const Items = () => {
                         상세검색
                         <Box
                           component="img"
-                          src="/btn_dropdown.png"
+                          src={
+                            filterDropdown
+                              ? '/btn_dropdown.png'
+                              : '/btn_dropdown.png'
+                          }
                           sx={{ marginLeft: '5px' }}
                         ></Box>
                       </Button>
@@ -234,38 +237,38 @@ const Items = () => {
                       </Button>
                     </Box>
                   </Box>
-                  <Box
-                    component="div"
-                    className="sub_listpage_filter_dropdown_section"
-                  >
-                    <Box
-                      component="div"
-                      className="sub_listpage_filter_dropdown_row"
-                    >
-                      <Box className="sub_filter_dropdown_lbl" component="span">
-                        아이템 상태
-                      </Box>
-                      <FormGroup className="sub_filter_dropdown_chk_outer">
-                        <FormControlLabel control={<Checkbox />} label="전체" />
-                      </FormGroup>
-                      <FormGroup className="sub_filter_dropdown_chk_outer">
-                        <FormControlLabel
-                          control={<Checkbox />}
-                          label="사용가능"
-                        />
-                      </FormGroup>
-                      <FormGroup className="sub_filter_dropdown_chk_outer">
-                        <FormControlLabel
-                          control={<Checkbox />}
-                          label="사용불가"
-                        />
-                      </FormGroup>
-                    </Box>
-                  </Box>
                 </CardContent>
               </Card>
+              <Card
+                className={
+                  filterDropdown
+                    ? 'sub_listpage_filter_dropdown_section'
+                    : 'sub_listpage_filter_dropdown_section active'
+                }
+              >
+                <Box
+                  component="div"
+                  className="sub_listpage_filter_dropdown_row"
+                >
+                  <Box className="sub_filter_dropdown_lbl" component="span">
+                    아이템 상태
+                  </Box>
+                  <FormGroup className="sub_filter_dropdown_chk_outer">
+                    <FormControlLabel control={<Checkbox />} label="전체" />
+                  </FormGroup>
+                  <FormGroup className="sub_filter_dropdown_chk_outer">
+                    <FormControlLabel control={<Checkbox />} label="사용가능" />
+                  </FormGroup>
+                  <FormGroup className="sub_filter_dropdown_chk_outer">
+                    <FormControlLabel control={<Checkbox />} label="사용불가" />
+                  </FormGroup>
+                </Box>
+              </Card>
 
-              <Card className="sub_tbl_section_common">
+              <Card
+                className="sub_tbl_section_common"
+                sx={{ marginTop: '20px' }}
+              >
                 <CardHeader
                   className="sub_tbl_header_outer_common"
                   component="div"

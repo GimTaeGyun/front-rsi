@@ -1430,13 +1430,25 @@ const css = createTheme({
             justifyContent: 'center',
           },
         },
+        '& .sub_listpage_filter_dropdown_section': {
+          display: 'none',
+          width: '1090px',
+          position: 'absolute',
+          backgroundColor: '#fff',
+          borderRadius: '0 0 4px 4px',
+          '&.active': {
+            display: 'block',
+          },
+        },
         '& .sub_items_filter2_card': {
+          position: 'relative',
           width: '1090px',
           height: '56px',
           '&.active': {
-            height: '112px',
+            borderRadius: '4px 4px 0 0',
           },
           '& .sub_items_filter2_container': {
+            position: 'relative',
             padding: '0',
           },
           '& .sub_items_filter2_content': {
