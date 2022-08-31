@@ -1,4 +1,5 @@
 import '../../../public/assets/css/fonts.css';
+import 'rc-tree/assets/index.css';
 
 import Box from '@mui/material/Box';
 import React, { ReactElement } from 'react';
@@ -22,7 +23,7 @@ const AppFrame = (props: {
   const handleToggle = () => setOpen(!open);
 
   return (
-    <Box sx={{ display: 'flex',backgroundColor:"#F4F5F7" }}>
+    <Box sx={{ display: 'flex', backgroundColor: '#F4F5F7' }}>
       <Topbar handleToggle={handleToggle} />
       <LeftMenu open={open} drawerWidth={drawerWidth} />
       <ClientArea
