@@ -201,7 +201,6 @@ const Admin = () => {
         usr_grp_id: params.id,
       })
       .then(res => {
-        console.log(res);
         if (res.data.code === '0000') {
           if (res.data.result.length == 0) {
             setCheckboxSelectedIds([]);
