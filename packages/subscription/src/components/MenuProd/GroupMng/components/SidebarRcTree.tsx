@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -68,63 +68,11 @@ const styles = {
   },
 };
 
-const treeData = [
-  {
-    key: '0-0',
-    title: 'parent 1',
-    children: [
-      {
-        key: '0-0-0',
-        title: 'parent 1-1',
-        children: [{ key: '0-0-0-0', title: 'parent 1-1-0' }],
-      },
-      {
-        key: '0-0-1',
-        title: 'parent 1-2',
-        children: [
-          { key: '0-0-1-0', title: 'parent 1-2-0', disableCheckbox: true },
-          { key: '0-0-1-1', title: 'parent 1-2-1' },
-          { key: '0-0-1-2', title: 'parent 1-2-2' },
-          { key: '0-0-1-3', title: 'parent 1-2-3' },
-          { key: '0-0-1-4', title: 'parent 1-2-4' },
-          { key: '0-0-1-5', title: 'parent 1-2-5' },
-          { key: '0-0-1-6', title: 'parent 1-2-6' },
-          { key: '0-0-1-7', title: 'parent 1-2-7' },
-          { key: '0-0-1-8', title: 'parent 1-2-8' },
-          { key: '0-0-1-9', title: 'parent 1-2-9' },
-        ],
-      },
-    ],
-  },
-];
-
-const SidebarRcTree = () => {
-  const treeRef = React.useRef<HTMLDivElement>();
-
-  const loop = (data: Array<object>) =>
-    data.map((item: any) => {
-      if (item.children && item.children.length) {
-        return (
-          <TreeNode
-            className="sub_rc_parentNode"
-            key={item.key}
-            title={item.title}
-          >
-            {loop(item.children)}
-          </TreeNode>
-        );
-      }
-      return (
-        <TreeNode
-          className="sub_rc_childNode"
-          key={item.key}
-          title={item.title}
-        />
-      );
-    });
+const SidebarRcTree = (props: { treeItem?: any }) => {
+  const { treeItem } = props;
 
   const defaultProps = {
-    keys: ['0-0-0-0'],
+    keys: ['0'],
   };
   const [selKey, setselKey] = React.useState('');
   const [defaultExpandedKeys, setdefaultExpandedKeys] = React.useState(
@@ -161,6 +109,18 @@ const SidebarRcTree = () => {
       return;
     }
     e.stopPropagation();
+  };
+
+  const arrayloop = (data: any) => {
+    if (data.childrens) {
+      return data.childrens.map((item: any) => (
+        <TreeNode title={item.title} key={item.key}>
+          {arrayloop(item)}
+        </TreeNode>
+      ));
+    } else {
+      return '';
+    }
   };
 
   return (
@@ -211,7 +171,17 @@ const SidebarRcTree = () => {
                 defaultCheckedKeys={defaultCheckedKeys}
                 onActiveChange={key => console.log('Active:', key)}
               >
-                {loop(treeData)}
+                {treeItem ? (
+                  <TreeNode
+                    className="sub_rc_parentNode"
+                    title={treeItem.title}
+                    key={treeItem.key}
+                  >
+                    {treeItem ? arrayloop(treeItem) : ''}
+                  </TreeNode>
+                ) : (
+                  ''
+                )}
               </Tree>
             </div>
           </CardContent>

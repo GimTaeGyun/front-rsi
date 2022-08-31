@@ -15,8 +15,9 @@ import {
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { axios } from '../../../utils/axios';
 import AppFrame from '../../../container/AppFrame';
 import AlertPopup from '../../Common/AlertPopup';
 import SidebarRcTree from './components/SidebarRcTree';
@@ -26,6 +27,21 @@ const Items = () => {
   // alertPopup 메시지
   const [alertPopup, setAlertPopup] = React.useState(false);
   const [filterDropdown, setFilterDropdown] = React.useState(false);
+  const [treeItem, setTreeITem] = React.useState();
+
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post(
+        '/management/manager/product/group/inquiry',
+        {
+          p_prd_grp_id: 0,
+        },
+      );
+      setTreeITem(res.data.result);
+    };
+    api();
+  }, []);
+
   const showDropdownList = () => {
     setFilterDropdown(!filterDropdown);
   };
@@ -51,7 +67,7 @@ const Items = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree />
+            <SidebarRcTree treeItem={treeItem} />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"
