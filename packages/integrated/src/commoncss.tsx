@@ -1380,6 +1380,12 @@ const css = createTheme({
         '& .sub_items_filter2_card': {
           width: '1090px',
           height: '56px',
+          '&.active': {
+            height: '112px',
+          },
+          '& .sub_items_filter2_container': {
+            padding: '0',
+          },
           '& .sub_items_filter2_content': {
             width: '100%',
             height: '56px',

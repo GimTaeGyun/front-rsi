@@ -163,23 +163,6 @@ const SidebarRcTree = () => {
     e.stopPropagation();
   };
 
-  const customLabel = (
-    <span className="cus-label">
-      <span>operations: </span>
-      <span style={{ color: 'blue' }} onClick={onEdit}>
-        Edit
-      </span>
-      &nbsp;
-      <label onClick={e => e.stopPropagation()}>
-        <input type="checkbox" /> checked
-      </label>
-      &nbsp;
-      <span style={{ color: '#EB0000' }} onClick={onDel}>
-        Delete
-      </span>
-    </span>
-  );
-
   return (
     <>
       <Box
