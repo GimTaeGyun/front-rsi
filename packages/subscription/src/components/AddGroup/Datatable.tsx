@@ -9,7 +9,7 @@ import * as React from 'react';
 
 const columns: GridColDef[] = [
   {
-    field: 'roleName',
+    field: 'role_nm',
     headerName: '역할명',
     width: 157,
     headerAlign: 'center',
@@ -20,7 +20,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
-    field: 'roleDesc',
+    field: 'role_id',
     headerName: '설명',
     width: 230,
     headerAlign: 'center',
@@ -33,18 +33,15 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  { id: 1, roleName: '슈퍼바이저', roleDesc: 'SUPERVISOR' },
-  { id: 2, roleName: '개발자', roleDesc: 'DEVELOPMENT' },
-  { id: 3, roleName: '영업담당자', roleDesc: 'SALES' },
-  { id: 4, roleName: '재무회계담당자', roleDesc: 'FINANCE' },
-  { id: 5, roleName: '통합관리자어드민', roleDesc: 'ADMIN' },
-];
-
-const DataTable = (props: { onChange: any }) => {
+interface Row {
+  id: string;
+  roleName: string;
+  roleDesc: string;
+}
+const DataTable = (props: { onChange: any; rows: Row[] }) => {
   const onSelectionChange = (values: any[]) => {
     props.onChange(
-      values.map(value => rows.find(row => row.id === value)?.roleDesc),
+      values.map(value => props.rows.find(row => row.id === value)?.roleDesc),
     );
   };
   return (
@@ -52,7 +49,7 @@ const DataTable = (props: { onChange: any }) => {
       <DataGrid
         headerHeight={45}
         rowHeight={45}
-        rows={rows}
+        rows={props.rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

@@ -26,13 +26,19 @@ const AdminLogin = () => {
   const [isRemember, setIsRemember] = React.useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['rememberId']);
   const navigate = useNavigate();
-
   const onClick = async () => {
     const params = {
       usrId: usrId,
       usrPw: cryptojs.AES.encrypt(
         usrPwd,
-        process.env.REACT_APP_SECRETKEY,
+        cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+        {
+          iv: cryptojs.enc.Utf8.parse(
+            process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+          ),
+          padding: cryptojs.pad.Pkcs7,
+          mode: cryptojs.mode.CBC,
+        },
       ).toString(),
     };
     localStorage.clear();

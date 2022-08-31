@@ -273,7 +273,7 @@ const UpdateOperatorPopup = (props: {
               }}
             >
               <MenuItem value={1}>사용</MenuItem>
-              <MenuItem value={0}>종료</MenuItem>
+              <MenuItem value={-1}>종료</MenuItem>
             </Select>
           </Box>
           <Box>
