@@ -143,6 +143,30 @@ const css = createTheme({
             },
           },
 
+          '& .sub_formText_dataGrid': {
+            maxHeight: '28px !important',
+            color: '##000000DE',
+            '& input::placeholder': { color: '#00000099' },
+            '& .MuiOutlinedInput-input': {
+              padding: '11px 10px',
+              lineHeight: 'normal',
+              fontFamily: 'NotoSansKRRegular',
+            },
+            '& 	.MuiOutlinedInput-input, .MuiInputBase-input': {
+              fontFamily: 'NotoSansKRRegular',
+              fontSize: '14px',
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                fontFamily: 'NotoSansKRRegular',
+                borderColor: '#0000001F',
+                borderWidth: '1px',
+              },
+
+              height: '28px',
+            },
+          },
+
           '& .sub_select_form_disable': {
             height: '42px',
             marginTop: '10px',
@@ -189,6 +213,31 @@ const css = createTheme({
                 borderColor: '#E50012',
                 borderWidth: '1px',
               },
+            },
+          },
+        },
+
+        '& .sub_select_forms': {
+          height: '28px',
+          fontFamily: 'NotoSansKRRagular !important',
+          fontSize: '14px',
+          fontWeight: '550',
+          '&.MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#0000001F',
+              borderWidth: '1px',
+            },
+            '&:hover fieldset': {
+              borderColor: '#0000001F',
+              borderWidth: '1px',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#0000001F',
+              borderWidth: '1px',
+            },
+            '&.Mui-error fieldset': {
+              borderColor: '#E50012',
+              borderWidth: '1px',
             },
           },
         },
