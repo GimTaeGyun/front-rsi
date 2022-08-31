@@ -287,7 +287,6 @@ const Index = () => {
               leftCallback={alertPopup.leftCallback}
             />
           ) : undefined}
-
           {/* Filter Section */}
           <Card
             className={

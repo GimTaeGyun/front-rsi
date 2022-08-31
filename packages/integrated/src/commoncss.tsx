@@ -143,6 +143,30 @@ const css = createTheme({
             },
           },
 
+          '& .sub_formText_dataGrid': {
+            maxHeight: '28px !important',
+            color: '##000000DE',
+            '& input::placeholder': { color: '#00000099' },
+            '& .MuiOutlinedInput-input': {
+              padding: '11px 10px',
+              lineHeight: 'normal',
+              fontFamily: 'NotoSansKRRegular',
+            },
+            '& 	.MuiOutlinedInput-input, .MuiInputBase-input': {
+              fontFamily: 'NotoSansKRRegular',
+              fontSize: '14px',
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                fontFamily: 'NotoSansKRRegular',
+                borderColor: '#0000001F',
+                borderWidth: '1px',
+              },
+
+              height: '28px',
+            },
+          },
+
           '& .sub_select_form_disable': {
             height: '42px',
             marginTop: '10px',
@@ -189,6 +213,31 @@ const css = createTheme({
                 borderColor: '#E50012',
                 borderWidth: '1px',
               },
+            },
+          },
+        },
+
+        '& .sub_select_forms': {
+          height: '28px',
+          fontFamily: 'NotoSansKRRagular !important',
+          fontSize: '14px',
+          fontWeight: '550',
+          '&.MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#0000001F',
+              borderWidth: '1px',
+            },
+            '&:hover fieldset': {
+              borderColor: '#0000001F',
+              borderWidth: '1px',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#0000001F',
+              borderWidth: '1px',
+            },
+            '&.Mui-error fieldset': {
+              borderColor: '#E50012',
+              borderWidth: '1px',
             },
           },
         },
@@ -1380,6 +1429,12 @@ const css = createTheme({
         '& .sub_items_filter2_card': {
           width: '1090px',
           height: '56px',
+          '&.active': {
+            height: '112px',
+          },
+          '& .sub_items_filter2_container': {
+            padding: '0',
+          },
           '& .sub_items_filter2_content': {
             width: '100%',
             height: '56px',
@@ -1442,6 +1497,73 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+        },
+        '& .rc-tree-title': {
+          fontSize: '13px ',
+          fontFamily: 'NotoSansKRMedium',
+        },
+        '& .sub_rc_parentNode .rc-tree-title': {
+          color: '#000000DE',
+          padding: '0 3px',
+        },
+        '& .sub_rc_childNode .rc-tree-title': {
+          color: '#999',
+        },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__close':
+          {
+            display: 'none',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__open':
+          {
+            display: 'none',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__docu':
+          {
+            display: 'none',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-switcher.rc-tree-switcher_open':
+          {
+            width: '24px',
+            height: '24px',
+            backgroundImage: 'url(/icon_parent.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-switcher.rc-tree-switcher_close':
+          {
+            width: '24px',
+            height: '24px',
+            backgroundImage: 'url(/icon_more.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree.rc-tree-show-line .rc-tree-treenode:not(:last-child) > .rc-tree-switcher-noop':
+          {
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree.rc-tree-show-line .rc-tree-treenode:last-child > .rc-tree-switcher-noop':
+          {
+            backgroundPosition: 'center',
+          },
+        '& .rc-tree .rc-tree-treenode span.rc-tree-switcher.rc-tree-switcher-noop':
+          {
+            width: '24px',
+            height: '24px',
+            backgroundImage: 'url(/icon_more_disabled.png)',
+            backgroundRepeat: 'no-repeat',
+          },
+        '& .rc-tree-node-selected': {
+          backgroundColor: '#284AD51F',
+          boxShadow: 'unset',
+          opacity: '1',
+        },
+        '& .rc-tree .rc-tree-treenode': {
+          lineHeight: '22px',
+          paddingLeft: '5px',
+          paddingRight: '5px',
+        },
+        '& .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper': {
+          height: '22px',
         },
       },
     },
