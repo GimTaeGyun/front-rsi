@@ -14,18 +14,18 @@ const menuLink = [
   '###', // 0 root
   '/admin/common', // 1 공통관리
   '/admin/ccp', // 2 고객/계약/결제 관리
-  '###', // 3 상품관리
+  '/admin/prod', // 3 상품관리
   '/admin/common/admin', // 4 운영자 관리
-  '###', // 5 서비스 관리
-  '###', // 6 매체 관리
-  '###', // 7 공지사항 관리
-  '###', // 8 약관 관리
+  '/admin/common/service', // 5 서비스 관리
+  '/admin/common/media', // 6 매체 관리
+  '/admin/common/notice', // 7 공지사항 관리
+  '/admin/common/terms', // 8 약관 관리
   '/admin/ccp/customer', // 9 고객 관리
-  '###', // 10 계약 관리
-  '###', // 11 결제 관리
-  '###', // 12 상품 그룹 관리
-  '###', // 13 옵션 관리
-  '###', // 14 상품 관리
+  '/admin/ccp/contract', // 10 계약 관리
+  '/admin/ccp/pay', // 11 결제 관리
+  '/admin/prod/itemgrp', // 12 상품 그룹 관리
+  '/admin/prod/option', // 13 옵션 관리
+  '/admin/prod/prod', // 14 상품 관리
   '###', // 15 운영자 그룹
   '###', // 16 운영자
   '###', // 17 매체그룹
