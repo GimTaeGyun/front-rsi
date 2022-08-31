@@ -40,9 +40,7 @@ interface Row {
 }
 const DataTable = (props: { onChange: any; rows: Row[] }) => {
   const onSelectionChange = (values: any[]) => {
-    props.onChange(
-      values.map(value => props.rows.find(row => row.id === value)?.roleDesc),
-    );
+    props.onChange(values);
   };
   return (
     <div style={{ height: '273px', width: '100%' }}>

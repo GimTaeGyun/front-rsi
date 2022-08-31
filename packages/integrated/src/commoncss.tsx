@@ -283,6 +283,10 @@ const css = createTheme({
           borderRadius: 'unset !important',
           borderLeftWidth: '0 !important',
           borderRightWidth: '0 !important',
+          '& .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator':
+            {
+              display: 'none',
+            },
           '& .MuiCheckbox-root.Mui-checked': {
             color: '#284AD5 !important',
           },

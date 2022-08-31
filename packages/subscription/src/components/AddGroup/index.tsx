@@ -26,7 +26,7 @@ const defaultValue = {
 const AddGroup = (props: {
   title: string;
   treeItem?: ITreeItem;
-  handleClose: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  handleClose: any;
 }) => {
   const { title, treeItem, handleClose } = props;
   const [formData, setFormData] = React.useState(
@@ -88,6 +88,7 @@ const AddGroup = (props: {
       .then(res => {
         if (res.data.code === '0000') {
           getSidebarData.refresh();
+          handleClose();
           setAlertPopupData({
             visible: true,
             message:
@@ -104,7 +105,16 @@ const AddGroup = (props: {
         }
       })
       .catch(err => {
-        handleClose(err);
+        setAlertPopupData({
+          visible: true,
+          message: '일시적인 오류가 발생하였습니다.',
+          leftCallback: () => {
+            setAlertPopupData({ ...alertPopupData, visible: false });
+          },
+          rightCallback: () => {},
+          leftText: '확인',
+          rightText: '',
+        });
       });
   };
 
@@ -140,8 +150,9 @@ const AddGroup = (props: {
     }
   };
 
-  const onRowsSelect = (values: any) =>
+  const onRowsSelect = (values: any) => {
     setFormData({ ...formData, usrRoleId: values });
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
