@@ -105,6 +105,7 @@ const AddGroup = (props: {
         }
       })
       .catch(err => {
+        console.log(err);
         setAlertPopupData({
           visible: true,
           message: '일시적인 오류가 발생하였습니다.',
