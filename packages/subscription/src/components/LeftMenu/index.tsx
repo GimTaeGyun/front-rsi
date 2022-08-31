@@ -26,7 +26,7 @@ const menuLink = [
   '/admin/prod/itemgrp', // 12 상품 그룹 관리
   '/admin/prod/option', // 13 옵션 관리
   '/admin/prod/prod', // 14 상품 관리
-  '###', // 15 운영자 그룹
+  '/admin/prod/allprod', // 15 운영자 그룹
   '###', // 16 운영자
   '###', // 17 매체그룹
   '###', // 18 매체

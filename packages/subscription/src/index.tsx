@@ -18,6 +18,7 @@ import PayMenu from './components/MenuCCP/pay';
 import GroupMngMenu from './components/MenuProd/GroupMng';
 import OptionMenu from './components/MenuProd/option';
 import ProdMenu from './components/MenuProd/prod';
+import AllProdMenu from './components/MenuProd/allprod';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -49,6 +50,7 @@ const Subscription = () => {
         <Route path="itemgrp" element={<GroupMngMenu />}></Route>
         <Route path="option" element={<OptionMenu />}></Route>
         <Route path="prod" element={<ProdMenu />}></Route>
+        <Route path="allprod" element={<AllProdMenu />}></Route>
       </Route>
     </Routes>
   );
