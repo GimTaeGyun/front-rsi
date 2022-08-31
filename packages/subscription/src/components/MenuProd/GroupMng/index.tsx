@@ -14,8 +14,8 @@ import {
 import { useAtom } from 'jotai';
 import React from 'react';
 
-import AppFrame from '../../container/AppFrame';
-import AlertPopup from '../Common/AlertPopup';
+import AppFrame from '../../../container/AppFrame';
+import AlertPopup from '../../Common/AlertPopup';
 import SidebarRcTree from './components/SidebarRcTree';
 import DatatableItems from './components/DatatableItems';
 

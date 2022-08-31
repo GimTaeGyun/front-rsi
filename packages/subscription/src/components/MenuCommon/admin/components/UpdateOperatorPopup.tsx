@@ -18,10 +18,10 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { isConstructorDeclaration } from 'typescript';
 import * as Yup from 'yup';
-import { AlertPopupData } from '../../../data/atoms';
+import { AlertPopupData } from '../../../../data/atoms';
 
-import { axios } from '../../../utils/axios';
-import AlertPopup from '../../Common/AlertPopup';
+import { axios } from '../../../../utils/axios';
+import AlertPopup from '../../../Common/AlertPopup';
 
 const MenuItem = styled(MuiMenuItem)({
   '&:hover': {
