@@ -1,3 +1,4 @@
+import { ItemTypes } from '@minoru/react-dnd-treeview';
 import {
   Box,
   Button,
@@ -8,7 +9,7 @@ import {
   Divider,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AlertPopupData, GetSidebarData } from '../../data/atoms';
 import { axios } from '../../utils/axios';
@@ -44,6 +45,21 @@ const AddGroup = (props: {
   const [submitted, setSubmitted] = React.useState(false);
   const [alertPopupData, setAlertPopupData] = useAtom(AlertPopupData);
   const [getSidebarData] = useAtom(GetSidebarData);
+  const [groupList, setGroupList] = useState([]);
+
+  // 초기화
+  useEffect(() => {
+    axios
+      .post('/management/subscription/admin/usergroup/role')
+      .then(res => {
+        let list = res.data.result.map((item: any) => {
+          item.id = item.role_id;
+          return item;
+        });
+        setGroupList(list);
+      })
+      .catch(e => console.log(e));
+  }, []);
 
   const addGroup = () => {
     setSubmitted(true);
@@ -219,7 +235,7 @@ const AddGroup = (props: {
                 <Box component="span" sx={styles.req_field}></Box>
               </InputLabel>
               <Box component="div" sx={{ position: 'relative' }}>
-                <DataTable onChange={onRowsSelect} />
+                <DataTable rows={groupList} onChange={onRowsSelect} />
               </Box>
             </Box>
           </Box>

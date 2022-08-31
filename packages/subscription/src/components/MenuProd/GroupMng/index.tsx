@@ -4,7 +4,10 @@ import {
   Card,
   CardHeader,
   CardContent,
+  Checkbox,
   Divider,
+  FormControlLabel,
+  FormGroup,
   Grid,
   MenuItem,
   OutlinedInput,
@@ -22,7 +25,10 @@ import DatatableItems from './components/DatatableItems';
 const Items = () => {
   // alertPopup 메시지
   const [alertPopup, setAlertPopup] = React.useState(false);
-
+  const [filterDropdown, setFilterDropdown] = React.useState(false);
+  const showDropdownList = () => {
+    setFilterDropdown(!filterDropdown);
+  };
   return (
     <>
       <AppFrame
@@ -158,49 +164,87 @@ const Items = () => {
               </Card>
 
               <Card
-                className="sub_items_filter2_card"
+                className={
+                  filterDropdown
+                    ? 'sub_items_filter2_card'
+                    : 'sub_items_filter2_card active'
+                }
                 sx={{ marginBottom: '20px' }}
               >
-                <CardContent className="sub_items_filter2_content">
-                  <Box className="sub_items_filter2_left">
-                    <Box component="div" className="sub_items_filter_label">
-                      검색어 입력{' '}
+                <CardContent className="sub_items_filter2_container">
+                  <Box component="div" className="sub_items_filter2_content">
+                    <Box className="sub_items_filter2_left">
+                      <Box component="div" className="sub_items_filter_label">
+                        검색어 입력{' '}
+                      </Box>
+                      <Select
+                        fullWidth={false}
+                        value="전체"
+                        className="sub_select_common sub_items_filter_list1"
+                      >
+                        <MenuItem value="전체">전체</MenuItem>
+                      </Select>
+                      <OutlinedInput
+                        fullWidth={false}
+                        placeholder=""
+                        value="검색어 입력"
+                        className="sub_input_common sub_items_filter_search"
+                      />
                     </Box>
-                    <Select
-                      fullWidth={false}
-                      value="전체"
-                      className="sub_select_common sub_items_filter_list1"
-                    >
-                      <MenuItem value="전체">전체</MenuItem>
-                    </Select>
-                    <OutlinedInput
-                      fullWidth={false}
-                      placeholder=""
-                      value="검색어 입력"
-                      className="sub_input_common sub_items_filter_search"
-                    />
+                    <Box className="sub_items_filter2_right">
+                      <Button
+                        variant="text"
+                        className="sub_items_btn_dropdown"
+                        onClick={showDropdownList}
+                      >
+                        상세검색
+                        <Box
+                          component="img"
+                          src="/btn_dropdown.png"
+                          sx={{ marginLeft: '5px' }}
+                        ></Box>
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        className="sub_btn_primary_outline_common sub_items_btn_init"
+                      >
+                        초기화
+                      </Button>
+                      <Button
+                        variant="contained"
+                        className="sub_btn_primary_fill_common sub_items_btn_search"
+                      >
+                        검색하기
+                      </Button>
+                    </Box>
                   </Box>
-                  <Box className="sub_items_filter2_right">
-                    <Button variant="text" className="sub_items_btn_dropdown">
-                      상세검색
-                      <Box
-                        component="img"
-                        src="/btn_dropdown.png"
-                        sx={{ marginLeft: '5px' }}
-                      ></Box>
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      className="sub_btn_primary_outline_common sub_items_btn_init"
+                  <Box
+                    component="div"
+                    className="sub_listpage_filter_dropdown_section"
+                  >
+                    <Box
+                      component="div"
+                      className="sub_listpage_filter_dropdown_row"
                     >
-                      초기화
-                    </Button>
-                    <Button
-                      variant="contained"
-                      className="sub_btn_primary_fill_common sub_items_btn_search"
-                    >
-                      검색하기
-                    </Button>
+                      <Box className="sub_filter_dropdown_lbl" component="span">
+                        아이템 상태
+                      </Box>
+                      <FormGroup className="sub_filter_dropdown_chk_outer">
+                        <FormControlLabel control={<Checkbox />} label="전체" />
+                      </FormGroup>
+                      <FormGroup className="sub_filter_dropdown_chk_outer">
+                        <FormControlLabel
+                          control={<Checkbox />}
+                          label="사용가능"
+                        />
+                      </FormGroup>
+                      <FormGroup className="sub_filter_dropdown_chk_outer">
+                        <FormControlLabel
+                          control={<Checkbox />}
+                          label="사용불가"
+                        />
+                      </FormGroup>
+                    </Box>
                   </Box>
                 </CardContent>
               </Card>
