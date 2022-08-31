@@ -1,6 +1,6 @@
 import { Box, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
@@ -14,12 +14,24 @@ import {
   MenuItem,
   Button,
   Typography,
+  TablePagination,
 } from '@mui/material';
-import DataTable from './components/Datatable';
+import DataTable from '../../Common/Datatable';
 import MyDatePicker from '../../Common/MyDatePicker';
 import { useGridApiRef } from '@mui/x-data-grid-pro';
+import coldef from './components/CustColDef';
+import TableFooter from './components/TableFooter';
 let defaultSearchParam = {};
+const pageReducer = (state: any, action: any) => {
+  switch (action.type) {
+    case 'pageNo':
+      return action.value;
+    case 'pageSize':
+      return action.value;
+  }
 
+  return state;
+};
 const Index = () => {
   // alertPopup object
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -27,8 +39,8 @@ const Index = () => {
   const [keyword, setKeyword] = useState('');
   const [dateFrom, setDateFrom] = useState('1990-01-01');
   const [dateTo, setDateTo] = useState('2099-12-31');
-  const [pageSize, setPageSize] = useState(10);
-  const [pageNo, setPageNo] = useState(1);
+  const [pageSize, dispatchPageSize] = useReducer(pageReducer, 10);
+  const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1);
   const [sortField, setSortField] = useState('custId');
   const [order, setOrder] = useState('asc');
   const [filterDropdown, setFilterDropdown] = useState(false);
@@ -188,7 +200,7 @@ const Index = () => {
     };
     if (!page) {
       param.pageNo = 1;
-      setPageNo(1);
+      dispatchPageNo({ type: 'pageNo', value: 1 });
     }
     param.custTp = userCategory.codeSetItems.map((item: any) => {
       if (item.checked) return parseInt(item.value);
@@ -498,9 +510,17 @@ const Index = () => {
               total={total}
               page={pageNo}
               apiRef={dataGridApiRef}
-              pageChanged={(e: number) => setPageNo(e + 1)}
-              rowsChanged={(e: number) => setPageSize(e)}
               sortModelChanged={sortModelChanged}
+              coldef={coldef}
+              footer={() => (
+                <TableFooter
+                  total={total}
+                  pageNo={pageNo}
+                  dispatchPageNo={dispatchPageNo}
+                  pageSize={pageSize}
+                  dispatchPageSize={dispatchPageSize}
+                />
+              )}
             />
           </Card>
         </>
