@@ -12,7 +12,7 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
-var cryptojs = require('crypto-js');
+import cryptojs from 'crypto-js';
 
 const defaultOperPopupData = {
   action: 'add',
