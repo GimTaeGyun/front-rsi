@@ -1,7 +1,7 @@
 import { Box, Divider } from '@mui/material';
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import React from 'react';
-const Info = (props: { title: String; children: any }) => {
+const Info = (props: { title: string; children: any }) => {
   return (
     <>
       <Card className="sub_card_common sub_card_form"

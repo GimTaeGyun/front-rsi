@@ -1,16 +1,17 @@
-import { axios } from '../../../../utils/axios';
+import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
-import UserInfo from './UserInfo';
-import PersonalInfo from './PersonalInfo';
+import { useLocation, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { customerData,DefaultAlertPopupData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
+import AlertPopup from '../../../Common/AlertPopup';
+import PwResetPopup from '../../../Common/PwResetPopup';
 import CompInfo from './CompInfo';
 import CompMngInfo from './CompMngInfo';
-import { useAtom } from 'jotai';
-import PwResetPopup from '../../../Common/PwResetPopup';
-import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
-import AlertPopup from '../../../Common/AlertPopup';
-import * as Yup from 'yup';
+import PersonalInfo from './PersonalInfo';
 import SubmitButton from './SubmitButton';
-import { useLocation, useNavigate } from 'react-router-dom';
+import UserInfo from './UserInfo';
 
 const validator = Yup.object().shape({
   usrPw: Yup.string()
@@ -142,7 +143,7 @@ const TabContent1 = () => {
   }, []);
 
   const pwOkCallback = async (value: any) => {
-    let valid = await validator.isValid({ usrPw: value });
+    const valid = await validator.isValid({ usrPw: value });
     if (valid) {
       axios
         .post('/management/manager/customer/custpw/update', {

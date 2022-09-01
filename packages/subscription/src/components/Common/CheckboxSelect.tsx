@@ -1,10 +1,10 @@
-import * as React from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import * as React from 'react';
 
 const CheckboxSelect = (props:{names:Array<string>,value:string[],width:number,margin:string,onChangeHandler:Function}) => {
   const [itemName, setItemName] = React.useState<string[]>(props.value);

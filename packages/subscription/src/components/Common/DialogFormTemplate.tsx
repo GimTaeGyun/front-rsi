@@ -1,13 +1,13 @@
-import React from 'react';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import {
   Box,
-  IconButton,
   Dialog,
   DialogContent,
   DialogTitle,
+  IconButton,
   Typography,
 } from '@mui/material';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import React from 'react';
 
 const DialogFormTemplate = (props: {
   open: boolean;

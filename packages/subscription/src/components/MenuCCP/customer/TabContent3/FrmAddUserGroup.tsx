@@ -1,5 +1,3 @@
-import React from 'react';
-import { useAtom } from 'jotai';
 import {
   Box,
   Button,
@@ -8,11 +6,14 @@ import {
   Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import DialogFormTemplate from '../../../Common/DialogFormTemplate';
+import { useAtom } from 'jotai';
+import React from 'react';
 import * as Yup from 'yup';
+
+import { customerData,DefaultAlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import AlertPopup from '../../../Common/AlertPopup';
-import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
+import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const validationSchema = Yup.object().shape({
   custGrpNm: Yup.string().required(),
@@ -249,7 +250,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                           popupData.custGrpNm,
                         )),
                     });
-                    let tmp = alertPopup;
+                    const tmp = alertPopup;
                     tmp.leftCallback = () => {
                       setAlertPopup({
                         ...tmp,

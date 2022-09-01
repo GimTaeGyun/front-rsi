@@ -12,12 +12,13 @@ import {
   FormGroup,
   TextField,
 } from '@mui/material';
+import cryptojs from 'crypto-js';
 import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import { Axios } from '../../utils/axios';
+
 import Image from '../../../public/assets/images/admin_bkg.png';
-import cryptojs from 'crypto-js';
+import { Axios } from '../../utils/axios';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');

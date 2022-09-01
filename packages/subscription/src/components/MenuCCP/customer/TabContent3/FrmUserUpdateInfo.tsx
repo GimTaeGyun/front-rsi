@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -6,12 +5,14 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  Typography,
   TextField,
+  Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import DialogFormTemplate from '../../../Common/DialogFormTemplate';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
+
+import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const validationSchema = Yup.object().shape({
   loginId: Yup.string()
@@ -105,7 +106,7 @@ const FrmUserUpdateInfo = (props: {
   });
 
   const submitEvent = async () => {
-    let err = error;
+    const err = error;
     // const defaultError를 사용하였음에도 값이 자꾸 바뀌어서 else를 매번 붙여서 다시 리셋해줌
     while (true) {
       // 비밀번호 길이 0

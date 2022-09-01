@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import cryptojs from 'crypto-js';
 import { useAtom } from 'jotai';
 import React, { useEffect, useMemo } from 'react';
 
@@ -12,7 +13,6 @@ import DataTable from './components/Datatable';
 import ModifySettingsPopup from './components/ModifySettingsPopup';
 import Sidebar, { ITreeItem } from './components/Sidebar';
 import UpdateOperatorPopup from './components/UpdateOperatorPopup';
-import cryptojs from 'crypto-js';
 
 const defaultOperPopupData = {
   action: 'add',
@@ -32,7 +32,6 @@ const Admin = () => {
   const [open, setOpen] = React.useState(false);
   const [updateOperOpen, setUpdateOperOpen] = React.useState(false);
   const [refreshSidbar] = useAtom(GetSidebarData);
-  const [refreshSelect, setRefreshSelect] = React.useState(0);
 
   const [checkboxSelectedIds, setCheckboxSelectedIds] = React.useState([]);
 
@@ -60,6 +59,9 @@ const Admin = () => {
   const [operPopupData, setOperPopupData] =
     React.useState(defaultOperPopupData);
 
+  useEffect(() => {
+    console.log(addGroupOpen);
+  }, [addGroupOpen]);
   // 운영자 추가 팝업 저장 버튼 클릭이벤트
   const operPopupSaveBtn = () => {
     if (!isCheckedId) {
@@ -71,7 +73,7 @@ const Admin = () => {
         message: '사용할 수 없는 아이디입니다.',
       });
     } else {
-      let tmpParam = operPopupData;
+      const tmpParam = operPopupData;
       (tmpParam.usrPw = cryptojs.AES.encrypt(
         tmpParam.usrPw,
         cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
@@ -238,7 +240,9 @@ const Admin = () => {
           setCheckboxSelectedIds([]);
         }
       })
-      .catch(() => {});
+      .catch(e => {
+        console.log(e);
+      });
     return;
   };
 
@@ -401,10 +405,6 @@ const Admin = () => {
       });
   };
 
-  const setAddGroup = (data: any) => {
-    setAddGroupOpen(data);
-  };
-
   return (
     <>
       <AppFrame
@@ -477,6 +477,7 @@ const Admin = () => {
           {/* 그룹 추가 팝업 */}
           {addGroupOpen && (
             <AddGroup
+              open={addGroupOpen}
               title={addGroupTitle}
               treeItem={adminGroupData}
               handleClose={() => setAddGroupOpen(false)}

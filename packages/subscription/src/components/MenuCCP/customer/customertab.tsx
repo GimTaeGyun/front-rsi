@@ -1,18 +1,17 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import { customerData } from '../../../data/atoms';
+import AlertPopup from '../../Common/AlertPopup';
 import TabContent1 from '../customer/TabContent1';
 import TabContent2 from '../customer/TabContent2';
 import TabContent3 from '../customer/TabContent3';
 import TabContent4 from '../customer/TabContent4';
-import AlertPopup from '../../Common/AlertPopup';
-
 import TabButton from './components/TopButton';
-import { useLocation } from 'react-router-dom';
 
 const CustomerTabData = [
   {

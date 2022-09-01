@@ -1,9 +1,10 @@
 import { Box, Divider, MenuItem } from '@mui/material';
-import { Button, Select, Grid, OutlinedInput } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Button, Grid, OutlinedInput,Select } from '@mui/material';
 import MuiFormLabel from '@mui/material/FormLabel';
-import CardTemplate from './CardTemplate';
 import moment from 'moment';
+import React, { useEffect } from 'react';
+
+import CardTemplate from './CardTemplate';
 
 const Info = (props: { buttonCallback?: Function; userData: any }) => {
   const { buttonCallback = () => {}, userData } = props;

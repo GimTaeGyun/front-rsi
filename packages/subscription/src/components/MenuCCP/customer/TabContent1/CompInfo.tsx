@@ -1,19 +1,20 @@
 import {
-  Button,
-  Select,
-  MenuItem,
-  Grid,
-  OutlinedInput,
-  Input,
   Box,
+  Button,
   Divider,
+  Grid,
+  Input,
+  MenuItem,
+  OutlinedInput,
+  Select,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import CardTemplate from './CardTemplate';
-import { axios } from '../../../../utils/axios';
 
-declare var daum: any;
+import { axios } from '../../../../utils/axios';
+import CardTemplate from './CardTemplate';
+
+declare let daum: any;
 const CompInfo = (props: { compChange: Function; userData: any }) => {
   const { userData } = props;
   const [cpyNm, setCpyNm] = useState(userData.cpyNm);
@@ -79,7 +80,7 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
 
   const licenseChanged = (value: any) => {
     if (value.target.files.length == 0) return;
-    let formdata = new FormData();
+    const formdata = new FormData();
     formdata.append('multipartFiles', value.target.files[0]);
     formdata.append('custId', userData.custId);
     formdata.append('overwrite', '1');

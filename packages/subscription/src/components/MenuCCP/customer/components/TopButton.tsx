@@ -1,12 +1,12 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import TabList from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+import { Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Tab from '@mui/material/Tab';
+import TabList from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import * as React from 'react';
 import { number } from 'yup/lib/locale';
-import { Divider } from '@mui/material';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -7,12 +6,14 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import { axios } from '../../../../utils/axios';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import FrmAddUserGroup from './FrmAddUserGroup';
-import AlertPopup from '../../../Common/AlertPopup';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { DefaultAlertPopupData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
+import AlertPopup from '../../../Common/AlertPopup';
+import FrmAddUserGroup from './FrmAddUserGroup';
 import FrmUserInfo from './FrmUserAddInfo';
 import FrmUserUpdateInfo from './FrmUserUpdateInfo';
 
@@ -184,7 +185,7 @@ const TabContent3 = () => {
           setAlertPopupData({ ...alertPopupData, visible: false });
         },
         leftCallback: () => {
-          let popupData = alertPopupData;
+          const popupData = alertPopupData;
           setAlertPopupData({ ...alertPopupData, visible: false });
           axios
             .post('/management/subscription/customer/user/delete', {

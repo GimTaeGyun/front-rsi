@@ -1,27 +1,28 @@
-import { Box, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { Box, Checkbox, FormControlLabel,FormGroup } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardHeader,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TablePagination,
+  Typography,
+} from '@mui/material';
+import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
 import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-import {
-  Card,
-  CardHeader,
-  OutlinedInput,
-  Select,
-  MenuItem,
-  Button,
-  Typography,
-  TablePagination,
-} from '@mui/material';
 import DataTable from '../../Common/Datatable';
 import MyDatePicker from '../../Common/MyDatePicker';
-import { useGridApiRef } from '@mui/x-data-grid-pro';
 import coldef from './components/CustColDef';
 import TableFooter from './components/TableFooter';
-let defaultSearchParam = {};
+const defaultSearchParam = {};
 const pageReducer = (state: any, action: any) => {
   switch (action.type) {
     case 'pageNo':
@@ -173,7 +174,7 @@ const Index = () => {
   };
 
   const dateChanged = (e: Date, type: string) => {
-    let date = e
+    const date = e
       ? e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate()
       : '';
     switch (type) {
@@ -186,7 +187,7 @@ const Index = () => {
     }
   };
   const searchClickEvent = (page: boolean | undefined | null) => {
-    let param = {
+    const param = {
       custTp: [],
       joinedDtFrom: dateFrom,
       joinedDtTo: dateTo,

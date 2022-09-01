@@ -1,25 +1,23 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import AdminLogin from './container/Login';
-
-import AdminMenu from './components/MenuCommon/admin';
-// 공통관리 메뉴
-import ServiceMenu from './components/MenuCommon/service';
-import MediaMenu from './components/MenuCommon/media';
-import NoticeMenu from './components/MenuCommon/notice';
-import TermsMenu from './components/MenuCommon/terms';
+import ContractMenu from './components/MenuCCP/contract';
+import CustomerMenu from './components/MenuCCP/customer';
 //고객/계약/결제 관리 메뉴
 import CustomerTab from './components/MenuCCP/customer/customertab';
-import CustomerMenu from './components/MenuCCP/customer';
-import ContractMenu from './components/MenuCCP/contract';
 import PayMenu from './components/MenuCCP/pay';
+import AdminMenu from './components/MenuCommon/admin';
+import MediaMenu from './components/MenuCommon/media';
+import NoticeMenu from './components/MenuCommon/notice';
+// 공통관리 메뉴
+import ServiceMenu from './components/MenuCommon/service';
+import TermsMenu from './components/MenuCommon/terms';
+import AllProdMenu from './components/MenuProd/allprod';
 //상품관리 메뉴
 import GroupMngMenu from './components/MenuProd/GroupMng';
 import OptionMenu from './components/MenuProd/option';
 import ProdMenu from './components/MenuProd/prod';
-import AllProdMenu from './components/MenuProd/allprod';
-
+import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
 
 export { default as Header } from './Header';
