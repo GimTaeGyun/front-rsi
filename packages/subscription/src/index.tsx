@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import AdminLogin from './container/Login';
 
-import AdminMenu from './components/MenuCommon/admin';
+import Admin from './components/MenuCommon/admin';
 // 공통관리 메뉴
 import ServiceMenu from './components/MenuCommon/service';
 import MediaMenu from './components/MenuCommon/media';
@@ -32,7 +32,7 @@ const Subscription = () => {
     <Routes>
       <Route path="/admin/login" element={<AdminLogin />}></Route>
       <Route path="/admin/common">
-        <Route path="admin" element={<AdminMenu />}></Route>
+        <Route path="admin" element={<Admin />}></Route>
         <Route path="service" element={<ServiceMenu />}></Route>
         <Route path="media" element={<MediaMenu />}></Route>
         <Route path="notice" element={<NoticeMenu />}></Route>

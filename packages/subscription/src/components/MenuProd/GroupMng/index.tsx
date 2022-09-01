@@ -13,24 +13,98 @@ import {
   OutlinedInput,
   Select,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect } from 'react';
-
+import * as Yup from 'yup';
 import AppFrame from '../../../container/AppFrame';
 import AlertPopup from '../../Common/AlertPopup';
 import SidebarRcTree from './components/SidebarRcTree';
 import DatatableItems from './components/DatatableItems';
+import { axios } from '../../../utils/axios';
+import { AlertPopupData } from '../../../data/atoms';
+
+const validationSchema = Yup.object().shape({
+  prdGrpNm: Yup.string().nullable(false).required(),
+  itemTp: Yup.string().nullable(false).required(),
+});
+
+const defaultFormValidation = {
+  prdGrpNm: false,
+  itemTp: false,
+};
+
+const validationMsg = {
+  prdGrpNm: '그룹명을 입력해 주세요',
+  itemTp: '유형을 선택해 주세요',
+};
 
 const Items = () => {
-  // alertPopup 메시지
-  const [alertPopup, setAlertPopup] = React.useState(false);
   const [filterDropdown, setFilterDropdown] = React.useState(false);
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const [selectGroupKey, setSelectGroupKey] = React.useState();
+  const [status, setStatus] = React.useState(1);
+  const [itemTp, setItemTp] = React.useState('');
+  const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
+  const [dataValid, setDataValid] = React.useState(defaultFormValidation);
+  const [isPost, setIsPost] = React.useState(false);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
-  const onSaveDir = async () => {};
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
+
+  const saveGrp = async () => {
+    const valid = {
+      prdGrpNm: !(await validationSchema.fields.prdGrpNm.isValid(prdGrpNm)),
+      itemTp: !(await validationSchema.fields.itemTp.isValid(itemTp)),
+    };
+    setDataValid(valid);
+    const req = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: description,
+          itemTp: itemTp,
+          prdItemGrpId: '',
+          prdItemGrpNm: prdGrpNm,
+          sort: 1,
+          status: status,
+          uppPrdItemGrpId: Number(selectGroupKey),
+        },
+      ],
+      paramType: 'add',
+    };
+    if (!valid.prdGrpNm && !valid.itemTp) {
+      const res = await axios.post(
+        '/management/manager/product/item/group/update',
+        req,
+      );
+      if (res.data.code === '0000') {
+        setIsPost(true);
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+          },
+          message: '새로운 운영자 추가가 완료되었습니다.',
+          leftText: '확인',
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    setDataValid(defaultFormValidation);
+  }, [selectGroupKey]);
 
   const setuppGrp = (data: any) => {
     setSelectGroupKey(data);
@@ -49,10 +123,13 @@ const Items = () => {
         ]}
       >
         <>
-          {alertPopup ? (
+          {alertPopup.visible ? (
             <AlertPopup
-              message="아이템 그룹 삭제가 완료되었습니다."
-              buttontext="확인"
+              message={alertPopup.message}
+              buttontext={alertPopup.leftText}
+              rightButtonText={alertPopup.rightText}
+              rightCallback={alertPopup.rightCallback}
+              leftCallback={alertPopup.leftCallback}
             />
           ) : undefined}
           <Box
@@ -61,7 +138,7 @@ const Items = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree setuppGrp={setuppGrp} />
+            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"
@@ -91,13 +168,21 @@ const Items = () => {
                           </Box>
                           <OutlinedInput
                             fullWidth={false}
-                            placeholder=""
-                            value={prdGrpNm}
+                            placeholder="그룹명을 입력해 주세요."
+                            value={prdGrpNm ? prdGrpNm : ''}
                             onChange={e => {
                               setPrdGrpNm(e.target.value);
                             }}
+                            error={dataValid.prdGrpNm}
                             className="sub_input_common sub_items_filter_input"
                           />
+                          {dataValid.prdGrpNm && (
+                            <Box>
+                              <FormHelperText error id="prdGrpNm-error">
+                                {validationMsg.prdGrpNm}
+                              </FormHelperText>
+                            </Box>
+                          )}
                         </Box>
                       </Grid>
                       <Grid item xs={6} md={6} lg={6}>
@@ -111,7 +196,7 @@ const Items = () => {
                           <OutlinedInput
                             fullWidth={false}
                             placeholder="그룹 설명을 입력해 주세요."
-                            value={description}
+                            value={description ? description : ''}
                             className="sub_input_common sub_items_filter_input"
                             onChange={e => {
                               setDescription(e.target.value);
@@ -134,10 +219,14 @@ const Items = () => {
                           </Box>
                           <Select
                             fullWidth={false}
-                            value="사용가능"
+                            value={status}
                             className="sub_select_common sub_items_filter_list"
+                            onChange={e => {
+                              setStatus(e.target.value as number);
+                            }}
                           >
-                            <MenuItem value="사용가능">사용가능</MenuItem>
+                            <MenuItem value={1}>사용가능</MenuItem>
+                            <MenuItem value={2}>사용불가</MenuItem>
                           </Select>
                         </Box>
                       </Grid>
@@ -154,11 +243,23 @@ const Items = () => {
                           </Box>
                           <Select
                             fullWidth={false}
-                            value="매체"
+                            value={itemTp ? itemTp : 'SELECT'}
                             className="sub_select_common sub_items_filter_list"
+                            onChange={e => {
+                              e.target.value === 'SELECT'
+                                ? setItemTp('')
+                                : setItemTp(e.target.value);
+                            }}
+                            error={dataValid.itemTp}
                           >
-                            <MenuItem value="매체">매체</MenuItem>
+                            <MenuItem value="SELECT">선택</MenuItem>
+                            <MenuItem value="MEDIA">매체</MenuItem>
                           </Select>
+                          {dataValid.itemTp && (
+                            <FormHelperText error id="itemTp-error">
+                              {validationMsg.itemTp}
+                            </FormHelperText>
+                          )}
                         </Box>
                       </Grid>
                       <Grid item xs={12} md={12} lg={12}>
@@ -169,6 +270,7 @@ const Items = () => {
                           <Button
                             variant="contained"
                             className="sub_btn_primary_fill_common sub_btn_filter2"
+                            onClick={saveGrp}
                           >
                             저장하기
                           </Button>

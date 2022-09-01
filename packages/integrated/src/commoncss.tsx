@@ -1579,7 +1579,36 @@ const css = createTheme({
           paddingRight: '5px',
         },
         '& .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper': {
-          height: '22px',
+          height: '24px',
+        },
+
+        '& .sub_sideBarInput': {
+          minHeight: '24px !important',
+          width: '90%',
+          color: '##000000DE',
+          backgroundColor: '#284AD52E ',
+          justifyContent: 'center',
+          '& input::placeholder': {
+            color: '#00000099',
+            fontSize: '12px',
+            textAligh: 'left',
+            position: 'relative',
+            top: '-2px',
+            left: '4px',
+          },
+          '.Mui-disabled': {
+            position: 'relative',
+            padding: '0',
+            zIndex: '10',
+            height: '20px',
+            '& .MuiOutlinedInput-notchedOutline': {
+              height: '21px',
+              backgroundColor: '#fff',
+              border: '1px dashed #0000001F !important',
+              margin: '2px !important',
+              borderRadius: '2px',
+            },
+          },
         },
       },
     },

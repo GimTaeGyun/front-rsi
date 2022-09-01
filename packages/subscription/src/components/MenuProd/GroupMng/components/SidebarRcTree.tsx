@@ -7,6 +7,8 @@ import {
   CardContent,
   Divider,
   IconButton,
+  TextField,
+  OutlinedInput,
 } from '@mui/material';
 import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 import Tree, { TreeNode } from 'rc-tree';
@@ -69,9 +71,10 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: { setuppGrp: Function }) => {
+const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const [selKey, setselKey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
+  const [isClick, setIsCllick] = React.useState('1000000000');
 
   useEffect(() => {
     const api = async () => {
@@ -84,15 +87,15 @@ const SidebarRcTree = (props: { setuppGrp: Function }) => {
       setTreeITem(res.data.result);
     };
     api();
-  }, []);
+    setIsCllick('1000000000');
+  }, [props.isPost]);
 
   const onExpand = (expandedKeys: any) => {
     console.log('onExpand', expandedKeys);
   };
 
-  const onSelect = (selectedKeys: any, info: any) => {
-    setselKey(info.node.pos + '-' + selectedKeys.toString());
-    props.setuppGrp(selectedKeys);
+  const onSelect = (selectedKeys: any) => {
+    setselKey(selectedKeys[0]);
   };
 
   const onCheck = (checkedKeys: any, info: any) => {
@@ -100,13 +103,10 @@ const SidebarRcTree = (props: { setuppGrp: Function }) => {
   };
 
   const onEdit = () => {
-    console.log(selKey);
-    return (
-      <>
-        <TreeNode title=" " key="9" pos={selKey}></TreeNode>
-      </>
-    );
+    props.setuppGrp(selKey);
+    setIsCllick(selKey);
   };
+
   const onDel = (e: any) => {
     if (!window.confirm('sure to delete?')) {
       return;
@@ -120,6 +120,21 @@ const SidebarRcTree = (props: { setuppGrp: Function }) => {
         const postPos = pos + '-' + item.key;
         return (
           <TreeNode title={item.title} key={item.key} pos={postPos}>
+            {item.key === Number(isClick) ? (
+              <TreeNode
+                selectable={false}
+                title={
+                  <TextField
+                    disabled
+                    className="sub_sideBarInput"
+                    placeholder="그룹명을 입력해 주세요."
+                  />
+                }
+                key={item.key + '-' + '0'}
+              ></TreeNode>
+            ) : (
+              ''
+            )}
             {arrayloop(item, postPos)}
           </TreeNode>
         );
@@ -172,7 +187,6 @@ const SidebarRcTree = (props: { setuppGrp: Function }) => {
                 checkable={false}
                 onSelect={onSelect}
                 onExpand={onExpand}
-                onActiveChange={key => console.log('Active:', key)}
               >
                 {treeItem ? (
                   <TreeNode
@@ -181,6 +195,23 @@ const SidebarRcTree = (props: { setuppGrp: Function }) => {
                     key={treeItem.key}
                     pos="0"
                   >
+                    {treeItem.key === Number(isClick) ? (
+                      <TreeNode
+                        selectable={false}
+                        selected={true}
+                        title={
+                          <TextField
+                            disabled
+                            className="sub_sideBarInput"
+                            placeholder="그룹명을 입력해 주세요."
+                          />
+                        }
+                        key={treeItem.key + '-' + '0'}
+                      ></TreeNode>
+                    ) : (
+                      ''
+                    )}
+
                     {treeItem ? arrayloop(treeItem, treeItem.key) : ''}
                   </TreeNode>
                 ) : (
