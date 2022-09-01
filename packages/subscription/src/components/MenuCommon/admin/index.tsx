@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import cryptojs from 'crypto-js';
+var cryptojs = require('crypto-js');
 import { useAtom } from 'jotai';
 import React, { useEffect, useMemo } from 'react';
 
@@ -408,7 +408,7 @@ const Admin = () => {
   return (
     <>
       <AppFrame
-        title="운영자 관리"
+        title="운영자 관리ㄹㄹ"
         breadcrumbs={[
           { name: '공통관리', link: '/admin/common/admin' },
           { name: '운영자 관리', link: '/admin/common/admin' },
