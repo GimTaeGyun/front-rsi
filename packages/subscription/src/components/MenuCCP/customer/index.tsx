@@ -9,6 +9,7 @@ import {
   TablePagination,
   Typography,
   CardContent,
+  Divider,
 } from '@mui/material';
 import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
@@ -422,9 +423,25 @@ const Index = () => {
                 </Box>
               </Box>
             </CardContent>
+          </Card>
+          <Card
+            className={
+              filterDropdown
+                ? 'sub_listpage_filter_dropdown_section'
+                : 'sub_listpage_filter_dropdown_section active'
+            }
+            sx={{
+              width: '1470px',
+              zIndex: '1',
+            }}
+          >
             <Box
               component="div"
-              className="sub_listpage_filter_dropdown_section"
+              className="sub_listpage_filter_dropdown_row"
+              sx={{
+                height: '168px',
+                display: 'block',
+              }}
             >
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
@@ -449,6 +466,7 @@ const Index = () => {
                   </FormGroup>
                 ))}
               </Box>
+              <Divider />
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
                   {statusCategory.codeSetLabel}
@@ -472,6 +490,7 @@ const Index = () => {
                   </FormGroup>
                 ))}
               </Box>
+              <Divider />
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
                   구독현황
@@ -506,7 +525,7 @@ const Index = () => {
             </Box>
           </Card>
 
-          <Card className="sub_tbl_section_common">
+          <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
             <CardHeader
               className="sub_tbl_header_outer_common"
               component="div"
