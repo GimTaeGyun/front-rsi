@@ -36,6 +36,7 @@ const TabContent1 = () => {
 
   const compChange = (data: any) => {
     setCompData(data);
+    console.log('compChange', data);
   };
 
   const compMngChange = (data: any) => {
@@ -43,6 +44,7 @@ const TabContent1 = () => {
   };
 
   const onClickUserChange = async () => {
+    console.log('click', compData);
     let data: any = {
       action: 'mod',
       custId: sharedCustomerData.custId,
@@ -51,36 +53,35 @@ const TabContent1 = () => {
     if (personalData.custTp === 3) {
       data = {
         ...data,
-        personData: [
-          { email: personalData.email, mobile: personalData.mobile },
-        ],
+        personData: { email: personalData.email, mobile: personalData.mobile },
       };
     } else {
       data = {
         ...data,
-        corpData: [
-          {
-            address: compData.address,
-            addressDesc: compData.addressDesc,
-            bizItem: compData.bizItem,
-            ceo: compData.ceo,
-            corpRegNo: compData.corpRegNo,
-            corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
-            corpSize: compData.corpSize,
-            corpTp: compData.corpTp,
-            cpy_nm: compData.cpyNm,
-            custNm: compMngData.custNm,
-            dept: compMngData.custDept,
-            email: compMngData.email,
-            empSize: compData.empSize,
-            fax: compMngData.fax,
-            mobile: compMngData.mobile,
-            postNo: compData.postNo,
-            tel: compMngData.tel,
-          },
-        ],
+        corpData: {
+          address: compData.address,
+          addressDesc: compData.addressDesc,
+          bizItem: compData.bizItem,
+          ceo: compData.ceo,
+          corpRegNo: compData.corpRegNo,
+          corpRegPath: compData.corpRegPath ? compData.corpRegPath : '',
+          corpRegFileNm: compData.corpRegFileNm ? compData.corpRegFileNm : '',
+          licenseUpdate: compData.fileChanged ? 1 : 0,
+          corpSize: compData.corpSize,
+          corpTp: compData.corpTp,
+          cpy_nm: compData.cpyNm,
+          custNm: compMngData.custNm,
+          dept: compMngData.custDept,
+          email: compMngData.email,
+          empSize: compData.empSize,
+          fax: compMngData.fax,
+          mobile: compMngData.mobile,
+          postNo: compData.postNo,
+          tel: compMngData.tel,
+        },
       };
     }
+    console.log('procced', data);
     const response = await axios.post(
       '/management/manager/customer/cust/update',
       data,
