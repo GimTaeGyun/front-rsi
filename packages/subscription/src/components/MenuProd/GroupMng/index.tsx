@@ -96,7 +96,7 @@ const Items = () => {
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
           },
-          message: '새로운 운영자 추가가 완료되었습니다.',
+          message: '저장되었습니다.',
           leftText: '확인',
         });
       }
@@ -165,7 +165,7 @@ const Items = () => {
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"
-                sx={{ marginBottom: '20px' }}
+                sx={{ marginBottom: '20px', maxHeight: '323px' }}
               >
                 <Box>
                   <CardHeader
