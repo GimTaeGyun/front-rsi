@@ -27,7 +27,6 @@ const AddGroup = (props: {
   title: string;
   treeItem?: ITreeItem;
   handleClose: any;
-  open: boolean;
 }) => {
   const { title, treeItem, handleClose } = props;
   const [formData, setFormData] = React.useState(
@@ -175,7 +174,7 @@ const AddGroup = (props: {
       )}
       <Modal
         sx={styles.modal}
-        open={props.open}
+        open={true}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
