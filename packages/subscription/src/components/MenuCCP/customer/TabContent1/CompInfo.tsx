@@ -223,10 +223,28 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                     onClick={() => {
                       if (fileChanged) {
                       } else {
-                        window.location.href =
-                          process.env.REACT_APP_FILESERVER +
-                          corpRegPath +
-                          corpRegFileNm;
+                        axios
+                          .post(
+                            '/management/customer/file/download/license',
+                            {
+                              downloadPath: corpRegPath,
+                              fileName: corpRegFileNm,
+                            },
+                            { responseType: 'blob' },
+                          )
+                          .then(res => {
+                            const url = window.URL.createObjectURL(
+                              new Blob([res.data]),
+                            );
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.setAttribute('download', corpRegFileNm);
+                            link.style.cssText = 'display:none';
+                            document.body.appendChild(link);
+                            link.click();
+                            link.remove();
+                          })
+                          .catch(e => console.log(e));
                       }
                     }}
                   >

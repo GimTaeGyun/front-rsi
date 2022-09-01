@@ -1,4 +1,4 @@
-import { Box, Checkbox, FormControlLabel,FormGroup } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import {
   Button,
   Card,
@@ -8,10 +8,11 @@ import {
   Select,
   TablePagination,
   Typography,
+  CardContent,
 } from '@mui/material';
 import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
-import React, { useEffect, useReducer,useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AppFrame from '../../../container/AppFrame';
@@ -35,11 +36,20 @@ const pageReducer = (state: any, action: any) => {
 };
 const Index = () => {
   // alertPopup object
+  let today: any = new Date();
+  today =
+    today.getFullYear() +
+    '-' +
+    (today.getMonth() + 1 < 10
+      ? '0' + (today.getMonth() + 1)
+      : today.getMonth() + 1) +
+    '-' +
+    (today.getDate() < 10 ? '0' + today.getDate() : today.getDate());
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [searchField, setSearchField] = useState('ALL');
   const [keyword, setKeyword] = useState('');
   const [dateFrom, setDateFrom] = useState('1990-01-01');
-  const [dateTo, setDateTo] = useState('2099-12-31');
+  const [dateTo, setDateTo] = useState(today);
   const [pageSize, dispatchPageSize] = useReducer(pageReducer, 10);
   const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1);
   const [sortField, setSortField] = useState('custId');
@@ -237,7 +247,7 @@ const Index = () => {
     setSearchField('ALL');
     setKeyword('');
     setDateFrom('1990-01-01');
-    setDateTo('2099-12-31');
+    setDateTo(today);
     setUserCategory({
       ...userCategory,
       codeSetItems: userCategory.codeSetItems.map((item: any) => {
@@ -292,117 +302,126 @@ const Index = () => {
           <Card
             className={
               filterDropdown
-                ? 'sub_card_common sub_card_filter sub_card_filter_dropdown'
-                : 'sub_card_common sub_card_filter sub_card_filter_dropdown active'
+                ? 'sub_items_filter2_card'
+                : 'sub_items_filter2_card active'
             }
             sx={{ width: '1470px' }}
           >
-            <Box className="sub_listpage_filter_topsection b-0">
-              <Box className="sub_listpage_filter_topsection_sub">
-                <Box component="span" className="sub_listpage_filter_label">
-                  {(searchCategory as any).codeSetLabel}
-                </Box>
-                <Box
-                  component="span"
-                  className="sub_listpage_filter_inputgroup"
-                >
-                  <Select
-                    fullWidth={false}
-                    name="searchField"
-                    value={searchField}
-                    className="sub_select_common sub_listpage_filter_list"
-                    onChange={e => setSearchField(e.target.value)}
-                    MenuProps={{
-                      PaperProps: {
-                        className: 'sub_select_paper_little',
-                      },
-                    }}
-                  >
-                    {(searchCategory as any).codeSetItems.map((item: any) => (
-                      <MenuItem
-                        key={item.value}
-                        value={item.value}
-                        className="sub_menuitem_little"
-                      >
-                        {item.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <OutlinedInput
-                    fullWidth={false}
-                    placeholder={(searchCategory as any).codeSetLabel}
-                    name="keyword"
-                    className="sub_input_common sub_listpage_filter_search"
-                    onChange={e => setKeyword(e.target.value)}
-                    value={keyword}
-                    onKeyDown={e => {
-                      if (e.key == 'Enter') searchClickEvent(null);
-                    }}
-                  />
-                </Box>
-              </Box>
-              <Box className="sub_listpage_filter_topsection_sub">
-                <Box component="span" className="sub_listpage_filter_label">
-                  가입일
-                </Box>
-                <Box
-                  component="span"
-                  className="sub_listpage_filter_inputgroup"
-                >
-                  <MyDatePicker
-                    strId="search-date1"
-                    strClass="sub_input_common sub_listpage_filter_date"
-                    strName="search-date1"
-                    strPlaceholder="시작일"
-                    objSX={{ marginRight: '8px' }}
-                    value={dateFrom}
-                    onChange={(e: Date) => dateChanged(e, 'from')}
-                  />
-                  <MyDatePicker
-                    strId="search-date2"
-                    strClass="sub_input_common sub_listpage_filter_date"
-                    strName="search-date2"
-                    strPlaceholder="종료일"
-                    objSX={null}
-                    value={dateTo}
-                    onChange={(e: Date) => dateChanged(e, 'to')}
-                  />
-                </Box>
-              </Box>
-              <Box
-                className="sub_listpage_filter_topsection_sub last"
-                sx={{ minWidth: '500px' }}
-              >
-                <Button
-                  variant="text"
-                  className="sub_filter_btn_iconlink"
-                  onClick={showDropdownList}
-                >
-                  상세검색
+            <CardContent className="sub_items_filter2_container">
+              <Box className="sub_listpage_filter_topsection b-0">
+                <Box className="sub_listpage_filter_topsection_sub">
+                  <Box component="span" className="sub_listpage_filter_label">
+                    {(searchCategory as any).codeSetLabel}
+                  </Box>
                   <Box
-                    className="btn_add_icon"
-                    component="img"
-                    src={filterDropdown ? '/icon_add.png' : '/icon_sub.png'}
-                  ></Box>
-                </Button>
-                <Button
-                  variant="outlined"
-                  className="sub_btn_primary_outline_common sub_btn_filter1"
-                  onClick={initClickEvent}
+                    component="span"
+                    className="sub_listpage_filter_inputgroup"
+                  >
+                    <Select
+                      fullWidth={false}
+                      name="searchField"
+                      value={searchField}
+                      className="sub_select_common sub_listpage_filter_list"
+                      onChange={e => setSearchField(e.target.value)}
+                      MenuProps={{
+                        PaperProps: {
+                          className: 'sub_select_paper_little',
+                        },
+                      }}
+                    >
+                      {(searchCategory as any).codeSetItems.map((item: any) => (
+                        <MenuItem
+                          key={item.value}
+                          value={item.value}
+                          className="sub_menuitem_little"
+                        >
+                          {item.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <OutlinedInput
+                      fullWidth={false}
+                      placeholder={(searchCategory as any).codeSetLabel}
+                      name="keyword"
+                      className="sub_input_common sub_listpage_filter_search"
+                      onChange={e => setKeyword(e.target.value)}
+                      value={keyword}
+                      onKeyDown={e => {
+                        if (e.key == 'Enter') searchClickEvent(null);
+                      }}
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  className="sub_listpage_filter_topsection_sub"
+                  sx={{ paddingLeft: '0px' }}
                 >
-                  초기화
-                </Button>
-                <Button
-                  variant="contained"
-                  className="sub_btn_primary_fill_common sub_btn_filter2"
-                  sx={{ marginRight: '10px' }}
-                  onClick={() => searchClickEvent(null)}
+                  <Box
+                    component="span"
+                    className="sub_listpage_filter_label"
+                    sx={{ borderRight: '0px', width: '100px' }}
+                  >
+                    가입일
+                  </Box>
+                  <Box
+                    component="span"
+                    className="sub_listpage_filter_inputgroup"
+                    sx={{ display: 'flex' }}
+                  >
+                    <MyDatePicker
+                      strId="search-date1"
+                      strClass="sub_input_common sub_listpage_filter_date"
+                      strName="search-date1"
+                      strPlaceholder="시작일"
+                      objSX={{ marginRight: '8px' }}
+                      value={dateFrom}
+                      onChange={(e: Date) => dateChanged(e, 'from')}
+                    />
+                    <MyDatePicker
+                      strId="search-date2"
+                      strClass="sub_input_common sub_listpage_filter_date"
+                      strName="search-date2"
+                      strPlaceholder="종료일"
+                      objSX={null}
+                      value={dateTo}
+                      onChange={(e: Date) => dateChanged(e, 'to')}
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  className="sub_listpage_filter_topsection_sub last"
+                  sx={{ minWidth: '500px' }}
                 >
-                  검색하기
-                </Button>
+                  <Button
+                    variant="text"
+                    className="sub_filter_btn_iconlink"
+                    onClick={showDropdownList}
+                  >
+                    상세검색
+                    <Box
+                      className="btn_add_icon"
+                      component="img"
+                      src={filterDropdown ? '/icon_add.png' : '/icon_sub.png'}
+                    ></Box>
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    className="sub_btn_primary_outline_common sub_btn_filter1"
+                    onClick={initClickEvent}
+                  >
+                    초기화
+                  </Button>
+                  <Button
+                    variant="contained"
+                    className="sub_btn_primary_fill_common sub_btn_filter2"
+                    sx={{ marginRight: '10px' }}
+                    onClick={() => searchClickEvent(null)}
+                  >
+                    검색하기
+                  </Button>
+                </Box>
               </Box>
-            </Box>
-
+            </CardContent>
             <Box
               component="div"
               className="sub_listpage_filter_dropdown_section"

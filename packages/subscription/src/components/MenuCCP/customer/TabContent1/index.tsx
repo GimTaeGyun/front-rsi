@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { customerData,DefaultAlertPopupData } from '../../../../data/atoms';
+import { customerData, DefaultAlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import AlertPopup from '../../../Common/AlertPopup';
 import PwResetPopup from '../../../Common/PwResetPopup';
@@ -65,7 +65,7 @@ const TabContent1 = () => {
           bizItem: compData.bizItem,
           ceo: compData.ceo,
           corpRegNo: compData.corpRegNo,
-          corpRegPath: compData.corpRegPath ? compData.corpRegPath : '',
+          corpRegPath: compData.fileChanged ? '' : compData.corpRegPath,
           corpRegFileNm: compData.corpRegFileNm ? compData.corpRegFileNm : '',
           licenseUpdate: compData.fileChanged ? 1 : 0,
           corpSize: compData.corpSize,

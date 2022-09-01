@@ -53,6 +53,10 @@ const MyDatePicker = (props: {
               },
               fontFamily: 'NotoSansKRReguler',
               fontSize: '13px',
+              "& .MuiInputBase-input":{
+              paddingTop:'8px',
+              paddingBottom:'8px'
+              }
             }}
             {...params}
             onFocus={() => setActive(true)}

@@ -537,7 +537,7 @@ const css = createTheme({
         '& .sub_listpage_filter_date': {
           '& .MuiInputBase-root': {
             width: '175px',
-            height: '36px',
+            height: '25px',
           },
         },
         '& .MuiButton-root.sub_filter_btn_iconlink': {
