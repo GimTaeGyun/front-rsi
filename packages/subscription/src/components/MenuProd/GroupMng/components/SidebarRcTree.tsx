@@ -72,10 +72,19 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+const SidebarRcTree = (props: {
+  setuppGrp: Function;
+  isPost: Boolean;
+  realDel: Boolean;
+  realRM: Function;
+}) => {
   const [selKey, setselKey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
+  const [prdItemGrpId, setPrdItemGrpId] = React.useState('');
+  const [prdItemGrpNm, setPrdItemGrpNm] = React.useState('');
+  const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
+  const [isDel, setIsDel] = React.useState(false);
 
   useEffect(() => {
     const api = async () => {
@@ -89,14 +98,21 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     };
     api();
     setIsCllick('1000000000');
-  }, [props.isPost]);
+  }, [props.isPost, isDel]);
 
   const onExpand = (expandedKeys: any) => {
     console.log('onExpand', expandedKeys);
   };
 
-  const onSelect = (selectedKeys: any) => {
-    setselKey(selectedKeys[0]);
+  const onSelect = (selectedKeys: any, info: any) => {
+    setselKey(selectedKeys[0] ? selectedKeys[0] : '');
+    setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
+    setUppPrdItemGrpId(
+      info.selectedNodes[0].pos.slice(-3, -2)
+        ? info.selectedNodes[0].pos.slice(-3, -2)
+        : '',
+    );
+    setPrdItemGrpNm(info.selectedNodes[0].title);
   };
 
   const onCheck = (checkedKeys: any, info: any) => {
@@ -108,11 +124,33 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     setIsCllick(selKey);
   };
 
-  const onDel = (e: any) => {
-    if (!window.confirm('sure to delete?')) {
-      return;
+  const onDel = async () => {
+    const del = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: '',
+          itemTp: '',
+          prdItemGrpId: Number(prdItemGrpId),
+          prdItemGrpNm: prdItemGrpNm,
+          sort: 1,
+          status: 1,
+          uppPrdItemGrpId: Number(uppPrdItemGrpId),
+        },
+      ],
+      paramType: 'del',
+    };
+    if (del) {
+      await props.realRM();
+      if (props.realDel) {
+        const res = await axios.post(
+          '/management/manager/product/item/group/update',
+          del,
+        );
+        setIsDel(!isDel);
+        console.log('end');
+      }
     }
-    e.stopPropagation();
   };
 
   const arrayloop = (data: any, pos: any) => {
@@ -226,6 +264,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
             <Button
               variant="outlined"
               className="sub_btn_primary_outline_common sub_btn_footer_save"
+              onClick={onDel}
             >
               그룹 삭제
             </Button>

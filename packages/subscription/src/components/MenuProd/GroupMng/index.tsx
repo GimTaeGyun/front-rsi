@@ -49,6 +49,7 @@ const Items = () => {
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
   const [isPost, setIsPost] = React.useState(false);
+  const [realDel, setRealDel] = React.useState(false);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   const defaultAlertPopup = {
@@ -102,6 +103,23 @@ const Items = () => {
     }
   };
 
+  const realRM = () => {
+    setAlertPopup({
+      ...defaultAlertPopup,
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setRealDel(true);
+      },
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setRealDel(false);
+      },
+      message: '지정된 그룹을 삭제 하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+    });
+  };
+
   useEffect(() => {
     setDataValid(defaultFormValidation);
   }, [selectGroupKey]);
@@ -138,7 +156,12 @@ const Items = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
+            <SidebarRcTree
+              setuppGrp={setuppGrp}
+              isPost={isPost}
+              realDel={realDel}
+              realRM={realRM}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"
@@ -226,7 +249,7 @@ const Items = () => {
                             }}
                           >
                             <MenuItem value={1}>사용가능</MenuItem>
-                            <MenuItem value={2}>사용불가</MenuItem>
+                            <MenuItem value={-1}>사용불가</MenuItem>
                           </Select>
                         </Box>
                       </Grid>
