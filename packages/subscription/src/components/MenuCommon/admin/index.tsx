@@ -59,9 +59,6 @@ const Admin = () => {
   const [operPopupData, setOperPopupData] =
     React.useState(defaultOperPopupData);
 
-  useEffect(() => {
-    console.log(addGroupOpen);
-  }, [addGroupOpen]);
   // 운영자 추가 팝업 저장 버튼 클릭이벤트
   const operPopupSaveBtn = () => {
     if (!isCheckedId) {
@@ -408,7 +405,7 @@ const Admin = () => {
   return (
     <>
       <AppFrame
-        title="운영자 관리ㄹㄹ"
+        title="운영자 관리"
         breadcrumbs={[
           { name: '공통관리', link: '/admin/common/admin' },
           { name: '운영자 관리', link: '/admin/common/admin' },
@@ -477,7 +474,6 @@ const Admin = () => {
           {/* 그룹 추가 팝업 */}
           {addGroupOpen && (
             <AddGroup
-              open={addGroupOpen}
               title={addGroupTitle}
               treeItem={adminGroupData}
               handleClose={() => setAddGroupOpen(false)}
