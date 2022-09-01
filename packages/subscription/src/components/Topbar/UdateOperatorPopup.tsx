@@ -27,6 +27,7 @@ import * as Yup from 'yup';
 
 import { axios } from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
+import cryptojs from 'crypto-js';
 
 const UpdateOperatorPopupUser = (props: {
   open: boolean;
@@ -44,7 +45,17 @@ const UpdateOperatorPopupUser = (props: {
   const onClickUpdatePassword = async () => {
     const userPasswordParam = {
       usrId: data.usrId,
-      usrPw: pwd,
+      usrPw: cryptojs.AES.encrypt(
+        pwd,
+        cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+        {
+          iv: cryptojs.enc.Utf8.parse(
+            process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+          ),
+          padding: cryptojs.pad.Pkcs7,
+          mode: cryptojs.mode.CBC,
+        },
+      ).toString(),
     };
     if (pwd.length >= 6 && pwd.length <= 16) {
       try {

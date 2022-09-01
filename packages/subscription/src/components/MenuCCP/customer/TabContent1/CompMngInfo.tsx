@@ -1,15 +1,16 @@
 import { Box, Divider } from '@mui/material';
 import {
-  FormGroup,
-  FormControlLabel,
   Checkbox,
-  Select,
-  MenuItem,
+  FormControlLabel,
+  FormGroup,
   Grid,
+  MenuItem,
   OutlinedInput,
+  Select,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+
 import CardTemplate from './CardTemplate';
 const CompMngInfo = (props: { userData: any; compMngChange: Function }) => {
   const { userData } = props;

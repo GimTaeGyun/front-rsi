@@ -1,16 +1,17 @@
-import { axios } from '../../../../utils/axios';
+import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
-import UserInfo from './UserInfo';
-import PersonalInfo from './PersonalInfo';
+import { useLocation, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { customerData,DefaultAlertPopupData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
+import AlertPopup from '../../../Common/AlertPopup';
+import PwResetPopup from '../../../Common/PwResetPopup';
 import CompInfo from './CompInfo';
 import CompMngInfo from './CompMngInfo';
-import { useAtom } from 'jotai';
-import PwResetPopup from '../../../Common/PwResetPopup';
-import { DefaultAlertPopupData, customerData } from '../../../../data/atoms';
-import AlertPopup from '../../../Common/AlertPopup';
-import * as Yup from 'yup';
+import PersonalInfo from './PersonalInfo';
 import SubmitButton from './SubmitButton';
-import { useLocation, useNavigate } from 'react-router-dom';
+import UserInfo from './UserInfo';
 
 const validator = Yup.object().shape({
   usrPw: Yup.string()
@@ -36,6 +37,7 @@ const TabContent1 = () => {
 
   const compChange = (data: any) => {
     setCompData(data);
+    console.log('compChange', data);
   };
 
   const compMngChange = (data: any) => {
@@ -43,6 +45,7 @@ const TabContent1 = () => {
   };
 
   const onClickUserChange = async () => {
+    console.log('click', compData);
     let data: any = {
       action: 'mod',
       custId: sharedCustomerData.custId,
@@ -51,36 +54,35 @@ const TabContent1 = () => {
     if (personalData.custTp === 3) {
       data = {
         ...data,
-        personData: [
-          { email: personalData.email, mobile: personalData.mobile },
-        ],
+        personData: { email: personalData.email, mobile: personalData.mobile },
       };
     } else {
       data = {
         ...data,
-        corpData: [
-          {
-            address: compData.address,
-            addressDesc: compData.addressDesc,
-            bizItem: compData.bizItem,
-            ceo: compData.ceo,
-            corpRegNo: compData.corpRegNo,
-            corpRegPath: '/contents/corpReg/Paper/사업자등록증.jpg',
-            corpSize: compData.corpSize,
-            corpTp: compData.corpTp,
-            cpy_nm: compData.cpyNm,
-            custNm: compMngData.custNm,
-            dept: compMngData.custDept,
-            email: compMngData.email,
-            empSize: compData.empSize,
-            fax: compMngData.fax,
-            mobile: compMngData.mobile,
-            postNo: compData.postNo,
-            tel: compMngData.tel,
-          },
-        ],
+        corpData: {
+          address: compData.address,
+          addressDesc: compData.addressDesc,
+          bizItem: compData.bizItem,
+          ceo: compData.ceo,
+          corpRegNo: compData.corpRegNo,
+          corpRegPath: compData.corpRegPath ? compData.corpRegPath : '',
+          corpRegFileNm: compData.corpRegFileNm ? compData.corpRegFileNm : '',
+          licenseUpdate: compData.fileChanged ? 1 : 0,
+          corpSize: compData.corpSize,
+          corpTp: compData.corpTp,
+          cpy_nm: compData.cpyNm,
+          custNm: compMngData.custNm,
+          dept: compMngData.custDept,
+          email: compMngData.email,
+          empSize: compData.empSize,
+          fax: compMngData.fax,
+          mobile: compMngData.mobile,
+          postNo: compData.postNo,
+          tel: compMngData.tel,
+        },
       };
     }
+    console.log('procced', data);
     const response = await axios.post(
       '/management/manager/customer/cust/update',
       data,
@@ -141,7 +143,7 @@ const TabContent1 = () => {
   }, []);
 
   const pwOkCallback = async (value: any) => {
-    let valid = await validator.isValid({ usrPw: value });
+    const valid = await validator.isValid({ usrPw: value });
     if (valid) {
       axios
         .post('/management/manager/customer/custpw/update', {

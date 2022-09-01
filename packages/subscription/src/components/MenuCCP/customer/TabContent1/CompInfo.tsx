@@ -1,17 +1,20 @@
 import {
-  Button,
-  Select,
-  MenuItem,
-  Grid,
-  OutlinedInput,
-  Input,
   Box,
+  Button,
   Divider,
+  Grid,
+  Input,
+  MenuItem,
+  OutlinedInput,
+  Select,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
+
+import { axios } from '../../../../utils/axios';
 import CardTemplate from './CardTemplate';
-declare var daum: any;
+
+declare let daum: any;
 const CompInfo = (props: { compChange: Function; userData: any }) => {
   const { userData } = props;
   const [cpyNm, setCpyNm] = useState(userData.cpyNm);
@@ -24,6 +27,9 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
   const [postNo, setPostNo] = useState(userData.postNo);
   const [address, setAddress] = useState(userData.address);
   const [addressDesc, setAddressDesc] = useState(userData.addressDesc);
+  const [corpRegPath, setCorpRegPath] = useState(userData.corpRegPath);
+  const [corpRegFileNm, setCorpRegFileNm] = useState(userData.corpRegFileNm);
+  const [fileChanged, setFileChanged] = useState(false);
 
   useEffect(() => {
     const data = {
@@ -37,6 +43,9 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
       postNo: postNo,
       address: address,
       addressDesc: addressDesc,
+      corpRegPath: corpRegPath,
+      corpRegFileNm: corpRegFileNm,
+      fileChanged: fileChanged,
     };
     props.compChange(data);
   }, [
@@ -50,6 +59,9 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
     postNo,
     address,
     addressDesc,
+    corpRegPath,
+    corpRegFileNm,
+    fileChanged,
   ]);
 
   const fileUploadRef = useRef();
@@ -64,6 +76,26 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
         setPostNo(data.zonecode);
       },
     }).open();
+  };
+
+  const licenseChanged = (value: any) => {
+    if (value.target.files.length == 0) return;
+    const formdata = new FormData();
+    formdata.append('multipartFiles', value.target.files[0]);
+    formdata.append('custId', userData.custId);
+    formdata.append('overwrite', '1');
+    setFileChanged(true);
+    setCorpRegFileNm(value.target.files[0].name);
+    axios
+      .post('/management/customer/file/upload/license', formdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch();
+    console.log(value.target.files[0].name);
+    console.log(value);
   };
   return (
     <>
@@ -183,15 +215,22 @@ const CompInfo = (props: { compChange: Function; userData: any }) => {
                     ref={fileUploadRef}
                     type="file"
                     sx={{ display: 'none' }}
-                    onChange={value => {
-                      console.log(value);
-                    }}
+                    onChange={licenseChanged}
                   />
                   <Button
                     variant="text"
                     className="sub_card_formcontrol_btn_reg"
+                    onClick={() => {
+                      if (fileChanged) {
+                      } else {
+                        window.location.href =
+                          process.env.REACT_APP_FILESERVER +
+                          corpRegPath +
+                          corpRegFileNm;
+                      }
+                    }}
                   >
-                    현대중공업_사업자등록증.pdf
+                    {corpRegFileNm}
                   </Button>
                 </Box>
               </Box>

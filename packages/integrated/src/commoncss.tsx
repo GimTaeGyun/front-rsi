@@ -1350,7 +1350,7 @@ const css = createTheme({
           lineHeight: '24px',
           letterSpacing: '-0.33px',
           color: '#000000DE',
-          '&:first-child': {
+          '&:first-of-type': {
             marginTop: '8px !important',
           },
           '&:last-child': {

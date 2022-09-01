@@ -118,15 +118,14 @@ const Sidebar = (props: {
         });
       }
       if (selectedTreeitem == null) {
-        const cnt = getCnt();
         handleSelectedTreeitem({
           id: 0,
           text: '전체',
           parent: 0,
-          data: { cnt: cnt },
+          data: { cnt: getCnt() },
         });
       } else {
-        for (var treeItem of treeItems) {
+        for (const treeItem of treeItems) {
           if (treeItem.id === selectedTreeitem.id) {
             handleSelectedTreeitem(treeItem);
             break;
@@ -429,4 +428,4 @@ const styles = {
   },
 };
 
-export default React.memo(Sidebar);
+export default Sidebar;

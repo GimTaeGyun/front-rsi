@@ -1,19 +1,20 @@
-import React from 'react';
 import {
   Box,
   Button,
   InputLabel,
   MenuItem,
-  TextField,
   Select,
+  TextField,
   Typography,
 } from '@mui/material';
-import { useAtom } from 'jotai';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import DialogFormTemplate from '../../../Common/DialogFormTemplate';
+import { useAtom } from 'jotai';
+import React from 'react';
 import * as Yup from 'yup';
+
 import { AlertPopupData, customerData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
+import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const columns: GridColDef[] = [
   {
@@ -215,7 +216,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
   };
 
   const checkValidation = async () => {
-    let tmp = {
+    const tmp = {
       loginId: { err: false, msg: '' },
       loginPw: { err: false, msg: '' },
       usrNm: { err: false, msg: '' },

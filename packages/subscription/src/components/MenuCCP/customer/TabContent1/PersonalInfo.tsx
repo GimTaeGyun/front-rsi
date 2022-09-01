@@ -1,16 +1,17 @@
 import {
-  Select,
-  MenuItem,
-  Divider,
   Box,
-  OutlinedInput,
-  Grid,
-  FormGroup,
-  FormControlLabel,
   Checkbox,
+  Divider,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  MenuItem,
+  OutlinedInput,
+  Select,
 } from '@mui/material';
-import CardTemplate from './CardTemplate';
 import React, { useEffect } from 'react';
+
+import CardTemplate from './CardTemplate';
 
 const PersonalInfo = (props: { userData: any; personal: Function }) => {
   const { userData } = props;

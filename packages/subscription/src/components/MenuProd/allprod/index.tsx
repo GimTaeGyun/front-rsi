@@ -1,22 +1,23 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import AlertPopup from '../../Common/AlertPopup';
-import { useAtom } from 'jotai';
-import { axios } from '../../../utils/axios';
-import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
-import AppFrame from '../../../container/AppFrame';
 import {
+  Box,
+  Button,
   Card,
   CardHeader,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  MenuItem,
   OutlinedInput,
   Select,
-  MenuItem,
-  Button,
   Typography,
-  Box,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
 } from '@mui/material';
+import { useAtom } from 'jotai';
+import React, { useEffect, useReducer,useState } from 'react';
+
+import AppFrame from '../../../container/AppFrame';
+import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
+import { axios } from '../../../utils/axios';
+import AlertPopup from '../../Common/AlertPopup';
 import DataTable from '../../Common/Datatable';
 import Coldef from './components/ColDef';
 import Footer from './components/Footer';

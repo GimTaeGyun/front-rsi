@@ -1,5 +1,5 @@
+import { Box, Button, MenuItem, Select, TablePagination } from '@mui/material';
 import React from 'react';
-import { Box, Select, MenuItem, Button, TablePagination } from '@mui/material';
 
 const Footer = (props: {
   total: number;

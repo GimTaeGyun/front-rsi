@@ -2,11 +2,11 @@ import { ItemTypes } from '@minoru/react-dnd-treeview';
 import {
   Box,
   Button,
-  Modal,
-  Typography,
-  TextField,
-  InputLabel,
   Divider,
+  InputLabel,
+  Modal,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
@@ -27,6 +27,7 @@ const AddGroup = (props: {
   title: string;
   treeItem?: ITreeItem;
   handleClose: any;
+  open: boolean;
 }) => {
   const { title, treeItem, handleClose } = props;
   const [formData, setFormData] = React.useState(
@@ -52,7 +53,7 @@ const AddGroup = (props: {
     axios
       .post('/management/subscription/admin/usergroup/role')
       .then(res => {
-        let list = res.data.result.map((item: any) => {
+        const list = res.data.result.map((item: any) => {
           item.id = item.role_id;
           return item;
         });
@@ -174,7 +175,7 @@ const AddGroup = (props: {
       )}
       <Modal
         sx={styles.modal}
-        open={true}
+        open={props.open}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"

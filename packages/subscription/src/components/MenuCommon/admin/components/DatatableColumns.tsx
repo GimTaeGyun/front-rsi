@@ -15,6 +15,7 @@ export const columns: GridColDef[] = [
     field: '__check__',
     sortingOrder: ['desc'],
     sortable: false,
+    hideSortIcons: true,
     renderHeader: () => (
       <Typography className="sub_tbl_th_common">선택</Typography>
     ),
