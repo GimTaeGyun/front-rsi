@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-var cryptojs = require('crypto-js');
+import cryptojs from 'crypto-js';
 import { useAtom } from 'jotai';
 import React, { useEffect, useMemo } from 'react';
 
