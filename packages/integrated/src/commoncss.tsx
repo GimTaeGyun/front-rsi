@@ -495,10 +495,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'start',
-          borderBottom: '1px solid #e0e0e0',
-          '&:last-child': {
-            borderBottom: 'none',
-          },
+          border: 'none',
         },
         '& .sub_listpage_filter_label': {
           color: '#333333',
@@ -1391,7 +1388,6 @@ const css = createTheme({
         },
         '& .sub_items_filter_card': {
           width: '1090px',
-          height: '223px',
           '& .sub_items_filter_header': {
             width: '1090px',
             height: '56px',
@@ -1409,7 +1405,7 @@ const css = createTheme({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '56px',
+            borderBottom: '1px solid #eee',
             paddingRight: '10px',
           },
           '& .sub_items_filter_label': {
@@ -1445,7 +1441,6 @@ const css = createTheme({
           },
           '& .sub_listpage_divider': {
             borderColor: '#e0e0e0',
-            borderWidth: '1px',
           },
         },
         '& .sub_items_filter2_card': {
