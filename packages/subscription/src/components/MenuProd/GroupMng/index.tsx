@@ -110,23 +110,6 @@ const Items = () => {
     dataValid.prdGrpNm ? setErrorMargins('3px') : setErrorMargins('12px');
   }, [dataValid.prdGrpNm]);
 
-  const realRM = () => {
-    setAlertPopup({
-      ...defaultAlertPopup,
-      leftCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setRealDel(true);
-      },
-      rightCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setRealDel(false);
-      },
-      message: '지정된 그룹을 삭제 하시겠습니까?',
-      leftText: '확인',
-      rightText: '취소',
-    });
-  };
-
   useEffect(() => {
     setDataValid(defaultFormValidation);
   }, [selectGroupKey]);
@@ -163,12 +146,7 @@ const Items = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree
-              setuppGrp={setuppGrp}
-              isPost={isPost}
-              realDel={realDel}
-              realRM={realRM}
-            />
+            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"

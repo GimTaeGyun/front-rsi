@@ -10,8 +10,10 @@ import {
   TextField,
   OutlinedInput,
 } from '@mui/material';
+import { useAtom } from 'jotai';
 import Tree, { TreeNode } from 'rc-tree';
 import React, { useEffect } from 'react';
+import { AlertPopupData } from '../../../../data/atoms';
 
 import { axios } from '../../../../utils/axios';
 
@@ -72,13 +74,8 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: {
-  setuppGrp: Function;
-  isPost: Boolean;
-  realDel: Boolean;
-  realRM: Function;
-}) => {
-  const [selKey, setselKey] = React.useState('');
+const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+  const [selKey, setSelkey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
   const [prdItemGrpId, setPrdItemGrpId] = React.useState('');
@@ -86,13 +83,43 @@ const SidebarRcTree = (props: {
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
   const [expandKey, setExpendKey] = React.useState(['']);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [updateGrp, setUpdateGrp] = React.useState('');
+  const [updateDescription, setUpdateDescription] = React.useState('');
+
+  const del = {
+    actor: localStorage.getItem('usrId'),
+    dataset: [
+      {
+        description: '',
+        itemTp: 'MEDIA',
+        prdItemGrpId: Number(prdItemGrpId),
+        prdItemGrpNm: prdItemGrpNm,
+        sort: 1,
+        status: 1,
+        uppPrdItemGrpId: Number(uppPrdItemGrpId),
+      },
+    ],
+    paramType: 'del',
+  };
+
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
 
   useEffect(() => {
     const api = async () => {
       const res = await axios.post(
-        '/management/manager/product/group/inquiry',
+        '/management/manager/product/item/group/inquiry',
         {
-          p_prd_grp_id: 0,
+          p_prd_itemgrp_id: 0,
         },
       );
       setTreeITem(res.data.result);
@@ -105,8 +132,69 @@ const SidebarRcTree = (props: {
     setExpendKey(expandedKeys);
   };
 
+  const onDrop = (data: any) => {
+    console.log(data);
+  };
+
+  const api = async (key: any) => {
+    const res = await axios.post(
+      '/management/manager/product/item/group/inquiry',
+      {
+        p_prd_grp_id: Number(key),
+      },
+    );
+    setUpdateGrp(res.data.result.description);
+  };
+
+  const onDragEnd = (event: any) => {
+    api(event.dragNode.key);
+    const upd = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: updateGrp,
+          prdItemGrpId: Number(event.dragNode.key),
+          prdItemGrpNm: event.dragNode.title,
+          sort: 1,
+          status: 1,
+          itemTp: 'MEDIA',
+          uppPrdItemGrpId: Number(event.node.key),
+        },
+      ],
+      paramType: 'mod',
+    };
+    setAlertPopup({
+      ...defaultAlertPopup,
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(true);
+        axios
+          .post('/management/manager/product/group/update', upd)
+          .then(res => {
+            if (res.data.code === '0000')
+              setAlertPopup({
+                ...defaultAlertPopup,
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                  setIsDel(false);
+                },
+                message: '이동 하였습니다.',
+                leftText: '확인',
+              });
+          });
+      },
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(false);
+      },
+      message: event.node.title + '그룹으로 이동 하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+    });
+  };
+
   const onSelect = (selectedKeys: any, info: any) => {
-    setselKey(selectedKeys[0] ? selectedKeys[0] : '');
+    setSelkey(selectedKeys[0] ? selectedKeys[0] : '');
     setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
     setUppPrdItemGrpId(
       info.selectedNodes[0].pos.slice(-3, -2)
@@ -122,33 +210,35 @@ const SidebarRcTree = (props: {
     setExpendKey([...expandKey, selKey]);
   };
 
-  const onDel = async () => {
-    const del = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: '',
-          itemTp: '',
-          prdItemGrpId: Number(prdItemGrpId),
-          prdItemGrpNm: prdItemGrpNm,
-          sort: 1,
-          status: 1,
-          uppPrdItemGrpId: Number(uppPrdItemGrpId),
-        },
-      ],
-      paramType: 'del',
-    };
-    if (del) {
-      await props.realRM();
-      if (props.realDel) {
-        const res = await axios.post(
-          '/management/manager/product/item/group/update',
-          del,
-        );
-        setIsDel(!isDel);
-        console.log('end');
-      }
-    }
+  const deleteGrp = () => {
+    setAlertPopup({
+      ...defaultAlertPopup,
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(true);
+        axios
+          .post('/management/manager/product/item/group/update', del)
+          .then(res => {
+            if (res.data.code === '0000')
+              setAlertPopup({
+                ...defaultAlertPopup,
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                  setIsDel(false);
+                },
+                message: '삭제 하였습니다.',
+                leftText: '확인',
+              });
+          });
+      },
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(false);
+      },
+      message: '지정된 그룹을 삭제 하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+    });
   };
 
   const arrayloop = (data: any, pos: any) => {
@@ -221,10 +311,12 @@ const SidebarRcTree = (props: {
               <Tree
                 className="myCls"
                 showLine
+                draggable={true}
                 checkable={false}
                 onSelect={onSelect}
                 onExpand={onExpand}
                 expandedKeys={expandKey}
+                onDrop={onDragEnd}
               >
                 {treeItem ? (
                   <TreeNode
@@ -263,7 +355,7 @@ const SidebarRcTree = (props: {
             <Button
               variant="outlined"
               className="sub_btn_primary_outline_common sub_btn_footer_save"
-              onClick={onDel}
+              onClick={deleteGrp}
             >
               그룹 삭제
             </Button>
