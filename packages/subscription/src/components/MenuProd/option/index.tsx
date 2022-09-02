@@ -115,11 +115,19 @@ const Option = () => {
                   />
                 </Box>
                 <Divider />
-                <CardContent id="scroll" className="sub_items_filter_content">
+                <CardContent
+                  id="scroll"
+                  className="sub_items_filter_content"
+                  sx={{ padding: '0 !important' }}
+                >
                   <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={0}>
                       <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
+                        <Box
+                          component="div"
+                          className="sub_items_filter_row"
+                          sx={{ display: '-webkit-box !important' }}
+                        >
                           <Box
                             component="div"
                             className="sub_items_filter_label"
@@ -131,7 +139,8 @@ const Option = () => {
                           </Box>
                           <OutlinedInput
                             fullWidth={false}
-                            placeholder="그룹명을 입력해 주세요."
+                            placeholder=""
+                            value="ROOT"
                             className="sub_input_common sub_items_filter_input"
                           />
                         </Box>
@@ -147,12 +156,12 @@ const Option = () => {
                           <OutlinedInput
                             fullWidth={false}
                             placeholder="그룹 설명을 입력해 주세요."
-                            value={description ? description : ''}
                             className="sub_input_common sub_items_filter_input"
                           />
                         </Box>
                       </Grid>
                     </Grid>
+
                     <Grid container spacing={0}>
                       <Grid item xs={6} md={6} lg={6}>
                         <Box component="div" className="sub_items_filter_row">
@@ -174,6 +183,13 @@ const Option = () => {
                             <MenuItem value={-1}>사용불가</MenuItem>
                           </Select>
                         </Box>
+                      </Grid>
+                      <Grid item xs={6} md={6} lg={6}>
+                        <Box
+                          component="div"
+                          className="sub_items_filter_row"
+                          sx={{ display: '-webkit-box !important' }}
+                        ></Box>
                       </Grid>
                       <Grid item xs={12} md={12} lg={12}>
                         <Box
