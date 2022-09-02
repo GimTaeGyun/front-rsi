@@ -466,7 +466,7 @@ const Index = () => {
                   </FormGroup>
                 ))}
               </Box>
-              <Divider />
+              <Divider className="sub_listpage_divider" />
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
                   {statusCategory.codeSetLabel}
@@ -490,7 +490,7 @@ const Index = () => {
                   </FormGroup>
                 ))}
               </Box>
-              <Divider />
+              <Divider className="sub_listpage_divider" />
               <Box component="div" className="sub_listpage_filter_dropdown_row">
                 <Box className="sub_filter_dropdown_lbl" component="span">
                   구독현황
