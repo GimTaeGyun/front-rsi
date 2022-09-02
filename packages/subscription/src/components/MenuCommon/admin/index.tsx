@@ -335,6 +335,7 @@ const Admin = () => {
           setAlertPopup({ ...alertPopup, visible: false });
         },
         leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
           if (treeItem) {
             axios
               .post('/management/subscription/admin/usergroup/update', {
@@ -348,6 +349,7 @@ const Admin = () => {
                   refreshSidbar.refresh();
                   setAlertPopup({
                     ...alertPopup,
+                    visible: true,
                     message: '운영자 그룹 삭제가 완료되었습니다.',
                     leftText: '확인',
                     rightText: '',
@@ -355,21 +357,29 @@ const Admin = () => {
                       setAlertPopup({ ...alertPopup, visible: false });
                     },
                   });
-                } else {
+                } else if (res.data.code == '0999') {
                   setAlertPopup({
                     ...alertPopup,
-                    message: '운영자 그룹 삭제가 실패하였습니다.',
+                    visible: true,
+                    message: '하위 그룹이 있는 그룹은 삭제할 수 없습니다.',
                     rightText: '',
                     leftText: '확인',
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                    },
                   });
                 }
               })
               .catch(() => {
                 setAlertPopup({
                   ...alertPopup,
+                  visible: true,
                   message: '운영자 그룹 삭제가 실패하였습니다.',
                   rightText: '',
                   leftText: '확인',
+                  leftCallback: () => {
+                    setAlertPopup({ ...alertPopup, visible: false });
+                  },
                 });
               });
           }

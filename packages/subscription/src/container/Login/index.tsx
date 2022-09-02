@@ -49,7 +49,6 @@ const AdminLogin = () => {
     );
     try {
       const data = fetch.data;
-      console.log(data.result);
       if (data.code === '0000') {
         if (data.result.usrStatus === 1) {
           localStorage.setItem('access-token', fetch.data.result.accessToken);
