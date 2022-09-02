@@ -199,14 +199,14 @@ const Items = () => {
                             error={dataValid.prdGrpNm}
                             className="sub_input_common sub_items_filter_input"
                           />
-                          {dataValid.prdGrpNm && (
-                            <Box>
-                              <FormHelperText error id="prdGrpNm-error">
-                                {validationMsg.prdGrpNm}
-                              </FormHelperText>
-                            </Box>
-                          )}
                         </Box>
+                        {dataValid.prdGrpNm && (
+                          <span>
+                            <FormHelperText error id="prdGrpNm-error">
+                              {validationMsg.prdGrpNm}
+                            </FormHelperText>
+                          </span>
+                        )}
                       </Grid>
                       <Grid item xs={6} md={6} lg={6}>
                         <Box component="div" className="sub_items_filter_row">
@@ -278,12 +278,14 @@ const Items = () => {
                             <MenuItem value="SELECT">선택</MenuItem>
                             <MenuItem value="MEDIA">매체</MenuItem>
                           </Select>
-                          {dataValid.itemTp && (
+                        </Box>
+                        {dataValid.itemTp && (
+                          <span>
                             <FormHelperText error id="itemTp-error">
                               {validationMsg.itemTp}
                             </FormHelperText>
-                          )}
-                        </Box>
+                          </span>
+                        )}
                       </Grid>
                       <Grid item xs={12} md={12} lg={12}>
                         <Box

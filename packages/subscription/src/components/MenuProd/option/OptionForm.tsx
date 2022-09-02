@@ -207,8 +207,8 @@ const columns: GridColDef[] = [
   },
 ];
 
-const OptionForm = () => {
-  const [open, setOpen] = useState(true);
+const OptionForm = (props: { open: any }) => {
+  const [open, setOpen] = useState(props.open);
   const handleClose = () => {
     setOpen(false);
   };
