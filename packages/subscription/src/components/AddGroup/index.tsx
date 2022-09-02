@@ -62,6 +62,20 @@ const AddGroup = (props: {
   }, []);
 
   const addGroup = () => {
+    if (formData.usrRoleId == undefined || formData.usrRoleId.length == 0) {
+      setAlertPopupData({
+        ...alertPopupData,
+        visible: true,
+        message: '그룹 역할을 설정해주세요',
+        leftText: '확인',
+        rightText: '',
+        leftCallback: () => {
+          setAlertPopupData({ ...alertPopupData, visible: false });
+        },
+      });
+      return;
+    }
+
     setSubmitted(true);
 
     // If name has error

@@ -1402,6 +1402,8 @@ const css = createTheme({
             padding: '0',
           },
           '& .sub_items_filter_row': {
+            width: '100%',
+            height: '56px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
