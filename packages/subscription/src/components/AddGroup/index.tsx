@@ -38,6 +38,7 @@ const AddGroup = (props: {
           usrRoleId: [],
         },
   );
+  console.log(treeItem);
 
   const [errors, setErrors] = React.useState({
     usrGrpNm: false,

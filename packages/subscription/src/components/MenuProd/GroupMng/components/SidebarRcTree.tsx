@@ -85,6 +85,7 @@ const SidebarRcTree = (props: {
   const [prdItemGrpNm, setPrdItemGrpNm] = React.useState('');
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
+  const [expandKey, setExpendKey] = React.useState('1000000000');
 
   useEffect(() => {
     const api = async () => {
@@ -98,6 +99,7 @@ const SidebarRcTree = (props: {
     };
     api();
     setIsCllick('1000000000');
+    setExpendKey('1000000000');
   }, [props.isPost, isDel]);
 
   const onExpand = (expandedKeys: any) => {
