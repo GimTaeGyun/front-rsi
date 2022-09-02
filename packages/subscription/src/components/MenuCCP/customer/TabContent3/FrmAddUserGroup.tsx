@@ -1,16 +1,22 @@
+import { ItemTypes } from '@minoru/react-dnd-treeview';
 import {
   Box,
   Button,
   InputLabel,
   OutlinedInput,
   Typography,
+  TextField,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 
-import { customerData,DefaultAlertPopupData } from '../../../../data/atoms';
+import {
+  AlertPopupData,
+  customerData,
+  DefaultAlertPopupData,
+} from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import AlertPopup from '../../../Common/AlertPopup';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
@@ -20,7 +26,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const defaultFormValidation = {
-  custGrpNm: false,
+  custGrpNm: { length: false, exist: false },
+  desc: false,
 };
 
 const columns: GridColDef[] = [
@@ -30,7 +37,7 @@ const columns: GridColDef[] = [
     hide: true,
   },
   {
-    field: 'groupNm',
+    field: 'custGrp',
     headerName: '그룹명',
     width: 125,
     headerAlign: 'center',
@@ -41,7 +48,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
-    field: 'explanation',
+    field: 'description',
     headerName: '설명',
     width: 185,
     headerAlign: 'center',
@@ -78,14 +85,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  { id: 1, groupNm: '영업부', explanation: '영업총괄', detail: '' },
-  { id: 2, groupNm: '영업부1', explanation: '영업1팀', detail: '' },
-  { id: 3, groupNm: '영업부2', explanation: '영업2팀', detail: '' },
-  { id: 4, groupNm: '개발부', explanation: '-', detail: '' },
-  { id: 5, groupNm: '개발부', explanation: '-', detail: '' },
-];
-
 const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const defaultFormData = {
@@ -107,7 +106,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
     rightText: '',
     message: '',
   };
-  console.log(alertPopup);
+
   const [popupData, setPopupData] = React.useState(defaultFormData);
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
 
@@ -115,12 +114,15 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
   const [description, setDescription] = React.useState(
     defaultFormData.description,
   );
+  const [rows, setRows] = useState([]);
 
   const handleSubmit = () => {
     axios
       .post('/management/subscription/customer/usergroup/update', popupData)
       .then(res => {
         if (res.data.code == '0000') {
+          refreshList();
+          setDataValid(defaultFormValidation);
           setAlertPopup({
             ...defaultAlertPopup,
             leftCallback: () => {
@@ -133,12 +135,9 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
             message: '새로운 사용자 그룹이 추가되었습니다.',
           });
         } else {
-          setAlertPopup({
-            ...defaultAlertPopup,
-            leftCallback: () => {
-              setAlertPopup({ ...alertPopup, visible: false });
-            },
-            message: '그룹에 사용자가 존재합니다.',
+          setDataValid({
+            ...dataValid,
+            custGrpNm: { exist: true, length: dataValid.custGrpNm.length },
           });
         }
       })
@@ -151,6 +150,81 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
   React.useEffect(() => {
     setDataValid(defaultFormValidation);
   }, [open]);
+
+  // 초기화
+  useEffect(() => {
+    refreshList();
+  }, []);
+
+  // 삭제 버튼 이벤트
+  const cellClickEvent = (e: any) => {
+    console.log(e);
+    if (e.field === 'details') {
+      axios
+        .post('/management/subscription/customer/usergroup/update', {
+          action: 'del',
+          custId: sharedCustomerData.custId,
+          custGrpNo: e.row.custGrpNo,
+          custGrpNm: e.row.custGrp,
+        })
+        .then(res => {
+          if (res.data.code === '0000') {
+            refreshList();
+            setAlertPopup({
+              ...alertPopup,
+              visible: true,
+              message: '삭제가 완료되었습니다.',
+              leftText: '확인',
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+              },
+              rightText: '',
+            });
+          } else {
+            setAlertPopup({
+              ...alertPopup,
+              visible: true,
+              message: '삭제가 실패하였습니다.',
+              leftText: '확인',
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+              },
+              rightText: '',
+            });
+          }
+        })
+        .catch(() =>
+          setAlertPopup({
+            ...alertPopup,
+            visible: true,
+            message: '삭제가 실패하였습니다.',
+            leftText: '확인',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+            rightText: '',
+          }),
+        );
+    }
+  };
+
+  const refreshList = () => {
+    axios
+      .post('/management/manager/customer/usergroup/inquiry', {
+        custId: sharedCustomerData.custId,
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          let data = res.data.result.dataRows;
+          data = data.map((item: any) => {
+            return { ...item, id: item.custGrpNo, details: '' };
+          });
+          setRows(data);
+        }
+      })
+      .catch(e => console.log(e));
+  };
+
   return (
     <>
       {alertPopup.visible ? (
@@ -174,7 +248,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
               <InputLabel className="sub_dialog_formLabel">
                 그룹명 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
-              <OutlinedInput
+              <TextField
                 autoFocus={true}
                 autoComplete="false"
                 fullWidth
@@ -182,7 +256,14 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                 className="sub_input_common sub_card_dialog_input"
                 placeholder="생성할 그룹명을 입력해 주세요."
                 name="custGrpNm"
-                error={dataValid.custGrpNm}
+                error={dataValid.custGrpNm.exist || dataValid.custGrpNm.length}
+                helperText={
+                  dataValid.custGrpNm.exist
+                    ? '중복된 그룹명입니다.'
+                    : dataValid.custGrpNm.length
+                    ? '잘못된 형식입니다.'
+                    : ''
+                }
                 value={custGrpNm}
                 onChange={e => {
                   //e.target.value = e.target.value;
@@ -196,7 +277,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
               <InputLabel className="sub_dialog_formLabel">
                 그룹 설명
               </InputLabel>
-              <OutlinedInput
+              <TextField
                 autoComplete="false"
                 fullWidth
                 id="description"
@@ -204,8 +285,9 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                 name="description"
                 className="sub_input_common sub_card_dialog_input"
                 value={description}
+                error={dataValid.desc}
+                helperText={dataValid.desc ? '100자 이내로 입력해 주세요.' : ''}
                 onChange={e => {
-                  //e.target.value = e.target.value;
                   setDescription(e.target.value);
                   setPopupData({ ...popupData, description: e.target.value });
                 }}
@@ -228,6 +310,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                 onClick={() => {
                   setDescription('');
                   setCustGrpNm('');
+                  setDataValid(defaultFormValidation);
                   setPopupData(defaultFormData);
                 }}
               >
@@ -244,24 +327,21 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                   ) {
                     handleSubmit();
                   } else {
-                    setDataValid({
-                      custGrpNm:
-                        !(await validationSchema.fields.custGrpNm.isValid(
-                          popupData.custGrpNm,
-                        )),
-                    });
-                    const tmp = alertPopup;
-                    tmp.leftCallback = () => {
-                      setAlertPopup({
-                        ...tmp,
-                        visible: false,
-                      });
-                    };
+                    let tmp = defaultFormValidation;
                     if (popupData.custGrpNm.length > 100)
-                      tmp.message = '잘못된 형식입니다.';
-                    else if (popupData.description.length > 100)
-                      tmp.message = '100자 이내로 입력해주세요.';
-                    setAlertPopup({ ...tmp, visible: true });
+                      tmp = {
+                        ...tmp,
+                        custGrpNm: { exist: false, length: true },
+                      };
+                    if (popupData.custGrpNm.length == 0)
+                      tmp = {
+                        ...tmp,
+                        custGrpNm: { exist: false, length: true },
+                      };
+                    if (popupData.description.length > 100)
+                      tmp = { ...tmp, desc: true };
+
+                    setDataValid(tmp);
                   }
                 }}
               >
@@ -281,6 +361,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
                   rows={rows}
                   columns={columns}
                   checkboxSelection={false}
+                  onCellClick={cellClickEvent}
                   components={{
                     Footer: () => {
                       return <Box></Box>;

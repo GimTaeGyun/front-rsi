@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect, useReducer,useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
@@ -122,7 +122,7 @@ const AllProd = () => {
             <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
                 <Box component="span" className="sub_listpage_filter_label">
-                  {/*(searchCategory as any).codeSetLabel*/}
+                  검색어 입력
                 </Box>
                 <Box
                   component="span"
@@ -152,7 +152,7 @@ const AllProd = () => {
                   </Select>
                   <OutlinedInput
                     fullWidth={false}
-                    //placeholder={(searchCategory as any).codeSetLabel}
+                    placeholder="검색어 입력"
                     name="keyword"
                     className="sub_input_common sub_listpage_filter_search"
                     //onChange={e => setKeyword(e.target.value)}
