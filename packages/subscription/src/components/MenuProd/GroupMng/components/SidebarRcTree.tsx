@@ -85,7 +85,7 @@ const SidebarRcTree = (props: {
   const [prdItemGrpNm, setPrdItemGrpNm] = React.useState('');
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
-  const [expandKey, setExpendKey] = React.useState('1000000000');
+  const [expandKey, setExpendKey] = React.useState(['']);
 
   useEffect(() => {
     const api = async () => {
@@ -99,11 +99,10 @@ const SidebarRcTree = (props: {
     };
     api();
     setIsCllick('1000000000');
-    setExpendKey('1000000000');
   }, [props.isPost, isDel]);
 
   const onExpand = (expandedKeys: any) => {
-    console.log('onExpand', expandedKeys);
+    setExpendKey(expandedKeys);
   };
 
   const onSelect = (selectedKeys: any, info: any) => {
@@ -117,13 +116,10 @@ const SidebarRcTree = (props: {
     setPrdItemGrpNm(info.selectedNodes[0].title);
   };
 
-  const onCheck = (checkedKeys: any, info: any) => {
-    console.log('onCheck', checkedKeys, info);
-  };
-
   const onEdit = () => {
     props.setuppGrp(selKey);
     setIsCllick(selKey);
+    setExpendKey([...expandKey, selKey]);
   };
 
   const onDel = async () => {
@@ -228,6 +224,7 @@ const SidebarRcTree = (props: {
                 checkable={false}
                 onSelect={onSelect}
                 onExpand={onExpand}
+                expandedKeys={expandKey}
               >
                 {treeItem ? (
                   <TreeNode
