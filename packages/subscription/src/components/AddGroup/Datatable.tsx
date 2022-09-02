@@ -5,7 +5,7 @@ import {
   GridColumnHeaderParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const columns: GridColDef[] = [
   {
@@ -38,10 +38,15 @@ interface Row {
   roleName: string;
   roleDesc: string;
 }
-const DataTable = (props: { onChange: any; rows: Row[] }) => {
+const DataTable = (props: {
+  onChange: any;
+  rows: Row[];
+  selectionModel: string[];
+}) => {
   const onSelectionChange = (values: any[]) => {
     props.onChange(values);
   };
+
   return (
     <div style={{ height: '273px', width: '100%' }}>
       <DataGrid
@@ -57,8 +62,12 @@ const DataTable = (props: { onChange: any; rows: Row[] }) => {
             return <Box></Box>;
           },
         }}
+        selectionModel={props.selectionModel}
         sx={styles.dg_styles}
-        onSelectionModelChange={onSelectionChange}
+        onSelectionModelChange={(e: any) => {
+          if (props.rows.length == 0) return;
+          onSelectionChange(e);
+        }}
       />
     </div>
   );
