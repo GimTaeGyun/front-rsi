@@ -1612,6 +1612,7 @@ const css = createTheme({
           backgroundColor: '#fff',
           textDecoration: 'none',
           border: '0 !important',
+          '& span div:last-child': { display: 'none' },
         },
 
         '& .rc-tree .re-tree-treenode.dragg-over': {
@@ -1619,17 +1620,12 @@ const css = createTheme({
           border: '0 !important',
         },
 
-        '& .rc-tree .rc-tree-treenode.drop-container ~ .rc-tree-treenode': {
-          border: '0 !important',
-        },
-        '& .rc-tree .re-tree-treenode.drag-over-gap-top > span[draggable]': {
-          border: '0 !important',
-          textDecoration: 'none !important',
+        '& .rc-tree .re-tree-treenode.drag-over-gab-top > .draggable': {
+          borderColor: 'whilte',
         },
 
-        '& .rc-tree .re-tree-treenode.drag-over-gap-bottom > span[draggable]': {
+        '& .rc-tree .rc-tree-treenode.drop-container ~ .rc-tree-treenode': {
           border: '0 !important',
-          textDecoration: 'none !important',
         },
 
         '& .sub_sideBarInput': {
