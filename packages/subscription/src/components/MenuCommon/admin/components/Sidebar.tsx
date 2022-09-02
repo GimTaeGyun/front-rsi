@@ -97,6 +97,7 @@ const Sidebar = (props: {
           //users: subGrp.users ?? [],
           uppUsrGrpId: subGrp.uppUsrGrpId ?? null,
           cnt: subGrp.cnt,
+          role: subGrp.role,
         },
       },
     ];

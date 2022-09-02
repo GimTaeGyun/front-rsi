@@ -35,10 +35,9 @@ const AddGroup = (props: {
       : {
           usrGrpNm: treeItem?.text,
           description: treeItem?.data.description,
-          usrRoleId: [],
+          usrRoleId: treeItem?.data.role,
         },
   );
-  console.log(treeItem);
 
   const [errors, setErrors] = React.useState({
     usrGrpNm: false,
@@ -248,7 +247,11 @@ const AddGroup = (props: {
                 <Box component="span" sx={styles.req_field}></Box>
               </InputLabel>
               <Box component="div" sx={{ position: 'relative' }}>
-                <DataTable rows={groupList} onChange={onRowsSelect} />
+                <DataTable
+                  rows={groupList}
+                  onChange={onRowsSelect}
+                  selectionModel={formData.usrRoleId}
+                />
               </Box>
             </Box>
           </Box>
