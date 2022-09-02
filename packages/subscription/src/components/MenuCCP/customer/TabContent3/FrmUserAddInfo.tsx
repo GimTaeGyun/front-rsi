@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 
 import { AlertPopupData, customerData } from '../../../../data/atoms';
@@ -18,7 +18,7 @@ import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const columns: GridColDef[] = [
   {
-    field: 'serviceNm',
+    field: 'svc_nm',
     headerName: '서비스명',
     width: 140,
     headerAlign: 'center',
@@ -29,7 +29,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
-    field: 'period',
+    field: 'cre_at',
     headerName: '서비스 이용 기간',
     width: 230,
     headerAlign: 'center',
@@ -42,11 +42,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  { id: 1, serviceNm: 'EyeSurfer', period: '2022-01-01 ~ 2022-10-31' },
-  { id: 2, serviceNm: 'WIGO MON', period: '2022-01-01 ~ 2022-10-31' },
-  { id: 3, serviceNm: 'WIGO DATA', period: '2022-01-01 ~ 2022-10-31' },
-];
 const errMsg = {
   loginId: [
     '아이디를 입력해 주세요',
@@ -114,6 +109,9 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
   const [email, setEmail] = React.useState(defaultFormData.email);
   const [service, setService] = React.useState(defaultFormData.service);
   const [grpNo, setGrpNo] = React.useState(defaultFormData.grpNo);
+  const [userGrpSelect, setUserGrpSelect] = useState([]); // 사용자그룹 셀렉트박스 목록
+  const [serviceList, setServiceList] = useState([]); // 사용서비스 테이블 목록
+
   const [isLoginAvailable, setIsLoginAvailable] = React.useState(false);
 
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -127,6 +125,32 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
     rightText: '',
     message: '',
   };
+
+  useEffect(() => {
+    axios
+      .post('/management/manager/customer/usergroup/inquiry', {
+        custId: sharedCustomerData.custId,
+      })
+      .then((res: any) => {
+        if (res.data.code === '0000') {
+          setUserGrpSelect(res.data.result.dataRows);
+          setGrpNo(res.data.result.dataRows[0].custGrpNo);
+        }
+      })
+      .catch();
+    axios
+      .post('/management/common/service/inquiry')
+      .then((res: any) => {
+        if (res.data.code === '0000') {
+          setServiceList(
+            res.data.result.map((item: any) => {
+              return { ...item, id: item.sid };
+            }),
+          );
+        }
+      })
+      .catch();
+  }, []);
 
   React.useEffect(() => {
     setPopupData(defaultFormData);
@@ -325,7 +349,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 value={loginId}
                 error={dataValid.loginId.err}
                 helperText={dataValid.loginId.msg}
-                onChange={e => {
+                onChange={(e: any) => {
                   setIsLoginAvailable(false);
                   setLoginId(e.target.value);
                   setPopupData({ ...popupData, loginId: e.target.value });
@@ -361,8 +385,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 value={loginPw}
                 error={dataValid.loginPw.err}
                 helperText={dataValid.loginPw.msg}
-                onChange={e => {
-                  //e.target.value = e.target.value;
+                onChange={(e: any) => {
                   setLoginPw(e.target.value);
                   setPopupData({ ...popupData, loginPw: e.target.value });
                 }}
@@ -382,8 +405,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 value={usrNm}
                 error={dataValid.usrNm.err}
                 helperText={dataValid.usrNm.msg}
-                onChange={e => {
-                  //e.target.value = e.target.value;
+                onChange={(e: any) => {
                   setUsrNm(e.target.value);
                   setPopupData({ ...popupData, usrNm: e.target.value });
                 }}
@@ -403,8 +425,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 value={phone}
                 error={dataValid.phone.err}
                 helperText={dataValid.phone.msg}
-                onChange={e => {
-                  //e.target.value = e.target.value;
+                onChange={(e: any) => {
                   setPhone(e.target.value);
                   setPopupData({ ...popupData, phone: e.target.value });
                 }}
@@ -424,8 +445,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 value={email}
                 error={dataValid.email.err}
                 helperText={dataValid.email.msg}
-                onChange={e => {
-                  //e.target.value = e.target.value;
+                onChange={(e: any) => {
                   setEmail(e.target.value);
                   setPopupData({ ...popupData, email: e.target.value });
                 }}
@@ -442,13 +462,16 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 className="sub_select_common sub_dialog_list"
                 name="grpNo"
                 value={grpNo}
-                onChange={e => {
-                  //e.target.value = e.target.value;
+                onChange={(e: any) => {
                   setGrpNo(e.target.value);
                   setPopupData({ ...popupData, grpNo: e.target.value });
                 }}
               >
-                <MenuItem value="2">기본</MenuItem>
+                {userGrpSelect.map((item: any) => {
+                  return (
+                    <MenuItem value={item.custGrpNo}>{item.custGrp}</MenuItem>
+                  );
+                })}
               </Select>
             </Box>
 
@@ -461,9 +484,13 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                   className="sub_tbl_dialog_common"
                   headerHeight={44}
                   rowHeight={45}
-                  rows={rows}
+                  rows={serviceList}
                   columns={columns}
                   checkboxSelection
+                  selectionModel={popupData.service}
+                  onSelectionModelChange={(val: any) => {
+                    setPopupData({ ...popupData, service: val });
+                  }}
                   components={{
                     Footer: () => {
                       return <Box></Box>;

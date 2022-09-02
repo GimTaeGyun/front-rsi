@@ -10,8 +10,10 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
+import { axios } from '../../../../utils/axios';
 import * as Yup from 'yup';
-
+import { customerData } from '../../../../data/atoms';
+import { useAtom } from 'jotai';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const validationSchema = Yup.object().shape({
@@ -49,7 +51,7 @@ const errMsg = {
 };
 const columns: GridColDef[] = [
   {
-    field: 'serviceNm',
+    field: 'svc_nm',
     headerName: '서비스명',
     width: 140,
     headerAlign: 'center',
@@ -60,7 +62,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
-    field: 'period',
+    field: 'cre_at',
     headerName: '서비스 이용 기간',
     width: 230,
     headerAlign: 'center',
@@ -71,12 +73,6 @@ const columns: GridColDef[] = [
       <Typography fontSize="14px">{params.colDef.headerName}</Typography>
     ),
   },
-];
-
-const rows = [
-  { id: 1, serviceNm: 'EyeSurfer', period: '2022-01-01 ~ 2022-10-31' },
-  { id: 2, serviceNm: 'WIGO MON', period: '2022-01-01 ~ 2022-10-31' },
-  { id: 3, serviceNm: 'WIGO DATA', period: '2022-01-01 ~ 2022-10-31' },
 ];
 
 interface PropData {
@@ -104,6 +100,34 @@ const FrmUserUpdateInfo = (props: {
     phone: { msg: '', err: false },
     email: { msg: '', err: false },
   });
+  const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
+  const [userGrpSelect, setUserGrpSelect] = useState([]); // 사용자그룹 셀렉트박스 목록
+  const [serviceList, setServiceList] = useState([]); // 사용서비스 테이블 목록
+
+  useEffect(() => {
+    axios
+      .post('/management/manager/customer/usergroup/inquiry', {
+        custId: sharedCustomerData.custId,
+      })
+      .then((res: any) => {
+        if (res.data.code === '0000') {
+          setUserGrpSelect(res.data.result.dataRows);
+        }
+      })
+      .catch();
+    axios
+      .post('/management/common/service/inquiry')
+      .then((res: any) => {
+        if (res.data.code === '0000') {
+          setServiceList(
+            res.data.result.map((item: any) => {
+              return { ...item, id: item.sid };
+            }),
+          );
+        }
+      })
+      .catch();
+  }, []);
 
   const submitEvent = async () => {
     const err = error;
@@ -270,13 +294,16 @@ const FrmUserUpdateInfo = (props: {
               </InputLabel>
               <Select
                 fullWidth={true}
-                //value={data?.grpNm}
+                value={data?.grpNm}
                 name="grpNm"
-                value="홍보실"
                 className="sub_select_common sub_dialog_list"
                 onChange={inputChanged}
               >
-                <MenuItem value="홍보실">홍보실</MenuItem>
+                {userGrpSelect.map((item: any) => {
+                  return (
+                    <MenuItem value={item.custGrpNo}>{item.custGrp}</MenuItem>
+                  );
+                })}
               </Select>
             </Box>
 
@@ -289,7 +316,7 @@ const FrmUserUpdateInfo = (props: {
                   className="sub_tbl_dialog_common"
                   headerHeight={44}
                   rowHeight={45}
-                  rows={rows}
+                  rows={serviceList}
                   columns={columns}
                   checkboxSelection
                   onSelectionModelChange={(e: any) => {
