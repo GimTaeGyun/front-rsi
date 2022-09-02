@@ -22,6 +22,9 @@ const css = createTheme({
           borderRadius: '6px',
         },
         ':root': {
+          '& .d_flex': { display: 'flex' },
+          '& .align-items-center': { alignItems: 'center' },
+          '& .justify-content-between': { justifyContent: 'space-between' },
           '& .MuiPaper-root': { boxShadow: '0px 3px 3px #0000002E' },
           '& .lastcolumnSeparator': {
             '.MuiDataGrid-columnSeparator': {
@@ -1412,6 +1415,7 @@ const css = createTheme({
           '& .sub_items_filter_label': {
             marginLeft: '20px',
             width: '97px',
+            letterSpacing: '-0.33px',
           },
           '& .sub_items_filter_input': {
             width: '415px',
@@ -1427,6 +1431,17 @@ const css = createTheme({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+          },
+          '& .sub_items_filter_textarea': {
+            height: '104px',
+            borderBottom: '1px solid #eee',
+          },
+          '& .sub_items_filter_textarea_input': {
+            width: '960px',
+            height: '93px',
+            '& .MuiInputBase-input': {
+              lineHeight: '24px',
+            },
           },
         },
         '& .sub_listpage_filter_dropdown_section': {
@@ -1470,6 +1485,7 @@ const css = createTheme({
               height: '56px',
               border: '0 solid #000',
               '& .sub_items_filter_label': {
+                letterSpacing: '-0.33px',
                 marginLeft: '20px',
                 width: '97px',
               },
@@ -1614,6 +1630,22 @@ const css = createTheme({
               borderRadius: '2px',
             },
           },
+        },
+        '& .btn_gnb_manage': {
+          width: '101px',
+          height: '30px',
+          color: '#00000042 !important',
+          borderColor: '#00000042 !important',
+          fontSize: '13px !important',
+          padding: '0 !important',
+        },
+        '& .sub_filter_switch .MuiTypography-root': {
+          fontSize: '13px !important',
+          letterSpacing: '-0.33px',
+          fontFamily: 'NotoSansKRRegular',
+        },
+        '& .sub_filter_switch .MuiSwitch-root': {
+          paddingRight: '7px',
         },
       },
     },
