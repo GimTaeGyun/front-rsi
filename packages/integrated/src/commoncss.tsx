@@ -1405,11 +1405,7 @@ const css = createTheme({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-<<<<<<< HEAD
             borderBottom: '1px solid #eee',
-=======
-            height: '56px',
->>>>>>> d34ea2568e33d8e7fa4fd5b7563680c6f5b292e1
             paddingRight: '10px',
           },
           '& .sub_items_filter_label': {
