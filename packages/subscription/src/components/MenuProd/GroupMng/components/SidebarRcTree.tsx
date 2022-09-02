@@ -316,6 +316,9 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
                 onExpand={onExpand}
                 expandedKeys={expandKey}
                 onDrop={onDragEnd}
+                dropIndicatorRender={() => {
+                  return <></>;
+                }}
               >
                 {treeItem ? (
                   <TreeNode
