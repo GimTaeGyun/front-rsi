@@ -1403,7 +1403,7 @@ const css = createTheme({
           },
           '& .sub_items_filter_row': {
             width: '100%',
-            height: '60px',
+            height: '56px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
