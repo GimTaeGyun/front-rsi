@@ -306,7 +306,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
               },
             }}
           >
-            <div style={{ margin: '0 20px' }}>
+            <div style={{ margin: '0 20px', border: '0 !important' }}>
               <Tree
                 className="myCls"
                 showLine
@@ -375,4 +375,4 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   );
 };
 
-export default SidebarRcTree;
+export default React.memo(SidebarRcTree);

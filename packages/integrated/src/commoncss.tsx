@@ -1601,6 +1601,31 @@ const css = createTheme({
         },
         '& .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper': {
           height: '24px',
+          backgroundColor: '#fff',
+          border: 'none !important',
+          textDecoration: 'none',
+        },
+        //드래그 시작시 css
+        '& .rc-tree .rc-tree-treenode.dragging': {},
+
+        '& .rc-tree .rc-tree-treenode.drop-target': {
+          backgroundColor: '#fff',
+          textDecoration: 'none',
+          border: '0 !important',
+          '& span div:last-child': { display: 'none' },
+        },
+
+        '& .rc-tree .re-tree-treenode.dragg-over': {
+          textDecoration: 'none',
+          border: '0 !important',
+        },
+
+        '& .rc-tree .re-tree-treenode.drag-over-gab-top > .draggable': {
+          borderColor: 'whilte',
+        },
+
+        '& .rc-tree .rc-tree-treenode.drop-container ~ .rc-tree-treenode': {
+          border: '0 !important',
         },
 
         '& .sub_sideBarInput': {
