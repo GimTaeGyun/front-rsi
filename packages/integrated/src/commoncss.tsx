@@ -495,10 +495,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'start',
-          borderBottom: '1px solid #e0e0e0',
-          '&:last-child': {
-            borderBottom: 'none',
-          },
+          border: 'none',
         },
         '& .sub_listpage_filter_label': {
           color: '#333333',
@@ -1445,7 +1442,6 @@ const css = createTheme({
           },
           '& .sub_listpage_divider': {
             borderColor: '#e0e0e0',
-            borderWidth: '1px',
           },
         },
         '& .sub_items_filter2_card': {
