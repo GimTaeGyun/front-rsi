@@ -1,4 +1,4 @@
-import { Box, Button,Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid-pro';
 import React from 'react';
 
@@ -7,7 +7,7 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'loginId',
     headerName: 'ID',
-    width: 150,
+    width: 175,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
@@ -21,7 +21,7 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'custNm',
     headerName: '고객명',
-    width: 130,
+    width: 158,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -34,7 +34,7 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'custTp',
     headerName: '유형',
-    width: 100,
+    width: 143,
     sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
@@ -83,7 +83,7 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'mobile',
     headerName: '전화번호',
-    width: 143,
+    width: 190,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -96,7 +96,7 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'email',
     headerName: '이메일',
-    width: 180,
+    width: 230,
     sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
@@ -110,7 +110,7 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'joinedAt',
     headerName: '가입일',
-    width: 140,
+    width: 226,
     headerAlign: 'center',
     filterable: false,
     sortable: false,
@@ -179,7 +179,7 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'status',
     headerName: '상태',
-    width: 89,
+    width: 178,
     sortable: false,
     headerAlign: 'center',
     disableColumnMenu: true,
