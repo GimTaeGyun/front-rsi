@@ -1451,6 +1451,7 @@ const css = createTheme({
           backgroundColor: '#fff !important',
           borderRadius: '0 0 6px 6px !important',
           boxShadow: '0px 1px 5px #0000002E !important',
+          zIndex: '999',
           border: 'none',
           '&.active': {
             display: 'block',

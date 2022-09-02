@@ -112,12 +112,8 @@ const AllProd = () => {
 
           {/* Filter Section */}
           <Card
-            className={
-              filterDropdown
-                ? 'sub_card_common sub_card_filter sub_card_filter_dropdown'
-                : 'sub_card_common sub_card_filter sub_card_filter_dropdown active'
-            }
-            sx={{ width: '1470px' }}
+            className="sub_items_filter_card"
+            sx={{ width: '1476px', maxHeight: '56px' }}
           >
             <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
@@ -198,61 +194,53 @@ const AllProd = () => {
                 </Button>
               </Box>
             </Box>
+          </Card>
 
-            <Box
-              component="div"
-              className="sub_listpage_filter_dropdown_section"
-            >
-              <Box component="div" className="sub_listpage_filter_dropdown_row">
-                <Box className="sub_filter_dropdown_lbl" component="span">
-                  {/*userCategory.codeSetLabel*/}
-                </Box>
-                {/*userCategory.codeSetItems.map((item: any) => (
-                  <FormGroup
-                    key={item.value}
-                    className="sub_filter_dropdown_chk_outer"
-                  >
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="custTp"
-                          checked={item.checked}
-                          value={item.value}
-                          onChange={checkedChangedEvent}
-                        />
-                      }
-                      label={item.label}
-                    />
-                  </FormGroup>
-                ))*/}
+          <Card
+            className={
+              filterDropdown
+                ? 'sub_listpage_filter_dropdown_section'
+                : 'sub_listpage_filter_dropdown_section active'
+            }
+            sx={{ width: '1476px', height: '112px' }}
+          >
+            <Box component="div" className="sub_listpage_filter_dropdown_row">
+              <Box className="sub_filter_dropdown_lbl" component="span">
+                상품유형
               </Box>
-              <Box component="div" className="sub_listpage_filter_dropdown_row">
-                <Box className="sub_filter_dropdown_lbl" component="span">
-                  {/*statusCategory.codeSetLabel*/}
-                </Box>
-                {/*statusCategory.codeSetItems.map((item: any) => (
-                  <FormGroup
-                    key={item.value}
-                    className="sub_filter_dropdown_chk_outer"
-                  >
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="status"
-                          checked={item.checked}
-                          value={item.value}
-                          onChange={checkedChangedEvent}
-                        />
-                      }
-                      label={item.label}
-                    />
-                  </FormGroup>
-                    ))*/}
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="전체" />
+              </FormGroup>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="개인" />
+              </FormGroup>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="법인" />
+              </FormGroup>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="공공" />
+              </FormGroup>
+            </Box>
+            <Box component="div" className="sub_listpage_filter_dropdown_row">
+              <Box className="sub_filter_dropdown_lbl" component="span">
+                상품상태
               </Box>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="전체" />
+              </FormGroup>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="판매중" />
+              </FormGroup>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="미게시" />
+              </FormGroup>
+              <FormGroup className="sub_filter_dropdown_chk_outer">
+                <FormControlLabel control={<Checkbox />} label="임시저장" />
+              </FormGroup>
             </Box>
           </Card>
 
-          <Card className="sub_tbl_section_common">
+          <Card className="sub_tbl_section_common" sx={{ marginTop: '20px' }}>
             <CardHeader
               className="sub_tbl_header_outer_common"
               component="div"
