@@ -389,7 +389,7 @@ const Items = () => {
                           src={
                             filterDropdown
                               ? '/btn_dropdown.png'
-                              : '/btn_dropdown.png'
+                              : '/btn_dropdown_down.png'
                           }
                           sx={{ marginLeft: '5px' }}
                         ></Box>
