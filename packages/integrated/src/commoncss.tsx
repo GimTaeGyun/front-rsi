@@ -1388,7 +1388,6 @@ const css = createTheme({
         },
         '& .sub_items_filter_card': {
           width: '1090px',
-          height: '223px',
           '& .sub_items_filter_header': {
             width: '1090px',
             height: '56px',
@@ -1406,7 +1405,6 @@ const css = createTheme({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '56px',
             borderBottom: '1px solid #eee',
             paddingRight: '10px',
           },

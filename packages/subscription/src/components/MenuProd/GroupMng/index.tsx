@@ -16,7 +16,7 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import AppFrame from '../../../container/AppFrame';
 import AlertPopup from '../../Common/AlertPopup';
@@ -51,6 +51,8 @@ const Items = () => {
   const [isPost, setIsPost] = React.useState(false);
   const [realDel, setRealDel] = React.useState(false);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [errorMargin, setErrorMargin] = useState('12px');
+  const [errorMargins, setErrorMargins] = useState('12px');
 
   const defaultAlertPopup = {
     visible: true,
@@ -102,6 +104,11 @@ const Items = () => {
       }
     }
   };
+
+  useEffect(() => {
+    dataValid.prdGrpNm ? setErrorMargin('28px') : setErrorMargin('12px');
+    dataValid.prdGrpNm ? setErrorMargins('3px') : setErrorMargins('12px');
+  }, [dataValid.prdGrpNm]);
 
   const realRM = () => {
     setAlertPopup({
@@ -175,11 +182,19 @@ const Items = () => {
                   />
                 </Box>
                 <Divider />
-                <CardContent id="scroll" className="sub_items_filter_content">
+                <CardContent
+                  id="scroll"
+                  className="sub_items_filter_content"
+                  sx={{ padding: '0 !important' }}
+                >
                   <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={0}>
                       <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
+                        <Box
+                          component="div"
+                          className="sub_items_filter_row"
+                          sx={{ display: '-webkit-box !important' }}
+                        >
                           <Box
                             component="div"
                             className="sub_items_filter_label"
@@ -198,15 +213,23 @@ const Items = () => {
                             }}
                             error={dataValid.prdGrpNm}
                             className="sub_input_common sub_items_filter_input"
+                            sx={{
+                              marginTop: '12px !important',
+                              marginBottom: errorMargins + ' !important',
+                            }}
                           />
+                          {dataValid.prdGrpNm && (
+                            <span>
+                              <FormHelperText
+                                error
+                                id="prdGrpNm-error"
+                                sx={{ marginTop: '0px', marginBottom: '3px' }}
+                              >
+                                {validationMsg.prdGrpNm}
+                              </FormHelperText>
+                            </span>
+                          )}
                         </Box>
-                        {dataValid.prdGrpNm && (
-                          <span>
-                            <FormHelperText error id="prdGrpNm-error">
-                              {validationMsg.prdGrpNm}
-                            </FormHelperText>
-                          </span>
-                        )}
                       </Grid>
                       <Grid item xs={6} md={6} lg={6}>
                         <Box component="div" className="sub_items_filter_row">
@@ -220,6 +243,10 @@ const Items = () => {
                             fullWidth={false}
                             placeholder="그룹 설명을 입력해 주세요."
                             value={description ? description : ''}
+                            sx={{
+                              marginTop: '12px !important',
+                              marginBottom: errorMargin + ' !important',
+                            }}
                             className="sub_input_common sub_items_filter_input"
                             onChange={e => {
                               setDescription(e.target.value);
@@ -228,6 +255,7 @@ const Items = () => {
                         </Box>
                       </Grid>
                     </Grid>
+
                     <Grid container spacing={0}>
                       <Grid item xs={6} md={6} lg={6}>
                         <Box component="div" className="sub_items_filter_row">
@@ -243,6 +271,10 @@ const Items = () => {
                           <Select
                             fullWidth={false}
                             value={status}
+                            sx={{
+                              marginTop: '12px !important',
+                              marginBottom: errorMargin + ' !important',
+                            }}
                             className="sub_select_common sub_items_filter_list"
                             onChange={e => {
                               setStatus(e.target.value as number);
@@ -254,7 +286,11 @@ const Items = () => {
                         </Box>
                       </Grid>
                       <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
+                        <Box
+                          component="div"
+                          className="sub_items_filter_row"
+                          sx={{ display: '-webkit-box !important' }}
+                        >
                           <Box
                             component="div"
                             className="sub_items_filter_label"
@@ -274,18 +310,26 @@ const Items = () => {
                                 : setItemTp(e.target.value);
                             }}
                             error={dataValid.itemTp}
+                            sx={{
+                              marginTop: '12px !important',
+                              marginBottom: errorMargins + ' !important',
+                            }}
                           >
                             <MenuItem value="SELECT">선택</MenuItem>
                             <MenuItem value="MEDIA">매체</MenuItem>
                           </Select>
+                          {dataValid.itemTp && (
+                            <span>
+                              <FormHelperText
+                                error
+                                id="itemTp-error"
+                                sx={{ marginTop: '0', marginBottom: '3px' }}
+                              >
+                                {validationMsg.itemTp}
+                              </FormHelperText>
+                            </span>
+                          )}
                         </Box>
-                        {dataValid.itemTp && (
-                          <span>
-                            <FormHelperText error id="itemTp-error">
-                              {validationMsg.itemTp}
-                            </FormHelperText>
-                          </span>
-                        )}
                       </Grid>
                       <Grid item xs={12} md={12} lg={12}>
                         <Box
