@@ -117,9 +117,9 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   useEffect(() => {
     const api = async () => {
       const res = await axios.post(
-        '/management/manager/product/group/inquiry',
+        '/management/manager/product/item/group/inquiry',
         {
-          p_prd_grp_id: 0,
+          p_prd_itemgrp_id: 0,
         },
       );
       setTreeITem(res.data.result);
@@ -137,9 +137,12 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   };
 
   const api = async (key: any) => {
-    const res = await axios.post('/management/manager/product/group/inquiry', {
-      p_prd_grp_id: Number(key),
-    });
+    const res = await axios.post(
+      '/management/manager/product/item/group/inquiry',
+      {
+        p_prd_grp_id: Number(key),
+      },
+    );
     setUpdateGrp(res.data.result.description);
   };
 
