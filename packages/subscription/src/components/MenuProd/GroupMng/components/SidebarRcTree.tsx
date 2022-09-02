@@ -84,7 +84,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const [isDel, setIsDel] = React.useState(false);
   const [expandKey, setExpendKey] = React.useState(['']);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-  const [updateGrp, setUpdateGrp] = React.useState('');
+  const [updateGrp, setUpdateGrp] = React.useState(Object);
   const [updateDescription, setUpdateDescription] = React.useState('');
 
   const del = {
@@ -132,32 +132,31 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     setExpendKey(expandedKeys);
   };
 
-  const onDrop = (data: any) => {
-    console.log(data);
-  };
-
   const api = async (key: any) => {
     const res = await axios.post(
-      '/management/manager/product/item/group/inquiry',
+      '/management/manager/product/item/group/detail/inquiry',
       {
-        p_prd_grp_id: Number(key),
+        itemNm: 'string',
+        itemStatus: 3,
+        prdItemgrpId: key,
       },
     );
-    setUpdateGrp(res.data.result.description);
+    setUpdateGrp(res.data.result);
   };
 
   const onDragEnd = (event: any) => {
-    api(event.dragNode.key);
+    console.log(event);
+    api(Number(event.dragNode.key));
     const upd = {
       actor: localStorage.getItem('usrId'),
       dataset: [
         {
-          description: updateGrp,
+          description: updateGrp.itemGrpDesc,
+          itemTp: updateGrp.itemTp.value,
           prdItemGrpId: Number(event.dragNode.key),
           prdItemGrpNm: event.dragNode.title,
           sort: 1,
-          status: 1,
-          itemTp: 'MEDIA',
+          status: updateGrp.status.value,
           uppPrdItemGrpId: Number(event.node.key),
         },
       ],
