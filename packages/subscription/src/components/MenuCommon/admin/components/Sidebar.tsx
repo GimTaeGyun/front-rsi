@@ -35,6 +35,7 @@ interface IUsrGrp {
   uppUsrGrpId: number;
   cnt: number;
   subGrp?: Array<IUsrGrp>;
+  role: string[];
 }
 
 export interface ITreeItem {
@@ -97,6 +98,7 @@ const Sidebar = (props: {
           //users: subGrp.users ?? [],
           uppUsrGrpId: subGrp.uppUsrGrpId ?? null,
           cnt: subGrp.cnt,
+          role: subGrp.role,
         },
       },
     ];

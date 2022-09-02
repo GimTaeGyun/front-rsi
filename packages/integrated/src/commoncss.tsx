@@ -495,7 +495,7 @@ const css = createTheme({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'start',
-          borderTop: '1px solid #0000001F',
+          border: 'none',
         },
         '& .sub_listpage_filter_label': {
           color: '#333333',
@@ -537,7 +537,7 @@ const css = createTheme({
         '& .sub_listpage_filter_date': {
           '& .MuiInputBase-root': {
             width: '175px',
-            height: '25px',
+            height: '36px',
           },
         },
         '& .MuiButton-root.sub_filter_btn_iconlink': {
@@ -1405,7 +1405,11 @@ const css = createTheme({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+<<<<<<< HEAD
             borderBottom: '1px solid #eee',
+=======
+            height: '56px',
+>>>>>>> d34ea2568e33d8e7fa4fd5b7563680c6f5b292e1
             paddingRight: '10px',
           },
           '& .sub_items_filter_label': {
@@ -1432,16 +1436,22 @@ const css = createTheme({
           display: 'none',
           width: '1090px',
           position: 'absolute',
-          backgroundColor: '#fff',
-          borderRadius: '0 0 4px 4px',
+          backgroundColor: '#fff !important',
+          borderRadius: '0 0 6px 6px !important',
+          boxShadow: '0px 1px 5px #0000002E !important',
+          border: 'none',
           '&.active': {
             display: 'block',
+          },
+          '& .sub_listpage_divider': {
+            borderColor: '#e0e0e0',
           },
         },
         '& .sub_items_filter2_card': {
           position: 'relative',
           width: '1090px',
           height: '56px',
+          boxShadow: '0px 1px 5px #0000002E !important',
           '&.active': {
             borderRadius: '4px 4px 0 0',
           },
