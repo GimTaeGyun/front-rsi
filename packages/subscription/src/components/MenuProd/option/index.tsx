@@ -265,7 +265,7 @@ const Option = () => {
                   className="sub_listpage_filter_dropdown_row"
                 >
                   <Box className="sub_filter_dropdown_lbl" component="span">
-                    아이템 상태
+                    옵션 상태
                   </Box>
                   <FormGroup className="sub_filter_dropdown_chk_outer">
                     <FormControlLabel control={<Checkbox />} label="전체" />
