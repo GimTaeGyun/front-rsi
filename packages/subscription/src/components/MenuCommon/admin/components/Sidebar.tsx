@@ -35,6 +35,7 @@ interface IUsrGrp {
   uppUsrGrpId: number;
   cnt: number;
   subGrp?: Array<IUsrGrp>;
+  role: string[];
 }
 
 export interface ITreeItem {
