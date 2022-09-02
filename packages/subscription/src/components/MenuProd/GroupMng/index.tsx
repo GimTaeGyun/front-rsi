@@ -77,7 +77,7 @@ const Items = () => {
         {
           description: description,
           itemTp: itemTp,
-          prdItemGrpId: '',
+          prdItemGrpId: 0,
           prdItemGrpNm: prdGrpNm,
           sort: 1,
           status: status,
