@@ -75,7 +75,7 @@ const styles = {
 };
 
 const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
-  const [selKey, setselKey] = React.useState('');
+  const [selKey, setSelkey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
   const [prdItemGrpId, setPrdItemGrpId] = React.useState('');
@@ -84,6 +84,24 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const [isDel, setIsDel] = React.useState(false);
   const [expandKey, setExpendKey] = React.useState(['']);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [updateGrp, setUpdateGrp] = React.useState('');
+  const [updateDescription, setUpdateDescription] = React.useState('');
+
+  const del = {
+    actor: localStorage.getItem('usrId'),
+    dataset: [
+      {
+        description: '',
+        itemTp: 'MEDIA',
+        prdItemGrpId: Number(prdItemGrpId),
+        prdItemGrpNm: prdItemGrpNm,
+        sort: 1,
+        status: 1,
+        uppPrdItemGrpId: Number(uppPrdItemGrpId),
+      },
+    ],
+    paramType: 'del',
+  };
 
   const defaultAlertPopup = {
     visible: true,
@@ -114,8 +132,66 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     setExpendKey(expandedKeys);
   };
 
+  const onDrop = (data: any) => {
+    console.log(data);
+  };
+
+  const api = async (key: any) => {
+    const res = await axios.post('/management/manager/product/group/inquiry', {
+      p_prd_grp_id: Number(key),
+    });
+    setUpdateGrp(res.data.result.description);
+  };
+
+  const onDragEnd = (event: any) => {
+    api(event.dragNode.key);
+    const upd = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: updateGrp,
+          prdItemGrpId: Number(event.dragNode.key),
+          prdItemGrpNm: event.dragNode.title,
+          sort: 1,
+          status: 1,
+          itemTp: 'MEDIA',
+          uppPrdItemGrpId: Number(event.node.key),
+        },
+      ],
+      paramType: 'mod',
+    };
+    setAlertPopup({
+      ...defaultAlertPopup,
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(true);
+        axios
+          .post('/management/manager/product/group/update', upd)
+          .then(res => {
+            if (res.data.code === '0000')
+              setAlertPopup({
+                ...defaultAlertPopup,
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                  setIsDel(false);
+                },
+                message: '이동 하였습니다.',
+                leftText: '확인',
+              });
+          });
+      },
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(false);
+      },
+      message: event.node.title + '그룹으로 이동 하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+    });
+  };
+
   const onSelect = (selectedKeys: any, info: any) => {
-    setselKey(selectedKeys[0] ? selectedKeys[0] : '');
+    setSelkey(selectedKeys[0] ? selectedKeys[0] : '');
     setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
     setUppPrdItemGrpId(
       info.selectedNodes[0].pos.slice(-3, -2)
@@ -131,22 +207,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     setExpendKey([...expandKey, selKey]);
   };
 
-  const del = {
-    actor: localStorage.getItem('usrId'),
-    dataset: [
-      {
-        description: '',
-        itemTp: '',
-        prdItemGrpId: Number(prdItemGrpId),
-        prdItemGrpNm: prdItemGrpNm,
-        sort: 1,
-        status: 1,
-        uppPrdItemGrpId: Number(uppPrdItemGrpId),
-      },
-    ],
-    paramType: 'del',
-  };
-
   const deleteGrp = () => {
     setAlertPopup({
       ...defaultAlertPopup,
@@ -156,7 +216,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         axios
           .post('/management/manager/product/item/group/update', del)
           .then(res => {
-            console.log('upupup');
             if (res.data.code === '0000')
               setAlertPopup({
                 ...defaultAlertPopup,
@@ -168,7 +227,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
                 leftText: '확인',
               });
           });
-        console.log('end');
       },
       rightCallback: () => {
         setAlertPopup({ ...alertPopup, visible: false });
@@ -250,10 +308,12 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
               <Tree
                 className="myCls"
                 showLine
+                draggable={true}
                 checkable={false}
                 onSelect={onSelect}
                 onExpand={onExpand}
                 expandedKeys={expandKey}
+                onDrop={onDragEnd}
               >
                 {treeItem ? (
                   <TreeNode
