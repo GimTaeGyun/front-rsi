@@ -10,8 +10,10 @@ import {
   TextField,
   OutlinedInput,
 } from '@mui/material';
+import { useAtom } from 'jotai';
 import Tree, { TreeNode } from 'rc-tree';
 import React, { useEffect } from 'react';
+import { AlertPopupData } from '../../../../data/atoms';
 
 import { axios } from '../../../../utils/axios';
 
@@ -72,12 +74,7 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: {
-  setuppGrp: Function;
-  isPost: Boolean;
-  realDel: Boolean;
-  realRM: Function;
-}) => {
+const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const [selKey, setselKey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
@@ -86,6 +83,18 @@ const SidebarRcTree = (props: {
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
   const [expandKey, setExpendKey] = React.useState(['']);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
 
   useEffect(() => {
     const api = async () => {
@@ -122,33 +131,53 @@ const SidebarRcTree = (props: {
     setExpendKey([...expandKey, selKey]);
   };
 
-  const onDel = async () => {
-    const del = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: '',
-          itemTp: '',
-          prdItemGrpId: Number(prdItemGrpId),
-          prdItemGrpNm: prdItemGrpNm,
-          sort: 1,
-          status: 1,
-          uppPrdItemGrpId: Number(uppPrdItemGrpId),
-        },
-      ],
-      paramType: 'del',
-    };
-    if (del) {
-      await props.realRM();
-      if (props.realDel) {
-        const res = await axios.post(
-          '/management/manager/product/item/group/update',
-          del,
-        );
-        setIsDel(!isDel);
+  const del = {
+    actor: localStorage.getItem('usrId'),
+    dataset: [
+      {
+        description: '',
+        itemTp: '',
+        prdItemGrpId: Number(prdItemGrpId),
+        prdItemGrpNm: prdItemGrpNm,
+        sort: 1,
+        status: 1,
+        uppPrdItemGrpId: Number(uppPrdItemGrpId),
+      },
+    ],
+    paramType: 'del',
+  };
+
+  const deleteGrp = () => {
+    setAlertPopup({
+      ...defaultAlertPopup,
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(true);
+        axios
+          .post('/management/manager/product/item/group/update', del)
+          .then(res => {
+            console.log('upupup');
+            if (res.data.code === '0000')
+              setAlertPopup({
+                ...defaultAlertPopup,
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                  setIsDel(false);
+                },
+                message: '삭제 하였습니다.',
+                leftText: '확인',
+              });
+          });
         console.log('end');
-      }
-    }
+      },
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        setIsDel(false);
+      },
+      message: '지정된 그룹을 삭제 하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+    });
   };
 
   const arrayloop = (data: any, pos: any) => {
@@ -263,7 +292,7 @@ const SidebarRcTree = (props: {
             <Button
               variant="outlined"
               className="sub_btn_primary_outline_common sub_btn_footer_save"
-              onClick={onDel}
+              onClick={deleteGrp}
             >
               그룹 삭제
             </Button>
