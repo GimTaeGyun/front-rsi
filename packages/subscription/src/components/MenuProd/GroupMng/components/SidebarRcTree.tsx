@@ -156,13 +156,13 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         let arr = [treeItem.key.toString()];
         if (data.childrens) {
           data.childrens.map((item: any) => {
-            arr.push(item.key.toString());
             arrayloop(item);
+            arr.push(item.key.toString());
           });
         } else {
           return '';
         }
-        setExpendKey(arr);
+        return setExpendKey(arr);
       };
       arrayloop(treeItem);
     } else {
@@ -221,6 +221,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const onSelect = (selectedKeys: any, info: any) => {
     setSelkey(selectedKeys[0] ? selectedKeys[0] : '');
     setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
+    props.setuppGrp(selectedKeys[0] ? selectedKeys[0] : '');
     setUppPrdItemGrpId(
       info.selectedNodes[0].pos.slice(-3, -2)
         ? info.selectedNodes[0].pos.slice(-3, -2)
@@ -230,7 +231,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   };
 
   const onEdit = () => {
-    props.setuppGrp(selKey);
     setIsCllick(selKey);
     setExpendKey([...expandKey, selKey]);
   };
@@ -265,7 +265,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
       rightText: '취소',
     });
   };
-  console.log(showAll);
 
   const arrayloop = (data: any, pos: any) => {
     if (data.childrens) {

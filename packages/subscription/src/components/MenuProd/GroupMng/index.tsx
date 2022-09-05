@@ -49,10 +49,38 @@ const Items = () => {
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
   const [isPost, setIsPost] = React.useState(false);
-  const [realDel, setRealDel] = React.useState(false);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [errorMargin, setErrorMargin] = useState('12px');
   const [errorMargins, setErrorMargins] = useState('12px');
+  const [itemTable, setItemTable] = useState([]);
+
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post(
+        '/management/manager/product/item/group/detail/inquiry',
+        {
+          itemNm: '',
+          itemStatus: 1,
+          prdItemgrpId: 4,
+        },
+      );
+      console.log(res.data.result);
+      setItemTable(res.data.result.itemList.dataRows);
+    };
+    api();
+  }, []);
+
+  const onClickSearchItem = async (itemNm: any, itemSatus: any) => {
+    const res = await axios.post(
+      '/management/manager/product/item/group/detail/inquiry',
+      {
+        itemNm: itemNm ? itemNm : '',
+        itemStatus: itemSatus,
+        prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
+      },
+    );
+    setItemTable(res.data.result);
+  };
 
   const defaultAlertPopup = {
     visible: true,
