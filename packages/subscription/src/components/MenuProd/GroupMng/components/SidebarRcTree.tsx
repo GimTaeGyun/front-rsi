@@ -1,3 +1,4 @@
+import { OpenWith, ZoomInMap } from '@mui/icons-material';
 import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 import {
   Box,
@@ -9,6 +10,7 @@ import {
   IconButton,
   TextField,
   OutlinedInput,
+  Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import Tree, { TreeNode } from 'rc-tree';
@@ -85,7 +87,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const [expandKey, setExpendKey] = React.useState(['']);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [updateGrp, setUpdateGrp] = React.useState(Object);
-  const [updateDescription, setUpdateDescription] = React.useState('');
+  const [showAll, setShowAll] = React.useState(false);
 
   const del = {
     actor: localStorage.getItem('usrId'),
@@ -143,6 +145,29 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     );
     setUpdateGrp(res.data.result);
   };
+
+  const onClickShowAll = () => {
+    setShowAll(!showAll);
+    if (showAll) {
+      let arr = [treeItem.key.toString()];
+      const arrayloop = (data: any) => {
+        if (data.childrens) {
+          data.childrens.map((item: any) => {
+            arr.push(item.key.toString());
+            arrayloop(item);
+          });
+        } else {
+          return '';
+        }
+      };
+      arrayloop(treeItem);
+      setExpendKey(arr);
+    } else {
+      setExpendKey([]);
+    }
+  };
+
+  console.log(expandKey);
 
   const onDragEnd = (event: any) => {
     console.log(event);
@@ -312,6 +337,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
                 showLine
                 draggable={true}
                 checkable={false}
+                defaultExpandAll={showAll}
                 onSelect={onSelect}
                 onExpand={onExpand}
                 expandedKeys={expandKey}
@@ -354,20 +380,55 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
           </CardContent>
           <Divider />
           <Box component="div" className="sub_sidebar_footer">
-            <Button
-              variant="outlined"
-              className="sub_btn_primary_outline_common sub_btn_footer_save"
-              onClick={deleteGrp}
+            <IconButton
+              className="sub_button_white"
+              sx={{
+                width: '84px',
+                height: '30px',
+              }}
+              onClick={onClickShowAll}
             >
-              그룹 삭제
-            </Button>
-            <Button
-              variant="contained"
-              className="sub_btn_primary_fill_common sub_btn_footer_save"
-              onClick={onEdit}
-            >
-              그룹 등록
-            </Button>
+              {showAll ? (
+                <>
+                  <ZoomInMap sx={{ width: '10px', height: '10px' }} />
+                  <Typography
+                    sx={{
+                      fontSize: '13px ',
+                    }}
+                  >
+                    전체닫기
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <OpenWith sx={{ width: '10px', height: '10px' }} />
+                  <Typography
+                    sx={{
+                      fontSize: '13px ',
+                    }}
+                  >
+                    전체열기
+                  </Typography>
+                </>
+              )}
+            </IconButton>
+            <Box>
+              <Button
+                variant="outlined"
+                className="sub_btn_primary_outline_common sub_btn_footer_save"
+                sx={{ marginLeft: '80px !important' }}
+                onClick={deleteGrp}
+              >
+                그룹 삭제
+              </Button>
+              <Button
+                variant="contained"
+                className="sub_btn_primary_fill_common sub_btn_footer_save"
+                onClick={onEdit}
+              >
+                그룹 등록
+              </Button>
+            </Box>
           </Box>
         </Card>
       </Box>
