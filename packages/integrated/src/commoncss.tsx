@@ -14,6 +14,7 @@ const css = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        'input::-ms-reveal, input::-ms-clear': { display: 'none' },
         '&::-webkit-scrollbar': {
           width: '4px',
         },
