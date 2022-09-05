@@ -9,6 +9,7 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  Divider,
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
@@ -392,6 +393,7 @@ const AllProd = () => {
                   ))
                 : ''}
             </Box>
+            <Divider />
             <Box component="div" className="sub_listpage_filter_dropdown_row">
               <Box className="sub_filter_dropdown_lbl" component="span">
                 {status ? status.codeSetLabel : ''}

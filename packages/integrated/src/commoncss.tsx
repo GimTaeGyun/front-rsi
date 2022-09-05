@@ -120,12 +120,6 @@ const css = createTheme({
               padding: '11px 10px',
               lineHeight: 'normal',
               fontFamily: 'NotoSansKRRegular',
-            },
-            '& 	.MuiOutlinedInput-input, .MuiInputBase-input': {
-              fontFamily: 'NotoSansKRRegular',
-              fontSize: '14px',
-            },
-            '& .MuiOutlinedInput-root': {
               '& fieldset': {
                 fontFamily: 'NotoSansKRRegular',
                 borderColor: '#0000001F',
@@ -143,6 +137,10 @@ const css = createTheme({
                 borderColor: '#E50012',
                 borderWidth: '1px',
               },
+            },
+            '& 	.MuiOutlinedInput-input, .MuiInputBase-input': {
+              fontFamily: 'NotoSansKRRegular',
+              fontSize: '14px',
             },
           },
 
