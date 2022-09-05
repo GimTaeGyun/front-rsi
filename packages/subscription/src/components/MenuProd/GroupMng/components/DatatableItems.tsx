@@ -12,14 +12,17 @@ import {
   GridColumnHeaderParams,
   GridSortItem,
 } from '@mui/x-data-grid-pro';
-import * as React from 'react';
+import { useAtom } from 'jotai';
+import React from 'react';
+import { AlertPopupData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 
 import { Footer } from './footer';
 
 const columns: GridColDef[] = [
   {
     align: 'left',
-    field: 'name',
+    field: 'itemNm',
     headerName: '아이템명',
     width: 434,
     headerAlign: 'center',
@@ -33,7 +36,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'right',
-    field: 'unit_price',
+    field: 'price',
     headerName: '단위가격',
     width: 200,
     headerAlign: 'center',
@@ -60,7 +63,7 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       let str_class = 'sub_td_status sub_td_status_color1';
-      switch (params.value) {
+      switch (params.value.label) {
         case '사용가능':
           str_class = 'sub_td_status sub_td_status_color1';
           break;
@@ -73,7 +76,7 @@ const columns: GridColDef[] = [
       }
       return (
         <Box component="span" className={str_class}>
-          {params.value}
+          {params.value.label}
         </Box>
       );
     },
@@ -81,7 +84,7 @@ const columns: GridColDef[] = [
   {
     headerClassName: 'sub_hideLastSeparator',
     align: 'center',
-    field: 'date',
+    field: 'modAt',
     headerName: '최종 수정일시',
     width: 200,
     headerAlign: 'center',
@@ -94,51 +97,60 @@ const columns: GridColDef[] = [
     ),
   },
 ];
-const rows = [
-  {
-    id: '1',
-    name: '경향신문',
-    unit_price: '200,000',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '2',
-    name: '경향신문',
-    unit_price: '200,000',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '3',
-    name: '경향신문',
-    unit_price: '200,000',
-    status: '사용불가',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '4',
-    name: '경향신문',
-    unit_price: '200,000',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '5',
-    name: '경향신문',
-    unit_price: '200,000',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '6',
-    name: '경향신문',
-    unit_price: '200,000',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-];
-const DatatableItems = () => {
+
+const DatatableItems = (props: {
+  rows: any;
+  changeDataGridUE: Function;
+  statusValue: any;
+}) => {
+  const { rows, changeDataGridUE, statusValue } = props;
+  const [selectModel, setSelectModel] = React.useState(Array);
+  const [status, setStatus] = React.useState('32767');
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
+
+  const select = (data: any) => {
+    setSelectModel(data);
+  };
+
+  const statusChange = (data: any) => {
+    setStatus(data);
+  };
+
+  const statusChangeArray = async () => {
+    if (selectModel[0]) {
+      const res = await axios.post(
+        '/management/manager/product/multi/status/update',
+        {
+          actor: localStorage.getItem('usrId'),
+          dataset: selectModel,
+          field: 'item',
+          status: Number(status),
+        },
+      );
+      res.data.code === '0000' ? changeDataGridUE() : '';
+    } else {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        message: '리스트를 체크해 주세요',
+        leftText: '확인',
+      });
+    }
+  };
+
   return (
     <div style={{ height: '426px', width: '100%' }}>
       <DataGridPro
@@ -146,14 +158,22 @@ const DatatableItems = () => {
         headerHeight={57}
         disableSelectionOnClick
         rowHeight={52}
-        rows={rows}
+        rows={rows ? rows : []}
         columns={columns}
         pagination={true}
         rowCount={rows.length}
-        checkboxSelection={true}
+        checkboxSelection
+        onSelectionModelChange={select}
         components={{
           Footer: () => {
-            return <Footer />;
+            return (
+              <Footer
+                statusValue={statusValue}
+                postStatus={statusChangeArray}
+                statusChange={statusChange}
+                status={status}
+              />
+            );
           },
         }}
       />

@@ -53,6 +53,15 @@ const Items = () => {
   const [errorMargin, setErrorMargin] = useState('12px');
   const [errorMargins, setErrorMargins] = useState('12px');
   const [itemTable, setItemTable] = useState([]);
+  const [searchItemNm, setSearchItemNm] = useState('');
+  const [statusValue, setStatusValue] = useState([]);
+  const [check1, setCheck1] = useState('32767');
+  const [postStatus, setPostStatus] = useState(Number);
+  const [changeDataGrid, setChangeDataGrid] = useState(false);
+
+  const changeDataGridUE = () => {
+    setChangeDataGrid(!changeDataGrid);
+  };
 
   useEffect(() => {
     const api = async () => {
@@ -61,26 +70,63 @@ const Items = () => {
         {
           itemNm: '',
           itemStatus: 1,
-          prdItemgrpId: 4,
+          prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
-      console.log(res.data.result);
-      setItemTable(res.data.result.itemList.dataRows);
+      let arr = [] as any;
+      if (res.data.result.itemList.dataRows) {
+        res.data.result.itemList.dataRows.map((item: any) => {
+          const row = {
+            ...item,
+            id: item.itemId,
+          };
+          arr.push(row);
+        });
+        setItemTable(arr);
+      } else {
+        setItemTable([]);
+      }
     };
     api();
-  }, []);
+  }, [selectGroupKey, changeDataGrid]);
 
-  const onClickSearchItem = async (itemNm: any, itemSatus: any) => {
+  const onClickSearchItem = async () => {
     const res = await axios.post(
       '/management/manager/product/item/group/detail/inquiry',
       {
-        itemNm: itemNm ? itemNm : '',
-        itemStatus: itemSatus,
+        itemNm: searchItemNm ? searchItemNm : '',
+        itemStatus: postStatus,
         prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
       },
     );
-    setItemTable(res.data.result);
+    let arr = [] as any;
+    if (res.data.result.itemList.dataRows) {
+      res.data.result.itemList.dataRows.map((item: any) => {
+        const row = {
+          ...item,
+          id: item.itemId,
+        };
+        arr.push(row);
+      });
+      setItemTable(arr);
+    } else {
+      setItemTable([]);
+    }
   };
+
+  useEffect(() => {
+    switch (check1) {
+      case '1':
+        setPostStatus(1);
+        break;
+      case '-1':
+        setPostStatus(-1);
+        break;
+      default:
+        setPostStatus(3);
+        break;
+    }
+  }, [check1]);
 
   const defaultAlertPopup = {
     visible: true,
@@ -141,6 +187,17 @@ const Items = () => {
   useEffect(() => {
     setDataValid(defaultFormValidation);
   }, [selectGroupKey]);
+
+  useEffect(() => {
+    const api = async () => {
+      const res = await axios.post('/management/subscription/admin/codeset', {
+        code: 'status',
+        code_grp: 'pm.option',
+      });
+      setStatusValue(res.data.result.codeSetItems);
+    };
+    api();
+  }, []);
 
   const setuppGrp = (data: any) => {
     setSelectGroupKey(data);
@@ -378,8 +435,11 @@ const Items = () => {
                       </Select>
                       <OutlinedInput
                         fullWidth={false}
-                        placeholder=""
-                        value="검색어 입력"
+                        placeholder="검색어 입력"
+                        value={searchItemNm}
+                        onChange={e => {
+                          setSearchItemNm(e.target.value);
+                        }}
                         className="sub_input_common sub_items_filter_search"
                       />
                     </Box>
@@ -403,12 +463,17 @@ const Items = () => {
                       <Button
                         variant="outlined"
                         className="sub_btn_primary_outline_common sub_items_btn_init"
+                        onClick={() => {
+                          setCheck1('32767');
+                          setSearchItemNm('');
+                        }}
                       >
                         초기화
                       </Button>
                       <Button
                         variant="contained"
                         className="sub_btn_primary_fill_common sub_items_btn_search"
+                        onClick={onClickSearchItem}
                       >
                         검색하기
                       </Button>
@@ -430,15 +495,32 @@ const Items = () => {
                   <Box className="sub_filter_dropdown_lbl" component="span">
                     아이템 상태
                   </Box>
-                  <FormGroup className="sub_filter_dropdown_chk_outer">
-                    <FormControlLabel control={<Checkbox />} label="전체" />
-                  </FormGroup>
-                  <FormGroup className="sub_filter_dropdown_chk_outer">
-                    <FormControlLabel control={<Checkbox />} label="사용가능" />
-                  </FormGroup>
-                  <FormGroup className="sub_filter_dropdown_chk_outer">
-                    <FormControlLabel control={<Checkbox />} label="사용불가" />
-                  </FormGroup>
+
+                  {statusValue.map((item: any) => {
+                    let check = false;
+                    if (item.value === check1) {
+                      check = true;
+                    } else {
+                      check = false;
+                    }
+                    return (
+                      <FormGroup className="sub_filter_dropdown_chk_outer">
+                        <FormControlLabel
+                          className="sub_filter_dropdown_chk_outer"
+                          control={
+                            <Checkbox
+                              value={item.value}
+                              checked={check}
+                              onChange={e => {
+                                setCheck1(e.target.value);
+                              }}
+                            />
+                          }
+                          label={item.label}
+                        />
+                      </FormGroup>
+                    );
+                  })}
                 </Box>
               </Card>
 
@@ -462,7 +544,11 @@ const Items = () => {
                     </Box>
                   }
                 ></CardHeader>
-                <DatatableItems />
+                <DatatableItems
+                  rows={itemTable}
+                  changeDataGridUE={changeDataGridUE}
+                  statusValue={statusValue}
+                />
               </Card>
             </Box>
           </Box>
