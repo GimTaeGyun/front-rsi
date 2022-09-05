@@ -221,7 +221,7 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
                 setPopupData(defaultFormData);
                 setAlertPopup({ ...alertPopup, visible: false });
               },
-              message: '새로운 사용자 그룹이 추가되었습니다.',
+              message: '새로운 사용자가 추가되었습니다.',
             });
           } else {
             setAlertPopup({
@@ -285,25 +285,21 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
     if (!(await validationSchema.fields.usrNm.isValid(popupData.usrNm))) {
       tmp.usrNm.err = true;
       tmp.usrNm.msg = errMsg.usrNm;
-    } else {
-      tmp.usrNm.err = false;
-      tmp.usrNm.msg = '';
     }
     // 전화번호
     if (!(await validationSchema.fields.phone.isValid(popupData.phone))) {
       tmp.phone.err = true;
       tmp.phone.msg = errMsg.phone;
-    } else {
-      tmp.phone.err = false;
-      tmp.phone.msg = '';
     }
     // email
     if (!(await validationSchema.fields.email.isValid(popupData.email))) {
       tmp.email.err = true;
       tmp.email.msg = errMsg.email;
-    } else {
-      tmp.email.err = false;
-      tmp.email.msg = '';
+    }
+    // service
+    if (popupData.service.length == 0) {
+      tmp.service.err = true;
+      tmp.service.msg = errMsg.service;
     }
 
     setDataValid({ ...tmp });
@@ -313,7 +309,8 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
       tmp.loginId.err ||
       tmp.loginPw.err ||
       tmp.phone.err ||
-      tmp.usrNm.err
+      tmp.usrNm.err ||
+      tmp.service.err
     );
   };
 
