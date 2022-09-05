@@ -477,10 +477,12 @@ const css = createTheme({
         },
         '& .sub_listpage_filter_topsection.b-0': {
           borderBottomWidth: '0',
-          maxWidth: '981px',
+          minWidth: '981px',
+          width: '100%',
         },
         '& .sub_listpage_filter_topsection_sub': {
           display: 'flex',
+          width: '33.33%',
           minWidth: '490px',
           height: '60px',
           alignItems: 'center',
