@@ -11,7 +11,9 @@ export const columns: GridColDef[] = [
   {
     align: 'center',
     headerAlign: 'center',
-    width: 50,
+    minWidth: 50,
+    maxWidth: 80,
+    flex: 1,
     field: '__check__',
     sortingOrder: ['desc'],
     sortable: false,
@@ -23,11 +25,12 @@ export const columns: GridColDef[] = [
   {
     field: 'id',
     headerName: 'ID',
-    width: 125,
+    minWidth: 125,
+    maxWidth: 203,
+    flex: 1,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
-
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
         {params.colDef.headerName}
@@ -37,7 +40,9 @@ export const columns: GridColDef[] = [
   {
     field: 'name',
     headerName: '이름',
-    width: 140,
+    minWidth: 140,
+    maxWidth: 227,
+    flex: 1,
     headerAlign: 'center',
     sortable: true,
     disableColumnMenu: true,
@@ -50,7 +55,9 @@ export const columns: GridColDef[] = [
   {
     field: 'phone',
     headerName: '전화번호',
-    width: 120,
+    minWidth: 120,
+    maxWidth: 194,
+    flex: 1,
     headerAlign: 'center',
     align: 'center',
     sortable: true,
@@ -65,7 +72,9 @@ export const columns: GridColDef[] = [
   {
     field: 'email',
     headerName: '이메일',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 292,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: false,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -77,7 +86,9 @@ export const columns: GridColDef[] = [
   {
     field: 'status',
     headerName: '상태',
-    width: 80,
+    minWidth: 80,
+    maxWidth: 130,
+    flex: 1,
     headerAlign: 'center',
     align: 'center',
     sortable: false,
@@ -105,7 +116,9 @@ export const columns: GridColDef[] = [
   {
     field: 'description',
     headerName: '추가 내용',
-    width: 140,
+    minWidth: 140,
+    maxWidth: 227,
+    flex: 1,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
@@ -118,7 +131,9 @@ export const columns: GridColDef[] = [
   {
     field: 'modifiedDate',
     headerName: '최종 수정일',
-    width: 245,
+    minWidth: 245,
+    maxWidth: 397,
+    flex: 1,
     headerAlign: 'center',
     align: 'center',
     sortable: false,

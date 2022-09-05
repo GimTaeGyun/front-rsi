@@ -52,7 +52,7 @@ const DataTable = (props: any) => {
   }, [after, checkboxSelectedIds]);
 
   return (
-    <Box sx={{ width: '1090px' }}>
+    <Box sx={{ width: '100%', minWidth: '1090px' }}>
       <Card sx={styles.card}>
         <CardHeader
           component="div"
