@@ -93,6 +93,7 @@ const styles = {
     lineHeight: '15px',
     fontFamily: 'NotoSansKRBold',
     fontWeight: '800',
+    whiteSpace: 'pre-line',
   },
   btn: {
     minWidth: '46px',

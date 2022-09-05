@@ -1,4 +1,3 @@
-import { ItemTypes } from '@minoru/react-dnd-treeview';
 import {
   Box,
   Button,
