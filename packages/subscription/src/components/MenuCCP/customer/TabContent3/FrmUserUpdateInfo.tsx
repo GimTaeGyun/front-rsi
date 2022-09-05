@@ -105,6 +105,7 @@ const FrmUserUpdateInfo = (props: {
   const [serviceList, setServiceList] = useState([]); // 사용서비스 테이블 목록
 
   useEffect(() => {
+    // 사용자그룹 셀렉트박스
     axios
       .post('/management/manager/customer/usergroup/inquiry', {
         custId: sharedCustomerData.custId,
@@ -115,6 +116,8 @@ const FrmUserUpdateInfo = (props: {
         }
       })
       .catch();
+
+    // 사용서비스 테이블
     axios
       .post('/management/common/service/inquiry')
       .then((res: any) => {

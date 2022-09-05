@@ -55,7 +55,7 @@ const Index = () => {
   const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1);
   const [sortField, setSortField] = useState('custId');
   const [order, setOrder] = useState('asc');
-  const [filterDropdown, setFilterDropdown] = useState(false);
+  const [filterDropdown, setFilterDropdown] = useState(true);
   const [total, setTotal] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [a, setA] = useState(true);

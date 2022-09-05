@@ -240,6 +240,7 @@ const TabContent3 = () => {
       })
       .then(res => {
         if (res.data.code == '0000') {
+          updateTableList();
           setAlertPopupData({
             ...DefaultAlertPopupData,
             visible: true,

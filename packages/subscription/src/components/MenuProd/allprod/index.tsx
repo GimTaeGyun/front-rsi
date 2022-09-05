@@ -32,13 +32,134 @@ const pageReducer = (state: any, action: any) => {
 
   return state;
 };
-
+const rows = [
+  {
+    id: '1',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '2',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '3',
+    category: '기업',
+    service: 'WIGO MON',
+    productGroup: 'WIGO MON / 대기업 / 모니터링',
+    productName: 'WIGO MON_구독 서비스',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '미게시',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '4',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '5',
+    category: '공공',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '6',
+    category: '공공',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '7',
+    category: '기업',
+    service: 'WIGO MON',
+    productGroup: 'WIGO MON / 대기업 / 모니터링',
+    productName: 'WIGO MON_구독 서비스',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '미게시',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '8',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '9',
+    category: '기업',
+    service: 'WIGO MON',
+    productGroup: 'WIGO MON / 대기업 / 모니터링',
+    productName: 'WIGO MON_구독 서비스',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '미게시',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '10',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+];
+const [total, setTotal] = useState(rows.length); // 전체 로우 수
 const AllProd = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData); // 알림창
   const [filterDropdown, setFilterDropdown] = useState(false); // 상세검색
   const [pageSize, dispatchPageSize] = useReducer(pageReducer, 10); // 페이지 로우 수
   const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1); // 페이지
   const [total, setTotal] = useState(0); // 전체 로우 수
+  const [prdTp, setPrdTp] = useState(null as any);
+  const [status, setStatus] = useState(null as any);
   const [sortField, setSortField] = useState('custId');
   const [order, setOrder] = useState('asc');
   const [tableRows, setTableRows] = useState([]);
@@ -90,6 +211,51 @@ const AllProd = () => {
     }*/
   };
 
+  useEffect(() => {
+    // 상품유형 체크박스
+    axios
+      .post('/management/subscription/admin/codeset', {
+        code: 'prd_tp',
+        code_grp: 'pm.product',
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          setPrdTp(res.data.result);
+        }
+      })
+      .catch();
+    // 상품상태 체크박스
+    axios
+      .post('/management/subscription/admin/codeset', {
+        code: 'status',
+        code_grp: 'pm.product',
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          setStatus(res.data.result);
+        }
+      })
+      .catch();
+
+    refreshTableData();
+  }, []);
+
+  const refreshTableData = () => {
+    // 전체 상품목록
+    axios
+      .post('/management/manager/product/all/inquiry', {
+        prdItemgrpId: 'ALL',
+        prdTp: 'ALL',
+        searchValue: null,
+        service: 0,
+        status: 3,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch();
+  };
+
   return (
     <>
       <AppFrame
@@ -127,7 +293,7 @@ const AllProd = () => {
                   <Select
                     fullWidth={false}
                     name="searchField"
-                    //value={searchField}
+                    value="전체" //{searchField}
                     className="sub_select_common sub_listpage_filter_list"
                     //onChange={e => setSearchField(e.target.value)}
                     MenuProps={{
@@ -136,6 +302,13 @@ const AllProd = () => {
                       },
                     }}
                   >
+                    <MenuItem
+                      key="전체"
+                      value="전체"
+                      className="sub_menuitem_little"
+                    >
+                      전체
+                    </MenuItem>
                     {/*(searchCategory as any).codeSetItems.map((item: any) => (
                       <MenuItem
                         key={item.value}
@@ -206,37 +379,35 @@ const AllProd = () => {
           >
             <Box component="div" className="sub_listpage_filter_dropdown_row">
               <Box className="sub_filter_dropdown_lbl" component="span">
-                상품유형
+                {prdTp ? prdTp.codeSetLabel : ''}
               </Box>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="전체" />
-              </FormGroup>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="개인" />
-              </FormGroup>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="법인" />
-              </FormGroup>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="공공" />
-              </FormGroup>
+              {prdTp
+                ? prdTp.codeSetItems.map((item: any) => (
+                    <FormGroup className="sub_filter_dropdown_chk_outer">
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label={item.label}
+                        value={item.value}
+                      />
+                    </FormGroup>
+                  ))
+                : ''}
             </Box>
             <Box component="div" className="sub_listpage_filter_dropdown_row">
               <Box className="sub_filter_dropdown_lbl" component="span">
-                상품상태
+                {status ? status.codeSetLabel : ''}
               </Box>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="전체" />
-              </FormGroup>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="판매중" />
-              </FormGroup>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="미게시" />
-              </FormGroup>
-              <FormGroup className="sub_filter_dropdown_chk_outer">
-                <FormControlLabel control={<Checkbox />} label="임시저장" />
-              </FormGroup>
+              {status
+                ? status.codeSetItems.map((item: any) => (
+                    <FormGroup className="sub_filter_dropdown_chk_outer">
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label={item.label}
+                        value={item.value}
+                      />
+                    </FormGroup>
+                  ))
+                : ''}
             </Box>
           </Card>
 
@@ -259,7 +430,7 @@ const AllProd = () => {
             ></CardHeader>
             <DataTable
               checkbox={false}
-              rows={tableRows}
+              rows={rows}
               cellClickEvent={cellClickEvent}
               rowsPerPage={pageSize}
               total={total}
