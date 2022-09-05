@@ -129,16 +129,28 @@ const DatatableItems = (props: {
 
   const statusChangeArray = async () => {
     if (selectModel[0]) {
-      const res = await axios.post(
-        '/management/manager/product/multi/status/update',
-        {
-          actor: localStorage.getItem('usrId'),
-          dataset: selectModel,
-          field: 'item',
-          status: Number(status),
-        },
-      );
-      res.data.code === '0000' ? changeDataGridUE() : '';
+      if (status === '32767') {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+          },
+          message: '상태를 변경해 주세요',
+          leftText: '확인',
+        });
+      } else {
+        const res = await axios.post(
+          '/management/manager/product/multi/status/update',
+          {
+            actor: localStorage.getItem('usrId'),
+            dataset: selectModel,
+            field: 'item',
+            status: Number(status),
+          },
+        );
+
+        res.data.code === '0000' ? changeDataGridUE() : '';
+      }
     } else {
       setAlertPopup({
         ...defaultAlertPopup,
@@ -180,4 +192,4 @@ const DatatableItems = (props: {
     </div>
   );
 };
-export default DatatableItems;
+export default React.memo(DatatableItems);
