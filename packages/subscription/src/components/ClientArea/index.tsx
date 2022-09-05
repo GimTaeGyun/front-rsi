@@ -38,7 +38,7 @@ const ClientArea = (props: {
   const { drawerWidth, open, title, children, breadcrumbs = [] } = props;
 
   return (
-    <Main open={open} drawerWidth={drawerWidth} sx={{ maxWidth: '1546px' }}>
+    <Main open={open} drawerWidth={drawerWidth} sx={{ maxWidth: '100%' }}>
       <Breadcrumbs
         aria-label="breadcrumb"
         sx={{ fontSize: '14px', fontFamily: 'NotoSansKRRegular ' }}
