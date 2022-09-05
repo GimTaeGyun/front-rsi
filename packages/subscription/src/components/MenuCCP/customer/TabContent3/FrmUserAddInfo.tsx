@@ -72,7 +72,10 @@ const validationSchema = Yup.object().shape({
     ),
   usrNm: Yup.string().required().max(100),
   email: Yup.string().email().required().max(256),
-  phone: Yup.string().max(20).required(),
+  phone: Yup.string()
+    .max(20)
+    .required()
+    .matches(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/),
   service: Yup.array().required(),
 });
 

@@ -31,7 +31,10 @@ const validationSchema = Yup.object().shape({
     ),
   usrNm: Yup.string().required().max(100),
   email: Yup.string().email().required().max(256),
-  phone: Yup.string().max(20).required(),
+  phone: Yup.string()
+    .max(20)
+    .required()
+    .matches(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/),
   service: Yup.array().required(),
 });
 const errMsg = {
@@ -172,11 +175,15 @@ const FrmUserUpdateInfo = (props: {
     if (!(await validationSchema.fields.phone.isValid(data?.phone))) {
       err.phone.err = true;
       err.phone.msg = errMsg.phone;
+    } else {
+      err.phone.err = false;
     }
     // email
     if (!(await validationSchema.fields.email.isValid(data?.email))) {
       err.email.err = true;
       err.email.msg = errMsg.email;
+    } else {
+      err.email.err = false;
     }
     // 사용 서비스 선택유무
     if (!(await validationSchema.fields.service.isValid(data?.service))) {
@@ -191,7 +198,7 @@ const FrmUserUpdateInfo = (props: {
           setAlertPopup({ ...alertPopup, visible: false });
         },
       });
-    }
+    } else err.service = false;
 
     setError({ ...err });
     if (
