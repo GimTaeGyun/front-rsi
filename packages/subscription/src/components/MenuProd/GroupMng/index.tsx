@@ -41,7 +41,7 @@ const validationMsg = {
 };
 
 const Items = () => {
-  const [filterDropdown, setFilterDropdown] = React.useState(false);
+  const [filterDropdown, setFilterDropdown] = React.useState(true);
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState(1);
@@ -59,6 +59,27 @@ const Items = () => {
   const [postStatus, setPostStatus] = useState(Number);
   const [changeDataGrid, setChangeDataGrid] = useState(false);
 
+  useEffect(() => {
+    setDataValid(defaultFormValidation);
+    /* 선택시에 아이템 그룹정보 바뀜
+    const api = async () => {
+      const res = await axios.post(
+        '/management/manager/product/item/group/detail/inquiry',
+        {
+          itemNm: '',
+          itemStatus: 32767,
+          prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
+        },
+      );
+      const data = res.data.result;
+      setPrdGrpNm(data.itemGrpNm);
+      setItemTp(data.itemTp.value);
+      setStatus(data.status.value);
+    };
+    api();
+    */
+  }, [selectGroupKey]);
+
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
   };
@@ -69,7 +90,7 @@ const Items = () => {
         '/management/manager/product/item/group/detail/inquiry',
         {
           itemNm: '',
-          itemStatus: 1,
+          itemStatus: 32767,
           prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
@@ -123,7 +144,7 @@ const Items = () => {
         setPostStatus(-1);
         break;
       default:
-        setPostStatus(3);
+        setPostStatus(32767);
         break;
     }
   }, [check1]);
@@ -183,10 +204,6 @@ const Items = () => {
     dataValid.prdGrpNm ? setErrorMargin('28px') : setErrorMargin('12px');
     dataValid.prdGrpNm ? setErrorMargins('3px') : setErrorMargins('12px');
   }, [dataValid.prdGrpNm]);
-
-  useEffect(() => {
-    setDataValid(defaultFormValidation);
-  }, [selectGroupKey]);
 
   useEffect(() => {
     const api = async () => {
@@ -558,4 +575,4 @@ const Items = () => {
   );
 };
 
-export default Items;
+export default React.memo(Items);

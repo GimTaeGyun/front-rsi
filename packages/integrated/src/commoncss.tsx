@@ -477,10 +477,12 @@ const css = createTheme({
         },
         '& .sub_listpage_filter_topsection.b-0': {
           borderBottomWidth: '0',
-          maxWidth: '981px',
+          minWidth: '981px',
+          width: '100%',
         },
         '& .sub_listpage_filter_topsection_sub': {
           display: 'flex',
+          width: '33.33%',
           minWidth: '490px',
           height: '60px',
           alignItems: 'center',
@@ -1228,7 +1230,7 @@ const css = createTheme({
         },
         '& .MuiPaper-root.sub_dialog_card_orderinfo3': {
           width: '940px !important',
-          height: '126px !important',
+          minHeight: '126px !important',
           boxShadow: 'none',
           border: '1px solid #ccc',
           marginTop: '15px',
@@ -1242,7 +1244,8 @@ const css = createTheme({
             display: 'flex',
             justifyContent: 'space-between',
             width: '940px',
-            height: '98px',
+            height: '80px',
+            padding: '9px',
           },
           '& .sub_dialog_card_orderinfo3_content.MuiCardContent-root': {
             alignItems: 'center',
