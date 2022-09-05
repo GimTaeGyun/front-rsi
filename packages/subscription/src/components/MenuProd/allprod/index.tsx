@@ -32,7 +32,126 @@ const pageReducer = (state: any, action: any) => {
 
   return state;
 };
-
+const rows = [
+  {
+    id: '1',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '2',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '3',
+    category: '기업',
+    service: 'WIGO MON',
+    productGroup: 'WIGO MON / 대기업 / 모니터링',
+    productName: 'WIGO MON_구독 서비스',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '미게시',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '4',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '5',
+    category: '공공',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '6',
+    category: '공공',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '7',
+    category: '기업',
+    service: 'WIGO MON',
+    productGroup: 'WIGO MON / 대기업 / 모니터링',
+    productName: 'WIGO MON_구독 서비스',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '미게시',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '8',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '9',
+    category: '기업',
+    service: 'WIGO MON',
+    productGroup: 'WIGO MON / 대기업 / 모니터링',
+    productName: 'WIGO MON_구독 서비스',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '미게시',
+    date: '2022-01-01 12:00',
+  },
+  {
+    id: '10',
+    category: '개인',
+    service: 'EyeSurfer',
+    productGroup:
+      'EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사',
+    productName: 'EyeSurfer 구독 서비스_개인_스크랩_신탁',
+    salesStart: '2022-01-01',
+    salesEnd: '2022-12-31',
+    status: '판매중',
+    date: '2022-01-01 12:00',
+  },
+];
+const [total, setTotal] = useState(rows.length); // 전체 로우 수
 const AllProd = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData); // 알림창
   const [filterDropdown, setFilterDropdown] = useState(false); // 상세검색
@@ -117,6 +236,8 @@ const AllProd = () => {
         }
       })
       .catch();
+
+    refreshTableData();
   }, []);
 
   const refreshTableData = () => {
@@ -307,7 +428,7 @@ const AllProd = () => {
             ></CardHeader>
             <DataTable
               checkbox={false}
-              rows={tableRows}
+              rows={rows}
               cellClickEvent={cellClickEvent}
               rowsPerPage={pageSize}
               total={total}

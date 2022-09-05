@@ -164,8 +164,16 @@ const AdminLogin = () => {
               />
             </FormGroup>
           </CardContent>
+          {!isLogin ? (
+            <Alert severity="error" icon={false} sx={styles.alert_error}>
+              <Box sx={{ textAlign: 'center', minWidth: '294px' }}>
+                아이디 또는 비밀번호를 확인해 주세요.
+              </Box>
+            </Alert>
+          ) : (
+            ''
+          )}
           <CardActions sx={styles.loginbutton_outer}>
-            <OnClose />
             <Button
               aria-label="primary"
               sx={styles.loginbutton}
@@ -192,10 +200,13 @@ const styles = {
     fontSize: '15px',
     fontAligh: 'center',
     height: '58px',
-    borderBottom: '15px solid white',
+    marginBottom: '15px',
+    boxShadow: 'none !important',
     color: '#F44336',
+    border: '0',
     borderRadius: '0',
     alignItems: 'center',
+    marginTop: '20px',
     '&.MuiAlert-message': {
       overflow: 'hidden',
     },
@@ -204,7 +215,7 @@ const styles = {
     p: '0',
     mt: '19px',
     flexDirection: 'column',
-    boxShadow: '0px 1px 5px #0000002E !important',
+    boxShadow: '0px 1px 5px #0000002E',
   },
   loginbutton: {
     display: 'block',

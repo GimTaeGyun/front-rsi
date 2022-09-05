@@ -1673,6 +1673,10 @@ const css = createTheme({
         '& .sub_filter_switch .MuiSwitch-root': {
           paddingRight: '7px',
         },
+
+        '& .sub_divider_1px': {
+          height: '1px',
+        },
       },
     },
   },
