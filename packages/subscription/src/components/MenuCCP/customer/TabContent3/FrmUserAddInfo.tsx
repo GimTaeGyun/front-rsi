@@ -12,6 +12,7 @@ import { useAtom } from 'jotai';
 import { AlertPopupData, customerData } from '../../../../data/atoms';
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
+import cryptojs from 'crypto-js';
 
 import { axios } from '../../../../utils/axios';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
@@ -88,7 +89,11 @@ const defaultFormValidation = {
   service: { err: false, msg: '' },
 };
 
-const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
+const FrmUserInfo = (props: {
+  open: boolean;
+  handleClose: Function;
+  handleSubmit?: Function;
+}) => {
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const defaultFormData = {
     action: 'add',
@@ -206,9 +211,23 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
       });
     } else {
       axios
-        .post('/management/subscription/customer/user/update', popupData)
+        .post('/management/subscription/customer/user/update', {
+          ...popupData,
+          loginPw: cryptojs.AES.encrypt(
+            popupData.loginPw,
+            cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+            {
+              iv: cryptojs.enc.Utf8.parse(
+                process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+              ),
+              padding: cryptojs.pad.Pkcs7,
+              mode: cryptojs.mode.CBC,
+            },
+          ).toString(),
+        })
         .then((res: any) => {
           if (res.data.code == '0000') {
+            props.handleSubmit ? props.handleSubmit() : '';
             setAlertPopup({
               ...defaultAlertPopup,
               leftCallback: () => {

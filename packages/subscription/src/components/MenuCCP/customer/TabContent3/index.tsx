@@ -13,7 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../../data/atoms';
 import { useAtom } from 'jotai';
 import { axios } from '../../../../utils/axios';
-import AlertPopup from '../../../Common/AlertPopup';
+import cryptojs from 'crypto-js';
 import FrmAddUserGroup from './FrmAddUserGroup';
 import FrmUserInfo from './FrmUserAddInfo';
 import FrmUserUpdateInfo from './FrmUserUpdateInfo';
@@ -233,7 +233,17 @@ const TabContent3 = () => {
         email: data.email,
         grpNo: data.grpNo,
         loginId: data.loginId,
-        loginPw: data.loginPw,
+        loginPw: cryptojs.AES.encrypt(
+          data.loginPw,
+          cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+          {
+            iv: cryptojs.enc.Utf8.parse(
+              process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+            ),
+            padding: cryptojs.pad.Pkcs7,
+            mode: cryptojs.mode.CBC,
+          },
+        ).toString(),
         phone: data.phone,
         service: data.service,
         usrId: data.usrId,
@@ -278,7 +288,11 @@ const TabContent3 = () => {
 
       {/*사용자 추가 다이얼로그*/}
       {dialogAddUser && (
-        <FrmUserInfo open={dialogAddUser} handleClose={hide_dialogAddUser} />
+        <FrmUserInfo
+          open={dialogAddUser}
+          handleClose={hide_dialogAddUser}
+          handleSubmit={updateTableList}
+        />
       )}
 
       {/* 사용자 정보 수정 다이얼로그 */}
