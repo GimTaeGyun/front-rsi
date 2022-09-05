@@ -12,7 +12,7 @@ import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { axios } from '../../../../utils/axios';
 import * as Yup from 'yup';
-import { customerData } from '../../../../data/atoms';
+import { customerData, AlertPopupData } from '../../../../data/atoms';
 import { useAtom } from 'jotai';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
@@ -31,7 +31,10 @@ const validationSchema = Yup.object().shape({
     ),
   usrNm: Yup.string().required().max(100),
   email: Yup.string().email().required().max(256),
-  phone: Yup.string().max(20).required(),
+  phone: Yup.string()
+    .max(20)
+    .required()
+    .matches(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/),
   service: Yup.array().required(),
 });
 const errMsg = {
@@ -47,7 +50,7 @@ const errMsg = {
   usrNm: '잘못된 형식입니다.',
   email: '잘못된 형식입니다.',
   phone: '잘못된 형식입니다.',
-  service: '사용 서비스를 선택해 주세요',
+  service: '사용 서비스를 설정해 주세요',
 };
 const columns: GridColDef[] = [
   {
@@ -99,10 +102,12 @@ const FrmUserUpdateInfo = (props: {
     usrNm: { msg: '', err: false },
     phone: { msg: '', err: false },
     email: { msg: '', err: false },
+    service: false,
   });
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
   const [userGrpSelect, setUserGrpSelect] = useState([]); // 사용자그룹 셀렉트박스 목록
   const [serviceList, setServiceList] = useState([]); // 사용서비스 테이블 목록
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData); // 글로벌 팝업
 
   useEffect(() => {
     // 사용자그룹 셀렉트박스
@@ -138,20 +143,20 @@ const FrmUserUpdateInfo = (props: {
     while (true) {
       // 비밀번호 길이 0
       if (data?.loginPw.length == 0) {
-        (err as any).loginPw.err = true;
-        (err as any).loginPw.msg = errMsg.loginPw[0];
+        err.loginPw.err = true;
+        err.loginPw.msg = errMsg.loginPw[0];
         break;
       }
       // 비밀번호 길이 범위 밖
       if (data?.loginPw.length < 8 || data?.loginPw.length > 16) {
-        (err as any).loginPw.err = true;
-        (err as any).loginPw.msg = errMsg.loginPw[1];
+        err.loginPw.err = true;
+        err.loginPw.msg = errMsg.loginPw[1];
         break;
       }
       // 비밀번호 형식 이상
       if (!(await validationSchema.fields.loginPw.isValid(data?.loginPw))) {
-        (err as any).loginPw.err = true;
-        (err as any).loginPw.msg = errMsg.loginPw[2];
+        err.loginPw.err = true;
+        err.loginPw.msg = errMsg.loginPw[2];
         break;
       }
       err.loginPw.err = false;
@@ -160,39 +165,49 @@ const FrmUserUpdateInfo = (props: {
     }
     // 유저 이름 형식 이상
     if (!(await validationSchema.fields.usrNm.isValid(data?.usrNm))) {
-      (err as any).usrNm.err = true;
-      (err as any).usrNm.msg = errMsg.usrNm;
+      err.usrNm.err = true;
+      err.usrNm.msg = errMsg.usrNm;
     } else {
-      (err as any).usrNm.err = false;
-      (err as any).usrNm.msg = '';
+      err.usrNm.err = false;
+      err.usrNm.msg = '';
     }
     // 전화번호
     if (!(await validationSchema.fields.phone.isValid(data?.phone))) {
-      (err as any).phone.err = true;
-      (err as any).phone.msg = errMsg.phone;
+      err.phone.err = true;
+      err.phone.msg = errMsg.phone;
     } else {
-      (err as any).phone.err = false;
-      (err as any).phone.msg = '';
+      err.phone.err = false;
     }
     // email
     if (!(await validationSchema.fields.email.isValid(data?.email))) {
-      (err as any).email.err = true;
-      (err as any).email.msg = errMsg.email;
+      err.email.err = true;
+      err.email.msg = errMsg.email;
     } else {
-      (err as any).email.err = false;
-      (err as any).email.msg = '';
+      err.email.err = false;
     }
     // 사용 서비스 선택유무
     if (!(await validationSchema.fields.service.isValid(data?.service))) {
-    }
+      err.service = true;
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        message: errMsg.service,
+        leftText: '확인',
+        rightText: '',
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+      });
+    } else err.service = false;
 
-    setError({ ...(err as any) });
+    setError({ ...err });
     if (
       !(
-        (err as any).email.err ||
-        (err as any).loginPw.err ||
-        (err as any).phone.err ||
-        (err as any).usrNm.err
+        err.email.err ||
+        err.loginPw.err ||
+        err.phone.err ||
+        err.usrNm.err ||
+        err.service
       )
     ) {
       props.submitEvent ? props.submitEvent(data) : '';

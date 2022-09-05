@@ -198,6 +198,13 @@ const columns: GridColDef[] = [
 ];
 
 const TabContent2 = () => {
+  const todayDate = new Date();
+  const today =
+    todayDate.getFullYear() +
+    '-' +
+    (todayDate.getMonth() + 1) +
+    '-' +
+    todayDate.getDate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [pageSize, setPageSize] = React.useState<number>(10);
@@ -205,7 +212,7 @@ const TabContent2 = () => {
   const [rows, setRows] = React.useState([]);
   const defaultFromDate = '1900-01-01';
   const [dateFrom, setDateFrom] = useState(defaultFromDate);
-  const defaultToDate = '2099-12-31';
+  const defaultToDate = today;
   const [dateTo, setDateTo] = useState(defaultToDate);
   const [searchDateType, setSearchDateType] = useState('ALL');
   const [statuss, setStatuss] = useState(32767);
@@ -297,11 +304,20 @@ const TabContent2 = () => {
   };
 
   const onClick = (data: any) => {
-    let date: any = new Date(dateFrom);
-    date.setMonth(date.getMonth() + data);
-    date =
-      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    setDateTo(date);
+    let date: any = new Date(dateTo);
+    let year = date.getFullYear();
+    let mon = date.getMonth() + 1;
+    let day = date.getDate();
+    mon = mon - data;
+    if (mon <= 0) {
+      mon = 12 + mon;
+      year--;
+    }
+    let fromDate = new Date(year, mon + 1, 0);
+    if (day > fromDate.getDate()) day = fromDate.getDate();
+
+    let result = year + '-' + mon + '-' + day;
+    setDateFrom(result);
   };
 
   const cellClickEvent = (params: any, event: any) => {

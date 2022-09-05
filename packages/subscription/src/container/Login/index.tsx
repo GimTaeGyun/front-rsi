@@ -54,6 +54,7 @@ const AdminLogin = () => {
           localStorage.setItem('access-token', fetch.data.result.accessToken);
           localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
           localStorage.setItem('usrId', usrId);
+          localStorage.setItem('auth', data.result.usrTp);
           setIsLogin(true);
           navigate('/admin/common/admin');
         } else {
