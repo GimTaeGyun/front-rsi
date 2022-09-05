@@ -306,7 +306,7 @@ const Index = () => {
                 ? 'sub_items_filter2_card'
                 : 'sub_items_filter2_card active'
             }
-            sx={{ width: '1470px' }}
+            sx={{ minWidth: '1470px', width: '100%' }}
           >
             <CardContent className="sub_items_filter2_container">
               <Box className="sub_listpage_filter_topsection b-0">
