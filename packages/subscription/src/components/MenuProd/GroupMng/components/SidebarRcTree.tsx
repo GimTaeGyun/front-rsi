@@ -148,9 +148,12 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
 
   const onClickShowAll = () => {
     setShowAll(!showAll);
+  };
+
+  useEffect(() => {
     if (showAll) {
-      let arr = [treeItem.key.toString()];
       const arrayloop = (data: any) => {
+        let arr = [treeItem.key.toString()];
         if (data.childrens) {
           data.childrens.map((item: any) => {
             arr.push(item.key.toString());
@@ -159,15 +162,13 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         } else {
           return '';
         }
+        setExpendKey(arr);
       };
       arrayloop(treeItem);
-      setExpendKey(arr);
     } else {
-      setExpendKey([]);
+      setExpendKey(['']);
     }
-  };
-
-  console.log(expandKey);
+  }, [showAll]);
 
   const onDragEnd = (event: any) => {
     console.log(event);
@@ -264,6 +265,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
       rightText: '취소',
     });
   };
+  console.log(showAll);
 
   const arrayloop = (data: any, pos: any) => {
     if (data.childrens) {
