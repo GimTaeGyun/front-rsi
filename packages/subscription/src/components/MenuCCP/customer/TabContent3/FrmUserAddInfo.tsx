@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import { useAtom } from 'jotai';
+import { AlertPopupData, customerData } from '../../../../data/atoms';
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 
-import { AlertPopupData, customerData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
@@ -300,6 +300,16 @@ const FrmUserInfo = (props: { open: boolean; handleClose: Function }) => {
     if (popupData.service.length == 0) {
       tmp.service.err = true;
       tmp.service.msg = errMsg.service;
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        message: '사용 서비스를 설정해 주세요.',
+        leftText: '확인',
+        rightText: '',
+      });
     }
 
     setDataValid({ ...tmp });

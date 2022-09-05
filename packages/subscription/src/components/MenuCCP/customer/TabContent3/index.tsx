@@ -10,7 +10,8 @@ import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { DefaultAlertPopupData } from '../../../../data/atoms';
+import { AlertPopupData, DefaultAlertPopupData } from '../../../../data/atoms';
+import { useAtom } from 'jotai';
 import { axios } from '../../../../utils/axios';
 import AlertPopup from '../../../Common/AlertPopup';
 import FrmAddUserGroup from './FrmAddUserGroup';
@@ -134,7 +135,7 @@ const TabContent3 = () => {
   const [rows, setRows] = useState([]);
   const [total, setTotal] = useState(0);
   const [selectedRows, setSelectedRows] = useState([]);
-  const [alertPopupData, setAlertPopupData] = useState(DefaultAlertPopupData);
+  const [alertPopupData, setAlertPopupData] = useAtom(AlertPopupData);
   const [dialogAddUserGroup, setDialogAddUserGroup] = useState(false);
   const [dialogAddUser, setDialogAddUser] = useState(false);
   const [dialogUserUpdate, setDialogUserUpdate] = useState(false);
@@ -267,18 +268,6 @@ const TabContent3 = () => {
   };
   return (
     <>
-      {alertPopupData.visible ? (
-        <AlertPopup
-          message={alertPopupData.message}
-          buttontext={alertPopupData.leftText}
-          rightButtonText={alertPopupData.rightText}
-          rightCallback={alertPopupData.rightCallback}
-          leftCallback={alertPopupData.leftCallback}
-        />
-      ) : (
-        ''
-      )}
-
       {/* 사용자 그룹 추가 다이얼로그 */}
       {dialogAddUserGroup && (
         <FrmAddUserGroup

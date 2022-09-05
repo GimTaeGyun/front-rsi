@@ -95,7 +95,7 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
     custId: sharedCustomerData.custId,
   };
 
-  const [alertPopup, setAlertPopup] = React.useState(DefaultAlertPopupData);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const defaultAlertPopup = {
     visible: true,
     leftText: '확인',
@@ -227,15 +227,6 @@ const FrmAddUserGroup = (props: { open: boolean; handleClose: Function }) => {
 
   return (
     <>
-      {alertPopup.visible ? (
-        <AlertPopup
-          message={alertPopup.message}
-          buttontext={alertPopup.leftText}
-          rightButtonText={alertPopup.rightText}
-          rightCallback={alertPopup.rightCallback}
-          leftCallback={alertPopup.leftCallback}
-        />
-      ) : undefined}
       <DialogFormTemplate
         open={props.open}
         handleClose={props.handleClose}
