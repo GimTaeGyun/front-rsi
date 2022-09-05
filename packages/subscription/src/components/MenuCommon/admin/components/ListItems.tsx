@@ -63,7 +63,7 @@ const ListItems = (props: {
                   backgroundColor: 'white',
                   overflow: 'hidden',
                   boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
-                  '&:hover': { bgcolor: '#fff' },
+                  '&:hover': { bgcolor: '#f9f9f9' },
                 }}
               >
                 <ListItemText
@@ -96,7 +96,7 @@ const ListItems = (props: {
                     backgroundColor: 'white',
                     boxShadow: 'rgb(149 157 165 / 20%) 0px 5px 5px',
                     overflow: 'hidden',
-                    '&:hover': { bgcolor: '#fff' },
+                    '&:hover': { bgcolor: '#f9f9f9' },
                   }}
                 >
                   <ListItemText
@@ -131,7 +131,7 @@ const ListItems = (props: {
                     boxShadow: 'rgb(149 157 165 / 20%) 2px 2px 2px',
                     backgroundColor: 'white',
                     overflow: 'hidden',
-                    '&:hover': { bgcolor: '#fff' },
+                    '&:hover': { bgcolor: '#f9f9f9' },
                   }}
                 >
                   <ListItemText

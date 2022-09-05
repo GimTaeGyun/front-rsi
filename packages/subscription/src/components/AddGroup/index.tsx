@@ -369,11 +369,11 @@ const styles = {
     justifyContent: 'space-between',
     width: '100%',
     height: '56px',
-    borderBottom: '1px solid #eee',
+    borderBottom: '1px solid #efefef',
   },
   close_btn: { width: '24px', height: '24px', cursor: 'pointer' },
   popup_title: {
-    fontFamily: 'NotoSandsKRReguler',
+    fontFamily: 'NotoSandsKRMedium',
     fontSize: '16px',
     fontColor: '#000000DE',
   },
