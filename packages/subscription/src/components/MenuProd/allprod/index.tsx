@@ -151,13 +151,12 @@ const rows = [
     date: '2022-01-01 12:00',
   },
 ];
-const [total, setTotal] = useState(rows.length); // 전체 로우 수
 const AllProd = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData); // 알림창
   const [filterDropdown, setFilterDropdown] = useState(false); // 상세검색
   const [pageSize, dispatchPageSize] = useReducer(pageReducer, 10); // 페이지 로우 수
   const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1); // 페이지
-  const [total, setTotal] = useState(0); // 전체 로우 수
+  const [total, setTotal] = useState(rows.length); // 전체 로우 수
   const [prdTp, setPrdTp] = useState(null as any);
   const [status, setStatus] = useState(null as any);
   const [sortField, setSortField] = useState('custId');
