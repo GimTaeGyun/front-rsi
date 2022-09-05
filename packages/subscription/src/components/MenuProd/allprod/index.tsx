@@ -250,7 +250,9 @@ const AllProd = () => {
         service: 0,
         status: 3,
       })
-      .then(res => {})
+      .then(res => {
+        console.log(res);
+      })
       .catch();
   };
 
