@@ -22,7 +22,7 @@ import { Footer } from './footer';
 const columns: GridColDef[] = [
   {
     align: 'left',
-    field: 'name',
+    field: 'optNm',
     headerName: '옵션명',
     minWidth: 314,
     maxWidth: 495,
@@ -38,7 +38,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'operator',
+    field: 'optScope',
     headerName: '연산자 적용',
     minWidth: 180,
     maxWidth: 283,
@@ -54,7 +54,7 @@ const columns: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'num_items',
+    field: 'itemCnt',
     headerName: '옵션 아이템 수',
     minWidth: 180,
     maxWidth: 283,
@@ -106,7 +106,7 @@ const columns: GridColDef[] = [
   {
     headerClassName: 'sub_hideLastSeparator',
     align: 'center',
-    field: 'date',
+    field: 'modAt',
     headerName: '최종 수정일시',
     minWidth: 180,
     maxWidth: 283,
@@ -132,6 +132,11 @@ const DatatableOptions = (props: {
   const [selectModel, setSelectModel] = React.useState(Array);
   const [status, setStatus] = React.useState('32767');
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [rowNull, setRowNull] = React.useState(Boolean);
+
+  React.useEffect(() => {
+    rows[0] ? setRowNull(false) : setRowNull(true);
+  }, [rows]);
 
   const defaultAlertPopup = {
     visible: true,
@@ -205,6 +210,7 @@ const DatatableOptions = (props: {
           Footer: () => {
             return (
               <Footer
+                rowNull={rowNull}
                 statusValue={statusValue}
                 postStatus={statusChangeArray}
                 statusChange={statusChange}

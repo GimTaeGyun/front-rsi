@@ -6,6 +6,7 @@ export const Footer = (props: {
   statusChange: Function;
   statusValue: any;
   status: any;
+  rowNull: Boolean;
 }) => {
   return (
     <Box className="sub_pagination_wrapper" component="div">
@@ -47,15 +48,36 @@ export const Footer = (props: {
             }
           })}
         </Select>
-        <Button
-          variant="contained"
-          className="sub_btn_primary_fill_common sub_btn_footer_save"
-          onClick={() => {
-            props.postStatus();
-          }}
-        >
-          변경하기
-        </Button>
+        {!props.rowNull ? (
+          <Button
+            variant="contained"
+            className="sub_btn_primary_fill_common sub_btn_footer_save"
+            onClick={() => {
+              props.postStatus();
+            }}
+          >
+            변경하기
+          </Button>
+        ) : (
+          <Button
+            disabled
+            className="sub_btn_footer_save"
+            sx={{
+              color: '#00000042 !important',
+              backgroundColor: '#0000001F !important',
+              fontFamily: 'NotoSansKRMedium !important',
+              fontSize: '14px !important',
+              border: '0 !important',
+              letterSpacing: '0.01px !important',
+              boxShadow: '0px 3px 3px #0000002E !important',
+            }}
+            onClick={() => {
+              props.postStatus();
+            }}
+          >
+            변경하기
+          </Button>
+        )}
       </Box>
       <Box component="div" className="sub_pagination_outer"></Box>
       <Box

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { OpenWith, ZoomInMap } from '@mui/icons-material';
 import Tree, { TreeNode } from 'rc-tree';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
@@ -81,7 +81,11 @@ interface TreeItem {
   status: number;
   title: string;
 }
-const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+const SidebarRcTree = (props: {
+  setuppGrp: Function;
+  onAdd: Function;
+  onSelected: Function;
+}) => {
   const [selNode, setSelNode] = React.useState<TreeItem | null>(null); // 선택된 트리
   const [adding, setAdding] = useState(999999999999); // 그룹 추가 시 빈 트리노드 유무
   const [treeItem, setTreeITem] = React.useState<TreeItem | null>(null); // 트리노드
@@ -91,7 +95,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
 
   useEffect(() => {
     refreshTree();
-  }, [props.isPost]);
+  }, []);
 
   const refreshTree = () => {
     axios
@@ -114,13 +118,24 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   // 트리 아이템 클릭 이벤트
   const onSelect = (selectedKeys: any, info: any) => {
     setSelNode(info.node);
+    props.onSelected(info);
     console.log('selectedKeys', selectedKeys);
     console.log('info', info);
   };
 
+  // 그룹등록 버튼 이벤트
   const onEdit = () => {
-    //props.setuppGrp(selKey);
+    if (selNode) {
+      expandKey.push(selNode.key.toString());
+      setExpendKey(expandKey);
+      setAdding(Number(selNode.key));
+      props.onAdd(selNode);
+    }
   };
+
+  useEffect(() => {
+    console.log(adding);
+  }, [adding]);
 
   // 그룹삭제 버튼이벤트
   const onDel = () => {
@@ -171,6 +186,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     });
   };
 
+  // 트리 자식노드 루프생성
   const arrayloop = (data: any, pos: any) => {
     if (data.childrens) {
       return data.childrens.map((item: any) => {
@@ -286,7 +302,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
                             placeholder="그룹명을 입력해 주세요."
                           />
                         }
-                        key={treeItem.key + '-' + '0'}
+                        key={treeItem.key + '-0'}
                       ></TreeNode>
                     ) : (
                       ''
