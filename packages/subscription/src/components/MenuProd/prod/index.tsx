@@ -150,12 +150,7 @@ const Prod = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree
-              setuppGrp={setuppGrp}
-              isPost={isPost}
-              realDel={realDel}
-              realRM={realRM}
-            />
+            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"

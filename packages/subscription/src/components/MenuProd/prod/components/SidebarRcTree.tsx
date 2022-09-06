@@ -11,8 +11,9 @@ import {
 } from '@mui/material';
 import { OpenWith, ZoomInMap } from '@mui/icons-material';
 import Tree, { TreeNode } from 'rc-tree';
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 
 const styles = {
@@ -80,27 +81,17 @@ interface TreeItem {
   status: number;
   title: string;
 }
-const SidebarRcTree = (props: {
-  setuppGrp: Function;
-  isPost: Boolean;
-  realDel: Boolean;
-  realRM: Function;
-}) => {
-  const [selKey, setselKey] = React.useState('');
-  const [treeItem, setTreeITem] = React.useState<TreeItem | null>(null);
-  const [isClick, setIsCllick] = React.useState('1000000000');
-  const [prdItemGrpId, setPrdItemGrpId] = React.useState('');
-  const [prdItemGrpNm, setPrdItemGrpNm] = React.useState('');
-  const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
-  const [isDel, setIsDel] = React.useState(false);
-  const [expandKey, setExpendKey] = React.useState('1000000000');
-  const [showAll, setShowAll] = React.useState(false);
+const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+  const [selNode, setSelNode] = React.useState<TreeItem | null>(null); // 선택된 트리
+  const [adding, setAdding] = useState(999999999999); // 그룹 추가 시 빈 트리노드 유무
+  const [treeItem, setTreeITem] = React.useState<TreeItem | null>(null); // 트리노드
+  const [expandKey, setExpendKey] = React.useState(['0']); // 열린 트리 키 배열로 저장
+  const [showAll, setShowAll] = React.useState(false); // 전체열기/닫기
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   useEffect(() => {
     refreshTree();
-    setIsCllick('1000000000');
-    setExpendKey('1000000000');
-  }, [props.isPost, isDel]);
+  }, [props.isPost]);
 
   const refreshTree = () => {
     axios
@@ -115,53 +106,69 @@ const SidebarRcTree = (props: {
       .catch();
   };
 
+  // 트리 아이템 펼치기 이벤트
   const onExpand = (expandedKeys: any) => {
-    console.log('onExpand', expandedKeys);
+    setExpendKey(expandedKeys);
   };
 
+  // 트리 아이템 클릭 이벤트
   const onSelect = (selectedKeys: any, info: any) => {
-    setselKey(selectedKeys[0] ? selectedKeys[0] : '');
-    setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
-    setUppPrdItemGrpId(
-      info.selectedNodes[0].pos.slice(-3, -2)
-        ? info.selectedNodes[0].pos.slice(-3, -2)
-        : '',
-    );
-    setPrdItemGrpNm(info.selectedNodes[0].title);
+    setSelNode(info.node);
+    console.log('selectedKeys', selectedKeys);
+    console.log('info', info);
   };
 
   const onEdit = () => {
-    props.setuppGrp(selKey);
-    setIsCllick(selKey);
+    //props.setuppGrp(selKey);
   };
 
-  const onDel = async () => {
-    const del = {
+  // 그룹삭제 버튼이벤트
+  const onDel = () => {
+    if (!selNode || selNode.key === 0) return;
+    const delParam = {
       actor: localStorage.getItem('usrId'),
       dataset: [
         {
           description: '',
-          itemTp: '',
-          prdItemGrpId: Number(prdItemGrpId),
-          prdItemGrpNm: prdItemGrpNm,
+          prdGrpId: selNode?.key,
+          prdGrpNm: selNode?.title,
           sort: 1,
-          status: 1,
-          uppPrdItemGrpId: Number(uppPrdItemGrpId),
+          uppPrdItemGrpId: '',
         },
       ],
       paramType: 'del',
     };
-    if (del) {
-      await props.realRM();
-      if (props.realDel) {
-        const res = await axios.post(
-          '/management/manager/product/item/group/update',
-          del,
-        );
-        setIsDel(!isDel);
-        console.log('end');
-      }
-    }
+
+    setAlertPopup({
+      ...alertPopup,
+      visible: true,
+      message: '선택한 상품 그룹을 삭제하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+      },
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        axios
+          .post('/management/manager/product/group/update', delParam)
+          .then(res => {
+            if (res.data.code === '0000') {
+              refreshTree();
+              setAlertPopup({
+                ...alertPopup,
+                visible: true,
+                message: '상품 그룹 삭제가 완료되었습니다.',
+                rightText: '',
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                },
+              });
+            }
+          })
+          .catch();
+      },
+    });
   };
 
   const arrayloop = (data: any, pos: any) => {
@@ -170,7 +177,7 @@ const SidebarRcTree = (props: {
         const postPos = pos + '-' + item.key;
         return (
           <TreeNode title={item.title} key={item.key} pos={postPos}>
-            {item.key === Number(isClick) ? (
+            {item.key === adding ? (
               <TreeNode
                 selectable={false}
                 title={
@@ -193,6 +200,27 @@ const SidebarRcTree = (props: {
       return '';
     }
   };
+
+  // 전체열기/닫기 버튼 이벤트
+  useEffect(() => {
+    if (showAll && treeItem) {
+      let arr = [treeItem.key.toString()];
+      const arrayloop = (data: TreeItem) => {
+        let tmp: Array<string> = [];
+        if (data.childrens) {
+          for (let child of data.childrens) {
+            tmp = [...tmp, ...arrayloop(child)];
+            tmp.push(child.key.toString());
+          }
+        }
+        return tmp;
+      };
+      arr = [...arr, ...arrayloop(treeItem)];
+      setExpendKey(arr);
+    } else {
+      setExpendKey(['']);
+    }
+  }, [showAll]);
 
   return (
     <>
@@ -235,8 +263,10 @@ const SidebarRcTree = (props: {
                 className="myCls"
                 showLine
                 checkable={false}
+                defaultExpandAll={showAll}
                 onSelect={onSelect}
                 onExpand={onExpand}
+                expandedKeys={expandKey}
               >
                 {treeItem ? (
                   <TreeNode
@@ -245,7 +275,7 @@ const SidebarRcTree = (props: {
                     key={treeItem.key}
                     pos="0"
                   >
-                    {treeItem.key === Number(isClick) ? (
+                    {treeItem.key === adding ? (
                       <TreeNode
                         selectable={false}
                         selected={true}
