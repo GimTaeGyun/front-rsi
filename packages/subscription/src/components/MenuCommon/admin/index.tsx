@@ -150,17 +150,7 @@ const Admin = () => {
     axios
       .post('/management/subscription/admin/userpw/update', {
         usrId: operPopupData.usrId,
-        usrPw: cryptojs.AES.encrypt(
-          pw,
-          cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
-          {
-            iv: cryptojs.enc.Utf8.parse(
-              process.env.REACT_APP_SECRETKEY?.substring(0, 16),
-            ),
-            padding: cryptojs.pad.Pkcs7,
-            mode: cryptojs.mode.CBC,
-          },
-        ).toString(),
+        usrPw: pw,
       })
       .then(res => {
         if (res.data.code == '0000') {

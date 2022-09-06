@@ -18,6 +18,7 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { isConstructorDeclaration } from 'typescript';
 import * as Yup from 'yup';
+import cryptojs from 'crypto-js';
 
 import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
@@ -186,7 +187,21 @@ const UpdateOperatorPopup = (props: {
                   minWidth: '82px',
                   fontSize: '14px',
                 }}
-                onClick={() => handleMiddle(popupData.usrPw)}
+                onClick={() =>
+                  handleMiddle(
+                    cryptojs.AES.encrypt(
+                      popupData.usrPw,
+                      cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
+                      {
+                        iv: cryptojs.enc.Utf8.parse(
+                          process.env.REACT_APP_SECRETKEY?.substring(0, 16),
+                        ),
+                        padding: cryptojs.pad.Pkcs7,
+                        mode: cryptojs.mode.CBC,
+                      },
+                    ).toString(),
+                  )
+                }
                 className="sub_button_blue"
               >
                 변경
