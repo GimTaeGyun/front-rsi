@@ -81,6 +81,7 @@ const columns: GridColDef[] = [
 interface PropData {
   email: string;
   grpNm: string;
+  grpNo: number;
   id: string;
   loginId: string;
   loginPw?: string;
@@ -312,8 +313,7 @@ const FrmUserUpdateInfo = (props: {
               </InputLabel>
               <Select
                 fullWidth={true}
-                value={data?.grpNm}
-                name="grpNm"
+                value={data?.grpNo}
                 className="sub_select_common sub_dialog_list"
                 onChange={inputChanged}
               >

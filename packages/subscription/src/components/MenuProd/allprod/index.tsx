@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState, useCallback } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
@@ -158,10 +158,11 @@ const AllProd = () => {
   const [pageSize, dispatchPageSize] = useReducer(pageReducer, 10); // 페이지 로우 수
   const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1); // 페이지
   const [total, setTotal] = useState(rows.length); // 전체 로우 수
-  const [prdTp, setPrdTp] = useState(null as any);
-  const [status, setStatus] = useState(null as any);
+  const [prdTp, setPrdTp] = useState(null as any); // 상품유형 체크박스
+  const [status, setStatus] = useState(null as any); // 상품상태 체크박스
   const [sortField, setSortField] = useState('custId');
   const [order, setOrder] = useState('asc');
+  const [searchValue, setSearchValue] = useState('');
   const [tableRows, setTableRows] = useState([]);
 
   // 상세검색 버튼 이벤트
@@ -186,31 +187,32 @@ const AllProd = () => {
 
   const checkedChangedEvent = (e: any) => {
     console.log(e);
-    /*let res: any;
+    let res: any;
     switch (e.target.name) {
       case 'status':
-        res = statusCategory.codeSetItems;
+        res = status.codeSetItems;
         res = res.map((item: any) => {
           if (e.target.value == item.value) {
             item.checked = e.target.checked;
           }
           return item;
         });
-        setStatusCategory({ ...statusCategory, codeSetItems: res });
+        setStatus({ ...status, codeSetItems: res });
         break;
-      case 'custTp':
-        res = userCategory.codeSetItems;
+      case 'prdTp':
+        res = prdTp.codeSetItems;
         res = res.map((item: any) => {
           if (e.target.value == item.value) {
             item.checked = e.target.checked;
           }
           return item;
         });
-        setUserCategory({ ...userCategory, codeSetItems: res });
+        setPrdTp({ ...prdTp, codeSetItems: res });
         break;
-    }*/
+    }
   };
 
+  // 컴포넌트 초기화
   useEffect(() => {
     // 상품유형 체크박스
     axios
@@ -220,6 +222,11 @@ const AllProd = () => {
       })
       .then(res => {
         if (res.data.code === '0000') {
+          res.data.result.codeSetItems = res.data.result.codeSetItems.map(
+            (item: any) => {
+              return { ...item, checked: true };
+            },
+          );
           setPrdTp(res.data.result);
         }
       })
@@ -232,6 +239,11 @@ const AllProd = () => {
       })
       .then(res => {
         if (res.data.code === '0000') {
+          res.data.result.codeSetItems = res.data.result.codeSetItems.map(
+            (item: any) => {
+              return { ...item, checked: true };
+            },
+          );
           setStatus(res.data.result);
         }
       })
@@ -240,15 +252,38 @@ const AllProd = () => {
     refreshTableData();
   }, []);
 
+  // 초기화 버튼
+  const init = useCallback(() => {
+    dispatchPageSize({ action: 'pageSize', value: 10 });
+    dispatchPageNo({ action: 'pageNo', value: 1 });
+    setPrdTp({
+      ...prdTp,
+      codeSetItems: prdTp.codeSetItems.map((item: any) => {
+        return { ...item, checked: true };
+      }),
+    });
+    setStatus({
+      ...status,
+      codeSetItems: status.codeSetItems.map((item: any) => {
+        return { ...item, checked: true };
+      }),
+    });
+    setSortField('custId');
+    setOrder('asc');
+    setSearchValue('');
+  }, []);
+
   const refreshTableData = () => {
     // 전체 상품목록
     axios
       .post('/management/manager/product/all/inquiry', {
-        prdItemgrpId: 'ALL',
-        prdTp: 'ALL',
-        searchValue: null,
-        service: 0,
-        status: 3,
+        prdItemgrpId: 'ALL', // 검색어입력 셀렉트
+        prdTp: prdTp, // 상품유형 체크박스
+        searchValue: searchValue,
+        service: 32767,
+        status: status, // 상품상태 체크박스
+        page: pageSize,
+        pageNo: pageNo,
       })
       .then(res => {
         console.log(res);
@@ -266,16 +301,6 @@ const AllProd = () => {
         ]}
       >
         <>
-          {alertPopup.visible ? (
-            <AlertPopup
-              message={alertPopup.message}
-              buttontext={alertPopup.leftText}
-              rightButtonText={alertPopup.rightText}
-              rightCallback={alertPopup.rightCallback}
-              leftCallback={alertPopup.leftCallback}
-            />
-          ) : undefined}
-
           {/* Filter Section */}
           <Card
             className="sub_items_filter_card"
@@ -324,11 +349,10 @@ const AllProd = () => {
                     placeholder="검색어 입력"
                     name="keyword"
                     className="sub_input_common sub_listpage_filter_search"
-                    //onChange={e => setKeyword(e.target.value)}
-                    //value={keyword}
+                    onChange={e => setSearchValue(e.target.value)}
+                    value={searchValue}
                     onKeyDown={e => {
-                      console.log(e);
-                      //if (e.key == 'Enter') searchClickEvent(null);
+                      if (e.key == 'Enter') refreshTableData();
                     }}
                   />
                 </Box>
@@ -353,7 +377,7 @@ const AllProd = () => {
                 <Button
                   variant="outlined"
                   className="sub_btn_primary_outline_common sub_btn_filter1"
-                  //onClick={initClickEvent}
+                  onClick={init}
                 >
                   초기화
                 </Button>
@@ -361,7 +385,7 @@ const AllProd = () => {
                   variant="contained"
                   className="sub_btn_primary_fill_common sub_btn_filter2"
                   sx={{ marginRight: '10px' }}
-                  //onClick={() => searchClickEvent(null)}
+                  onClick={refreshTableData}
                 >
                   검색하기
                 </Button>
@@ -385,9 +409,11 @@ const AllProd = () => {
                 ? prdTp.codeSetItems.map((item: any) => (
                     <FormGroup className="sub_filter_dropdown_chk_outer">
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={<Checkbox checked={item.checked} />}
                         label={item.label}
                         value={item.value}
+                        name="prdTp"
+                        onChange={checkedChangedEvent}
                       />
                     </FormGroup>
                   ))
@@ -402,9 +428,11 @@ const AllProd = () => {
                 ? status.codeSetItems.map((item: any) => (
                     <FormGroup className="sub_filter_dropdown_chk_outer">
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={<Checkbox checked={item.checked} />}
                         label={item.label}
                         value={item.value}
+                        name="status"
+                        onChange={checkedChangedEvent}
                       />
                     </FormGroup>
                   ))
