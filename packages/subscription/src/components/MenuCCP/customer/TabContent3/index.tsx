@@ -23,7 +23,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'id',
     headerName: 'ID',
-    width: 250,
+    minWidth: 250,
+    maxWidth: 362,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -36,7 +38,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'usrNm',
     headerName: '사용자명',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 260,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -49,7 +53,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'phone',
     headerName: '전화번호',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 260,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -62,7 +68,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'email',
     headerName: '이메일',
-    width: 280,
+    minWidth: 280,
+    maxWidth: 405,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -75,7 +83,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'grpNm',
     headerName: '사용자 그룹',
-    width: 220,
+    minWidth: 220,
+    maxWidth: 318,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -88,7 +98,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'recent_date',
     headerName: '최종 수정일',
-    width: 200,
+    minWidth: 200,
+    maxWidth: 289,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
@@ -108,7 +120,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'update',
     headerName: '수정',
-    width: 110,
+    minWidth: 110,
+    maxWidth: 159,
+    flex: 1,
     headerAlign: 'center',
     disableColumnMenu: true,
     sortable: false,
@@ -309,7 +323,7 @@ const TabContent3 = () => {
 
       <Card
         className="sub_tbl_section_common"
-        sx={{ marginTop: '20px', width: '1470px' }}
+        sx={{ marginTop: '20px', minWidth: '1470px', width: '100%' }}
       >
         <CardHeader
           className="sub_tbl_header_outer_common"
