@@ -16,7 +16,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { fontFamily } from '@mui/system';
 import {
   GridColDef,
   GridColumnHeaderParams,
@@ -24,39 +23,6 @@ import {
 } from '@mui/x-data-grid';
 import { DataGridPro } from '@mui/x-data-grid-pro';
 import React, { useState } from 'react';
-
-const rows = [
-  {
-    id: 1,
-    itemNm: '',
-    operatorUnit: '+',
-    itemVal: '',
-  },
-  {
-    id: 2,
-    itemNm: '',
-    operatorUnit: '+',
-    itemVal: '',
-  },
-  {
-    id: 3,
-    itemNm: '',
-    operatorUnit: '+',
-    itemVal: '',
-  },
-  {
-    id: 4,
-    itemNm: '',
-    operatorUnit: '+',
-    itemVal: '',
-  },
-  {
-    id: 5,
-    itemNm: '',
-    operatorUnit: '+',
-    itemVal: '',
-  },
-];
 
 const columns: GridColDef[] = [
   {
@@ -118,7 +84,10 @@ const columns: GridColDef[] = [
           id="itemNm"
           placeholder="옵션명을 입력해 주세요"
           className="sub_formText_dataGrid"
-          value={params.row.itemNm}
+          defaultValue={params.row.itemNm}
+          onChange={e => {
+            return { ...params.row.itemNm, itemNm: e.target.value };
+          }}
           name="itemNm"
         />
       </Box>
@@ -137,24 +106,24 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: (params: GridRenderCellParams<string>) => {
-      console.log(params);
-      return (
-        <Box sx={{ width: '83px', height: '28px' }}>
-          <Select
-            fullWidth
-            id="operator"
-            value={params.row.operatorUnit}
-            name="operator"
-            className="sub_select_forms"
-            sx={{ height: '28px', textAlign: 'center' }}
-          >
-            <MenuItem value="+">+</MenuItem>
-            <MenuItem value="아이템에">아이템에</MenuItem>
-          </Select>
-        </Box>
-      );
-    },
+    renderCell: (params: GridRenderCellParams<string>) => (
+      <Box sx={{ width: '83px', height: '28px' }}>
+        <Select
+          fullWidth
+          id="operator"
+          value={params.row.operatorUnit}
+          name="operator"
+          className="sub_select_forms"
+          onChange={e => {
+            return { ...params.row.operatorUnit, operatorUnit: e.target.value };
+          }}
+          sx={{ height: '28px', textAlign: 'center' }}
+        >
+          <MenuItem value="+">+</MenuItem>
+          <MenuItem value="아이템에">아이템에</MenuItem>
+        </Select>
+      </Box>
+    ),
   },
   {
     align: 'center',
@@ -177,6 +146,9 @@ const columns: GridColDef[] = [
           className="sub_formText_dataGrid"
           value={params.row.itemVal}
           name="itemVal"
+          onChange={e => {
+            return { ...params.row.itemVal, itemVal: e.target.value };
+          }}
         />
       </Box>
     ),
@@ -194,8 +166,11 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: () => (
+    renderCell: (params: GridRenderCellParams<string>) => (
       <Button
+        onClick={() => {
+          console.log(params);
+        }}
         sx={{
           color: '#666666',
           backgroundColor: '#fff',
@@ -211,6 +186,30 @@ const columns: GridColDef[] = [
 ];
 
 const OptionForm = (props: { open: any; onClose: Function }) => {
+  const ref = React.useRef(1);
+
+  const defaultows = {
+    id: ref.current,
+    itemNm: '',
+    operatorUnit: '+',
+    itemVal: '',
+  };
+
+  const [rows, setRows] = React.useState([
+    {
+      id: 0,
+      itemNm: '',
+      operatorUnit: '+',
+      itemVal: '',
+    },
+  ]);
+
+  const plusOnClick = () => {
+    ref.current += 1;
+    setRows([...rows, defaultows]);
+    console.log(rows);
+  };
+
   return (
     <Box component="div" sx={{ width: '700px' }}>
       <Dialog
@@ -293,7 +292,6 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
               columns={columns}
               headerHeight={44}
               rowHeight={44}
-              rowCount={rows.length}
               hideFooter
               disableSelectionOnClick
               sx={{
@@ -313,6 +311,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
                 marginTop: '10px',
                 marginBottom: '10px',
               }}
+              onClick={plusOnClick}
             >
               옵션 아이템 추가 +
             </Button>

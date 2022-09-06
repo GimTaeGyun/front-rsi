@@ -54,23 +54,21 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
 
   useEffect(() => {
     setDataValid(defaultFormValidation);
-    /* 선택시에 아이템 그룹정보 바뀜
     const api = async () => {
       const res = await axios.post(
-        '/management/manager/product/item/group/detail/inquiry',
+        '/management/manager/option/category/search/inquiry',
         {
-          itemNm: '',
-          itemStatus: 32767,
-          prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
+          searchValue: 'string',
+          status: 32767,
+          grpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
       const data = res.data.result;
-      setPrdGrpNm(data.itemGrpNm);
-      setItemTp(data.itemTp.value);
+      setPrdGrpNm(data.optCatNm);
       setStatus(data.status.value);
+      setDescription(data.description);
     };
     api();
-    */
   }, [selectGroupKey]);
 
   useEffect(() => {
