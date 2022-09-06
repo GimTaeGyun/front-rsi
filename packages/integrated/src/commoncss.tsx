@@ -1056,7 +1056,8 @@ const css = createTheme({
         },
         '& .sub_card_dialog_input': {
           width: '360px',
-          height: '42px',
+          height: 'fit-content',
+          minHeight: '42px',
           backgroundColor: '#fff',
           '& .MuiOutlinedInput-input': {
             color: '#666 !important',
