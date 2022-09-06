@@ -171,7 +171,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   }, [showAll]);
 
   const onDragEnd = (event: any) => {
-    console.log(event);
     api(Number(event.dragNode.key));
     const upd = {
       actor: localStorage.getItem('usrId'),

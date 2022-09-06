@@ -12,7 +12,10 @@ import {
   GridColumnHeaderParams,
   GridSortItem,
 } from '@mui/x-data-grid-pro';
+import { useAtom } from 'jotai';
 import * as React from 'react';
+import { AlertPopupData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 
 import { Footer } from './footer';
 
@@ -108,57 +111,73 @@ const columns: GridColDef[] = [
     ),
   },
 ];
-const rows = [
-  {
-    id: '1',
-    name: '정기 구독 개월',
-    operator: '상품에',
-    num_items: '4',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '2',
-    name: '50% 할인 옵션',
-    operator: '상품에',
-    num_items: '2',
-    status: '사용불가',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '3',
-    name: '다중 접속 옵션',
-    operator: '아이템에',
-    num_items: '1',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '4',
-    name: '추가 계정 옵션',
-    operator: '아이템에',
-    num_items: '5',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '5',
-    name: '기타 옵션 1',
-    operator: '상품에',
-    num_items: '5',
-    status: '사용불가',
-    date: '2022-10-31 12:00',
-  },
-  {
-    id: '6',
-    name: '기타 옵션 2',
-    operator: '상품에',
-    num_items: '5',
-    status: '사용가능',
-    date: '2022-10-31 12:00',
-  },
-];
-const DatatableOptions = () => {
+
+const DatatableOptions = (props: {
+  rows: any;
+  changeDataGridUE: Function;
+  statusValue: any;
+}) => {
+  const { rows, changeDataGridUE, statusValue } = props;
+
+  const [selectModel, setSelectModel] = React.useState(Array);
+  const [status, setStatus] = React.useState('32767');
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
+    },
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
+
+  const select = (data: any) => {
+    setSelectModel(data);
+  };
+
+  const statusChange = (data: any) => {
+    setStatus(data);
+  };
+
+  const statusChangeArray = async () => {
+    if (selectModel[0]) {
+      if (status === '32767') {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+          },
+          message: '상태를 변경해 주세요',
+          leftText: '확인',
+        });
+      } else {
+        const res = await axios.post(
+          '/management/manager/product/multi/status/update',
+          {
+            actor: localStorage.getItem('usrId'),
+            dataset: selectModel,
+            field: 'item',
+            status: Number(status),
+          },
+        );
+
+        res.data.code === '0000' ? changeDataGridUE() : '';
+      }
+    } else {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        message: '리스트를 체크해 주세요',
+        leftText: '확인',
+      });
+    }
+  };
+
   return (
     <div style={{ height: '426px', width: '100%' }}>
       <DataGridPro
