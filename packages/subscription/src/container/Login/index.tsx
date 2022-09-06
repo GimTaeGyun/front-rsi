@@ -18,7 +18,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../public/assets/images/admin_bkg.png';
-import { Axios } from '../../utils/axios';
+import { Axios, axios } from '../../utils/axios';
 
 const AdminLogin = () => {
   const [usrId, setUsrId] = React.useState('');
@@ -47,26 +47,32 @@ const AdminLogin = () => {
       '/management/subscription/admin/login',
       params,
     );
-    try {
-      const data = fetch.data;
-      if (data.code === '0000') {
-        if (data.result.usrStatus === 1) {
-          localStorage.setItem('access-token', fetch.data.result.accessToken);
-          localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
-          localStorage.setItem('usrId', usrId);
-          localStorage.setItem('auth', data.result.usrTp);
-          setIsLogin(true);
-          if (data.result.usrTp === 'SYSUSER') navigate('/admin/common/admin');
-          else navigate('/admin');
-        } else {
-          setIsLogin(false);
-        }
+    const data = fetch.data;
+    if (data.code === '0000') {
+      if (data.result.usrStatus === 1) {
+        localStorage.setItem('access-token', fetch.data.result.accessToken);
+        localStorage.setItem('refresh-token', fetch.data.result.refreshToken);
+        localStorage.setItem('usrId', usrId);
+        localStorage.setItem('auth', data.result.usrTp);
+        setIsLogin(true);
+        const menuResult = await axios.post(
+          '/management/subscription/admin/menu/inquiry',
+          {
+            appId: 1,
+            menuId: 0,
+            usrId: usrId,
+          },
+        );
+        if (menuResult.data.code === '9005') {
+          navigate('/admin', {
+            state: { msg: menuResult.data.msg },
+          });
+        } else navigate('/admin/common/admin');
       } else {
         setIsLogin(false);
       }
-    } catch (e) {
-      console.log(e);
-      setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
   };
 

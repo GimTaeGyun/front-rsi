@@ -2,27 +2,22 @@ import React, { useEffect, useState } from 'react';
 import AppFrame from './AppFrame';
 import AlertPopup from '../components/Common/AlertPopup';
 import { DefaultAlertPopupData } from '../data/atoms';
+import { useLocation } from 'react-router-dom';
 
 const Empty = () => {
   const [alertPopup, setAlertPopup] = useState(DefaultAlertPopupData);
+  const location = useLocation();
 
   useEffect(() => {
-    if (
-      !localStorage.getItem('deny') &&
-      localStorage.getItem('auth') !== 'SYSUSER'
-    ) {
-      localStorage.setItem('deny', 'true');
-      setAlertPopup({
-        ...alertPopup,
-        visible: true,
-        message:
-          '현재 접근 권한이 없습니다.\n시스템관리자에게 문의하시길 바랍니다.',
-        leftText: '확인',
-        leftCallback: () => {
-          setAlertPopup({ ...alertPopup, visible: false });
-        },
-      });
-    }
+    setAlertPopup({
+      ...alertPopup,
+      visible: true,
+      message: (location.state as any).msg,
+      leftText: '확인',
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+      },
+    });
   }, []);
   return (
     <>

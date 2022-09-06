@@ -18,4 +18,15 @@ const AlertPopupData = atom(DefaultAlertPopupData);
 // 고객관리 테이블 로우 정보보기 공유데이터
 const customerData = atom();
 
-export { GetSidebarData, AlertPopupData, customerData };
+// 상품관리>상품관리 공유 데이터
+const DefaultGrpInfo = {
+  description: '',
+  prdGrpId: 0,
+  prdGrpNm: '',
+  uppPrdGrpId: 0,
+  introduction: '',
+  status: 1,
+};
+const PrdMng = atom({ mngInput: DefaultGrpInfo });
+
+export { GetSidebarData, AlertPopupData, customerData, PrdMng, DefaultGrpInfo };

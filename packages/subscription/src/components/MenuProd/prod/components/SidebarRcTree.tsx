@@ -13,7 +13,7 @@ import { OpenWith, ZoomInMap } from '@mui/icons-material';
 import Tree, { TreeNode } from 'rc-tree';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useAtom } from 'jotai';
-import { AlertPopupData } from '../../../../data/atoms';
+import { AlertPopupData, PrdMng, DefaultGrpInfo } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 
 const styles = {
@@ -81,17 +81,16 @@ interface TreeItem {
   status: number;
   title: string;
 }
-const SidebarRcTree = (props: {
-  setuppGrp: Function;
-  onAdd: Function;
-  onSelected: Function;
-}) => {
+const DefaultAdding = 999999999999;
+
+const SidebarRcTree = () => {
   const [selNode, setSelNode] = React.useState<TreeItem | null>(null); // 선택된 트리
-  const [adding, setAdding] = useState(999999999999); // 그룹 추가 시 빈 트리노드 유무
+  const [adding, setAdding] = useState(DefaultAdding); // 그룹 추가 시 빈 트리노드 유무
   const [treeItem, setTreeITem] = React.useState<TreeItem | null>(null); // 트리노드
   const [expandKey, setExpendKey] = React.useState(['0']); // 열린 트리 키 배열로 저장
   const [showAll, setShowAll] = React.useState(false); // 전체열기/닫기
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [sharingData, setSharingData] = useAtom(PrdMng);
 
   useEffect(() => {
     refreshTree();
@@ -112,24 +111,42 @@ const SidebarRcTree = (props: {
 
   // 트리 아이템 펼치기 이벤트
   const onExpand = (expandedKeys: any) => {
+    // 그룹을 등록중일 때는 이벤트 무시
+    if (adding !== DefaultAdding) return;
     setExpendKey(expandedKeys);
   };
 
   // 트리 아이템 클릭 이벤트
   const onSelect = (selectedKeys: any, info: any) => {
-    setSelNode(info.node);
-    props.onSelected(info);
+    // 그룹을 등록중일 때는 이벤트 무시
+    if (adding !== DefaultAdding) return;
     console.log('selectedKeys', selectedKeys);
     console.log('info', info);
+    setSelNode(info.node);
+    setSharingData({
+      ...sharingData,
+      mngInput: {
+        description: info.node.data.description
+          ? info.node.data.description
+          : '',
+        prdGrpId: Number(info.node.key),
+        prdGrpNm: info.node.title,
+        uppPrdGrpId: 0,
+        introduction: '',
+        status: Number(info.node.data.status),
+      },
+    });
   };
 
   // 그룹등록 버튼 이벤트
   const onEdit = () => {
+    // 그룹을 등록중일 때는 이벤트 무시
+    if (adding !== DefaultAdding) return;
     if (selNode) {
       expandKey.push(selNode.key.toString());
       setExpendKey(expandKey);
       setAdding(Number(selNode.key));
-      props.onAdd(selNode);
+      setSharingData({ ...sharingData, mngInput: DefaultGrpInfo });
     }
   };
 
@@ -192,7 +209,7 @@ const SidebarRcTree = (props: {
       return data.childrens.map((item: any) => {
         const postPos = pos + '-' + item.key;
         return (
-          <TreeNode title={item.title} key={item.key} pos={postPos}>
+          <TreeNode title={item.title} key={item.key} pos={postPos} data={item}>
             {item.key === adding ? (
               <TreeNode
                 selectable={false}
@@ -289,6 +306,7 @@ const SidebarRcTree = (props: {
                     className="sub_rc_parentNode"
                     title={treeItem.title}
                     key={treeItem.key}
+                    data={treeItem}
                     pos="0"
                   >
                     {treeItem.key === adding ? (

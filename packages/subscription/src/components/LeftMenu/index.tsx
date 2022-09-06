@@ -7,6 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { axios } from '../../utils/axios';
 import LeftMenuMenuItem from './LeftMenuItem';
@@ -35,7 +36,7 @@ const menuLink = [
 const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
   const { drawerWidth, open } = props;
   const [menuItems, setMenuItems] = React.useState([]);
-
+  const navigate = useNavigate();
   React.useEffect(() => {
     const callMenuApi = async () => {
       try {

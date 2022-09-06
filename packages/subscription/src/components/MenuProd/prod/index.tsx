@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Box,
   Button,
@@ -21,9 +21,11 @@ import * as Yup from 'yup';
 import AppFrame from '../../../container/AppFrame';
 import AlertPopup from '../../Common/AlertPopup';
 import { axios } from '../../../utils/axios';
-import { AlertPopupData } from '../../../data/atoms';
+import { AlertPopupData, PrdMng, DefaultGrpInfo } from '../../../data/atoms';
 import SidebarRcTree from './components/SidebarRcTree';
 import DatatableProd from './components/DatatableProd';
+import PrdGrpInfo from './components/PrdGrpInfo';
+
 interface CodeSet {
   codeSetItems: { label: string; value: string }[];
   codeSetLabel: string;
@@ -33,6 +35,8 @@ interface GrpInfo {
   prdGrpId: number;
   prdGrpNm: string;
   uppPrdGrpId: number;
+  introduction: string;
+  status: number;
 }
 
 const Prod = () => {
@@ -44,14 +48,10 @@ const Prod = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [itemTpChb, setItemTpChb] = useState<CodeSet | null>(null); // 상품유형 체크박스
   const [itemStatusChb, setItemStatusChb] = useState<CodeSet | null>(null); // 상품상태 체크박스
-  const [grpStatusSelect, setGrpStatusSelect] = useState<CodeSet | null>(null); // 그룹상태 셀렉트박스
-  const [grpInfo, setGrpInfo] = useState<GrpInfo | null>(null);
+  const [sharingData, setSharingData] = useAtom(PrdMng);
 
   const showDropdownList = () => {
     setFilterDropdown(!filterDropdown);
-  };
-  const setuppGrp = (data: any) => {
-    setSelectGroupKey(data);
   };
 
   useEffect(() => {
@@ -90,25 +90,7 @@ const Prod = () => {
         }
       })
       .catch();
-
-    // 그룹상태 셀렉트박스
-    axios
-      .post('/management/subscription/admin/codeset', {
-        code: 'status',
-        code_grp: 'pm.product_group',
-      })
-      .then(res => {
-        if (res.data.code === '0000') {
-          setGrpStatusSelect(res.data.result);
-        }
-      })
-      .catch();
   }, []);
-
-  const onTreeSelected = (event: any) => {
-    event.node;
-  };
-  const onTreeAdd = () => {};
 
   return (
     <>
@@ -135,171 +117,9 @@ const Prod = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree
-              setuppGrp={setuppGrp}
-              onAdd={onTreeAdd}
-              onSelected={onTreeSelected}
-            />
+            <SidebarRcTree />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <Card
-                className="sub_items_filter_card"
-                sx={{ marginBottom: '20px', maxHeight: '336px' }}
-              >
-                <Box>
-                  <CardHeader
-                    component="div"
-                    title="상품 그룹 정보"
-                    className="sub_items_filter_header"
-                  />
-                </Box>
-                <Divider />
-                <CardContent
-                  id="scroll"
-                  className="sub_items_filter_content"
-                  sx={{ padding: '0 !important' }}
-                >
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={0}>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹명{' '}
-                            <Typography className="sub_cust_label_dot">
-                              •
-                            </Typography>{' '}
-                          </Box>
-                          <OutlinedInput
-                            fullWidth={false}
-                            placeholder="그룹명을 입력해 주세요."
-                            value={grpInfo?.prdGrpNm}
-                            className="sub_input_common sub_items_filter_input"
-                          />
-                        </Box>
-                      </Grid>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹 설명{' '}
-                          </Box>
-                          <OutlinedInput
-                            fullWidth={false}
-                            placeholder="그룹 설명을 입력해 주세요."
-                            value=""
-                            className="sub_input_common sub_items_filter_input"
-                          />
-                        </Box>
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={0}>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹 상태{' '}
-                            <Typography className="sub_cust_label_dot">
-                              •
-                            </Typography>{' '}
-                          </Box>
-                          <Select
-                            fullWidth={false}
-                            value={status}
-                            className="sub_select_common sub_items_filter_list"
-                          >
-                            {grpStatusSelect ? (
-                              grpStatusSelect.codeSetItems.map((item: any) => (
-                                <MenuItem key={item.value} value={item.value}>
-                                  {item.label}
-                                </MenuItem>
-                              ))
-                            ) : (
-                              <MenuItem value={2}>임시</MenuItem>
-                            )}
-                          </Select>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            GNB 노출{' '}
-                          </Box>
-                          <Box
-                            component="div"
-                            className="d_flex align-items-center justify-content-between"
-                            sx={{
-                              width: {
-                                md: '415px',
-                                lg: '415px',
-                                xl: '80%',
-                                xxl: '80%',
-                              },
-                            }}
-                          >
-                            <FormGroup>
-                              <FormControlLabel
-                                className="sub_filter_switch"
-                                control={<Switch defaultChecked={false} />}
-                                label="미노출"
-                              />
-                            </FormGroup>
-                            <Button
-                              variant="outlined"
-                              className="sub_btn_primary_outline_common btn_gnb_manage"
-                            >
-                              GNB 목록 관리
-                            </Button>
-                          </Box>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} md={12} lg={12}>
-                        <Box
-                          component="div"
-                          className="sub_items_filter_row sub_items_filter_textarea d_flex align-items-center justify-content-between"
-                        >
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                            sx={{ height: '72px' }}
-                          >
-                            상품 그룹 소개{' '}
-                          </Box>
-                          <OutlinedInput
-                            multiline={true}
-                            minRows={4}
-                            fullWidth={false}
-                            placeholder="HTML TEXT AREA (※ 추후 에디터 삽입)"
-                            value=""
-                            className="sub_input_common sub_items_filter_textarea_input"
-                          />
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} md={12} lg={12}>
-                        <Box
-                          component="div"
-                          className="sub_items_filter_footer"
-                        >
-                          <Button
-                            variant="contained"
-                            className="sub_btn_primary_fill_common sub_btn_filter2"
-                          >
-                            저장하기
-                          </Button>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </CardContent>
-              </Card>
+              <PrdGrpInfo />
 
               <Card
                 className={
