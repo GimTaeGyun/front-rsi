@@ -56,7 +56,8 @@ const AdminLogin = () => {
           localStorage.setItem('usrId', usrId);
           localStorage.setItem('auth', data.result.usrTp);
           setIsLogin(true);
-          navigate('/admin/common/admin');
+          if (data.result.usrTp === 'SYSUSER') navigate('/admin/common/admin');
+          else navigate('/admin');
         } else {
           setIsLogin(false);
         }

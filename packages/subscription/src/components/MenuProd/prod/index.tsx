@@ -28,6 +28,13 @@ interface CodeSet {
   codeSetItems: { label: string; value: string }[];
   codeSetLabel: string;
 }
+interface GrpInfo {
+  description: string;
+  prdGrpId: number;
+  prdGrpNm: string;
+  uppPrdGrpId: number;
+}
+
 const Prod = () => {
   const [filterDropdown, setFilterDropdown] = React.useState(false);
   const [status, setStatus] = React.useState(1);
@@ -38,40 +45,13 @@ const Prod = () => {
   const [itemTpChb, setItemTpChb] = useState<CodeSet | null>(null); // 상품유형 체크박스
   const [itemStatusChb, setItemStatusChb] = useState<CodeSet | null>(null); // 상품상태 체크박스
   const [grpStatusSelect, setGrpStatusSelect] = useState<CodeSet | null>(null); // 그룹상태 셀렉트박스
+  const [grpInfo, setGrpInfo] = useState<GrpInfo | null>(null);
 
   const showDropdownList = () => {
     setFilterDropdown(!filterDropdown);
   };
   const setuppGrp = (data: any) => {
     setSelectGroupKey(data);
-  };
-
-  const defaultAlertPopup = {
-    visible: true,
-    leftText: '확인',
-    leftCallback: () => {
-      setAlertPopup({ ...alertPopup, visible: false });
-    },
-    rightCallback: () => {},
-    rightText: '',
-    message: '',
-  };
-
-  const realRM = () => {
-    setAlertPopup({
-      ...defaultAlertPopup,
-      leftCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setRealDel(true);
-      },
-      rightCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setRealDel(false);
-      },
-      message: '지정된 그룹을 삭제 하시겠습니까?',
-      leftText: '확인',
-      rightText: '취소',
-    });
   };
 
   useEffect(() => {
@@ -125,6 +105,11 @@ const Prod = () => {
       .catch();
   }, []);
 
+  const onTreeSelected = (event: any) => {
+    event.node;
+  };
+  const onTreeAdd = () => {};
+
   return (
     <>
       <AppFrame
@@ -150,7 +135,11 @@ const Prod = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
+            <SidebarRcTree
+              setuppGrp={setuppGrp}
+              onAdd={onTreeAdd}
+              onSelected={onTreeSelected}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <Card
                 className="sub_items_filter_card"
@@ -184,7 +173,8 @@ const Prod = () => {
                           </Box>
                           <OutlinedInput
                             fullWidth={false}
-                            placeholder="신탁사"
+                            placeholder="그룹명을 입력해 주세요."
+                            value={grpInfo?.prdGrpNm}
                             className="sub_input_common sub_items_filter_input"
                           />
                         </Box>
@@ -199,8 +189,8 @@ const Prod = () => {
                           </Box>
                           <OutlinedInput
                             fullWidth={false}
-                            placeholder=""
-                            value="EyeSurfer NS 개인용 그룹"
+                            placeholder="그룹 설명을 입력해 주세요."
+                            value=""
                             className="sub_input_common sub_items_filter_input"
                           />
                         </Box>
