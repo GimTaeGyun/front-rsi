@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -15,7 +15,6 @@ import {
   Select,
   Switch,
   Typography,
-  FormHelperText,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import * as Yup from 'yup';
@@ -25,17 +24,21 @@ import { axios } from '../../../utils/axios';
 import { AlertPopupData } from '../../../data/atoms';
 import SidebarRcTree from './components/SidebarRcTree';
 import DatatableProd from './components/DatatableProd';
-
+interface CodeSet {
+  codeSetItems: { label: string; value: string }[];
+  codeSetLabel: string;
+}
 const Prod = () => {
   const [filterDropdown, setFilterDropdown] = React.useState(false);
-  const [prdGrpNm, setPrdGrpNm] = React.useState('');
-  const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState(1);
-  const [itemTp, setItemTp] = React.useState('');
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
   const [isPost, setIsPost] = React.useState(false);
   const [realDel, setRealDel] = React.useState(false);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [itemTpChb, setItemTpChb] = useState<CodeSet | null>(null); // 상품유형 체크박스
+  const [itemStatusChb, setItemStatusChb] = useState<CodeSet | null>(null); // 상품상태 체크박스
+  const [grpStatusSelect, setGrpStatusSelect] = useState<CodeSet | null>(null); // 그룹상태 셀렉트박스
+
   const showDropdownList = () => {
     setFilterDropdown(!filterDropdown);
   };
@@ -71,13 +74,64 @@ const Prod = () => {
     });
   };
 
+  useEffect(() => {
+    // 상품유형 체크박스
+    axios
+      .post('/management/subscription/admin/codeset', {
+        code: 'prd_tp',
+        code_grp: 'pm.product',
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          res.data.result.codeSetItems = res.data.result.codeSetItems.map(
+            (item: any) => {
+              return { ...item, checked: true };
+            },
+          );
+          setItemTpChb(res.data.result);
+        }
+      })
+      .catch();
+
+    // 상품상태 체크박스
+    axios
+      .post('/management/subscription/admin/codeset', {
+        code: 'status',
+        code_grp: 'pm.product',
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          res.data.result.codeSetItems = res.data.result.codeSetItems.map(
+            (item: any) => {
+              return { ...item, checked: true };
+            },
+          );
+          setItemStatusChb(res.data.result);
+        }
+      })
+      .catch();
+
+    // 그룹상태 셀렉트박스
+    axios
+      .post('/management/subscription/admin/codeset', {
+        code: 'status',
+        code_grp: 'pm.product_group',
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          setGrpStatusSelect(res.data.result);
+        }
+      })
+      .catch();
+  }, []);
+
   return (
     <>
       <AppFrame
         title="상품 관리"
         breadcrumbs={[
-          { name: '상품 관리', link: '/admin/common/admin' },
-          { name: '옵션 관리', link: '/admin/common/admin' },
+          { name: '상품 관리', link: '/admin/prod/itemgrp' },
+          { name: '상품 관리', link: '/admin/prod/prod' },
         ]}
       >
         <>
@@ -174,8 +228,15 @@ const Prod = () => {
                             value={status}
                             className="sub_select_common sub_items_filter_list"
                           >
-                            <MenuItem value={1}>사용가능</MenuItem>
-                            <MenuItem value={-1}>사용불가</MenuItem>
+                            {grpStatusSelect ? (
+                              grpStatusSelect.codeSetItems.map((item: any) => (
+                                <MenuItem key={item.value} value={item.value}>
+                                  {item.label}
+                                </MenuItem>
+                              ))
+                            ) : (
+                              <MenuItem value={2}>임시</MenuItem>
+                            )}
                           </Select>
                         </Box>
                       </Grid>
@@ -320,17 +381,53 @@ const Prod = () => {
                   className="sub_listpage_filter_dropdown_row"
                 >
                   <Box className="sub_filter_dropdown_lbl" component="span">
-                    아이템 상태
+                    {itemTpChb ? itemTpChb.codeSetLabel : ''}
                   </Box>
-                  <FormGroup className="sub_filter_dropdown_chk_outer">
-                    <FormControlLabel control={<Checkbox />} label="전체" />
-                  </FormGroup>
-                  <FormGroup className="sub_filter_dropdown_chk_outer">
-                    <FormControlLabel control={<Checkbox />} label="사용가능" />
-                  </FormGroup>
-                  <FormGroup className="sub_filter_dropdown_chk_outer">
-                    <FormControlLabel control={<Checkbox />} label="사용불가" />
-                  </FormGroup>
+                  {itemTpChb
+                    ? itemTpChb.codeSetItems.map((item: any) => (
+                        <FormGroup
+                          key={item.value}
+                          className="sub_filter_dropdown_chk_outer"
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                value={item.value}
+                                checked={item.checked}
+                              />
+                            }
+                            label={item.label}
+                          />
+                        </FormGroup>
+                      ))
+                    : ''}
+                </Box>
+                <Divider />
+                <Box
+                  component="div"
+                  className="sub_listpage_filter_dropdown_row"
+                >
+                  <Box className="sub_filter_dropdown_lbl" component="span">
+                    {itemStatusChb ? itemStatusChb.codeSetLabel : ''}
+                  </Box>
+                  {itemStatusChb
+                    ? itemStatusChb.codeSetItems.map((item: any) => (
+                        <FormGroup
+                          key={item.value}
+                          className="sub_filter_dropdown_chk_outer"
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                value={item.value}
+                                checked={item.checked}
+                              />
+                            }
+                            label={item.label}
+                          />
+                        </FormGroup>
+                      ))
+                    : ''}
                 </Box>
               </Card>
 

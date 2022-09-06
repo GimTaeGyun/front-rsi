@@ -1392,7 +1392,8 @@ const css = createTheme({
           },
         },
         '& .sub_items_filter_card': {
-          width: '1090px',
+          minWidth: '1090px',
+          width: '100%',
           '& .sub_items_filter_header': {
             width: '1090px',
             height: '56px',
@@ -1408,9 +1409,13 @@ const css = createTheme({
           },
           '& .sub_items_filter_row': {
             width: '100%',
+            height: '56px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            '@media (min-width: 1921px)': {
+              justifyContent: 'start',
+            },
             borderBottom: '1px solid #eee',
             paddingRight: '10px',
           },
@@ -1422,10 +1427,16 @@ const css = createTheme({
           '& .sub_items_filter_input': {
             width: '415px',
             height: '36px',
+            '@media (min-width: 1921px)': {
+              width: '80%',
+            },
           },
           '& .sub_items_filter_list': {
             width: '415px',
             height: '36px',
+            '@media (min-width: 1921px)': {
+              width: '80%',
+            },
           },
           '& .sub_items_filter_footer': {
             width: '100%',
@@ -1464,7 +1475,8 @@ const css = createTheme({
         },
         '& .sub_items_filter2_card': {
           position: 'relative',
-          width: '1090px',
+          width: '100%',
+          minWidth: '1090px',
           height: '56px',
           boxShadow: '0px 1px 5px #0000002E !important',
           '&.active': {
