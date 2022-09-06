@@ -1479,6 +1479,12 @@ const css = createTheme({
             maxWidth: '1750px',
             width: '100%',
           },
+          '&.full-length':{
+            '@media (min-width: 1921px)': {
+              maxWidth: '2130px',
+              width: '100%',
+            },
+          }
         },
         '& .sub_items_filter2_card': {
           position: 'relative',

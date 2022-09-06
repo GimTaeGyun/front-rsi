@@ -304,7 +304,7 @@ const AllProd = () => {
           {/* Filter Section */}
           <Card
             className="sub_items_filter_card"
-            sx={{ width: '1476px', maxHeight: '56px' }}
+            sx={{ width: '100%', minWidth: '1490px', maxHeight: '56px' }}
           >
             <Box className="sub_listpage_filter_topsection b-0">
               <Box className="sub_listpage_filter_topsection_sub">
@@ -396,10 +396,19 @@ const AllProd = () => {
           <Card
             className={
               filterDropdown
-                ? 'sub_listpage_filter_dropdown_section'
-                : 'sub_listpage_filter_dropdown_section active'
+                ? 'sub_listpage_filter_dropdown_section full-length'
+                : 'sub_listpage_filter_dropdown_section full-length active'
             }
-            sx={{ width: '1476px', height: '112px' }}
+            sx={{
+              width: '100%',
+              maxWidth: {
+                md: '1490px',
+                lg: '1490px',
+                xl: '1490px',
+                xxl: '1490px',
+              },
+              height: '112px',
+            }}
           >
             <Box component="div" className="sub_listpage_filter_dropdown_row">
               <Box className="sub_filter_dropdown_lbl" component="span">
