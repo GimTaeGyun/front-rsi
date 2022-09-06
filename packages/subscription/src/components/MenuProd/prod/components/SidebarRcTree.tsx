@@ -1,4 +1,3 @@
-import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 import {
   Box,
   Button,
@@ -8,8 +7,9 @@ import {
   Divider,
   IconButton,
   TextField,
-  OutlinedInput,
+  Typography,
 } from '@mui/material';
+import { OpenWith, ZoomInMap } from '@mui/icons-material';
 import Tree, { TreeNode } from 'rc-tree';
 import React, { useEffect } from 'react';
 
@@ -72,6 +72,14 @@ const styles = {
   },
 };
 
+interface TreeItem {
+  childrens: Array<TreeItem>;
+  description: string;
+  isUsable: number;
+  key: number;
+  status: number;
+  title: string;
+}
 const SidebarRcTree = (props: {
   setuppGrp: Function;
   isPost: Boolean;
@@ -79,28 +87,33 @@ const SidebarRcTree = (props: {
   realRM: Function;
 }) => {
   const [selKey, setselKey] = React.useState('');
-  const [treeItem, setTreeITem] = React.useState(Object);
+  const [treeItem, setTreeITem] = React.useState<TreeItem | null>(null);
   const [isClick, setIsCllick] = React.useState('1000000000');
   const [prdItemGrpId, setPrdItemGrpId] = React.useState('');
   const [prdItemGrpNm, setPrdItemGrpNm] = React.useState('');
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
   const [expandKey, setExpendKey] = React.useState('1000000000');
+  const [showAll, setShowAll] = React.useState(false);
 
   useEffect(() => {
-    const api = async () => {
-      const res = await axios.post(
-        '/management/manager/product/group/inquiry',
-        {
-          p_prd_grp_id: 0,
-        },
-      );
-      setTreeITem(res.data.result);
-    };
-    api();
+    refreshTree();
     setIsCllick('1000000000');
     setExpendKey('1000000000');
   }, [props.isPost, isDel]);
+
+  const refreshTree = () => {
+    axios
+      .post('/management/manager/product/group/inquiry', {
+        p_prd_grp_id: 0,
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          setTreeITem(res.data.result);
+        }
+      })
+      .catch();
+  };
 
   const onExpand = (expandedKeys: any) => {
     console.log('onExpand', expandedKeys);
@@ -115,10 +128,6 @@ const SidebarRcTree = (props: {
         : '',
     );
     setPrdItemGrpNm(info.selectedNodes[0].title);
-  };
-
-  const onCheck = (checkedKeys: any, info: any) => {
-    console.log('onCheck', checkedKeys, info);
   };
 
   const onEdit = () => {
@@ -197,7 +206,7 @@ const SidebarRcTree = (props: {
           <Box>
             <CardHeader
               component="div"
-              title="옵션 그룹 관리"
+              title="상품 그룹"
               sx={{
                 ...styles.box_cardHeader,
                 display: 'inline-block',
@@ -263,6 +272,38 @@ const SidebarRcTree = (props: {
           </CardContent>
           <Divider />
           <Box component="div" className="sub_sidebar_footer">
+            <IconButton
+              className="sub_button_white"
+              sx={{
+                width: '84px',
+                height: '30px',
+              }}
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? (
+                <>
+                  <ZoomInMap sx={{ width: '10px', height: '10px' }} />
+                  <Typography
+                    sx={{
+                      fontSize: '13px ',
+                    }}
+                  >
+                    전체닫기
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <OpenWith sx={{ width: '10px', height: '10px' }} />
+                  <Typography
+                    sx={{
+                      fontSize: '13px ',
+                    }}
+                  >
+                    전체열기
+                  </Typography>
+                </>
+              )}
+            </IconButton>
             <Button
               variant="outlined"
               className="sub_btn_primary_outline_common sub_btn_footer_save"
