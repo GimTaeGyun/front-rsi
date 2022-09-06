@@ -235,6 +235,9 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
                 </Select>
               </Box>
             </Grid>
+            <Grid item xs={6} md={6} lg={6}>
+              <Box component="div" className="sub_items_filter_row"></Box>
+            </Grid>
 
             <Grid item xs={12} md={12} lg={12}>
               <Box component="div" className="sub_items_filter_footer">
