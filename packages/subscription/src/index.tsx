@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import ContractMenu from './components/MenuCCP/contract';
 import CustomerMenu from './components/MenuCCP/customer';
+import Empty from './container/Empty';
 //고객/계약/결제 관리 메뉴
 import CustomerTab from './components/MenuCCP/customer/customertab';
 import PayMenu from './components/MenuCCP/pay';
@@ -50,6 +51,7 @@ const Subscription = () => {
         <Route path="prod" element={<ProdMenu />}></Route>
         <Route path="allprod" element={<AllProdMenu />}></Route>
       </Route>
+      <Route path="/admin" element={<Empty />} />
     </Routes>
   );
 };

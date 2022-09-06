@@ -1056,7 +1056,8 @@ const css = createTheme({
         },
         '& .sub_card_dialog_input': {
           width: '360px',
-          height: '42px',
+          height: 'fit-content',
+          minHeight: '42px',
           backgroundColor: '#fff',
           '& .MuiOutlinedInput-input': {
             color: '#666 !important',
@@ -1413,9 +1414,6 @@ const css = createTheme({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            '@media (min-width: 1921px)': {
-              justifyContent: 'start',
-            },
             borderBottom: '1px solid #eee',
             paddingRight: '10px',
           },
@@ -1456,7 +1454,7 @@ const css = createTheme({
               lineHeight: '24px',
             },
             '@media (min-width: 1921px)': {
-              width: '39.8%',
+              width: '90%',
             },
           },
         },
@@ -1479,12 +1477,12 @@ const css = createTheme({
             maxWidth: '1750px',
             width: '100%',
           },
-          '&.full-length':{
+          '&.full-length': {
             '@media (min-width: 1921px)': {
               maxWidth: '2130px',
               width: '100%',
             },
-          }
+          },
         },
         '& .sub_items_filter2_card': {
           position: 'relative',
