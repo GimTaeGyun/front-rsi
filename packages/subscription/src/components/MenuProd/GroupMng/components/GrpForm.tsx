@@ -77,7 +77,7 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
   }, [selectGroupKey]);
 
   useEffect(() => {
-    dataValid.prdGrpNm ? setErrorMargin('28px') : setErrorMargin('12px');
+    dataValid.prdGrpNm ? setErrorMargin('26px') : setErrorMargin('12px');
     dataValid.prdGrpNm ? setErrorMargins('3px') : setErrorMargins('12px');
   }, [dataValid.prdGrpNm]);
 

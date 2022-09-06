@@ -173,19 +173,10 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const onDragEnd = (event: any) => {
     api(Number(event.dragNode.key));
     const upd = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: updateGrp.itemGrpDesc,
-          itemTp: updateGrp.itemTp.value,
-          prdItemGrpId: Number(event.dragNode.key),
-          prdItemGrpNm: event.dragNode.title,
-          sort: 1,
-          status: updateGrp.status.value,
-          uppPrdItemGrpId: Number(event.node.key),
-        },
-      ],
-      paramType: 'mod',
+      fieldNm: 'item',
+      grpId: Number(event.dragNode.key),
+      sort: 2,
+      uppGrpId: Number(event.node.key),
     };
     setAlertPopup({
       ...defaultAlertPopup,
@@ -193,7 +184,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         setAlertPopup({ ...alertPopup, visible: false });
         setIsDel(true);
         axios
-          .post('/management/manager/product/group/update', upd)
+          .post('/management/manager/group/dragdrop/update', upd)
           .then(res => {
             if (res.data.code === '0000')
               setAlertPopup({
@@ -221,11 +212,8 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     setSelkey(selectedKeys[0] ? selectedKeys[0] : '');
     setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
     props.setuppGrp(selectedKeys[0] ? selectedKeys[0] : '');
-    setUppPrdItemGrpId(
-      info.selectedNodes[0].pos.slice(-3, -2)
-        ? info.selectedNodes[0].pos.slice(-3, -2)
-        : '',
-    );
+    const split = info.selectedNodes[0].pos.split('-');
+    setUppPrdItemGrpId(split[split.length - 2] ? split[split.length - 2] : '0');
     setPrdItemGrpNm(info.selectedNodes[0].title);
   };
 
