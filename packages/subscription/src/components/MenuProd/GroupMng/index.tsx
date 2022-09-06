@@ -24,61 +24,16 @@ import DatatableItems from './components/DatatableItems';
 import { axios } from '../../../utils/axios';
 import { AlertPopupData } from '../../../data/atoms';
 import SidebarRcTree from './components/SidebarRcTree';
-
-const validationSchema = Yup.object().shape({
-  prdGrpNm: Yup.string().nullable(false).required(),
-  itemTp: Yup.string().nullable(false).required(),
-});
-
-const defaultFormValidation = {
-  prdGrpNm: false,
-  itemTp: false,
-};
-
-const validationMsg = {
-  prdGrpNm: '그룹명을 입력해 주세요',
-  itemTp: '유형을 선택해 주세요',
-};
+import GrpForm from './components/GrpForm';
+import SearchDataTable from './components/SearchDataTable';
 
 const Items = () => {
-  const [filterDropdown, setFilterDropdown] = React.useState(true);
-  const [prdGrpNm, setPrdGrpNm] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [status, setStatus] = React.useState(1);
-  const [itemTp, setItemTp] = React.useState('');
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
-  const [dataValid, setDataValid] = React.useState(defaultFormValidation);
   const [isPost, setIsPost] = React.useState(false);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-  const [errorMargin, setErrorMargin] = useState('12px');
-  const [errorMargins, setErrorMargins] = useState('12px');
   const [itemTable, setItemTable] = useState([]);
-  const [searchItemNm, setSearchItemNm] = useState('');
   const [statusValue, setStatusValue] = useState([]);
-  const [check1, setCheck1] = useState('32767');
-  const [postStatus, setPostStatus] = useState(Number);
   const [changeDataGrid, setChangeDataGrid] = useState(false);
-
-  useEffect(() => {
-    setDataValid(defaultFormValidation);
-    /* 선택시에 아이템 그룹정보 바뀜
-    const api = async () => {
-      const res = await axios.post(
-        '/management/manager/product/item/group/detail/inquiry',
-        {
-          itemNm: '',
-          itemStatus: 32767,
-          prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
-        },
-      );
-      const data = res.data.result;
-      setPrdGrpNm(data.itemGrpNm);
-      setItemTp(data.itemTp.value);
-      setStatus(data.status.value);
-    };
-    api();
-    */
-  }, [selectGroupKey]);
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -111,7 +66,7 @@ const Items = () => {
     api();
   }, [selectGroupKey, changeDataGrid]);
 
-  const onClickSearchItem = async () => {
+  const onClickSearchItem = async (searchItemNm: any, postStatus: any) => {
     const res = await axios.post(
       '/management/manager/product/item/group/detail/inquiry',
       {
@@ -135,20 +90,6 @@ const Items = () => {
     }
   };
 
-  useEffect(() => {
-    switch (check1) {
-      case '1':
-        setPostStatus(1);
-        break;
-      case '-1':
-        setPostStatus(-1);
-        break;
-      default:
-        setPostStatus(32767);
-        break;
-    }
-  }, [check1]);
-
   const defaultAlertPopup = {
     visible: true,
     leftText: '확인',
@@ -159,51 +100,6 @@ const Items = () => {
     rightText: '',
     message: '',
   };
-
-  const saveGrp = async () => {
-    const valid = {
-      prdGrpNm: !(await validationSchema.fields.prdGrpNm.isValid(prdGrpNm)),
-      itemTp: !(await validationSchema.fields.itemTp.isValid(itemTp)),
-    };
-    setDataValid(valid);
-    const req = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: description,
-          itemTp: itemTp,
-          prdItemGrpId: 0,
-          prdItemGrpNm: prdGrpNm,
-          sort: 1,
-          status: status,
-          uppPrdItemGrpId: Number(selectGroupKey),
-        },
-      ],
-      paramType: 'add',
-    };
-    if (!valid.prdGrpNm && !valid.itemTp) {
-      const res = await axios.post(
-        '/management/manager/product/item/group/update',
-        req,
-      );
-      if (res.data.code === '0000') {
-        setIsPost(true);
-        setAlertPopup({
-          ...defaultAlertPopup,
-          leftCallback: () => {
-            setAlertPopup({ ...alertPopup, visible: false });
-          },
-          message: '저장되었습니다.',
-          leftText: '확인',
-        });
-      }
-    }
-  };
-
-  useEffect(() => {
-    dataValid.prdGrpNm ? setErrorMargin('28px') : setErrorMargin('12px');
-    dataValid.prdGrpNm ? setErrorMargins('3px') : setErrorMargins('12px');
-  }, [dataValid.prdGrpNm]);
 
   useEffect(() => {
     const api = async () => {
@@ -220,9 +116,10 @@ const Items = () => {
     setSelectGroupKey(data);
   };
 
-  const showDropdownList = () => {
-    setFilterDropdown(!filterDropdown);
+  const IsPostset = (data: any) => {
+    setIsPost(data);
   };
+
   return (
     <>
       <AppFrame
@@ -250,297 +147,8 @@ const Items = () => {
           >
             <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <Card
-                className="sub_items_filter_card"
-                sx={{ marginBottom: '20px', maxHeight: '323px' }}
-              >
-                <Box>
-                  <CardHeader
-                    component="div"
-                    title="아이템 그룹 정보"
-                    className="sub_items_filter_header"
-                  />
-                </Box>
-                <Divider />
-                <CardContent
-                  id="scroll"
-                  className="sub_items_filter_content"
-                  sx={{ padding: '0 !important' }}
-                >
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={0}>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box
-                          component="div"
-                          className="sub_items_filter_row"
-                          sx={{ display: '-webkit-box !important' }}
-                        >
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹명{' '}
-                            <Typography className="sub_cust_label_dot">
-                              •
-                            </Typography>{' '}
-                          </Box>
-                          <OutlinedInput
-                            fullWidth={false}
-                            placeholder="그룹명을 입력해 주세요."
-                            value={prdGrpNm ? prdGrpNm : ''}
-                            onChange={e => {
-                              setPrdGrpNm(e.target.value);
-                            }}
-                            error={dataValid.prdGrpNm}
-                            className="sub_input_common sub_items_filter_input"
-                            sx={{
-                              marginTop: '12px !important',
-                              marginBottom: errorMargins + ' !important',
-                            }}
-                          />
-                          {dataValid.prdGrpNm && (
-                            <span>
-                              <FormHelperText
-                                error
-                                id="prdGrpNm-error"
-                                sx={{ marginTop: '0px', marginBottom: '3px' }}
-                              >
-                                {validationMsg.prdGrpNm}
-                              </FormHelperText>
-                            </span>
-                          )}
-                        </Box>
-                      </Grid>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹 설명{' '}
-                          </Box>
-                          <OutlinedInput
-                            fullWidth={false}
-                            placeholder="그룹 설명을 입력해 주세요."
-                            value={description ? description : ''}
-                            sx={{
-                              marginTop: '12px !important',
-                              marginBottom: errorMargin + ' !important',
-                            }}
-                            className="sub_input_common sub_items_filter_input"
-                            onChange={e => {
-                              setDescription(e.target.value);
-                            }}
-                          />
-                        </Box>
-                      </Grid>
-                    </Grid>
-
-                    <Grid container spacing={0}>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box component="div" className="sub_items_filter_row">
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹 상태{' '}
-                            <Typography className="sub_cust_label_dot">
-                              •
-                            </Typography>{' '}
-                          </Box>
-                          <Select
-                            fullWidth={false}
-                            value={status}
-                            sx={{
-                              marginTop: '12px !important',
-                              marginBottom: errorMargin + ' !important',
-                            }}
-                            className="sub_select_common sub_items_filter_list"
-                            onChange={e => {
-                              setStatus(e.target.value as number);
-                            }}
-                          >
-                            <MenuItem value={1}>사용가능</MenuItem>
-                            <MenuItem value={-1}>사용불가</MenuItem>
-                          </Select>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Box
-                          component="div"
-                          className="sub_items_filter_row"
-                          sx={{ display: '-webkit-box !important' }}
-                        >
-                          <Box
-                            component="div"
-                            className="sub_items_filter_label"
-                          >
-                            그룹 유형{' '}
-                            <Typography className="sub_cust_label_dot">
-                              •
-                            </Typography>{' '}
-                          </Box>
-                          <Select
-                            fullWidth={false}
-                            value={itemTp ? itemTp : 'SELECT'}
-                            className="sub_select_common sub_items_filter_list"
-                            onChange={e => {
-                              e.target.value === 'SELECT'
-                                ? setItemTp('')
-                                : setItemTp(e.target.value);
-                            }}
-                            error={dataValid.itemTp}
-                            sx={{
-                              marginTop: '12px !important',
-                              marginBottom: errorMargins + ' !important',
-                            }}
-                          >
-                            <MenuItem value="SELECT">선택</MenuItem>
-                            <MenuItem value="MEDIA">매체</MenuItem>
-                          </Select>
-                          {dataValid.itemTp && (
-                            <span>
-                              <FormHelperText
-                                error
-                                id="itemTp-error"
-                                sx={{ marginTop: '0', marginBottom: '3px' }}
-                              >
-                                {validationMsg.itemTp}
-                              </FormHelperText>
-                            </span>
-                          )}
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} md={12} lg={12}>
-                        <Box
-                          component="div"
-                          className="sub_items_filter_footer"
-                        >
-                          <Button
-                            variant="contained"
-                            className="sub_btn_primary_fill_common sub_btn_filter2"
-                            onClick={saveGrp}
-                          >
-                            저장하기
-                          </Button>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </CardContent>
-              </Card>
-
-              <Card
-                className={
-                  filterDropdown
-                    ? 'sub_items_filter2_card'
-                    : 'sub_items_filter2_card active'
-                }
-              >
-                <CardContent className="sub_items_filter2_container">
-                  <Box component="div" className="sub_items_filter2_content">
-                    <Box className="sub_items_filter2_left">
-                      <Box component="div" className="sub_items_filter_label">
-                        검색어 입력{' '}
-                      </Box>
-                      <Select
-                        fullWidth={false}
-                        value="전체"
-                        className="sub_select_common sub_items_filter_list1"
-                      >
-                        <MenuItem value="전체">전체</MenuItem>
-                      </Select>
-                      <OutlinedInput
-                        fullWidth={false}
-                        placeholder="검색어 입력"
-                        value={searchItemNm}
-                        onChange={e => {
-                          setSearchItemNm(e.target.value);
-                        }}
-                        className="sub_input_common sub_items_filter_search"
-                      />
-                    </Box>
-                    <Box className="sub_items_filter2_right">
-                      <Button
-                        variant="text"
-                        className="sub_items_btn_dropdown"
-                        onClick={showDropdownList}
-                      >
-                        상세검색
-                        <Box
-                          component="img"
-                          src={
-                            filterDropdown
-                              ? '/btn_dropdown.png'
-                              : '/btn_dropdown_down.png'
-                          }
-                          sx={{ marginLeft: '5px' }}
-                        ></Box>
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        className="sub_btn_primary_outline_common sub_items_btn_init"
-                        onClick={() => {
-                          setCheck1('32767');
-                          setSearchItemNm('');
-                        }}
-                      >
-                        초기화
-                      </Button>
-                      <Button
-                        variant="contained"
-                        className="sub_btn_primary_fill_common sub_items_btn_search"
-                        onClick={onClickSearchItem}
-                      >
-                        검색하기
-                      </Button>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-              <Card
-                className={
-                  filterDropdown
-                    ? 'sub_listpage_filter_dropdown_section'
-                    : 'sub_listpage_filter_dropdown_section active'
-                }
-              >
-                <Box
-                  component="div"
-                  className="sub_listpage_filter_dropdown_row"
-                >
-                  <Box className="sub_filter_dropdown_lbl" component="span">
-                    아이템 상태
-                  </Box>
-
-                  {statusValue.map((item: any) => {
-                    let check = false;
-                    if (item.value === check1) {
-                      check = true;
-                    } else {
-                      check = false;
-                    }
-                    return (
-                      <FormGroup className="sub_filter_dropdown_chk_outer">
-                        <FormControlLabel
-                          className="sub_filter_dropdown_chk_outer"
-                          control={
-                            <Checkbox
-                              value={item.value}
-                              checked={check}
-                              onChange={e => {
-                                setCheck1(e.target.value);
-                              }}
-                            />
-                          }
-                          label={item.label}
-                        />
-                      </FormGroup>
-                    );
-                  })}
-                </Box>
-              </Card>
-
+              <GrpForm selectGroupKey={selectGroupKey} setIsPost={IsPostset} />
+              <SearchDataTable onClickSearchItem={onClickSearchItem} />
               <Card
                 className="sub_tbl_section_common"
                 sx={{ marginTop: '20px' }}

@@ -15,63 +15,6 @@ import React, { useEffect } from 'react';
 
 import { axios } from '../../../../utils/axios';
 
-const styles = {
-  box_card: {
-    boxShadow: '0px 1px 5px #0000002E',
-    borderRadius: '6px',
-    color: '#000000DE',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    width: '300px',
-  },
-  box_cardHeader: {
-    '& .MuiTypography-root': {
-      fontSize: '16px',
-    },
-  },
-  cardContent_list: {
-    '& ul': {
-      padding: 0,
-      listStyleType: 'none',
-    },
-  },
-  treeview_item: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '288px',
-    height: '44px',
-    cursor: 'pointer',
-    fontSize: '15px',
-    fontFamily: 'NotoSansKRRegular',
-
-    '&:hover': {
-      backgroundColor: '#F4F5F7',
-      borderRadius: '4px',
-    },
-    '&:focus': {
-      backgroundColor: '#F4F5F7',
-      borderRadius: '4px',
-    },
-  },
-  box2_button: {
-    minWidth: '32px',
-    height: '32px',
-    p: '4px',
-    mr: '8px',
-    color: '#000000DE',
-    borderColor: '#0000002E',
-  },
-  box2_button2: {
-    minWidth: '32px',
-    height: '32px',
-    p: '4px',
-    color: '#000000DE',
-    borderColor: '#0000002E',
-  },
-};
-
 const SidebarRcTree = (props: {
   setuppGrp: Function;
   isPost: Boolean;
@@ -282,6 +225,63 @@ const SidebarRcTree = (props: {
       </Box>
     </>
   );
+};
+
+const styles = {
+  box_card: {
+    boxShadow: '0px 1px 5px #0000002E',
+    borderRadius: '6px',
+    color: '#000000DE',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '300px',
+  },
+  box_cardHeader: {
+    '& .MuiTypography-root': {
+      fontSize: '16px',
+    },
+  },
+  cardContent_list: {
+    '& ul': {
+      padding: 0,
+      listStyleType: 'none',
+    },
+  },
+  treeview_item: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '288px',
+    height: '44px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontFamily: 'NotoSansKRRegular',
+
+    '&:hover': {
+      backgroundColor: '#F4F5F7',
+      borderRadius: '4px',
+    },
+    '&:focus': {
+      backgroundColor: '#F4F5F7',
+      borderRadius: '4px',
+    },
+  },
+  box2_button: {
+    minWidth: '32px',
+    height: '32px',
+    p: '4px',
+    mr: '8px',
+    color: '#000000DE',
+    borderColor: '#0000002E',
+  },
+  box2_button2: {
+    minWidth: '32px',
+    height: '32px',
+    p: '4px',
+    color: '#000000DE',
+    borderColor: '#0000002E',
+  },
 };
 
 export default SidebarRcTree;
