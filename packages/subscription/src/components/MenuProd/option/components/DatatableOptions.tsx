@@ -159,7 +159,7 @@ const DatatableOptions = (props: {
           {
             actor: localStorage.getItem('usrId'),
             dataset: selectModel,
-            field: 'item',
+            field: 'option',
             status: Number(status),
           },
         );
@@ -185,14 +185,22 @@ const DatatableOptions = (props: {
         headerHeight={57}
         disableSelectionOnClick
         rowHeight={52}
-        rows={rows}
+        rows={rows ? rows : []}
         columns={columns}
         pagination={true}
+        checkboxSelection
         rowCount={rows.length}
-        checkboxSelection={true}
+        onSelectionModelChange={select}
         components={{
           Footer: () => {
-            return <Footer />;
+            return (
+              <Footer
+                statusValue={statusValue}
+                postStatus={statusChangeArray}
+                statusChange={statusChange}
+                status={status}
+              />
+            );
           },
         }}
       />

@@ -20,17 +20,14 @@ import { axios } from '../../../../utils/axios';
 
 const defaultFormValidation = {
   prdGrpNm: false,
-  itemTp: false,
 };
 
 const validationMsg = {
   prdGrpNm: '그룹명을 입력해 주세요',
-  itemTp: '유형을 선택해 주세요',
 };
 
 const validationSchema = Yup.object().shape({
   prdGrpNm: Yup.string().nullable(false).required(),
-  itemTp: Yup.string().nullable(false).required(),
 });
 
 const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
@@ -89,14 +86,13 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
   }, []);
 
   useEffect(() => {
-    dataValid.prdGrpNm ? setErrorMargin('28px') : setErrorMargin('12px');
+    dataValid.prdGrpNm ? setErrorMargin('26px') : setErrorMargin('12px');
     dataValid.prdGrpNm ? setErrorMargins('3px') : setErrorMargins('12px');
   }, [dataValid.prdGrpNm]);
 
   const saveGrp = async () => {
     const valid = {
       prdGrpNm: !(await validationSchema.fields.prdGrpNm.isValid(prdGrpNm)),
-      itemTp: !(await validationSchema.fields.itemTp.isValid(itemTp)),
     };
     setDataValid(valid);
     const req = {
@@ -105,20 +101,23 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
         {
           description: description,
           optCatId: 0,
-          optCat: prdGrpNm,
+          optCatNm: prdGrpNm,
           sort: 1,
           uppOptCatId: Number(selectGroupKey),
         },
       ],
+      status: status,
       paramType: 'add',
     };
-    if (!valid.prdGrpNm && !valid.itemTp) {
+    if (!valid.prdGrpNm) {
       const res = await axios.post(
         '/management/manager/option/category/update',
         req,
       );
       if (res.data.code === '0000') {
         setIsPost(true);
+        setDescription('');
+        setPrdGrpNm('');
         setAlertPopup({
           ...defaultAlertPopup,
           leftCallback: () => {
@@ -235,7 +234,19 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
                 </Select>
               </Box>
             </Grid>
-
+            <Grid item xs={6} md={6} lg={6}>
+              <Box
+                component="div"
+                className="sub_items_filter_row"
+                sx={{ display: '-webkit-box !important' }}
+              >
+                {!dataValid.prdGrpNm ? (
+                  <Box sx={{ height: '60px' }} />
+                ) : (
+                  <Box sx={{ height: '75px' }} />
+                )}
+              </Box>
+            </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Box component="div" className="sub_items_filter_footer">
                 <Button
