@@ -137,21 +137,24 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
-    renderCell: (params: GridRenderCellParams<string>) => (
-      <Box sx={{ width: '83px', height: '28px' }}>
-        <Select
-          fullWidth
-          id="operator"
-          value={params.row.operatorUnit}
-          name="operator"
-          className="sub_select_forms"
-          sx={{ height: '28px', textAlign: 'center' }}
-        >
-          <MenuItem value="+">+</MenuItem>
-          <MenuItem value="아이템에">아이템에</MenuItem>
-        </Select>
-      </Box>
-    ),
+    renderCell: (params: GridRenderCellParams<string>) => {
+      console.log(params);
+      return (
+        <Box sx={{ width: '83px', height: '28px' }}>
+          <Select
+            fullWidth
+            id="operator"
+            value={params.row.operatorUnit}
+            name="operator"
+            className="sub_select_forms"
+            sx={{ height: '28px', textAlign: 'center' }}
+          >
+            <MenuItem value="+">+</MenuItem>
+            <MenuItem value="아이템에">아이템에</MenuItem>
+          </Select>
+        </Box>
+      );
+    },
   },
   {
     align: 'center',
@@ -207,18 +210,13 @@ const columns: GridColDef[] = [
   },
 ];
 
-const OptionForm = (props: { open: any }) => {
-  const [open, setOpen] = useState(props.open);
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const OptionForm = (props: { open: any; onClose: Function }) => {
   return (
     <Box component="div" sx={{ width: '700px' }}>
       <Dialog
-        open={open}
+        open={props.open}
         onClose={() => {
-          handleClose();
+          props.onClose();
         }}
         sx={{
           '& .MuiPaper-root': {
@@ -231,7 +229,9 @@ const OptionForm = (props: { open: any }) => {
           <IconButton
             color="primary"
             component="label"
-            onClick={() => handleClose()}
+            onClick={() => {
+              props.onClose;
+            }}
           >
             <CloseOutlined className="sub_dialog_icon_close" />
           </IconButton>
@@ -363,7 +363,9 @@ const OptionForm = (props: { open: any }) => {
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button
-            onClick={() => handleClose()}
+            onClick={() => {
+              props.onClose;
+            }}
             sx={{ fontSize: '14px' }}
             className="sub_button_white_none"
           >

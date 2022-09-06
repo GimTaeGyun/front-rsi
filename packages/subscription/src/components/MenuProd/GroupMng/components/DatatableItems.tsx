@@ -114,6 +114,12 @@ const DatatableItems = (props: {
   const [selectModel, setSelectModel] = React.useState(Array);
   const [status, setStatus] = React.useState('32767');
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [rowNull, setRowNull] = React.useState(Boolean);
+
+  React.useEffect(() => {
+    rows[0] ? setRowNull(false) : setRowNull(true);
+  }, [rows]);
+  console.log(rows);
 
   const defaultAlertPopup = {
     visible: true,
@@ -187,6 +193,7 @@ const DatatableItems = (props: {
           Footer: () => {
             return (
               <Footer
+                rowNull={rowNull}
                 statusValue={statusValue}
                 postStatus={statusChangeArray}
                 statusChange={statusChange}

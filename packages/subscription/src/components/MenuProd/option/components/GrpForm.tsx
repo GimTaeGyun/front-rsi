@@ -35,7 +35,6 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState(1);
-  const [itemTp, setItemTp] = React.useState('');
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
   const [errorMargin, setErrorMargin] = React.useState('12px');
   const [errorMargins, setErrorMargins] = React.useState('12px');
