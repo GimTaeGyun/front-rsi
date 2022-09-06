@@ -95,28 +95,16 @@ const FrmUserInfo = (props: {
   handleSubmit?: Function;
 }) => {
   const [sharedCustomerData, setSharedCustomerData] = useAtom(customerData);
-  const defaultFormData = {
-    action: 'add',
-    grpNo: '2',
-    usrNm: '',
-    loginId: '',
-    loginPw: '',
-    phone: '',
-    email: '',
-    service: [],
-    custId: sharedCustomerData.custId,
-  };
 
-  const [popupData, setPopupData] = React.useState(defaultFormData);
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
 
-  const [loginId, setLoginId] = React.useState(defaultFormData.loginId);
-  const [usrNm, setUsrNm] = React.useState(defaultFormData.usrNm);
-  const [loginPw, setLoginPw] = React.useState(defaultFormData.loginPw);
-  const [phone, setPhone] = React.useState(defaultFormData.phone);
-  const [email, setEmail] = React.useState(defaultFormData.email);
-  const [service, setService] = React.useState(defaultFormData.service);
-  const [grpNo, setGrpNo] = React.useState(defaultFormData.grpNo);
+  const [loginId, setLoginId] = React.useState('');
+  const [usrNm, setUsrNm] = React.useState('');
+  const [loginPw, setLoginPw] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [service, setService] = React.useState([]);
+  const [grpNo, setGrpNo] = React.useState('');
   const [userGrpSelect, setUserGrpSelect] = useState([]); // 사용자그룹 셀렉트박스 목록
   const [serviceList, setServiceList] = useState([]); // 사용서비스 테이블 목록
 
@@ -135,6 +123,7 @@ const FrmUserInfo = (props: {
   };
 
   useEffect(() => {
+    // 사용자 그룹 셀렉트박스
     axios
       .post('/management/manager/customer/usergroup/inquiry', {
         custId: sharedCustomerData.custId,
@@ -146,6 +135,8 @@ const FrmUserInfo = (props: {
         }
       })
       .catch();
+
+    // 사용 서비스 테이블
     axios
       .post('/management/common/service/inquiry')
       .then((res: any) => {
@@ -159,11 +150,6 @@ const FrmUserInfo = (props: {
       })
       .catch();
   }, []);
-
-  React.useEffect(() => {
-    setPopupData(defaultFormData);
-    setDataValid(defaultFormValidation);
-  }, [open]);
 
   const checkLoginId = () => {
     if (loginId == '') {
@@ -212,9 +198,12 @@ const FrmUserInfo = (props: {
     } else {
       axios
         .post('/management/subscription/customer/user/update', {
-          ...popupData,
+          action: 'add',
+          email: email,
+          grpNo: grpNo,
+          loginId: loginId,
           loginPw: cryptojs.AES.encrypt(
-            popupData.loginPw,
+            loginPw,
             cryptojs.enc.Utf8.parse(process.env.REACT_APP_SECRETKEY),
             {
               iv: cryptojs.enc.Utf8.parse(
@@ -224,6 +213,9 @@ const FrmUserInfo = (props: {
               mode: cryptojs.mode.CBC,
             },
           ).toString(),
+          phone: phone,
+          service: service,
+          usrNm: usrNm,
         })
         .then((res: any) => {
           if (res.data.code == '0000') {
@@ -236,11 +228,10 @@ const FrmUserInfo = (props: {
                 setUsrNm('');
                 setEmail('');
                 setPhone('');
-                setGrpNo('2');
+                setGrpNo((userGrpSelect[0] as any).custGrpNo);
                 setService([]);
                 setIsLoginAvailable(false);
                 setDataValid(defaultFormValidation);
-                setPopupData(defaultFormData);
                 setAlertPopup({ ...alertPopup, visible: false });
               },
               message: '새로운 사용자가 추가되었습니다.',
@@ -271,30 +262,30 @@ const FrmUserInfo = (props: {
       service: { err: false, msg: '' },
     };
     // loginId 길이 0
-    if (popupData.loginId.length == 0) {
+    if (loginId.length == 0) {
       tmp.loginId.err = true;
       tmp.loginId.msg = errMsg.loginId[0];
     }
     // loginId 형식
-    if (!(await validationSchema.fields.loginId.isValid(popupData.loginId))) {
+    if (!(await validationSchema.fields.loginId.isValid(loginId))) {
       tmp.loginId.err = true;
       tmp.loginId.msg = errMsg.loginId[1];
     }
     while (true) {
       // 비밀번호 길이 0
-      if (popupData.loginPw.length == 0) {
+      if (loginPw.length == 0) {
         tmp.loginPw.err = true;
         tmp.loginPw.msg = errMsg.loginPw[0];
         break;
       }
       // 비밀번호 길이 범위 밖
-      if (popupData.loginPw.length < 8 || popupData.loginPw.length > 16) {
+      if (loginPw.length < 8 || loginPw.length > 16) {
         tmp.loginPw.err = true;
         tmp.loginPw.msg = errMsg.loginPw[1];
         break;
       }
       // 비밀번호 형식 이상
-      if (!(await validationSchema.fields.loginPw.isValid(popupData.loginPw))) {
+      if (!(await validationSchema.fields.loginPw.isValid(loginPw))) {
         tmp.loginPw.err = true;
         tmp.loginPw.msg = errMsg.loginPw[2];
         break;
@@ -304,22 +295,22 @@ const FrmUserInfo = (props: {
       break;
     }
     // 유저 이름 형식 이상
-    if (!(await validationSchema.fields.usrNm.isValid(popupData.usrNm))) {
+    if (!(await validationSchema.fields.usrNm.isValid(usrNm))) {
       tmp.usrNm.err = true;
       tmp.usrNm.msg = errMsg.usrNm;
     }
     // 전화번호
-    if (!(await validationSchema.fields.phone.isValid(popupData.phone))) {
+    if (!(await validationSchema.fields.phone.isValid(phone))) {
       tmp.phone.err = true;
       tmp.phone.msg = errMsg.phone;
     }
     // email
-    if (!(await validationSchema.fields.email.isValid(popupData.email))) {
+    if (!(await validationSchema.fields.email.isValid(email))) {
       tmp.email.err = true;
       tmp.email.msg = errMsg.email;
     }
     // service
-    if (popupData.service.length == 0) {
+    if (service.length == 0) {
       tmp.service.err = true;
       tmp.service.msg = errMsg.service;
       setAlertPopup({
@@ -381,7 +372,6 @@ const FrmUserInfo = (props: {
                 onChange={(e: any) => {
                   setIsLoginAvailable(false);
                   setLoginId(e.target.value);
-                  setPopupData({ ...popupData, loginId: e.target.value });
                 }}
                 sx={{ width: '348px' }}
               />
@@ -416,7 +406,6 @@ const FrmUserInfo = (props: {
                 helperText={dataValid.loginPw.msg}
                 onChange={(e: any) => {
                   setLoginPw(e.target.value);
-                  setPopupData({ ...popupData, loginPw: e.target.value });
                 }}
               />
             </Box>
@@ -436,7 +425,6 @@ const FrmUserInfo = (props: {
                 helperText={dataValid.usrNm.msg}
                 onChange={(e: any) => {
                   setUsrNm(e.target.value);
-                  setPopupData({ ...popupData, usrNm: e.target.value });
                 }}
               />
             </Box>
@@ -456,7 +444,6 @@ const FrmUserInfo = (props: {
                 helperText={dataValid.phone.msg}
                 onChange={(e: any) => {
                   setPhone(e.target.value);
-                  setPopupData({ ...popupData, phone: e.target.value });
                 }}
               />
             </Box>
@@ -476,7 +463,6 @@ const FrmUserInfo = (props: {
                 helperText={dataValid.email.msg}
                 onChange={(e: any) => {
                   setEmail(e.target.value);
-                  setPopupData({ ...popupData, email: e.target.value });
                 }}
               />
             </Box>
@@ -493,12 +479,13 @@ const FrmUserInfo = (props: {
                 value={grpNo}
                 onChange={(e: any) => {
                   setGrpNo(e.target.value);
-                  setPopupData({ ...popupData, grpNo: e.target.value });
                 }}
               >
                 {userGrpSelect.map((item: any) => {
                   return (
-                    <MenuItem value={item.custGrpNo}>{item.custGrp}</MenuItem>
+                    <MenuItem key={item.custGrpNo} value={item.custGrpNo}>
+                      {item.custGrp}
+                    </MenuItem>
                   );
                 })}
               </Select>
@@ -516,9 +503,9 @@ const FrmUserInfo = (props: {
                   rows={serviceList}
                   columns={columns}
                   checkboxSelection
-                  selectionModel={popupData.service}
+                  selectionModel={service}
                   onSelectionModelChange={(val: any) => {
-                    setPopupData({ ...popupData, service: val });
+                    setService(val);
                   }}
                   components={{
                     Footer: () => {
