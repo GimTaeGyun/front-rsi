@@ -1409,6 +1409,7 @@ const css = createTheme({
           },
           '& .sub_items_filter_row': {
             width: '100%',
+            height: '56px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -1449,16 +1450,19 @@ const css = createTheme({
             borderBottom: '1px solid #eee',
           },
           '& .sub_items_filter_textarea_input': {
-            width: '960px',
+            width: '970px',
             height: '93px',
             '& .MuiInputBase-input': {
               lineHeight: '24px',
+            },
+            '@media (min-width: 1921px)': {
+              width: '39.8%',
             },
           },
         },
         '& .sub_listpage_filter_dropdown_section': {
           display: 'none',
-          width: '1090px',
+          width: '1110px',
           position: 'absolute',
           backgroundColor: '#fff !important',
           borderRadius: '0 0 6px 6px !important',
@@ -1470,6 +1474,10 @@ const css = createTheme({
           },
           '& .sub_listpage_divider': {
             borderColor: '#e0e0e0',
+          },
+          '@media (min-width: 1921px)': {
+            maxWidth: '1750px',
+            width: '100%',
           },
         },
         '& .sub_items_filter2_card': {

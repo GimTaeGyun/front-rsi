@@ -83,14 +83,9 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
 
   const onSelect = (selectedKeys: any, info: any) => {
     setSelKey(selectedKeys[0] ? selectedKeys[0] : '');
-    setPrdItemGrpId(selectedKeys[0] ? selectedKeys[0] : '');
     props.setuppGrp(selectedKeys[0] ? selectedKeys[0] : '');
-    setUppPrdItemGrpId(
-      info.selectedNodes[0].pos.slice(-3, -2)
-        ? info.selectedNodes[0].pos.slice(-3, -2)
-        : '',
-    );
-    setPrdItemGrpNm(info.selectedNodes[0].title);
+    const split = info.selectedNodes[0].pos.split('-');
+    setUppPrdItemGrpId(split[split.length - 2] ? split[split.length - 2] : '0');
   };
 
   const onEdit = () => {
@@ -98,28 +93,29 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     setExpendKey([...expandKey, selKey]);
   };
 
-  const del = {
-    actor: localStorage.getItem('usrId'),
-    dataset: [
-      {
-        description: '',
-        optCatId: Number(prdItemGrpId),
-        optCatNm: prdItemGrpNm,
-        sort: 1,
-        uppOptCatId: Number(uppPrdItemGrpId),
-      },
-    ],
-    paramType: 'del',
-  };
-
   const deleteGrp = () => {
+    api(selKey);
+    const del = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: updateGrp.description,
+          optCatId: updateGrp.optCatId,
+          optCatNm: updateGrp.optCatNm,
+          sort: 1,
+          uppOptCatId: Number(uppPrdItemGrpId),
+        },
+      ],
+      paramType: 'del',
+      status: updateGrp.status.value,
+    };
     setAlertPopup({
       ...defaultAlertPopup,
       leftCallback: () => {
         setAlertPopup({ ...alertPopup, visible: false });
         setIsDel(true);
         axios
-          .post('/management/manager/product/item/group/update', del)
+          .post('/management/manager/option/category/update', del)
           .then(res => {
             if (res.data.code === '0000')
               setAlertPopup({
@@ -146,17 +142,10 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   const onDragEnd = (event: any) => {
     api(Number(event.dragNode.key));
     const upd = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: updateGrp.decription,
-          optCatId: Number(event.dragNode.key),
-          optCatNm: event.dragNode.title,
-          sort: 1,
-          uppOptCatId: Number(event.node.key),
-        },
-      ],
-      paramType: 'mod',
+      fieldNm: 'option',
+      grpId: Number(event.dragNode.key),
+      sort: 2,
+      uppGrpId: Number(event.node.key),
     };
     setAlertPopup({
       ...defaultAlertPopup,
@@ -164,7 +153,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         setAlertPopup({ ...alertPopup, visible: false });
         setIsDel(true);
         axios
-          .post('/management/manager/option/category/update', upd)
+          .post('/management/manager/group/dragdrop/update', upd)
           .then(res => {
             if (res.data.code === '0000')
               setAlertPopup({

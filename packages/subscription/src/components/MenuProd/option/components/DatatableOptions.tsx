@@ -24,7 +24,9 @@ const columns: GridColDef[] = [
     align: 'left',
     field: 'name',
     headerName: '옵션명',
-    width: 314,
+    minWidth: 314,
+    maxWidth: 495,
+    flex: 1,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
@@ -38,7 +40,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'operator',
     headerName: '연산자 적용',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 283,
+    flex: 1,
     headerAlign: 'center',
     sortable: true,
     disableColumnMenu: true,
@@ -52,7 +56,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'num_items',
     headerName: '옵션 아이템 수',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 283,
+    flex: 1,
     headerAlign: 'center',
     sortable: true,
     disableColumnMenu: true,
@@ -66,7 +72,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'status',
     headerName: '옵션 상태',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 283,
+    flex: 1,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
@@ -100,7 +108,9 @@ const columns: GridColDef[] = [
     align: 'center',
     field: 'date',
     headerName: '최종 수정일시',
-    width: 180,
+    minWidth: 180,
+    maxWidth: 283,
+    flex: 1,
     headerAlign: 'center',
     sortable: false,
     disableColumnMenu: true,
@@ -159,7 +169,7 @@ const DatatableOptions = (props: {
           {
             actor: localStorage.getItem('usrId'),
             dataset: selectModel,
-            field: 'item',
+            field: 'option',
             status: Number(status),
           },
         );
@@ -185,14 +195,22 @@ const DatatableOptions = (props: {
         headerHeight={57}
         disableSelectionOnClick
         rowHeight={52}
-        rows={rows}
+        rows={rows ? rows : []}
         columns={columns}
         pagination={true}
+        checkboxSelection
         rowCount={rows.length}
-        checkboxSelection={true}
+        onSelectionModelChange={select}
         components={{
           Footer: () => {
-            return <Footer />;
+            return (
+              <Footer
+                statusValue={statusValue}
+                postStatus={statusChangeArray}
+                statusChange={statusChange}
+                status={status}
+              />
+            );
           },
         }}
       />

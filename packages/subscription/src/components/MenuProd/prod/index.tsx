@@ -251,7 +251,14 @@ const Prod = () => {
                           <Box
                             component="div"
                             className="d_flex align-items-center justify-content-between"
-                            sx={{ width: '415px' }}
+                            sx={{
+                              width: {
+                                md: '415px',
+                                lg: '415px',
+                                xl: '80%',
+                                xxl: '80%',
+                              },
+                            }}
                           >
                             <FormGroup>
                               <FormControlLabel
