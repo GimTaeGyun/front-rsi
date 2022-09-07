@@ -137,24 +137,17 @@ const SidebarRcTree = (props: {
     setIsCllick('1000000000');
   }, [props.isPost, isDel]);
 
-  const Ischild = async () => {
-    const res = await axios.post(
-      '/management/manager/product/item/group/inquiry',
-      {
-        p_prd_itemgrp_id: Number(selKey),
-      },
-    );
-    res.data.result.childrens ? setIsChild(true) : setIsChild(false);
-  };
-
   const onExpand = (expandedKeys: any) => {
     setExpendKey(expandedKeys);
   };
 
   const api = async (key: any) => {
-    const res = await axios.post('/management/manager/product/group/inquiry', {
-      p_prd_grp_Id: Number(key),
-    });
+    const res = await axios.post(
+      '/management/manager/product/item/group/inquiry',
+      {
+        p_prd_itemgrp_id: Number(key),
+      },
+    );
     setUpdateGrp(res.data.result);
   };
 
@@ -241,6 +234,7 @@ const SidebarRcTree = (props: {
     props.setUppId(split[split.length - 2] ? split[split.length - 2] : '0');
     setPrdItemGrpNm(info.selectedNodes[0].title);
     props.setIsAdd(false);
+    api(selectedKeys);
   };
 
   const onEdit = () => {
@@ -248,7 +242,6 @@ const SidebarRcTree = (props: {
   };
 
   const deleteGrp = () => {
-    Ischild();
     if (selKey === '0') {
       setAlertPopup({
         ...defaultAlertPopup,
@@ -260,7 +253,7 @@ const SidebarRcTree = (props: {
         leftText: '확인',
       });
     } else {
-      if (isChild) {
+      if (updateGrp.childrens !== undefined) {
         setAlertPopup({
           ...defaultAlertPopup,
           leftCallback: () => {

@@ -78,10 +78,11 @@ const GrpForm = (props: {
           },
         );
         const data = res.data.result;
+        console.log(data);
         setPrdGrpNm(data.itemGrpNm);
         setItemTp(data.itemTp.value);
         setStatus(data.status.value);
-        setDescription(data.description);
+        setDescription(data.itemGrpDesc);
       }
     };
     api();
