@@ -18,6 +18,7 @@ const ColDef: GridColDef[] = [
       </Typography>
     ),
     renderCell: params => {
+      console.log(params);
       let str_class = 'sub_td_cat sub_td_cat_color1';
       /*switch (params.value.label) {
         case '개인':
