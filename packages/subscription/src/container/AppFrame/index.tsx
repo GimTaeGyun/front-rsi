@@ -26,8 +26,11 @@ const AppFrame = (props: {
       localStorage.getItem('usrId') === 'undefined' ||
       localStorage.getItem('usrId') === null ||
       localStorage.getItem('usrId') === 'null'
-    )
-      navigate('/admin/login');
+    ) {
+      console.log('usrId 이상함');
+      console.log(localStorage.getItem('usrId'));
+      //navigate('/admin/login');
+    }
   }, []);
 
   // Handle drawer toggle

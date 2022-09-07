@@ -75,9 +75,12 @@ const DataTableProd = () => {
   const [filterDropdown, setFilterDropdown] = React.useState(false);
   const [itemTpChb, setItemTpChb] = useState<CodeSet>(DefaultCodeSet); // 상품유형 체크박스
   const [itemStatusChb, setItemStatusChb] = useState<CodeSet>(DefaultCodeSet); // 상품상태 체크박스
+  const [tpLoaded, setTpLoaded] = useState(false);
+  const [statusLoaded, setStatusLoaded] = useState(false);
   const [searchSelect, setSearchSelect] = useState('ALL');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [sharingData, setSharingData] = useAtom(PrdMng);
+  const [total, setTotal] = useState(0);
 
   // 컴포넌트 초기화
   useEffect(() => {
@@ -95,6 +98,7 @@ const DataTableProd = () => {
             },
           );
           setItemTpChb(res.data.result);
+          setTpLoaded(true);
         }
       })
       .catch();
@@ -113,6 +117,7 @@ const DataTableProd = () => {
             },
           );
           setItemStatusChb(res.data.result);
+          setStatusLoaded(true);
         }
       })
       .catch();
@@ -120,8 +125,13 @@ const DataTableProd = () => {
 
   // 트리 클릭이벤트
   useEffect(() => {
-    searchTable();
+    if (JSON.stringify(sharingData.selNode) != '{}') searchTable();
   }, [sharingData.selNode]);
+
+  // 초기화 시 테이블 로우 가져오기
+  useEffect(() => {
+    if (tpLoaded && statusLoaded) searchTable();
+  }, [tpLoaded, statusLoaded]);
 
   const searchTable = () => {
     axios
@@ -379,7 +389,7 @@ const DataTableProd = () => {
               justifyContent="space-between"
             >
               <Typography className="sub_tbl_header_text_common">
-                전체 (5)
+                전체 ({total})
               </Typography>
             </Box>
           }
