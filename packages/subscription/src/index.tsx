@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 
 import ContractMenu from './components/MenuCCP/contract';
 import CustomerMenu from './components/MenuCCP/customer';
-import Empty from './container/Empty';
 //고객/계약/결제 관리 메뉴
 import CustomerTab from './components/MenuCCP/customer/customertab';
 import PayMenu from './components/MenuCCP/pay';
@@ -18,6 +17,7 @@ import AllProdMenu from './components/MenuProd/allprod';
 import GroupMngMenu from './components/MenuProd/GroupMng';
 import OptionMenu from './components/MenuProd/option';
 import ProdMenu from './components/MenuProd/prod';
+import Empty from './container/Empty';
 import AdminLogin from './container/Login';
 import reportWebVitals from './reportWebVitals';
 

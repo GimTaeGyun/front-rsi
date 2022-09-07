@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import AppFrame from './AppFrame';
+import { useLocation } from 'react-router-dom';
+
 import AlertPopup from '../components/Common/AlertPopup';
 import { DefaultAlertPopupData } from '../data/atoms';
-import { useLocation } from 'react-router-dom';
+import AppFrame from './AppFrame';
 
 const Empty = () => {
   const [alertPopup, setAlertPopup] = useState(DefaultAlertPopupData);

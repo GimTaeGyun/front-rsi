@@ -1,5 +1,6 @@
 import { Box, Button, MenuItem, Select } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+
 import OptionForm from './OptionForm';
 
 export const Footer = (props: {
@@ -7,7 +8,7 @@ export const Footer = (props: {
   statusChange: Function;
   statusValue: any;
   status: any;
-  rowNull: Boolean;
+  rowNull: boolean;
 }) => {
   const [open, setOpen] = useState(false);
 

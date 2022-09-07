@@ -1572,6 +1572,9 @@ const css = createTheme({
         '& .sub_rc_childNode .rc-tree-title': {
           color: '#999',
         },
+        '& .unactive .rc-tree-title': {
+          color: '#999999',
+        },
         '& .rc-tree .rc-tree-treenode span.rc-tree-iconEle.rc-tree-icon__close':
           {
             display: 'none',

@@ -322,7 +322,7 @@ const TabContent2 = () => {
   };
 
   const onClick = (data: any) => {
-    let date: any = new Date(dateTo);
+    const date: any = new Date(dateTo);
     let year = date.getFullYear();
     let mon = date.getMonth() + 1;
     let day = date.getDate();
@@ -331,10 +331,10 @@ const TabContent2 = () => {
       mon = 12 + mon;
       year--;
     }
-    let fromDate = new Date(year, mon + 1, 0);
+    const fromDate = new Date(year, mon + 1, 0);
     if (day > fromDate.getDate()) day = fromDate.getDate();
 
-    let result = year + '-' + mon + '-' + day;
+    const result = year + '-' + mon + '-' + day;
     setDateFrom(result);
   };
 

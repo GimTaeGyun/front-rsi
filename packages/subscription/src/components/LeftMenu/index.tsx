@@ -69,12 +69,14 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
               break;
           }
 
-          for (const subMenu of menu.subMenu) {
-            if (subMenu == null) continue;
-            menuItem.items.push({
-              title: subMenu.menuNm,
-              link: menuLink[subMenu.menuId],
-            });
+          if (menu.subMenu) {
+            for (const subMenu of menu.subMenu) {
+              if (subMenu == null) continue;
+              menuItem.items.push({
+                title: subMenu.menuNm,
+                link: menuLink[subMenu.menuId],
+              });
+            }
           }
           tempMenuItems.push(menuItem);
         }

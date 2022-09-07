@@ -8,24 +8,25 @@ import {
   Divider,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   Grid,
   MenuItem,
   OutlinedInput,
   Select,
   Typography,
-  FormHelperText,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
+
 import AppFrame from '../../../container/AppFrame';
+import { AlertPopupData } from '../../../data/atoms';
+import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import DatatableItems from './components/DatatableItems';
-import { axios } from '../../../utils/axios';
-import { AlertPopupData } from '../../../data/atoms';
-import SidebarRcTree from './components/SidebarRcTree';
 import GrpForm from './components/GrpForm';
 import SearchDataTable from './components/SearchDataTable';
+import SidebarRcTree from './components/SidebarRcTree';
 
 const Items = () => {
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
@@ -51,7 +52,7 @@ const Items = () => {
           prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
-      let arr = [] as any;
+      const arr = [] as any;
       if (res.data.result.itemList.dataRows) {
         res.data.result.itemList.dataRows.map((item: any) => {
           const row = {
@@ -77,7 +78,7 @@ const Items = () => {
         prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
       },
     );
-    let arr = [] as any;
+    const arr = [] as any;
     if (res.data.result.itemList.dataRows) {
       res.data.result.itemList.dataRows.map((item: any) => {
         const row = {

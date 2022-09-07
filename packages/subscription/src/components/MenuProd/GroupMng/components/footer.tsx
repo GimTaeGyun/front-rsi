@@ -6,7 +6,7 @@ export const Footer = (props: {
   statusChange: Function;
   statusValue: any;
   status: any;
-  rowNull: Boolean;
+  rowNull: boolean;
 }) => {
   return (
     <Box className="sub_pagination_wrapper" component="div">

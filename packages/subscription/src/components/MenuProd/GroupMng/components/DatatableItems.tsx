@@ -14,9 +14,9 @@ import {
 } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
 import React from 'react';
+
 import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
-
 import { Footer } from './footer';
 
 const columns: GridColDef[] = [
