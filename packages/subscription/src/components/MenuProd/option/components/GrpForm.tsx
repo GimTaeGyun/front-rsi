@@ -81,7 +81,7 @@ const GrpForm = (props: {
     };
     api();
   }, [selectGroupKey, isAdd]);
-  console.log(isAdd);
+
   useEffect(() => {
     const statusApi = async () => {
       const res = await axios.post('/management/subscription/admin/codeset', {

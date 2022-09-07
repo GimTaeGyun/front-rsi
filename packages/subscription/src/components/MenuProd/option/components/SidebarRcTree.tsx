@@ -27,13 +27,13 @@ const SidebarRcTree = (props: {
 }) => {
   const [selKey, setSelKey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
-  const [isClick, setIsCllick] = React.useState('1000000000');
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
   const [updateGrp, setUpdateGrp] = React.useState(Object);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [expandKey, setExpendKey] = React.useState(['']);
   const [showAll, setShowAll] = React.useState(false);
+  const [isChild, setIsChild] = React.useState(Object);
 
   useEffect(() => {
     if (showAll) {
@@ -66,7 +66,6 @@ const SidebarRcTree = (props: {
       setTreeITem(res.data.result);
     };
     api();
-    setIsCllick('1000000000');
   }, [props.isPost, isDel]);
 
   const onExpand = (expandedKeys: any) => {
@@ -91,6 +90,7 @@ const SidebarRcTree = (props: {
     setUppPrdItemGrpId(split[split.length - 2] ? split[split.length - 2] : '0');
     props.isAdd(false);
     props.setUppId(split[split.length - 2] ? split[split.length - 2] : '0');
+    Ischild(selectedKeys);
   };
 
   const onEdit = () => {
@@ -99,59 +99,72 @@ const SidebarRcTree = (props: {
 
   const deleteGrp = () => {
     api(selKey);
-    const del = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: updateGrp.description,
-          optCatId: updateGrp.optCatId,
-          optCatNm: updateGrp.optCatNm,
-          sort: 1,
-          uppOptCatId: Number(uppPrdItemGrpId),
+    if (Number(selKey) === 0) {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
         },
-      ],
-      paramType: 'del',
-      status: updateGrp.status.value,
-    };
-    setAlertPopup({
-      ...defaultAlertPopup,
-      leftCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setIsDel(true);
-        if (updateGrp.optCatId === '0') {
-          setAlertPopup({
-            ...defaultAlertPopup,
-            leftCallback: () => {
-              setAlertPopup({ ...alertPopup, visible: false });
-              setIsDel(false);
-            },
-            message: '최상위 그룹은 삭제할 수 없습니다.',
-            leftText: '확인',
-          });
-        }
-        axios
-          .post('/management/manager/option/category/update', del)
-          .then(res => {
-            if (res.data.code === '0000')
-              setAlertPopup({
-                ...defaultAlertPopup,
-                leftCallback: () => {
-                  setAlertPopup({ ...alertPopup, visible: false });
-                  setIsDel(false);
+        message: '최상위 그룹은 삭제할 수 없습니다.',
+        leftText: '확인',
+      });
+    } else {
+      if (isChild.childrens !== undefined) {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            setIsDel(false);
+          },
+          message: 'XXXXXXXXXXXXX',
+          leftText: '확인',
+        });
+      } else {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            setIsDel(true);
+            const del = {
+              actor: localStorage.getItem('usrId'),
+              dataset: [
+                {
+                  description: updateGrp.description,
+                  optCatId: updateGrp.optCatId,
+                  optCatNm: updateGrp.optCatNm,
+                  sort: 1,
+                  status: updateGrp.status.value,
+                  uppOptCatId: Number(uppPrdItemGrpId),
                 },
-                message: '삭제 하였습니다.',
-                leftText: '확인',
+              ],
+              paramType: 'del',
+              status: updateGrp.status.value,
+            };
+            axios
+              .post('/management/manager/option/category/update', del)
+              .then(res => {
+                if (res.data.code === '0000')
+                  setAlertPopup({
+                    ...defaultAlertPopup,
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                      setIsDel(false);
+                    },
+                    message: '삭제 하였습니다.',
+                    leftText: '확인',
+                  });
               });
-          });
-      },
-      rightCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setIsDel(false);
-      },
-      message: '지정된 그룹을 삭제 하시겠습니까?',
-      leftText: '확인',
-      rightText: '취소',
-    });
+          },
+          rightCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            setIsDel(false);
+          },
+          message: '지정된 그룹을 삭제 하시겠습니까?',
+          leftText: '확인',
+          rightText: '취소',
+        });
+      }
+    }
   };
 
   const onDragEnd = (event: any) => {
@@ -198,10 +211,20 @@ const SidebarRcTree = (props: {
       {
         searchValue: 'string',
         status: [32767],
-        grpId: key,
+        grpId: Number(key),
       },
     );
     setUpdateGrp(res.data.result);
+  };
+
+  const Ischild = async (key: any) => {
+    const res = await axios.post(
+      '/management/manager/option/category/inquiry',
+      {
+        p_opt_cat_id: Number(key),
+      },
+    );
+    setIsChild(res.data.result);
   };
 
   const onClickShowAll = () => {
@@ -213,7 +236,14 @@ const SidebarRcTree = (props: {
       return data.childrens.map((item: any) => {
         const postPos = pos + '-' + item.optCatId;
         return (
-          <TreeNode title={item.optCatNm} key={item.optCatId} pos={postPos}>
+          <TreeNode
+            title={item.optCatNm}
+            key={item.optCatId}
+            pos={postPos}
+            className={
+              item.isUsable === 1 && item.status === 1 ? '' : ' unactive'
+            }
+          >
             {arrayloop(item, postPos)}
           </TreeNode>
         );
@@ -276,7 +306,12 @@ const SidebarRcTree = (props: {
               >
                 {treeItem ? (
                   <TreeNode
-                    className="sub_rc_parentNode"
+                    className={
+                      'sub_rc_parentNode' +
+                      (treeItem.isUsable === 1 && treeItem.status === 1
+                        ? ''
+                        : ' unactive')
+                    }
                     title={treeItem.optCatNm}
                     key={treeItem.optCatId}
                     pos="0"

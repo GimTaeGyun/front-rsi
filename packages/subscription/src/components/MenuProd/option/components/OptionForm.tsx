@@ -112,38 +112,40 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
   };
 
   useEffect(() => {
-    const Api = async () => {
-      const operator = await axios.post(
-        '/management/subscription/admin/codeset',
-        {
-          code: 'opt_scope',
+    if (props.open === true) {
+      const Api = async () => {
+        const operator = await axios.post(
+          '/management/subscription/admin/codeset',
+          {
+            code: 'opt_scope',
+            code_grp: 'pm.option',
+          },
+        );
+        const operatorUnit = await axios.post(
+          '/management/subscription/admin/codeset',
+          {
+            code: 'operator_unit',
+            code_grp: 'pm.option_item',
+          },
+        );
+        const tp = await axios.post('/management/subscription/admin/codeset', {
+          code: 'opt_tp',
           code_grp: 'pm.option',
-        },
-      );
-      const operatorUnit = await axios.post(
-        '/management/subscription/admin/codeset',
-        {
-          code: 'operator_unit',
-          code_grp: 'pm.option_item',
-        },
-      );
-      const tp = await axios.post('/management/subscription/admin/codeset', {
-        code: 'opt_tp',
-        code_grp: 'pm.option',
-      });
-      const status = await axios.post(
-        '/management/subscription/admin/codeset',
-        {
-          code: 'status',
-          code_grp: 'pm.option',
-        },
-      );
-      setOperatorVal(operator.data.result.codeSetItems);
-      setTpVal(tp.data.result.codeSetItems);
-      setStatusVal(status.data.result.codeSetItems);
-      setOperUnitVal(operatorUnit.data.result.codeSetItems);
-    };
-    Api();
+        });
+        const status = await axios.post(
+          '/management/subscription/admin/codeset',
+          {
+            code: 'status',
+            code_grp: 'pm.option',
+          },
+        );
+        setOperatorVal(operator.data.result.codeSetItems);
+        setTpVal(tp.data.result.codeSetItems);
+        setStatusVal(status.data.result.codeSetItems);
+        setOperUnitVal(operatorUnit.data.result.codeSetItems);
+      };
+      Api();
+    }
   }, [props.open]);
 
   const plusOnClick = () => {
@@ -533,4 +535,4 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
   );
 };
 
-export default OptionForm;
+export default React.memo(OptionForm);

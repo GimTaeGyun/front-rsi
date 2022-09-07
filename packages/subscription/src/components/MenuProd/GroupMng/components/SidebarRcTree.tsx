@@ -93,6 +93,7 @@ const SidebarRcTree = (props: {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [updateGrp, setUpdateGrp] = React.useState(Object);
   const [showAll, setShowAll] = React.useState(false);
+  const [isChild, setIsChild] = React.useState(false);
 
   const del = {
     actor: localStorage.getItem('usrId'),
@@ -136,13 +137,23 @@ const SidebarRcTree = (props: {
     setIsCllick('1000000000');
   }, [props.isPost, isDel]);
 
+  const Ischild = async () => {
+    const res = await axios.post(
+      '/management/manager/product/item/group/inquiry',
+      {
+        p_prd_itemgrp_id: Number(selKey),
+      },
+    );
+    res.data.result.childrens ? setIsChild(true) : setIsChild(false);
+  };
+
   const onExpand = (expandedKeys: any) => {
     setExpendKey(expandedKeys);
   };
 
   const api = async (key: any) => {
     const res = await axios.post('/management/manager/product/group/inquiry', {
-      p_prd_grp_Id: key,
+      p_prd_grp_Id: Number(key),
     });
     setUpdateGrp(res.data.result);
   };
@@ -237,34 +248,71 @@ const SidebarRcTree = (props: {
   };
 
   const deleteGrp = () => {
-    setAlertPopup({
-      ...defaultAlertPopup,
-      leftCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setIsDel(true);
-        axios
-          .post('/management/manager/product/item/group/update', del)
-          .then(res => {
-            if (res.data.code === '0000')
-              setAlertPopup({
-                ...defaultAlertPopup,
-                leftCallback: () => {
-                  setAlertPopup({ ...alertPopup, visible: false });
-                  setIsDel(false);
-                },
-                message: '삭제 하였습니다.',
-                leftText: '확인',
+    Ischild();
+    if (selKey === '0') {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+          setIsDel(false);
+        },
+        message: '최상위 그룹은 삭제할 수 없습니다.',
+        leftText: '확인',
+      });
+    } else {
+      if (isChild) {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            setIsDel(false);
+          },
+          message:
+            '하위 그룹 및 등록된 아이템이 존재하여 삭제할 수 없습니다. 다른 그룹으로 이동 후 삭제가 가능합니다.',
+          leftText: '확인',
+        });
+      } else {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            setIsDel(true);
+            axios
+              .post('/management/manager/product/item/group/update', del)
+              .then(res => {
+                if (res.data.code === '0000') {
+                  setAlertPopup({
+                    ...defaultAlertPopup,
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                      setIsDel(false);
+                    },
+                    message: '삭제 하였습니다.',
+                    leftText: '확인',
+                  });
+                } else {
+                  setAlertPopup({
+                    ...defaultAlertPopup,
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                      setIsDel(false);
+                    },
+                    message: res.data.msg,
+                    leftText: '확인',
+                  });
+                }
               });
-          });
-      },
-      rightCallback: () => {
-        setAlertPopup({ ...alertPopup, visible: false });
-        setIsDel(false);
-      },
-      message: '지정된 그룹을 삭제 하시겠습니까?',
-      leftText: '확인',
-      rightText: '취소',
-    });
+          },
+          rightCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            setIsDel(false);
+          },
+          message: '지정된 그룹을 삭제 하시겠습니까?',
+          leftText: '확인',
+          rightText: '취소',
+        });
+      }
+    }
   };
 
   const arrayloop = (data: any, pos: any) => {
@@ -272,7 +320,14 @@ const SidebarRcTree = (props: {
       return data.childrens.map((item: any) => {
         const postPos = pos + '-' + item.key;
         return (
-          <TreeNode title={item.title} key={item.key} pos={postPos}>
+          <TreeNode
+            title={item.title}
+            key={item.key}
+            pos={postPos}
+            className={
+              item.isUsable === 1 && item.status === 1 ? '' : ' unactive'
+            }
+          >
             {arrayloop(item, postPos)}
           </TreeNode>
         );
@@ -335,7 +390,12 @@ const SidebarRcTree = (props: {
               >
                 {treeItem ? (
                   <TreeNode
-                    className="sub_rc_parentNode"
+                    className={
+                      'sub_rc_parentNode' +
+                      (treeItem.isUsable === 1 && treeItem.status === 1
+                        ? ''
+                        : ' unactive')
+                    }
                     title={treeItem.title}
                     key={treeItem.key}
                     pos="0"
