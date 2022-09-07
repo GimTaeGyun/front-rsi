@@ -50,12 +50,9 @@ const ProfileMenu = () => {
               (users.usrNm ? users.usrNm : '') +
               ')',
           );
-        } else {
-          navigate('/admin/login');
         }
       } catch (e) {
         console.log(e);
-        navigate('/admin/login');
       }
     };
     userApi();

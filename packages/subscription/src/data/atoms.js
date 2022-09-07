@@ -27,6 +27,6 @@ const DefaultGrpInfo = {
   introduction: '',
   status: 1,
 };
-const PrdMng = atom({ mngInput: DefaultGrpInfo });
+const PrdMng = atom({ selNode: {}, adding: -1 });
 
 export { GetSidebarData, AlertPopupData, customerData, PrdMng, DefaultGrpInfo };

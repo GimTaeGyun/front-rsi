@@ -30,21 +30,9 @@ interface CodeSet {
   codeSetItems: { label: string; value: string }[];
   codeSetLabel: string;
 }
-interface GrpInfo {
-  description: string;
-  prdGrpId: number;
-  prdGrpNm: string;
-  uppPrdGrpId: number;
-  introduction: string;
-  status: number;
-}
 
 const Prod = () => {
   const [filterDropdown, setFilterDropdown] = React.useState(false);
-  const [status, setStatus] = React.useState(1);
-  const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
-  const [isPost, setIsPost] = React.useState(false);
-  const [realDel, setRealDel] = React.useState(false);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [itemTpChb, setItemTpChb] = useState<CodeSet | null>(null); // 상품유형 체크박스
   const [itemStatusChb, setItemStatusChb] = useState<CodeSet | null>(null); // 상품상태 체크박스

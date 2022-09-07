@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { axios } from '../../../../utils/axios';
 import { useAtom } from 'jotai';
-import { PrdMng, DefaultGrpInfo } from '../../../../data/atoms';
+import { PrdMng, DefaultGrpInfo, AlertPopupData } from '../../../../data/atoms';
 
 interface GrpInfo {
   description: string;
@@ -38,6 +38,7 @@ const PrdGrpInfo = () => {
   const [grpStatusSelect, setGrpStatusSelect] = useState<CodeSet | null>(null); // 그룹상태 셀렉트박스
   const [grpInfo, setGrpInfo] = useState<GrpInfo>(DefaultGrpInfo);
   const [sharingData, setSharingData] = useAtom(PrdMng);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
 
   useEffect(() => {
     // 그룹상태 셀렉트박스
@@ -54,9 +55,32 @@ const PrdGrpInfo = () => {
       .catch();
   }, []);
 
+  // 그룹등록 버튼을 누르면 인풋박스들 초기화
   useEffect(() => {
-    setGrpInfo(sharingData.mngInput);
-  }, [sharingData.mngInput]);
+    if (sharingData.adding !== -1) {
+      setGrpInfo({
+        ...DefaultGrpInfo,
+        uppPrdGrpId: (sharingData.selNode as any).data.key,
+      });
+    }
+  }, [sharingData.adding]);
+
+  // 트리 클릭이벤트
+  useEffect(() => {
+    if (JSON.stringify(sharingData.selNode) === '{}')
+      setGrpInfo(DefaultGrpInfo);
+    else {
+      let node = sharingData.selNode as any;
+      setGrpInfo({
+        description: node.data.description,
+        prdGrpId: node.data.key,
+        prdGrpNm: node.data.title,
+        uppPrdGrpId: -1,
+        introduction: '',
+        status: node.data.status,
+      });
+    }
+  }, [sharingData.selNode]);
 
   // 상품 그룹 정보 인풋 수정이벤트
   const onInputChanged = (e: any) => {
@@ -65,7 +89,48 @@ const PrdGrpInfo = () => {
 
   // 저장 버튼이벤트
   const onSave = () => {
-    axios.post('');
+    const param = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: grpInfo.description,
+          introduction: grpInfo.introduction,
+          prdGrpId:
+            sharingData.adding !== -1
+              ? null
+              : (sharingData.selNode as any).data.key,
+          prdGrpNm: grpInfo.prdGrpNm,
+          sort: 1,
+          // add 일 경우 마지막 클릭한 selNode가 부모노드 이므로 클릭한 노드의 key를 가져온다
+          // mod 일 경우 selNode의 부모키를 가져온다
+          uppPrdItemGrpId:
+            sharingData.adding !== -1
+              ? (sharingData.selNode as any).data.key
+              : (sharingData.selNode as any).data.parent === -1
+              ? null // root일 경우
+              : (sharingData.selNode as any).data.parent,
+        },
+      ],
+      paramType: sharingData.adding !== -1 ? 'add' : 'mod',
+    };
+    axios
+      .post('/management/manager/product/group/update', param)
+      .then(res => {
+        if (res.data.code === '0000') {
+          setSharingData({ ...sharingData, adding: -1 });
+          setAlertPopup({
+            ...alertPopup,
+            visible: true,
+            message: '저장되었습니다.',
+            leftText: '확인',
+            rightText: '',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+          });
+        }
+      })
+      .catch();
   };
 
   return (
@@ -209,6 +274,7 @@ const PrdGrpInfo = () => {
                   <Button
                     variant="contained"
                     className="sub_btn_primary_fill_common sub_btn_filter2"
+                    onClick={onSave}
                   >
                     저장하기
                   </Button>
