@@ -34,8 +34,9 @@ const GrpForm = (props: {
   selectGroupKey: any;
   setIsPost: Function;
   isAdd: any;
+  uppId: any;
 }) => {
-  const { selectGroupKey, setIsPost } = props;
+  const { selectGroupKey, setIsPost, isAdd, uppId } = props;
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState(1);
@@ -59,22 +60,28 @@ const GrpForm = (props: {
   useEffect(() => {
     setDataValid(defaultFormValidation);
     const api = async () => {
-      const res = await axios.post(
-        '/management/manager/option/category/search/inquiry',
-        {
-          searchValue: 'string',
-          status: 32767,
-          grpId: selectGroupKey ? selectGroupKey : 0,
-        },
-      );
-      const data = res.data.result;
-      setPrdGrpNm(data.optCatNm);
-      setStatus(data.status.value);
-      setDescription(data.description);
+      if (isAdd) {
+        setPrdGrpNm('');
+        setStatus(1);
+        setDescription('');
+      } else {
+        const res = await axios.post(
+          '/management/manager/option/category/search/inquiry',
+          {
+            searchValue: 'string',
+            status: [32767],
+            grpId: selectGroupKey ? selectGroupKey : 0,
+          },
+        );
+        const data = res.data.result;
+        setPrdGrpNm(data.optCatNm);
+        setStatus(data.status.value);
+        setDescription(data.description);
+      }
     };
     api();
-  }, [selectGroupKey]);
-
+  }, [selectGroupKey, isAdd]);
+  console.log(isAdd);
   useEffect(() => {
     const statusApi = async () => {
       const res = await axios.post('/management/subscription/admin/codeset', {
@@ -96,20 +103,35 @@ const GrpForm = (props: {
       prdGrpNm: !(await validationSchema.fields.prdGrpNm.isValid(prdGrpNm)),
     };
     setDataValid(valid);
-    const req = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: description,
-          optCatId: 0,
-          optCatNm: prdGrpNm,
-          sort: 1,
-          uppOptCatId: Number(selectGroupKey),
-        },
-      ],
-      status: status,
-      paramType: 'add',
-    };
+    const req = isAdd
+      ? {
+          actor: localStorage.getItem('usrId'),
+          dataset: [
+            {
+              description: description,
+              optCatId: 0,
+              optCatNm: prdGrpNm,
+              sort: 1,
+              uppOptCatId: Number(selectGroupKey),
+            },
+          ],
+          status: status,
+          paramType: 'add',
+        }
+      : {
+          actor: localStorage.getItem('usrId'),
+          dataset: [
+            {
+              description: description,
+              optCatId: Number(selectGroupKey),
+              optCatNm: prdGrpNm,
+              sort: 1,
+              uppOptCatId: Number(uppId),
+            },
+          ],
+          status: status,
+          paramType: 'mod',
+        };
     if (!valid.prdGrpNm) {
       const res = await axios.post(
         '/management/manager/option/category/update',
@@ -125,6 +147,15 @@ const GrpForm = (props: {
             setAlertPopup({ ...alertPopup, visible: false });
           },
           message: '저장되었습니다.',
+          leftText: '확인',
+        });
+      } else {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+          },
+          message: res.data.msg,
           leftText: '확인',
         });
       }

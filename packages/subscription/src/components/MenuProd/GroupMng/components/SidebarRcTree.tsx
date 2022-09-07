@@ -76,7 +76,12 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+const SidebarRcTree = (props: {
+  setuppGrp: Function;
+  isPost: Boolean;
+  setIsAdd: Function;
+  setUppId: Function;
+}) => {
   const [selKey, setSelkey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
@@ -102,6 +107,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         uppPrdItemGrpId: Number(uppPrdItemGrpId),
       },
     ],
+    status: status,
     paramType: 'del',
   };
 
@@ -135,14 +141,9 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   };
 
   const api = async (key: any) => {
-    const res = await axios.post(
-      '/management/manager/product/item/group/detail/inquiry',
-      {
-        itemNm: 'string',
-        itemStatus: 3,
-        prdItemgrpId: key,
-      },
-    );
+    const res = await axios.post('/management/manager/product/group/inquiry', {
+      p_prd_grp_Id: key,
+    });
     setUpdateGrp(res.data.result);
   };
 
@@ -183,20 +184,32 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
       leftCallback: () => {
         setAlertPopup({ ...alertPopup, visible: false });
         setIsDel(true);
-        axios
-          .post('/management/manager/group/dragdrop/update', upd)
-          .then(res => {
-            if (res.data.code === '0000')
-              setAlertPopup({
-                ...defaultAlertPopup,
-                leftCallback: () => {
-                  setAlertPopup({ ...alertPopup, visible: false });
-                  setIsDel(false);
-                },
-                message: '이동 하였습니다.',
-                leftText: '확인',
-              });
+        if (Number(event.dragNode.key) === 0) {
+          setAlertPopup({
+            ...defaultAlertPopup,
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+              setIsDel(false);
+            },
+            message: '최상위 그룹은 삭제할 수 없습니다.',
+            leftText: '확인',
           });
+        } else {
+          axios
+            .post('/management/manager/group/dragdrop/update', upd)
+            .then(res => {
+              if (res.data.code === '0000')
+                setAlertPopup({
+                  ...defaultAlertPopup,
+                  leftCallback: () => {
+                    setAlertPopup({ ...alertPopup, visible: false });
+                    setIsDel(false);
+                  },
+                  message: '이동 하였습니다.',
+                  leftText: '확인',
+                });
+            });
+        }
       },
       rightCallback: () => {
         setAlertPopup({ ...alertPopup, visible: false });
@@ -214,12 +227,13 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
     props.setuppGrp(selectedKeys[0] ? selectedKeys[0] : '');
     const split = info.selectedNodes[0].pos.split('-');
     setUppPrdItemGrpId(split[split.length - 2] ? split[split.length - 2] : '0');
+    props.setUppId(split[split.length - 2] ? split[split.length - 2] : '0');
     setPrdItemGrpNm(info.selectedNodes[0].title);
+    props.setIsAdd(false);
   };
 
   const onEdit = () => {
-    setIsCllick(selKey);
-    setExpendKey([...expandKey, selKey]);
+    props.setIsAdd(true);
   };
 
   const deleteGrp = () => {
@@ -259,21 +273,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
         const postPos = pos + '-' + item.key;
         return (
           <TreeNode title={item.title} key={item.key} pos={postPos}>
-            {item.key === Number(isClick) ? (
-              <TreeNode
-                selectable={false}
-                title={
-                  <TextField
-                    disabled
-                    className="sub_sideBarInput"
-                    placeholder="그룹명을 입력해 주세요."
-                  />
-                }
-                key={item.key + '-' + '0'}
-              ></TreeNode>
-            ) : (
-              ''
-            )}
             {arrayloop(item, postPos)}
           </TreeNode>
         );
@@ -341,23 +340,6 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
                     key={treeItem.key}
                     pos="0"
                   >
-                    {treeItem.key === Number(isClick) ? (
-                      <TreeNode
-                        selectable={false}
-                        selected={true}
-                        title={
-                          <TextField
-                            disabled
-                            className="sub_sideBarInput"
-                            placeholder="그룹명을 입력해 주세요."
-                          />
-                        }
-                        key={treeItem.key + '-' + '0'}
-                      ></TreeNode>
-                    ) : (
-                      ''
-                    )}
-
                     {treeItem ? arrayloop(treeItem, treeItem.key) : ''}
                   </TreeNode>
                 ) : (

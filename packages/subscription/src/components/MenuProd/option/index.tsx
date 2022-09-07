@@ -35,6 +35,7 @@ const Option = () => {
   const [statusValue, setStatusValue] = useState([]);
   const [changeDataGrid, setChangeDataGrid] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
+  const [uppId, setUppId] = useState('');
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -46,7 +47,7 @@ const Option = () => {
         '/management/manager/option/category/search/inquiry',
         {
           searchValue: 'string',
-          status: 32767,
+          status: [32767],
           grpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
@@ -72,7 +73,7 @@ const Option = () => {
       '/management/manager/product/item/group/detail/inquiry',
       {
         searchValue: searchItemNm ? searchItemNm : '',
-        status: postStatus,
+        status: [postStatus],
         grpId: selectGroupKey ? selectGroupKey : 0,
       },
     );
@@ -102,8 +103,8 @@ const Option = () => {
     message: '',
   };
 
-  const isAddset = () => {
-    setIsAdd(true);
+  const isAddset = (data: any) => {
+    setIsAdd(data);
   };
 
   useEffect(() => {
@@ -123,6 +124,10 @@ const Option = () => {
 
   const IsPostset = (data: any) => {
     setIsPost(data);
+  };
+
+  const uppIdSet = (data: any) => {
+    setUppId(data);
   };
 
   return (
@@ -154,12 +159,14 @@ const Option = () => {
               setuppGrp={setuppGrp}
               isPost={isPost}
               isAdd={isAddset}
+              setUppId={uppIdSet}
             />
             <Box sx={{ ml: '30px', width: '100%' }}>
               <GrpForm
                 setIsPost={IsPostset}
                 selectGroupKey={selectGroupKey}
                 isAdd={isAdd}
+                uppId={uppId}
               />
               <SearchDataTable onClickSearchItem={onClickSearchItem} />
               <Card

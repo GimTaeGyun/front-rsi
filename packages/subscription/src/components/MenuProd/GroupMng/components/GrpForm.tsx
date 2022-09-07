@@ -33,8 +33,13 @@ const validationSchema = Yup.object().shape({
   itemTp: Yup.string().nullable(false).required(),
 });
 
-const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
-  const { selectGroupKey, setIsPost } = props;
+const GrpForm = (props: {
+  selectGroupKey: any;
+  setIsPost: Function;
+  isAdd: any;
+  uppId: any;
+}) => {
+  const { selectGroupKey, setIsPost, isAdd } = props;
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [status, setStatus] = React.useState(1);
@@ -57,24 +62,29 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
 
   useEffect(() => {
     setDataValid(defaultFormValidation);
-
     const api = async () => {
-      const res = await axios.post(
-        '/management/manager/product/item/group/detail/inquiry',
-        {
-          itemNm: '',
-          itemStatus: 32767,
-          prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
-        },
-      );
-      const data = res.data.result;
-      setPrdGrpNm(data.itemGrpNm);
-      setItemTp(data.itemTp.value);
-      setStatus(data.status.value);
-      setDescription(data.description);
+      if (isAdd) {
+        setPrdGrpNm('');
+        setStatus(1);
+        setDescription('');
+      } else {
+        const res = await axios.post(
+          '/management/manager/product/item/group/detail/inquiry',
+          {
+            itemNm: '',
+            itemStatus: [32767],
+            prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
+          },
+        );
+        const data = res.data.result;
+        setPrdGrpNm(data.itemGrpNm);
+        setItemTp(data.itemTp.value);
+        setStatus(data.status.value);
+        setDescription(data.description);
+      }
     };
     api();
-  }, [selectGroupKey]);
+  }, [selectGroupKey, isAdd]);
 
   useEffect(() => {
     dataValid.prdGrpNm ? setErrorMargin('26px') : setErrorMargin('12px');
@@ -87,21 +97,41 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
       itemTp: !(await validationSchema.fields.itemTp.isValid(itemTp)),
     };
     setDataValid(valid);
-    const req = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: description,
-          itemTp: itemTp,
-          prdItemGrpId: 0,
-          prdItemGrpNm: prdGrpNm,
-          sort: 1,
+
+    const req = isAdd
+      ? {
+          actor: localStorage.getItem('usrId'),
+          dataset: [
+            {
+              description: description,
+              itemTp: itemTp,
+              prdItemGrpId: 0,
+              prdItemGrpNm: prdGrpNm,
+              sort: 1,
+              status: status,
+              uppPrdItemGrpId: Number(selectGroupKey),
+            },
+          ],
           status: status,
-          uppPrdItemGrpId: Number(selectGroupKey),
-        },
-      ],
-      paramType: 'add',
-    };
+          paramType: 'add',
+        }
+      : {
+          actor: localStorage.getItem('usrId'),
+          dataset: [
+            {
+              description: description ? description : '',
+              itemTp: itemTp,
+              prdItemGrpId: Number(selectGroupKey),
+              prdItemGrpNm: prdGrpNm,
+              sort: 1,
+              status: status,
+              uppPrdItemGrpId: Number(props.uppId),
+            },
+          ],
+          status: status,
+          paramType: 'mod',
+        };
+
     if (!valid.prdGrpNm && !valid.itemTp) {
       const res = await axios.post(
         '/management/manager/product/item/group/update',
@@ -115,6 +145,15 @@ const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
             setAlertPopup({ ...alertPopup, visible: false });
           },
           message: '저장되었습니다.',
+          leftText: '확인',
+        });
+      } else {
+        setAlertPopup({
+          ...defaultAlertPopup,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+          },
+          message: res.data.msg,
           leftText: '확인',
         });
       }

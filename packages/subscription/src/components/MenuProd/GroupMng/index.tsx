@@ -34,6 +34,8 @@ const Items = () => {
   const [itemTable, setItemTable] = useState([]);
   const [statusValue, setStatusValue] = useState([]);
   const [changeDataGrid, setChangeDataGrid] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
+  const [uppId, setUppId] = useState('');
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -45,7 +47,7 @@ const Items = () => {
         '/management/manager/product/item/group/detail/inquiry',
         {
           itemNm: 'string',
-          itemStatus: 32767,
+          itemStatus: [32767],
           prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
@@ -71,7 +73,7 @@ const Items = () => {
       '/management/manager/product/item/group/detail/inquiry',
       {
         itemNm: searchItemNm ? searchItemNm : '',
-        itemStatus: postStatus,
+        itemStatus: [postStatus],
         prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
       },
     );
@@ -120,6 +122,14 @@ const Items = () => {
     setIsPost(data);
   };
 
+  const IsAddSet = (data: any) => {
+    setIsAdd(data);
+  };
+
+  const uppIdSet = (data: any) => {
+    setUppId(data);
+  };
+
   return (
     <>
       <AppFrame
@@ -145,9 +155,19 @@ const Items = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
+            <SidebarRcTree
+              setuppGrp={setuppGrp}
+              isPost={isPost}
+              setIsAdd={IsAddSet}
+              setUppId={uppIdSet}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <GrpForm selectGroupKey={selectGroupKey} setIsPost={IsPostset} />
+              <GrpForm
+                selectGroupKey={selectGroupKey}
+                setIsPost={IsPostset}
+                isAdd={isAdd}
+                uppId={uppId}
+              />
               <SearchDataTable onClickSearchItem={onClickSearchItem} />
               <Card
                 className="sub_tbl_section_common"
