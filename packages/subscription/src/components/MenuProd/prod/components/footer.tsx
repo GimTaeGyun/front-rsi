@@ -31,19 +31,19 @@ export const Footer = () => {
           variant="outlined"
           className="sub_btn_primary_outline_common sub_btn_footer_save"
         >
-          옵션 삭제
+          상품 삭제
         </Button>
         <Button
           variant="outlined"
           className="sub_btn_primary_outline_common sub_btn_footer_save"
         >
-          옵션 수정
+          상품 수정
         </Button>
         <Button
           variant="contained"
           className="sub_btn_primary_fill_common sub_btn_footer_save"
         >
-          옵션 등록
+          상품 등록
         </Button>
       </Box>
     </Box>
