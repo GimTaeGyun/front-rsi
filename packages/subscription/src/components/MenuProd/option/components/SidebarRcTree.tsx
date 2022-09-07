@@ -19,12 +19,14 @@ import { AlertPopupData } from '../../../../data/atoms';
 
 import { axios } from '../../../../utils/axios';
 
-const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+const SidebarRcTree = (props: {
+  setuppGrp: Function;
+  isPost: Boolean;
+  isAddset: Function;
+}) => {
   const [selKey, setSelKey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
-  const [prdItemGrpId, setPrdItemGrpId] = React.useState('');
-  const [prdItemGrpNm, setPrdItemGrpNm] = React.useState('');
   const [uppPrdItemGrpId, setUppPrdItemGrpId] = React.useState('');
   const [isDel, setIsDel] = React.useState(false);
   const [updateGrp, setUpdateGrp] = React.useState(Object);

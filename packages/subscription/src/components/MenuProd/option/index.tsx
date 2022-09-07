@@ -34,6 +34,7 @@ const Option = () => {
   const [itemTable, setItemTable] = useState([]);
   const [statusValue, setStatusValue] = useState([]);
   const [changeDataGrid, setChangeDataGrid] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -101,6 +102,10 @@ const Option = () => {
     message: '',
   };
 
+  const isAddset = () => {
+    setIsAdd(true);
+  };
+
   useEffect(() => {
     const api = async () => {
       const res = await axios.post('/management/subscription/admin/codeset', {
@@ -145,9 +150,17 @@ const Option = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
+            <SidebarRcTree
+              setuppGrp={setuppGrp}
+              isPost={isPost}
+              isAdd={isAddset}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <GrpForm setIsPost={IsPostset} selectGroupKey={selectGroupKey} />
+              <GrpForm
+                setIsPost={IsPostset}
+                selectGroupKey={selectGroupKey}
+                isAdd={isAdd}
+              />
               <SearchDataTable onClickSearchItem={onClickSearchItem} />
               <Card
                 className="sub_tbl_section_common"

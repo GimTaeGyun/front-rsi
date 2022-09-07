@@ -30,7 +30,11 @@ const validationSchema = Yup.object().shape({
   prdGrpNm: Yup.string().nullable(false).required(),
 });
 
-const GrpForm = (props: { selectGroupKey: any; setIsPost: Function }) => {
+const GrpForm = (props: {
+  selectGroupKey: any;
+  setIsPost: Function;
+  isAdd: any;
+}) => {
   const { selectGroupKey, setIsPost } = props;
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
