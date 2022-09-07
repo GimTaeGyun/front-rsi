@@ -90,7 +90,7 @@ const SidebarRcTree = (props: {
     setUppPrdItemGrpId(split[split.length - 2] ? split[split.length - 2] : '0');
     props.isAdd(false);
     props.setUppId(split[split.length - 2] ? split[split.length - 2] : '0');
-    Ischild(selectedKeys);
+    api(selectedKeys);
   };
 
   const onEdit = () => {
@@ -98,7 +98,20 @@ const SidebarRcTree = (props: {
   };
 
   const deleteGrp = () => {
-    api(selKey);
+    const del = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: updateGrp.description,
+          optCatId: updateGrp.optCatId,
+          optCatNm: updateGrp.optCatNm,
+          sort: 1,
+          uppOptCatId: Number(uppPrdItemGrpId),
+        },
+      ],
+      paramType: 'del',
+      status: updateGrp.status.value,
+    };
     if (Number(selKey) === 0) {
       setAlertPopup({
         ...defaultAlertPopup,
@@ -126,25 +139,11 @@ const SidebarRcTree = (props: {
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
             setIsDel(true);
-            const del = {
-              actor: localStorage.getItem('usrId'),
-              dataset: [
-                {
-                  description: updateGrp.description,
-                  optCatId: updateGrp.optCatId,
-                  optCatNm: updateGrp.optCatNm,
-                  sort: 1,
-                  status: updateGrp.status.value,
-                  uppOptCatId: Number(uppPrdItemGrpId),
-                },
-              ],
-              paramType: 'del',
-              status: updateGrp.status.value,
-            };
+
             axios
               .post('/management/manager/option/category/update', del)
               .then(res => {
-                if (res.data.code === '0000')
+                if (res.data.code === '0000') {
                   setAlertPopup({
                     ...defaultAlertPopup,
                     leftCallback: () => {
@@ -154,6 +153,17 @@ const SidebarRcTree = (props: {
                     message: '삭제 하였습니다.',
                     leftText: '확인',
                   });
+                } else {
+                  setAlertPopup({
+                    ...defaultAlertPopup,
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                      setIsDel(false);
+                    },
+                    message: '삭제 하였습니다.',
+                    leftText: '확인',
+                  });
+                }
               });
           },
           rightCallback: () => {

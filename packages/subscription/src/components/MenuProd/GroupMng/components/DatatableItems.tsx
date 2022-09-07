@@ -119,7 +119,6 @@ const DatatableItems = (props: {
   React.useEffect(() => {
     rows[0] ? setRowNull(false) : setRowNull(true);
   }, [rows]);
-  console.log(rows);
 
   const defaultAlertPopup = {
     visible: true,
