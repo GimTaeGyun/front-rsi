@@ -9,11 +9,12 @@ import {
   Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
-import React, { useEffect, useState } from 'react';
-import { axios } from '../../../../utils/axios';
-import * as Yup from 'yup';
-import { customerData, AlertPopupData } from '../../../../data/atoms';
 import { useAtom } from 'jotai';
+import React, { useEffect, useState } from 'react';
+import * as Yup from 'yup';
+
+import { AlertPopupData,customerData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 
 const validationSchema = Yup.object().shape({

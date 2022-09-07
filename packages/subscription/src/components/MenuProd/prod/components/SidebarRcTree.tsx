@@ -1,3 +1,4 @@
+import { OpenWith, ZoomInMap } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -9,11 +10,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { OpenWith, ZoomInMap } from '@mui/icons-material';
-import Tree, { TreeNode } from 'rc-tree';
-import React, { useEffect, useState, useMemo } from 'react';
 import { useAtom } from 'jotai';
-import { AlertPopupData, PrdMng, DefaultGrpInfo } from '../../../../data/atoms';
+import Tree, { TreeNode } from 'rc-tree';
+import React, { useEffect, useMemo, useState } from 'react';
+
+import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 
 const styles = {
@@ -84,8 +85,6 @@ interface TreeItem {
 const DefaultAdding = -1;
 
 const SidebarRcTree = () => {
-  const [selNode, setSelNode] = React.useState<TreeItem | null>(null); // 선택된 트리
-  const [adding, setAdding] = useState(DefaultAdding); // 그룹 추가 시 빈 트리노드 유무
   const [treeItem, setTreeITem] = React.useState<TreeItem | null>(null); // 트리노드
   const [expandKey, setExpendKey] = React.useState(['0']); // 열린 트리 키 배열로 저장
   const [showAll, setShowAll] = React.useState(false); // 전체열기/닫기
@@ -112,17 +111,16 @@ const SidebarRcTree = () => {
   // 트리 아이템 펼치기 이벤트
   const onExpand = (expandedKeys: any) => {
     // 그룹을 등록중일 때는 이벤트 무시
-    if (adding !== DefaultAdding) return;
+    if (sharingData.adding !== DefaultAdding) return;
     setExpendKey(expandedKeys);
   };
 
   // 트리 아이템 클릭 이벤트
   const onSelect = (selectedKeys: any, info: any) => {
     // 그룹을 등록중일 때는 이벤트 무시
-    if (adding !== DefaultAdding) return;
+    if (sharingData.adding !== DefaultAdding) return;
     console.log('selectedKeys', selectedKeys);
     console.log('info', info);
-    setSelNode(info.node);
     setSharingData({
       ...sharingData,
       selNode: info.node,
@@ -132,25 +130,50 @@ const SidebarRcTree = () => {
   // 그룹등록 버튼 이벤트
   const onEdit = () => {
     // 그룹을 등록중일 때는 이벤트 무시
-    if (adding !== DefaultAdding) return;
-    if (selNode) {
-      expandKey.push(selNode.key.toString());
+    if (sharingData.adding !== DefaultAdding) return;
+    if (JSON.stringify(sharingData.selNode) != '{}') {
+      expandKey.push((sharingData.selNode as any).key.toString());
       setExpendKey(expandKey);
-      setAdding(Number(selNode.key));
-      setSharingData({ ...sharingData, adding: Number(selNode.key) }); // 공유데이터를 통해 클릭이벤트 트리거
+      setSharingData({
+        ...sharingData,
+        adding: Number((sharingData.selNode as any).key),
+      }); // 공유데이터를 통해 클릭이벤트 트리거
     }
   };
 
   // 그룹삭제 버튼이벤트
   const onDel = () => {
-    if (!selNode || selNode.key === 0) return;
+    // selNode가 비어있는 경우 무시
+    if (JSON.stringify(sharingData.selNode as any) === '{}') return;
+    // 루트일 경우
+    // 하위 그룹이 있는 경우
+    if (
+      (sharingData.selNode as any).key === '0' ||
+      (sharingData.selNode as any).children.length > 0 ||
+      sharingData.row.length > 0
+    ) {
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        message:
+          (sharingData.selNode as any).key === '0'
+            ? '최상위 그룹은 삭제할 수 없습니다.'
+            : `하위 그룹 및 등록된 아이템이 존재하여 삭제할 수 없습니다.\n다른 그룹으로 이동 후 삭제가 가능합니다.`,
+        leftText: '확인',
+        rightText: '',
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+      });
+      return;
+    }
     const delParam = {
       actor: localStorage.getItem('usrId'),
       dataset: [
         {
           description: '',
-          prdGrpId: selNode?.key,
-          prdGrpNm: selNode?.title,
+          prdGrpId: (sharingData.selNode as any).key,
+          prdGrpNm: (sharingData.selNode as any).title,
           sort: 1,
           uppPrdItemGrpId: '',
         },
@@ -196,11 +219,14 @@ const SidebarRcTree = () => {
       return data.childrens.map((item: any) => {
         return (
           <TreeNode
+            className={
+              item.isUsable === 1 && item.status === 1 ? '' : ' unactive'
+            }
             title={item.title}
             key={item.key}
             data={{ ...item, parent: data.key }}
           >
-            {item.key === adding ? (
+            {/*item.key === adding ? (
               <TreeNode
                 selectable={false}
                 title={
@@ -214,7 +240,7 @@ const SidebarRcTree = () => {
               ></TreeNode>
             ) : (
               ''
-            )}
+            )*/}
             {arrayloop(item)}
           </TreeNode>
         );
@@ -231,7 +257,7 @@ const SidebarRcTree = () => {
       const arrayloop = (data: TreeItem) => {
         let tmp: Array<string> = [];
         if (data.childrens) {
-          for (let child of data.childrens) {
+          for (const child of data.childrens) {
             tmp = [...tmp, ...arrayloop(child)];
             tmp.push(child.key.toString());
           }
@@ -244,6 +270,52 @@ const SidebarRcTree = () => {
       setExpendKey(['']);
     }
   }, [showAll]);
+
+  const onTreeDrop = (event: any) => {
+    console.log(event);
+    setAlertPopup({
+      ...alertPopup,
+      visible: true,
+      leftText: '확인',
+      rightText: '취소',
+      message: `"${event.node.title}"그룹으로 이동 하시겠습니까?`,
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+      },
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+        let param = {
+          fieldNm: 'product',
+          grpId: event.dragNode.data.key,
+          sort: 1,
+          uppGrpId: Number(event.node.key),
+        };
+        axios
+          .post('/management/manager/group/dragdrop/update', param)
+          .then(res => {
+            if (res.data.code === '0000') {
+              // 옮겨준 트리 부모노드가 만약 선택된 상태라면 부모노드 수정
+              if (event.dragNode.key === (sharingData.selNode as any).key) {
+                let tmp: any = sharingData;
+                tmp.selNode.data.parent = event.node.key;
+                setSharingData({ ...tmp });
+              }
+              refreshTree();
+            } else {
+              setAlertPopup({
+                ...alertPopup,
+                visible: true,
+                message: res.data.msg,
+                leftText: '확인',
+                leftCallback: () => {
+                  setAlertPopup({ ...alertPopup, visible: false });
+                },
+              });
+            }
+          }).catch;
+      },
+    });
+  };
 
   return (
     <>
@@ -290,15 +362,22 @@ const SidebarRcTree = () => {
                 onSelect={onSelect}
                 onExpand={onExpand}
                 expandedKeys={expandKey}
+                draggable={true}
+                onDrop={onTreeDrop}
               >
                 {treeItem ? (
                   <TreeNode
-                    className="sub_rc_parentNode"
+                    className={
+                      'sub_rc_parentNode' +
+                      (treeItem.isUsable === 1 && treeItem.status === 1
+                        ? ''
+                        : ' unactive')
+                    }
                     title={treeItem.title}
                     key={treeItem.key}
                     data={{ ...(treeItem as any), parent: -1 }}
                   >
-                    {treeItem.key === adding ? (
+                    {/*treeItem.key === adding ? (
                       <TreeNode
                         selectable={false}
                         selected={true}
@@ -313,7 +392,7 @@ const SidebarRcTree = () => {
                       ></TreeNode>
                     ) : (
                       ''
-                    )}
+                    )*/}
 
                     {treeItem ? arrayloop(treeItem) : ''}
                   </TreeNode>

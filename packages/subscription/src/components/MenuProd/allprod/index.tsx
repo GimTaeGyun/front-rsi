@@ -4,16 +4,16 @@ import {
   Card,
   CardHeader,
   Checkbox,
+  Divider,
   FormControlLabel,
   FormGroup,
   MenuItem,
   OutlinedInput,
   Select,
-  Divider,
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect, useReducer, useState, useCallback } from 'react';
+import React, { useCallback,useEffect, useReducer, useState } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';

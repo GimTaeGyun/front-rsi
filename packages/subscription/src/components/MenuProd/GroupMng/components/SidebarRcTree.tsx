@@ -8,15 +8,15 @@ import {
   CardHeader,
   Divider,
   IconButton,
-  TextField,
   OutlinedInput,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import Tree, { TreeNode } from 'rc-tree';
 import React, { useEffect } from 'react';
-import { AlertPopupData } from '../../../../data/atoms';
 
+import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 
 const styles = {
@@ -76,7 +76,7 @@ const styles = {
   },
 };
 
-const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
+const SidebarRcTree = (props: { setuppGrp: Function; isPost: boolean }) => {
   const [selKey, setSelkey] = React.useState('');
   const [treeItem, setTreeITem] = React.useState(Object);
   const [isClick, setIsCllick] = React.useState('1000000000');
@@ -153,7 +153,7 @@ const SidebarRcTree = (props: { setuppGrp: Function; isPost: Boolean }) => {
   useEffect(() => {
     if (showAll) {
       const arrayloop = (data: any) => {
-        let arr = [treeItem.key.toString()];
+        const arr = [treeItem.key.toString()];
         if (data.childrens) {
           data.childrens.map((item: any) => {
             arrayloop(item);

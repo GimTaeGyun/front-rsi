@@ -2,14 +2,14 @@ import { Box, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import {
   Button,
   Card,
+  CardContent,
   CardHeader,
+  Divider,
   MenuItem,
   OutlinedInput,
   Select,
   TablePagination,
   Typography,
-  CardContent,
-  Divider,
 } from '@mui/material';
 import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
@@ -225,7 +225,7 @@ const Index = () => {
   };
 
   const checkedAllOrNot = (obj: any, value: any, checked: boolean) => {
-    let tmp = obj;
+    const tmp = obj;
     // 전체를 체크한 경우 전체에 맞춰서 checked
     if (value === 'ALL' || Number(value) === 32767) {
       tmp.codeSetItems = tmp.codeSetItems.map((item: any) => {
@@ -236,7 +236,7 @@ const Index = () => {
 
     // 전체를 제외한 체크를 검사해서 전부체크면 전체에도 체크
     let allChecked = true;
-    for (let item of tmp.codeSetItems) {
+    for (const item of tmp.codeSetItems) {
       if (
         !(item.value === 'ALL' || Number(item.value) === 32767) &&
         !item.checked

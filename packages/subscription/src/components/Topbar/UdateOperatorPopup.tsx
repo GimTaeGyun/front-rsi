@@ -21,13 +21,13 @@ import MuiMenuItem from '@mui/material/MenuItem';
 import MuiSelect from '@mui/material/Select';
 import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import cryptojs from 'crypto-js';
 import { Formik, useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
 import { axios } from '../../utils/axios';
 import AlertPopup from '../Common/AlertPopup';
-import cryptojs from 'crypto-js';
 
 const UpdateOperatorPopupUser = (props: {
   open: boolean;

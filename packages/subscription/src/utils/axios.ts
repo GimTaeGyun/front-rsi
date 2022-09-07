@@ -29,7 +29,6 @@ axios.interceptors.response.use(
     if (error.response.status == 401) {
       try {
         const originalRequest = error.config;
-        localStorage.removeItem('access-token');
         const res = await Axios.post('/management/keycloak/refreshtoken', {
           refreshToken: localStorage.getItem('refresh-token')
         });
@@ -42,14 +41,14 @@ axios.interceptors.response.use(
         }else{
           localStorage.clear();
           console.log(2);
-          location.href = '/admin/login';
+          //location.href = '/admin/login';
           return;
         }
       } catch (error) {
         localStorage.clear();
         console.log(error);
         console.log(3);
-        location.href = '/admin/login';
+        //location.href = '/admin/login';
         return;
       }
     }else{

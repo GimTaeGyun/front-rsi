@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -16,9 +15,11 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
-import { axios } from '../../../../utils/axios';
 import { useAtom } from 'jotai';
-import { PrdMng, DefaultGrpInfo, AlertPopupData } from '../../../../data/atoms';
+import React, { useEffect, useState, useRef } from 'react';
+
+import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 
 interface GrpInfo {
   description: string;
@@ -39,6 +40,7 @@ const PrdGrpInfo = () => {
   const [grpInfo, setGrpInfo] = useState<GrpInfo>(DefaultGrpInfo);
   const [sharingData, setSharingData] = useAtom(PrdMng);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const grpNmInputRef = useRef();
 
   useEffect(() => {
     // 그룹상태 셀렉트박스
@@ -58,6 +60,7 @@ const PrdGrpInfo = () => {
   // 그룹등록 버튼을 누르면 인풋박스들 초기화
   useEffect(() => {
     if (sharingData.adding !== -1) {
+      (grpNmInputRef.current as any).children[0].focus();
       setGrpInfo({
         ...DefaultGrpInfo,
         uppPrdGrpId: (sharingData.selNode as any).data.key,
@@ -70,7 +73,7 @@ const PrdGrpInfo = () => {
     if (JSON.stringify(sharingData.selNode) === '{}')
       setGrpInfo(DefaultGrpInfo);
     else {
-      let node = sharingData.selNode as any;
+      const node = sharingData.selNode as any;
       setGrpInfo({
         description: node.data.description,
         prdGrpId: node.data.key,
@@ -103,7 +106,7 @@ const PrdGrpInfo = () => {
           sort: 1,
           // add 일 경우 마지막 클릭한 selNode가 부모노드 이므로 클릭한 노드의 key를 가져온다
           // mod 일 경우 selNode의 부모키를 가져온다
-          uppPrdItemGrpId:
+          uppPrdGrpId:
             sharingData.adding !== -1
               ? (sharingData.selNode as any).data.key
               : (sharingData.selNode as any).data.parent === -1
@@ -112,7 +115,28 @@ const PrdGrpInfo = () => {
         },
       ],
       paramType: sharingData.adding !== -1 ? 'add' : 'mod',
+      status: grpInfo.status,
     };
+
+    // root를 수정할 경우
+    if (
+      param.paramType === 'mod' &&
+      JSON.stringify(sharingData.selNode) !== '{}' &&
+      (sharingData.selNode as any).key === '0'
+    ) {
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        message: '최상위 그룹은 수정할 수 없습니다.',
+        leftText: '확인',
+        rightText: '',
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+      });
+      return;
+    }
+
     axios
       .post('/management/manager/product/group/update', param)
       .then(res => {
@@ -122,6 +146,17 @@ const PrdGrpInfo = () => {
             ...alertPopup,
             visible: true,
             message: '저장되었습니다.',
+            leftText: '확인',
+            rightText: '',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+          });
+        } else {
+          setAlertPopup({
+            ...alertPopup,
+            visible: true,
+            message: res.data.msg,
             leftText: '확인',
             rightText: '',
             leftCallback: () => {
@@ -161,6 +196,7 @@ const PrdGrpInfo = () => {
                     <Typography className="sub_cust_label_dot">•</Typography>{' '}
                   </Box>
                   <OutlinedInput
+                    ref={grpNmInputRef}
                     fullWidth={false}
                     placeholder="그룹명을 입력해 주세요."
                     value={grpInfo.prdGrpNm}
