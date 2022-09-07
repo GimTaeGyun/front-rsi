@@ -116,7 +116,8 @@ const SidebarRcTree = (props: {
             setAlertPopup({ ...alertPopup, visible: false });
             setIsDel(false);
           },
-          message: 'XXXXXXXXXXXXX',
+          message:
+            '하위 그룹 및 등록된 아이템이 존재하여 삭제할 수 없습니다. 다른 그룹으로 이동 후 삭제가 가능합니다.',
           leftText: '확인',
         });
       } else {
