@@ -58,8 +58,6 @@ const Index = () => {
   const [filterDropdown, setFilterDropdown] = useState(true);
   const [total, setTotal] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [a, setA] = useState(true);
-  const [b, setB] = useState(true);
   const dataGridApiRef = useGridApiRef();
 
   // 검색어 입력 셀렉트박스
@@ -336,8 +334,6 @@ const Index = () => {
         return { ...item, checked: true };
       }),
     });
-    setA(true);
-    setB(true);
   };
 
   const cellClickEvent = (e: any) => {

@@ -35,6 +35,8 @@ const Option = () => {
   const [itemTable, setItemTable] = useState([]);
   const [statusValue, setStatusValue] = useState([]);
   const [changeDataGrid, setChangeDataGrid] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
+  const [uppId, setUppId] = useState('');
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -46,7 +48,7 @@ const Option = () => {
         '/management/manager/option/category/search/inquiry',
         {
           searchValue: 'string',
-          status: 32767,
+          status: [32767],
           grpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
@@ -72,7 +74,7 @@ const Option = () => {
       '/management/manager/product/item/group/detail/inquiry',
       {
         searchValue: searchItemNm ? searchItemNm : '',
-        status: postStatus,
+        status: [postStatus],
         grpId: selectGroupKey ? selectGroupKey : 0,
       },
     );
@@ -102,6 +104,10 @@ const Option = () => {
     message: '',
   };
 
+  const isAddset = (data: any) => {
+    setIsAdd(data);
+  };
+
   useEffect(() => {
     const api = async () => {
       const res = await axios.post('/management/subscription/admin/codeset', {
@@ -119,6 +125,10 @@ const Option = () => {
 
   const IsPostset = (data: any) => {
     setIsPost(data);
+  };
+
+  const uppIdSet = (data: any) => {
+    setUppId(data);
   };
 
   return (
@@ -146,9 +156,19 @@ const Option = () => {
               fontFamily: 'NotoSansKRMedium',
             }}
           >
-            <SidebarRcTree setuppGrp={setuppGrp} isPost={isPost} />
+            <SidebarRcTree
+              setuppGrp={setuppGrp}
+              isPost={isPost}
+              isAdd={isAddset}
+              setUppId={uppIdSet}
+            />
             <Box sx={{ ml: '30px', width: '100%' }}>
-              <GrpForm setIsPost={IsPostset} selectGroupKey={selectGroupKey} />
+              <GrpForm
+                setIsPost={IsPostset}
+                selectGroupKey={selectGroupKey}
+                isAdd={isAdd}
+                uppId={uppId}
+              />
               <SearchDataTable onClickSearchItem={onClickSearchItem} />
               <Card
                 className="sub_tbl_section_common"

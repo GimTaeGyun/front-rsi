@@ -1,4 +1,9 @@
-import { CloseOutlined, ExpandLess, ExpandMore } from '@mui/icons-material';
+import {
+  CloseOutlined,
+  ExpandLess,
+  ExpandMore,
+  PartyModeSharp,
+} from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -22,170 +27,29 @@ import {
   GridRenderCellParams,
 } from '@mui/x-data-grid';
 import { DataGridPro } from '@mui/x-data-grid-pro';
-import React, { useState } from 'react';
-
-const columns: GridColDef[] = [
-  {
-    align: 'center',
-    field: 'id',
-    headerName: '순서 관리',
-    width: 86,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: () => (
-      <Box>
-        <IconButton
-          sx={{
-            width: '23px',
-            height: '23px',
-            border: '1px solid #00000042',
-            borderRadius: '4px !important',
-          }}
-        >
-          <ExpandLess />
-        </IconButton>
-        <IconButton
-          sx={{
-            width: '23px',
-            height: '23px',
-            border: '1px solid #00000042',
-            borderRadius: '4px !important',
-            marginLeft: '8px',
-          }}
-        >
-          <ExpandMore />
-        </IconButton>
-      </Box>
-    ),
-  },
-  {
-    align: 'center',
-    field: 'itemNm',
-    headerName: '옵션아이템',
-    width: 238,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: (params: GridRenderCellParams<string>) => (
-      <Box>
-        <TextField
-          fullWidth
-          id="itemNm"
-          placeholder="옵션명을 입력해 주세요"
-          className="sub_formText_dataGrid"
-          defaultValue={params.row.itemNm}
-          onChange={e => {
-            return { ...params.row.itemNm, itemNm: e.target.value };
-          }}
-          name="itemNm"
-        />
-      </Box>
-    ),
-  },
-  {
-    align: 'center',
-    field: 'operatorUnit',
-    headerName: '연산자',
-    width: 100,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: (params: GridRenderCellParams<string>) => (
-      <Box sx={{ width: '83px', height: '28px' }}>
-        <Select
-          fullWidth
-          id="operator"
-          value={params.row.operatorUnit}
-          name="operator"
-          className="sub_select_forms"
-          onChange={e => {
-            return { ...params.row.operatorUnit, operatorUnit: e.target.value };
-          }}
-          sx={{ height: '28px', textAlign: 'center' }}
-        >
-          <MenuItem value="+">+</MenuItem>
-          <MenuItem value="아이템에">아이템에</MenuItem>
-        </Select>
-      </Box>
-    ),
-  },
-  {
-    align: 'center',
-    field: 'itemVal',
-    headerName: '값',
-    width: 100,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: (params: GridRenderCellParams<string>) => (
-      <Box>
-        <TextField
-          fullWidth
-          id="itemVal"
-          className="sub_formText_dataGrid"
-          value={params.row.itemVal}
-          name="itemVal"
-          onChange={e => {
-            return { ...params.row.itemVal, itemVal: e.target.value };
-          }}
-        />
-      </Box>
-    ),
-  },
-  {
-    align: 'center',
-    field: 'del',
-    headerName: '삭제',
-    width: 100,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-    renderCell: (params: GridRenderCellParams<string>) => (
-      <Button
-        onClick={() => {
-          console.log(params);
-        }}
-        sx={{
-          color: '#666666',
-          backgroundColor: '#fff',
-          width: '38px',
-          height: '23px',
-          border: '1px solid #666666',
-        }}
-      >
-        삭제
-      </Button>
-    ),
-  },
-];
+import { useAtom } from 'jotai';
+import React, { useCallback, useEffect, useState } from 'react';
+import { AlertPopupData } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 
 const OptionForm = (props: { open: any; onClose: Function }) => {
+  const [rows, setRows] = React.useState([
+    {
+      id: 0,
+      itemNm: '',
+      operatorUnit: '+',
+      itemVal: '',
+    },
+  ]);
+  const [operatorVal, setOperatorVal] = useState([]);
+  const [tpVal, setTpVal] = useState([]);
+  const [statusVal, setStatusVal] = useState([]);
+  const [operUnitVal, setOperUnitVal] = useState([]);
+  const [operatorNm, setOperatorNm] = useState('');
+  const [operator, setOperator] = useState('PRD');
+  const [tp, setTp] = useState('DATE');
+  const [status, setStatus] = useState('1');
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const ref = React.useRef(1);
 
   const defaultows = {
@@ -195,20 +59,291 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
     itemVal: '',
   };
 
-  const [rows, setRows] = React.useState([
-    {
-      id: 0,
-      itemNm: '',
-      operatorUnit: '+',
-      itemVal: '',
+  const defaultAlertPopup = {
+    visible: true,
+    leftText: '확인',
+    leftCallback: () => {
+      setAlertPopup({ ...alertPopup, visible: false });
     },
-  ]);
+    rightCallback: () => {},
+    rightText: '',
+    message: '',
+  };
+
+  const onClickAdd = async () => {
+    const param = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: '동시접속사용자수',
+          optCatId: 2,
+          optId: 0,
+          optItems: [
+            {
+              default: true,
+              description: '단일 접속 사용자',
+              itemNm: '1User',
+              itemVal: 1,
+              operatorUnit: '*',
+              sort: 1,
+            },
+          ],
+          optNm: operatorNm,
+          optScope: operator,
+          optTp: tp,
+          sort: 1,
+        },
+      ],
+      paramType: 'add',
+    };
+    const res = await axios.post('/management/manager/option/product/update', {
+      param,
+    });
+    res.data.code === '0000'
+      ? setAlertPopup({
+          ...defaultAlertPopup,
+          message: '저장되었습니다.',
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            props.onClose();
+          },
+        })
+      : '';
+  };
+
+  useEffect(() => {
+    const Api = async () => {
+      const operator = await axios.post(
+        '/management/subscription/admin/codeset',
+        {
+          code: 'opt_scope',
+          code_grp: 'pm.option',
+        },
+      );
+      const operatorUnit = await axios.post(
+        '/management/subscription/admin/codeset',
+        {
+          code: 'operator_unit',
+          code_grp: 'pm.option_item',
+        },
+      );
+      const tp = await axios.post('/management/subscription/admin/codeset', {
+        code: 'opt_tp',
+        code_grp: 'pm.option',
+      });
+      const status = await axios.post(
+        '/management/subscription/admin/codeset',
+        {
+          code: 'status',
+          code_grp: 'pm.option',
+        },
+      );
+      setOperatorVal(operator.data.result.codeSetItems);
+      setTpVal(tp.data.result.codeSetItems);
+      setStatusVal(status.data.result.codeSetItems);
+      setOperUnitVal(operatorUnit.data.result.codeSetItems);
+    };
+    Api();
+  }, [props.open]);
 
   const plusOnClick = () => {
     ref.current += 1;
     setRows([...rows, defaultows]);
-    console.log(rows);
   };
+
+  const columns: GridColDef[] = [
+    {
+      align: 'center',
+      field: 'id',
+      headerName: '순서 관리',
+      width: 86,
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+      ),
+      renderCell: () => (
+        <Box>
+          <IconButton
+            sx={{
+              width: '23px',
+              height: '23px',
+              border: '1px solid #00000042',
+              borderRadius: '4px !important',
+            }}
+          >
+            <ExpandLess />
+          </IconButton>
+          <IconButton
+            sx={{
+              width: '23px',
+              height: '23px',
+              border: '1px solid #00000042',
+              borderRadius: '4px !important',
+              marginLeft: '8px',
+            }}
+          >
+            <ExpandMore />
+          </IconButton>
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'itemNm',
+      headerName: '옵션아이템',
+      width: 238,
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+      ),
+      renderCell: (params: GridRenderCellParams<string>) => (
+        <Box>
+          <TextField
+            fullWidth
+            id="itemNm"
+            placeholder="옵션명을 입력해 주세요"
+            className="sub_formText_dataGrid"
+            value={params.row.itemNm}
+            onChange={e => {
+              let row = rows;
+              const setrow = row.map((item: any) => {
+                item.id === params.row.id
+                  ? (item.itemNm = e.target.value)
+                  : item;
+
+                return item;
+              });
+              setRows(setrow);
+            }}
+            name="itemNm"
+          />
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'operatorUnit',
+      headerName: '연산자',
+      width: 100,
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+      ),
+      renderCell: (params: GridRenderCellParams<string>) => (
+        <Box sx={{ width: '83px', height: '28px' }}>
+          <Select
+            fullWidth
+            id="operator"
+            value={params.row.operatorUnit}
+            name="operator"
+            className="sub_select_forms"
+            onChange={e => {
+              let row = rows;
+              const setrow = row.map((item: any) => {
+                item.id === params.row.id
+                  ? (item.operatorUnit = e.target.value)
+                  : item;
+
+                return item;
+              });
+              setRows(setrow);
+            }}
+            sx={{ height: '28px', textAlign: 'center' }}
+          >
+            {operUnitVal.map((item: any) => (
+              <MenuItem value={item.value}>{item.label}</MenuItem>
+            ))}
+          </Select>
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'itemVal',
+      headerName: '값',
+      width: 100,
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+      ),
+      renderCell: (params: GridRenderCellParams<string>) => (
+        <Box>
+          <TextField
+            fullWidth
+            id="itemVal"
+            className="sub_formText_dataGrid"
+            value={params.row.itemVal}
+            name="itemVal"
+            onChange={e => {
+              let row = rows;
+              const setrow = row.map((item: any) => {
+                item.id === params.row.id
+                  ? (item.itemVal = e.target.value)
+                  : item;
+
+                return item;
+              });
+              setRows(setrow);
+            }}
+          />
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'del',
+      headerName: '삭제',
+      width: 100,
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+      ),
+      renderCell: (params: GridRenderCellParams<string>) => (
+        <Button
+          onClick={() => {
+            let row = rows;
+            const delet = row.filter((item: any) => {
+              if (item.id !== params.row.id) {
+                return true;
+              } else {
+                return false;
+              }
+            });
+            setRows(delet);
+          }}
+          sx={{
+            color: '#666666',
+            backgroundColor: '#fff',
+            width: '38px',
+            height: '23px',
+            border: '1px solid #666666',
+          }}
+        >
+          삭제
+        </Button>
+      ),
+    },
+  ];
 
   return (
     <Box component="div" sx={{ width: '700px' }}>
@@ -246,7 +381,10 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
               placeholder="옵션명을 입력해 주세요"
               className="sub_formText"
               name="opNm"
-              value="Option"
+              value={operatorNm}
+              onChange={e => {
+                setOperatorNm(e.target.value);
+              }}
             />
           </Box>
           <Box>
@@ -257,12 +395,16 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
             <Select
               fullWidth
               id="operator"
-              value="상품에"
+              value={operator}
               name="operator"
               className="sub_select_form"
+              onChange={e => {
+                setOperator(e.target.value);
+              }}
             >
-              <MenuItem value="상품에">상품에</MenuItem>
-              <MenuItem value="아이템에">아이템에</MenuItem>
+              {operatorVal.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))}
             </Select>
           </Box>
           <Box>
@@ -272,13 +414,17 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
             <Select
               fullWidth
               id="category"
-              value="날짜"
+              value={tp}
+              onChange={e => {
+                setTp(e.target.value);
+              }}
               name="category"
               className="sub_select_form"
               sx={{ alignContent: 'center !important' }}
             >
-              <MenuItem value="날짜">날짜</MenuItem>
-              <MenuItem value="가중치">가중치</MenuItem>
+              {tpVal.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))}
             </Select>
           </Box>
           <Box>
@@ -350,12 +496,16 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
             <Select
               fullWidth
               id="status"
-              value="사용가능"
+              value={status}
               name="status"
               className="sub_select_form"
+              onChange={e => {
+                setStatus(e.target.value);
+              }}
             >
-              <MenuItem value="사용가능">시용가능</MenuItem>
-              <MenuItem value="사용불가">시용불가</MenuItem>
+              {statusVal.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))}
             </Select>
           </Box>
         </DialogContent>
@@ -363,7 +513,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button
             onClick={() => {
-              props.onClose;
+              props.onClose();
             }}
             sx={{ fontSize: '14px' }}
             className="sub_button_white_none"
