@@ -75,6 +75,11 @@ const Index = () => {
     codeSetItems: [{ value: 'ALL', label: '', checked: true }],
     codeSetLabel: '',
   });
+
+  const [subscriptionCategory, setSubscriptionCategory] = useState({
+    codeSetItems: [{ value: 'ALL', label: '', checked: true }],
+    codeSetLabel: '',
+  });
   const [tableRows, setTableRows] = useState([]);
 
   const showDropdownList = () => {
@@ -92,7 +97,7 @@ const Index = () => {
       })
       .then(res => {
         if (res.data.code == '0000') {
-          if (code == 'cust_tp' || code == 'status') {
+          if (code == 'cust_tp' || code == 'status' || code == 'subscription') {
             res.data.result.codeSetItems = res.data.result.codeSetItems.map(
               (item: any) => {
                 return { ...item, checked: true };
@@ -137,6 +142,12 @@ const Index = () => {
       '고객상태 가져오기가 실패하였습니다.',
       setStatusCategory,
     );
+    // 구독현황 체크박스
+    initOption(
+      'subscription',
+      '구독현황 가져오기가 실패하였습니다.',
+      setSubscriptionCategory,
+    );
   }, []);
 
   // 모든 셀렉트박스 및 체크박스가 로드가 끝나면 테이블의 로우를 가져오기
@@ -145,12 +156,13 @@ const Index = () => {
       searchCategory.codeSetLabel != '' &&
       userCategory.codeSetLabel != '' &&
       statusCategory.codeSetLabel != '' &&
+      subscriptionCategory.codeSetLabel != '' &&
       !loaded
     ) {
       setLoaded(true);
       searchClickEvent(null);
     }
-  }, [searchCategory, userCategory, statusCategory]);
+  }, [searchCategory, userCategory, statusCategory, subscriptionCategory]);
 
   // 페이지값이 변하면 다시 로딩
   // 정렬 값 변하면 다시 로딩
@@ -169,7 +181,13 @@ const Index = () => {
           }
           return item;
         });
-        setStatusCategory({ ...statusCategory, codeSetItems: res });
+        setStatusCategory(
+          checkedAllOrNot(
+            { ...statusCategory, codeSetItems: res },
+            e.target.value,
+            e.target.checked,
+          ),
+        );
         break;
       case 'custTp':
         res = userCategory.codeSetItems;
@@ -179,9 +197,61 @@ const Index = () => {
           }
           return item;
         });
-        setUserCategory({ ...userCategory, codeSetItems: res });
+        setUserCategory(
+          checkedAllOrNot(
+            { ...userCategory, codeSetItems: res },
+            e.target.value,
+            e.target.checked,
+          ),
+        );
+        break;
+      case 'subscription':
+        res = subscriptionCategory.codeSetItems;
+        res = res.map((item: any) => {
+          if (e.target.value == item.value) {
+            item.checked = e.target.checked;
+          }
+          return item;
+        });
+        setSubscriptionCategory(
+          checkedAllOrNot(
+            { ...subscriptionCategory, codeSetItems: res },
+            e.target.value,
+            e.target.checked,
+          ),
+        );
         break;
     }
+  };
+
+  const checkedAllOrNot = (obj: any, value: any, checked: boolean) => {
+    let tmp = obj;
+    // 전체를 체크한 경우 전체에 맞춰서 checked
+    if (value === 'ALL' || Number(value) === 32767) {
+      tmp.codeSetItems = tmp.codeSetItems.map((item: any) => {
+        return { ...item, checked: checked };
+      });
+      return tmp;
+    }
+
+    // 전체를 제외한 체크를 검사해서 전부체크면 전체에도 체크
+    let allChecked = true;
+    for (let item of tmp.codeSetItems) {
+      if (
+        !(item.value === 'ALL' || Number(item.value) === 32767) &&
+        !item.checked
+      ) {
+        allChecked = false;
+        break;
+      }
+    }
+
+    tmp.codeSetItems = tmp.codeSetItems.map((item: any) => {
+      if (item.value === 'ALL' || Number(item.value) === 32767)
+        item.checked = allChecked;
+      return item;
+    });
+    return tmp;
   };
 
   const dateChanged = (e: Date, type: string) => {
@@ -209,6 +279,7 @@ const Index = () => {
       searchField: searchField,
       sortField: sortField,
       status: [],
+      subscription: [],
     };
     if (!page) {
       param.pageNo = 1;
@@ -219,6 +290,10 @@ const Index = () => {
       return;
     }) as any;
     param.status = statusCategory.codeSetItems.map((item: any) => {
+      if (item.checked) return parseInt(item.value);
+      return;
+    }) as any;
+    param.subscription = subscriptionCategory.codeSetItems.map((item: any) => {
       if (item.checked) return parseInt(item.value);
       return;
     }) as any;
@@ -495,32 +570,21 @@ const Index = () => {
                 <Box className="sub_filter_dropdown_lbl" component="span">
                   구독현황
                 </Box>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={e => {
-                          setA(e.target.checked);
-                        }}
-                        checked={a}
-                      />
-                    }
-                    label="구독중"
-                  />
-                </FormGroup>
-                <FormGroup className="sub_filter_dropdown_chk_outer">
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={e => {
-                          setB(e.target.checked);
-                        }}
-                        checked={b}
-                      />
-                    }
-                    label="종료"
-                  />
-                </FormGroup>
+                {subscriptionCategory.codeSetItems.map((item: any) => (
+                  <FormGroup className="sub_filter_dropdown_chk_outer">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="subscription"
+                          onChange={checkedChangedEvent}
+                          value={item.value}
+                          checked={item.checked}
+                        />
+                      }
+                      label={item.label}
+                    />
+                  </FormGroup>
+                ))}
               </Box>
             </Box>
           </Card>

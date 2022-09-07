@@ -115,6 +115,17 @@ const AddGroup = (props: {
             leftText: '확인',
             rightText: '',
           });
+        } else {
+          setAlertPopupData({
+            visible: true,
+            message: res.data.msg,
+            leftCallback: () => {
+              setAlertPopupData({ ...alertPopupData, visible: false });
+            },
+            rightCallback: () => {},
+            leftText: '확인',
+            rightText: '',
+          });
         }
       })
       .catch(err => {

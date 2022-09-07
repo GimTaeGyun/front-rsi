@@ -358,6 +358,17 @@ const Admin = () => {
                       setAlertPopup({ ...alertPopup, visible: false });
                     },
                   });
+                } else {
+                  setAlertPopup({
+                    ...alertPopup,
+                    visible: true,
+                    message: res.data.msg,
+                    rightText: '',
+                    leftText: '확인',
+                    leftCallback: () => {
+                      setAlertPopup({ ...alertPopup, visible: false });
+                    },
+                  });
                 }
               })
               .catch(() => {

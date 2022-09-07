@@ -81,7 +81,7 @@ interface TreeItem {
   status: number;
   title: string;
 }
-const DefaultAdding = 999999999999;
+const DefaultAdding = -1;
 
 const SidebarRcTree = () => {
   const [selNode, setSelNode] = React.useState<TreeItem | null>(null); // 선택된 트리
@@ -93,8 +93,8 @@ const SidebarRcTree = () => {
   const [sharingData, setSharingData] = useAtom(PrdMng);
 
   useEffect(() => {
-    refreshTree();
-  }, []);
+    if (sharingData.adding === -1) refreshTree();
+  }, [sharingData.adding]);
 
   const refreshTree = () => {
     axios
@@ -125,16 +125,7 @@ const SidebarRcTree = () => {
     setSelNode(info.node);
     setSharingData({
       ...sharingData,
-      mngInput: {
-        description: info.node.data.description
-          ? info.node.data.description
-          : '',
-        prdGrpId: Number(info.node.key),
-        prdGrpNm: info.node.title,
-        uppPrdGrpId: 0,
-        introduction: '',
-        status: Number(info.node.data.status),
-      },
+      selNode: info.node,
     });
   };
 
@@ -146,13 +137,9 @@ const SidebarRcTree = () => {
       expandKey.push(selNode.key.toString());
       setExpendKey(expandKey);
       setAdding(Number(selNode.key));
-      setSharingData({ ...sharingData, mngInput: DefaultGrpInfo });
+      setSharingData({ ...sharingData, adding: Number(selNode.key) }); // 공유데이터를 통해 클릭이벤트 트리거
     }
   };
-
-  useEffect(() => {
-    console.log(adding);
-  }, [adding]);
 
   // 그룹삭제 버튼이벤트
   const onDel = () => {
@@ -204,12 +191,15 @@ const SidebarRcTree = () => {
   };
 
   // 트리 자식노드 루프생성
-  const arrayloop = (data: any, pos: any) => {
+  const arrayloop = (data: any) => {
     if (data.childrens) {
       return data.childrens.map((item: any) => {
-        const postPos = pos + '-' + item.key;
         return (
-          <TreeNode title={item.title} key={item.key} pos={postPos} data={item}>
+          <TreeNode
+            title={item.title}
+            key={item.key}
+            data={{ ...item, parent: data.key }}
+          >
             {item.key === adding ? (
               <TreeNode
                 selectable={false}
@@ -220,12 +210,12 @@ const SidebarRcTree = () => {
                     placeholder="그룹명을 입력해 주세요."
                   />
                 }
-                key={item.key + '-' + '0'}
+                key={'-1'}
               ></TreeNode>
             ) : (
               ''
             )}
-            {arrayloop(item, postPos)}
+            {arrayloop(item)}
           </TreeNode>
         );
       });
@@ -306,8 +296,7 @@ const SidebarRcTree = () => {
                     className="sub_rc_parentNode"
                     title={treeItem.title}
                     key={treeItem.key}
-                    data={treeItem}
-                    pos="0"
+                    data={{ ...(treeItem as any), parent: -1 }}
                   >
                     {treeItem.key === adding ? (
                       <TreeNode
@@ -320,13 +309,13 @@ const SidebarRcTree = () => {
                             placeholder="그룹명을 입력해 주세요."
                           />
                         }
-                        key={treeItem.key + '-0'}
+                        key={'-1'}
                       ></TreeNode>
                     ) : (
                       ''
                     )}
 
-                    {treeItem ? arrayloop(treeItem, treeItem.key) : ''}
+                    {treeItem ? arrayloop(treeItem) : ''}
                   </TreeNode>
                 ) : (
                   ''
