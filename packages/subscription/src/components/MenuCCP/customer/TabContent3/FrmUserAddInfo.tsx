@@ -193,7 +193,7 @@ const FrmUserInfo = (props: {
         leftCallback: () => {
           setAlertPopup({ ...alertPopup, visible: false });
         },
-        message: '사용할 수 없는 아이디입니다',
+        message: '아이디 중복확인을 해주세요.',
       });
     } else {
       axios
