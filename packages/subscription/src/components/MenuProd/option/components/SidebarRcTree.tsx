@@ -221,7 +221,7 @@ const SidebarRcTree = (props: {
     const res = await axios.post(
       '/management/manager/option/category/search/inquiry',
       {
-        searchValue: 'string',
+        searchValue: '',
         status: [32767],
         grpId: Number(key),
       },

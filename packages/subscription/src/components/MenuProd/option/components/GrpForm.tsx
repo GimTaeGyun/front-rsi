@@ -69,8 +69,8 @@ const GrpForm = (props: {
         const res = await axios.post(
           '/management/manager/option/category/search/inquiry',
           {
-            searchValue: 'string',
-            status: [32767],
+            searchValue: '',
+            status: [32767, 1, -1],
             grpId: selectGroupKey ? selectGroupKey : 0,
           },
         );

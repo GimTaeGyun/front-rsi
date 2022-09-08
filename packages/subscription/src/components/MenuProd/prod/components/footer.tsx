@@ -73,7 +73,9 @@ export const Footer = () => {
             setAllStatus(e.target.value);
           }}
         >
-          <MenuItem value="status">상태 일괄 변경</MenuItem>
+          <MenuItem value="status" sx={{ display: 'none' }}>
+            상태 일괄 변경
+          </MenuItem>
           {allStatusSelect != null
             ? (allStatusSelect as any).codeSetItems.map((item: any) => (
                 <MenuItem value={item.value}>{item.label}</MenuItem>

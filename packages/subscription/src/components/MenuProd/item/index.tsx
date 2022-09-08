@@ -51,7 +51,7 @@ const Items = () => {
       const res = await axios.post(
         '/management/manager/product/item/group/detail/inquiry',
         {
-          itemNm: 'string',
+          itemNm: '',
           itemStatus: [32767],
           prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
         },

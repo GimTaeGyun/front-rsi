@@ -9,18 +9,15 @@ export const Footer = (props: {
   statusValue: any;
   status: any;
   rowNull: boolean;
-  uppId: any;
   selectId: any;
+  changeDataGridUE: Function;
+  isUpdate: any;
+  open: any;
+  onClickOpen: Function;
+  setIsUpp: Function;
+  rowDeT: Object;
 }) => {
-  const [open, setOpen] = useState(false);
-
-  const onClick = () => {
-    setOpen(!open);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
+  const { open, isUpdate, onClickOpen, setIsUpp, rowDeT } = props;
 
   return (
     <>
@@ -36,32 +33,20 @@ export const Footer = (props: {
             }}
             className="sub_select_common sub_select_batch"
           >
-            {props.statusValue.map((item: any) => {
-              switch (item.value) {
-                case '1':
-                  return (
-                    <MenuItem value={item.value} key="1">
-                      {item.label}
-                    </MenuItem>
-                  );
-
-                case '-1':
-                  return (
-                    <MenuItem value={item.value} key="2">
-                      {item.label}
-                    </MenuItem>
-                  );
-
-                case '32767':
-                  return (
-                    <MenuItem value={item.value} key="3">
-                      상태 일괄 변경
-                    </MenuItem>
-                  );
-                default:
-                  return '';
-              }
-            })}
+            <MenuItem value="32767" sx={{ display: 'none' }}>
+              상태 일괄 변경
+            </MenuItem>
+            {props.statusValue.length > 0
+              ? props.statusValue.map((item: any) => {
+                  if (item.value != 32767)
+                    return (
+                      <MenuItem value={item.value} key={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    );
+                  else return;
+                })
+              : ''}
           </Select>
           <Button
             variant="contained"
@@ -88,15 +73,9 @@ export const Footer = (props: {
             옵션 삭제
           </Button>
           <Button
-            variant="outlined"
-            className="sub_btn_primary_outline_common sub_btn_footer_save"
-          >
-            옵션 수정
-          </Button>
-          <Button
             variant="contained"
             className="sub_btn_primary_fill_common sub_btn_footer_save"
-            onClick={onClick}
+            onClick={onClickOpen(true)}
           >
             옵션 등록
           </Button>
@@ -104,9 +83,12 @@ export const Footer = (props: {
       </Box>
       <OptionForm
         open={open}
-        onClose={onClose}
-        uppId={props.uppId}
+        onClose={onClickOpen}
         selectId={props.selectId}
+        changeDataGridUE={props.changeDataGridUE}
+        isUpdate={isUpdate}
+        setIsUpp={setIsUpp}
+        rowDeT={rowDeT}
       />
     </>
   );
