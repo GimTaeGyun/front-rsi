@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect, useMemo,useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
-import { AlertPopupData, DefaultGrpInfo,PrdMng } from '../../../data/atoms';
+import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../data/atoms';
 import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
 import DataTableProd from './components/DatatableProd';

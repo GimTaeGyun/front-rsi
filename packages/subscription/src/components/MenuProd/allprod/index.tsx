@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useCallback,useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 
 import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultAlertPopupData } from '../../../data/atoms';
@@ -157,9 +157,11 @@ const AllProd = () => {
   const [filterDropdown, setFilterDropdown] = useState(false); // 상세검색
   const [pageSize, dispatchPageSize] = useReducer(pageReducer, 10); // 페이지 로우 수
   const [pageNo, dispatchPageNo] = useReducer(pageReducer, 1); // 페이지
-  const [total, setTotal] = useState(rows.length); // 전체 로우 수
+  const [total, setTotal] = useState(0); // 전체 로우 수
   const [prdTp, setPrdTp] = useState(null as any); // 상품유형 체크박스
   const [status, setStatus] = useState(null as any); // 상품상태 체크박스
+  const [prdTpLoaded, setPrdTpLoaded] = useState(false); // 컴포넌트 초기화 시 상품유형 체크박스 로딩완료
+  const [statusLoaded, setStatusLoaded] = useState(false); // 컴포넌트 초기화 시 상품상태 체크박스 로딩완료
   const [sortField, setSortField] = useState('custId');
   const [order, setOrder] = useState('asc');
   const [searchValue, setSearchValue] = useState('');
@@ -186,7 +188,6 @@ const AllProd = () => {
   };
 
   const checkedChangedEvent = (e: any) => {
-    console.log(e);
     let res: any;
     switch (e.target.name) {
       case 'status':
@@ -228,6 +229,7 @@ const AllProd = () => {
             },
           );
           setPrdTp(res.data.result);
+          setPrdTpLoaded(true);
         }
       })
       .catch();
@@ -245,12 +247,16 @@ const AllProd = () => {
             },
           );
           setStatus(res.data.result);
+          setStatusLoaded(true);
         }
       })
       .catch();
-
-    refreshTableData();
   }, []);
+
+  // 컴포넌트 초기화 시 테이블 로우 가져오기
+  useEffect(() => {
+    if (statusLoaded && prdTpLoaded) refreshTableData();
+  }, [statusLoaded, prdTpLoaded]);
 
   // 초기화 버튼
   const init = useCallback(() => {
@@ -277,18 +283,53 @@ const AllProd = () => {
     // 전체 상품목록
     axios
       .post('/management/manager/product/all/inquiry', {
-        prdItemgrpId: 'ALL', // 검색어입력 셀렉트
-        prdTp: prdTp, // 상품유형 체크박스
+        prdTp: getCheckedPrdTpaArr(), // 상품유형 체크박스
         searchValue: searchValue,
-        service: 32767,
-        status: status, // 상품상태 체크박스
+        searchField: 'ALL',
+        service: [32767, 1, 2],
+        status: getCheckedStatusArr(), // 상품상태 체크박스
         page: pageSize,
         pageNo: pageNo,
       })
       .then(res => {
-        console.log(res);
+        if (res.data.code === '0000') {
+          let rows: any = [];
+          if (res.data.result.dataRows !== null)
+            for (let item of res.data.result.dataRows)
+              rows.push({ ...item, id: item.prdId });
+          setTableRows(rows);
+          setTotal(res.data.result.total);
+        } else {
+          setAlertPopup({
+            ...alertPopup,
+            visible: true,
+            message: res.data.msg,
+            leftText: '확인',
+            rightText: '',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+          });
+        }
       })
       .catch();
+  };
+
+  const getCheckedStatusArr = () => {
+    let result: any = [];
+    for (let item of status.codeSetItems) {
+      if (item.checked) result.push(Number(item.value));
+    }
+
+    return result;
+  };
+  const getCheckedPrdTpaArr = () => {
+    let result: any = [];
+    for (let item of prdTp.codeSetItems) {
+      if (item.checked) result.push(item.value);
+    }
+
+    return result;
   };
 
   return (
@@ -416,7 +457,10 @@ const AllProd = () => {
               </Box>
               {prdTp
                 ? prdTp.codeSetItems.map((item: any) => (
-                    <FormGroup className="sub_filter_dropdown_chk_outer">
+                    <FormGroup
+                      key={item.value}
+                      className="sub_filter_dropdown_chk_outer"
+                    >
                       <FormControlLabel
                         control={<Checkbox checked={item.checked} />}
                         label={item.label}
@@ -435,7 +479,10 @@ const AllProd = () => {
               </Box>
               {status
                 ? status.codeSetItems.map((item: any) => (
-                    <FormGroup className="sub_filter_dropdown_chk_outer">
+                    <FormGroup
+                      key={item.value}
+                      className="sub_filter_dropdown_chk_outer"
+                    >
                       <FormControlLabel
                         control={<Checkbox checked={item.checked} />}
                         label={item.label}
@@ -468,7 +515,7 @@ const AllProd = () => {
             ></CardHeader>
             <DataTable
               checkbox={false}
-              rows={rows}
+              rows={tableRows}
               cellClickEvent={cellClickEvent}
               rowsPerPage={pageSize}
               total={total}

@@ -5,7 +5,7 @@ import React from 'react';
 const ColDef: GridColDef[] = [
   {
     align: 'center',
-    field: 'category',
+    field: 'prdTp',
     headerName: '유형',
     minWidth: 80,
     maxWidth: 114,
@@ -18,8 +18,9 @@ const ColDef: GridColDef[] = [
       </Typography>
     ),
     renderCell: params => {
+      console.log(params);
       let str_class = 'sub_td_cat sub_td_cat_color1';
-      switch (params.value) {
+      /*switch (params.value.label) {
         case '개인':
           str_class = 'sub_td_cat sub_td_cat_color1';
           break;
@@ -32,10 +33,10 @@ const ColDef: GridColDef[] = [
         default:
           str_class = 'sub_td_cat sub_td_cat_color1';
           break;
-      }
+      }*/
       return (
         <Box component="span" className={str_class}>
-          {params.value}
+          {'임시' /*params.value.label*/}
         </Box>
       );
     },
@@ -55,10 +56,17 @@ const ColDef: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
+    renderCell: params => {
+      return (
+        <Box component="span" className="sub_tbl_th_common">
+          {params.value.label}
+        </Box>
+      );
+    },
   },
   {
     align: 'left',
-    field: 'productGroup',
+    field: 'prdGrpNm',
     headerName: '상품 그룹',
     minWidth: 395,
     maxWidth: 564,
@@ -73,7 +81,7 @@ const ColDef: GridColDef[] = [
   },
   {
     align: 'left',
-    field: 'productName',
+    field: 'prdNm',
     headerName: '상품명',
     minWidth: 370,
     maxWidth: 528,
@@ -89,7 +97,7 @@ const ColDef: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'salesStart',
+    field: 'vldBegDt',
     headerName: '판매 시작일',
     minWidth: 118,
     maxWidth: 168,
@@ -108,7 +116,7 @@ const ColDef: GridColDef[] = [
   },
   {
     align: 'center',
-    field: 'salesEnd',
+    field: 'vldExpDt',
     headerName: '판매 종료일',
     minWidth: 118,
     maxWidth: 168,
@@ -144,7 +152,7 @@ const ColDef: GridColDef[] = [
     ),
     renderCell: params => {
       let str_class = 'sub_td_status sub_td_status_color1';
-      switch (params.value) {
+      switch (params.value.label) {
         case '판매중':
           str_class = 'sub_td_status sub_td_status_color1';
           break;
@@ -157,14 +165,14 @@ const ColDef: GridColDef[] = [
       }
       return (
         <Box component="span" className={str_class}>
-          {params.value}
+          {params.value.label}
         </Box>
       );
     },
   },
   {
     align: 'center',
-    field: 'date',
+    field: 'modAt',
     headerName: '최종 수정일시',
     minWidth: 160,
     maxWidth: 228,

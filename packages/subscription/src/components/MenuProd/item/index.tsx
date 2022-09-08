@@ -1,3 +1,4 @@
+import { SettingsOverscanOutlined } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -39,6 +40,7 @@ const Items = () => {
   const [isAdd, setIsAdd] = useState(false);
   const [uppId, setUppId] = useState('');
   const [showDialogItemRegister, setShowDialogItemRegister] = useState(true);
+  const [total, setTotal] = useState(0);
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -90,8 +92,10 @@ const Items = () => {
         arr.push(row);
       });
       setItemTable(arr);
+      setTotal(res.data.result.itemList.total);
     } else {
       setItemTable([]);
+      setTotal(0);
     }
   };
 
@@ -195,7 +199,7 @@ const Items = () => {
                       justifyContent="space-between"
                     >
                       <Typography className="sub_tbl_header_text_common">
-                        전체 (300)
+                        전체 ({total})
                       </Typography>
                     </Box>
                   }

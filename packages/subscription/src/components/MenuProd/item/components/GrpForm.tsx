@@ -81,7 +81,7 @@ const GrpForm = (props: {
         setPrdGrpNm(data.itemGrpNm);
         setItemTp(data.itemTp.value);
         setStatus(data.status.value);
-        setDescription(data.description);
+        setDescription(data.itemGrpDesc);
       }
     };
     api();
@@ -144,6 +144,7 @@ const GrpForm = (props: {
           ...defaultAlertPopup,
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
+            setIsPost(false);
           },
           message: '저장되었습니다.',
           leftText: '확인',
@@ -153,6 +154,7 @@ const GrpForm = (props: {
           ...defaultAlertPopup,
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
+            setIsPost(false);
           },
           message: res.data.msg,
           leftText: '확인',

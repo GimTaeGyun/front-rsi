@@ -148,6 +148,10 @@ const css = createTheme({
           '& .sub_formText_dataGrid': {
             maxHeight: '28px !important',
             color: '##000000DE',
+            '& input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button':
+              {
+                display: 'none',
+              },
             '& input::placeholder': { color: '#00000099' },
             '& .MuiOutlinedInput-input': {
               padding: '11px 10px',
@@ -665,6 +669,15 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium !important',
           letterSpacing: '-0.33px !important',
           marginLeft: '8px !important',
+          '&.disabled': {
+            color: '#00000042 !important',
+            backgroundColor: '#0000001F !important',
+            fontFamily: 'NotoSansKRMedium !important',
+            fontSize: '14px !important',
+            border: '0 !important',
+            letterSpacing: '0.01px !important',
+            boxShadow: '0px 3px 3px #0000002E !important',
+          },
         },
         '& .sub_btn_footer_add': {
           width: '107px',

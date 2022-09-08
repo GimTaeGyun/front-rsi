@@ -9,6 +9,8 @@ export const Footer = (props: {
   statusValue: any;
   status: any;
   rowNull: boolean;
+  uppId: any;
+  selectId: any;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -61,36 +63,17 @@ export const Footer = (props: {
               }
             })}
           </Select>
-          {!props.rowNull ? (
-            <Button
-              variant="contained"
-              className="sub_btn_primary_fill_common sub_btn_footer_save"
-              onClick={() => {
-                props.postStatus();
-              }}
-            >
-              변경하기
-            </Button>
-          ) : (
-            <Button
-              disabled
-              className="sub_btn_footer_save"
-              sx={{
-                color: '#00000042 !important',
-                backgroundColor: '#0000001F !important',
-                fontFamily: 'NotoSansKRMedium !important',
-                fontSize: '14px !important',
-                border: '0 !important',
-                letterSpacing: '0.01px !important',
-                boxShadow: '0px 3px 3px #0000002E !important',
-              }}
-              onClick={() => {
-                props.postStatus();
-              }}
-            >
-              변경하기
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            className={`sub_btn_primary_fill_common sub_btn_footer_save ${
+              props.rowNull ? 'disabled' : ''
+            }`}
+            onClick={() => {
+              props.postStatus();
+            }}
+          >
+            변경하기
+          </Button>
         </Box>
         <Box component="div" className="sub_pagination_outer"></Box>
         <Box
@@ -119,7 +102,12 @@ export const Footer = (props: {
           </Button>
         </Box>
       </Box>
-      <OptionForm open={open} onClose={onClose} />
+      <OptionForm
+        open={open}
+        onClose={onClose}
+        uppId={props.uppId}
+        selectId={props.selectId}
+      />
     </>
   );
 };

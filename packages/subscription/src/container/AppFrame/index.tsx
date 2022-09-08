@@ -7,6 +7,7 @@ import React, { ReactElement } from 'react';
 import ClientArea from '../../components/ClientArea';
 import LeftMenu from '../../components/LeftMenu';
 import Topbar from '../../components/Topbar';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 350;
 
@@ -16,6 +17,21 @@ const AppFrame = (props: {
   breadcrumbs?: Array<{ name: string; link: string }>;
 }): ReactElement => {
   const { children = <Box />, title = '', breadcrumbs = [] } = props;
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (
+      localStorage.getItem('usrId') === '' ||
+      localStorage.getItem('usrId') === undefined ||
+      localStorage.getItem('usrId') === 'undefined' ||
+      localStorage.getItem('usrId') === null ||
+      localStorage.getItem('usrId') === 'null'
+    ) {
+      console.log('usrId 이상함');
+      console.log(localStorage.getItem('usrId'));
+      navigate('/admin/login');
+    }
+  }, []);
 
   // Handle drawer toggle
   const [open, setOpen] = React.useState(true);

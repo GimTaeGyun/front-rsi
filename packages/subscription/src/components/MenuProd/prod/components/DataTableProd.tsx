@@ -17,7 +17,7 @@ import { DataGridPro } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState, useMemo } from 'react';
 
-import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../../data/atoms';
+import { AlertPopupData, PrdMng } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import Column from './ColDef';
 import { Footer } from './footer';
@@ -75,9 +75,13 @@ const DataTableProd = () => {
   const [filterDropdown, setFilterDropdown] = React.useState(false);
   const [itemTpChb, setItemTpChb] = useState<CodeSet>(DefaultCodeSet); // 상품유형 체크박스
   const [itemStatusChb, setItemStatusChb] = useState<CodeSet>(DefaultCodeSet); // 상품상태 체크박스
+  const [tpLoaded, setTpLoaded] = useState(false);
+  const [statusLoaded, setStatusLoaded] = useState(false);
   const [searchSelect, setSearchSelect] = useState('ALL');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [sharingData, setSharingData] = useAtom(PrdMng);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [total, setTotal] = useState(0);
 
   // 컴포넌트 초기화
   useEffect(() => {
@@ -95,6 +99,7 @@ const DataTableProd = () => {
             },
           );
           setItemTpChb(res.data.result);
+          setTpLoaded(true);
         }
       })
       .catch();
@@ -113,6 +118,7 @@ const DataTableProd = () => {
             },
           );
           setItemStatusChb(res.data.result);
+          setStatusLoaded(true);
         }
       })
       .catch();
@@ -120,8 +126,13 @@ const DataTableProd = () => {
 
   // 트리 클릭이벤트
   useEffect(() => {
-    searchTable();
+    if (JSON.stringify(sharingData.selNode) != '{}') searchTable();
   }, [sharingData.selNode]);
+
+  // 초기화 시 테이블 로우 가져오기
+  useEffect(() => {
+    if (tpLoaded && statusLoaded) searchTable();
+  }, [tpLoaded, statusLoaded]);
 
   const searchTable = () => {
     axios
@@ -136,7 +147,26 @@ const DataTableProd = () => {
         status: getCheckedStatusArr,
       })
       .then(res => {
-        console.log(res);
+        if (res.data.code === '0000') {
+          if (res.data.result.prdList.dataRows === null)
+            res.data.result.prdList.dataRows = [];
+          setSharingData({
+            ...sharingData,
+            row: res.data.result.prdList.dataRows,
+          });
+          setTotal(res.data.result.prdList.total);
+        } else {
+          setAlertPopup({
+            ...alertPopup,
+            visible: true,
+            message: res.data.msg,
+            leftText: '확인',
+            rightText: '',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+          });
+        }
       })
       .catch();
   };
@@ -379,7 +409,7 @@ const DataTableProd = () => {
               justifyContent="space-between"
             >
               <Typography className="sub_tbl_header_text_common">
-                전체 (5)
+                전체 ({total})
               </Typography>
             </Box>
           }
@@ -390,10 +420,10 @@ const DataTableProd = () => {
             headerHeight={57}
             disableSelectionOnClick
             rowHeight={52}
-            rows={rows}
+            rows={sharingData.row}
             columns={Column}
             pagination={true}
-            rowCount={rows.length}
+            rowCount={sharingData.row.length}
             checkboxSelection={true}
             components={{
               Footer: () => {
