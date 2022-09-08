@@ -21,32 +21,20 @@ export const Footer = (props: {
           }}
           className="sub_select_common sub_select_batch"
         >
-          {props.statusValue.map((item: any) => {
-            switch (item.value) {
-              case '1':
-                return (
-                  <MenuItem value={item.value} key="1">
-                    {item.label}
-                  </MenuItem>
-                );
-
-              case '-1':
-                return (
-                  <MenuItem value={item.value} key="2">
-                    {item.label}
-                  </MenuItem>
-                );
-
-              case '32767':
-                return (
-                  <MenuItem value={item.value} key="3">
-                    상태 일괄 변경
-                  </MenuItem>
-                );
-              default:
-                return '';
-            }
-          })}
+          <MenuItem value="32767" sx={{ display: 'none' }}>
+            상태 일괄 변경
+          </MenuItem>
+          {props.statusValue.length > 0
+            ? props.statusValue.map((item: any) => {
+                if (item.value != 32767)
+                  return (
+                    <MenuItem value={item.value} key={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  );
+                else return;
+              })
+            : ''}
         </Select>
         <Button
           variant="contained"
