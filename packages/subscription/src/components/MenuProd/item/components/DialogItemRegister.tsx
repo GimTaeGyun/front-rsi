@@ -69,6 +69,7 @@ const DialogItemRegister = (props: {
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      console.log(event);
       setExpanded(newExpanded ? panel : false);
     };
 
