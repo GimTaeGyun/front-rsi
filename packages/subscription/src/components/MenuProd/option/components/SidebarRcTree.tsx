@@ -91,6 +91,7 @@ const SidebarRcTree = (props: {
     props.isAdd(false);
     props.setUppId(split[split.length - 2] ? split[split.length - 2] : '0');
     api(selectedKeys);
+    Ischild(selectedKeys);
   };
 
   const onEdit = () => {

@@ -14,6 +14,7 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  FormHelperText,
   IconButton,
   InputLabel,
   MenuItem,
@@ -31,8 +32,36 @@ import { useAtom } from 'jotai';
 import React, { useCallback, useEffect, useState } from 'react';
 import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
+import * as Yup from 'yup';
 
-const OptionForm = (props: { open: any; onClose: Function }) => {
+const defaultFormValidation = {
+  operatorNm: false,
+  tp: false,
+  opItem: false,
+  ItemNum: false,
+};
+
+const validationMsg = {
+  operatorNm: '옵션명을 입력해 주세요.',
+  tp: '옵션유형을 선택해 주세요.',
+  opItem: '옵션 아이템을 입력해 주세요',
+  ItemNum: '값을 입력해 주세요.',
+};
+
+const validationSchema = Yup.object().shape({
+  operatorNm: Yup.string().nullable(false).required(),
+  tp: Yup.string().nullable(false).required(),
+  opItem: Yup.string().nullable(false).required(),
+  ItemNum: Yup.string().nullable(false).required(),
+});
+
+const OptionForm = (props: {
+  open: any;
+  onClose: Function;
+  uppId: any;
+  selectId: any;
+}) => {
+  const { uppId, selectId, open, onClose } = props;
   const [rows, setRows] = React.useState([
     {
       id: 0,
@@ -50,6 +79,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
   const [tp, setTp] = useState('DATE');
   const [status, setStatus] = useState('1');
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [dataValid, setDataValid] = useState(defaultFormValidation);
   const ref = React.useRef(1);
 
   const defaultows = {
@@ -105,48 +135,53 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
           message: '저장되었습니다.',
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
-            props.onClose();
+            onClose();
           },
         })
       : '';
   };
 
   useEffect(() => {
-    if (props.open === true) {
-      const Api = async () => {
-        const operator = await axios.post(
-          '/management/subscription/admin/codeset',
-          {
-            code: 'opt_scope',
-            code_grp: 'pm.option',
-          },
-        );
-        const operatorUnit = await axios.post(
-          '/management/subscription/admin/codeset',
-          {
-            code: 'operator_unit',
-            code_grp: 'pm.option_item',
-          },
-        );
-        const tp = await axios.post('/management/subscription/admin/codeset', {
-          code: 'opt_tp',
-          code_grp: 'pm.option',
-        });
-        const status = await axios.post(
-          '/management/subscription/admin/codeset',
-          {
-            code: 'status',
-            code_grp: 'pm.option',
-          },
-        );
-        setOperatorVal(operator.data.result.codeSetItems);
-        setTpVal(tp.data.result.codeSetItems);
-        setStatusVal(status.data.result.codeSetItems);
-        setOperUnitVal(operatorUnit.data.result.codeSetItems);
-      };
-      Api();
+    if (open === true) {
+      if (!operatorVal[0] || !tpVal[0] || !statusVal[0] || !operUnitVal[0]) {
+        const Api = async () => {
+          const operator = await axios.post(
+            '/management/subscription/admin/codeset',
+            {
+              code: 'opt_scope',
+              code_grp: 'pm.option',
+            },
+          );
+          const operatorUnit = await axios.post(
+            '/management/subscription/admin/codeset',
+            {
+              code: 'operator_unit',
+              code_grp: 'pm.option_item',
+            },
+          );
+          const tp = await axios.post(
+            '/management/subscription/admin/codeset',
+            {
+              code: 'opt_tp',
+              code_grp: 'pm.option',
+            },
+          );
+          const status = await axios.post(
+            '/management/subscription/admin/codeset',
+            {
+              code: 'status',
+              code_grp: 'pm.option',
+            },
+          );
+          setOperatorVal(operator.data.result.codeSetItems);
+          setTpVal(tp.data.result.codeSetItems);
+          setStatusVal(status.data.result.codeSetItems);
+          setOperUnitVal(operatorUnit.data.result.codeSetItems);
+        };
+        Api();
+      }
     }
-  }, [props.open]);
+  }, [open]);
 
   const plusOnClick = () => {
     ref.current += 1;
@@ -214,6 +249,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
             placeholder="옵션명을 입력해 주세요"
             className="sub_formText_dataGrid"
             value={params.row.itemNm}
+            error={dataValid.opItem}
             onChange={e => {
               let row = rows;
               const setrow = row.map((item: any) => {
@@ -289,6 +325,8 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
           <TextField
             fullWidth
             id="itemVal"
+            error={dataValid.ItemNum}
+            type="number"
             className="sub_formText_dataGrid"
             value={params.row.itemVal}
             name="itemVal"
@@ -350,9 +388,9 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
   return (
     <Box component="div" sx={{ width: '700px' }}>
       <Dialog
-        open={props.open}
+        open={open}
         onClose={() => {
-          props.onClose();
+          onClose();
         }}
         sx={{
           '& .MuiPaper-root': {
@@ -366,7 +404,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
             color="primary"
             component="label"
             onClick={() => {
-              props.onClose;
+              onClose();
             }}
           >
             <CloseOutlined className="sub_dialog_icon_close" />
@@ -382,12 +420,24 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
               id="opNm"
               placeholder="옵션명을 입력해 주세요"
               className="sub_formText"
+              error={dataValid.operatorNm}
               name="opNm"
               value={operatorNm}
               onChange={e => {
                 setOperatorNm(e.target.value);
               }}
             />
+            {dataValid.operatorNm && (
+              <span>
+                <FormHelperText
+                  error
+                  id="prdGrpNm-error"
+                  sx={{ marginTop: '0px', marginBottom: '3px' }}
+                >
+                  {validationMsg.operatorNm}
+                </FormHelperText>
+              </span>
+            )}
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
@@ -417,6 +467,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
               fullWidth
               id="category"
               value={tp}
+              error={dataValid.tp}
               onChange={e => {
                 setTp(e.target.value);
               }}
@@ -428,6 +479,17 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
                 <MenuItem value={item.value}>{item.label}</MenuItem>
               ))}
             </Select>
+            {dataValid.tp && (
+              <span>
+                <FormHelperText
+                  error
+                  id="prdGrpNm-error"
+                  sx={{ marginTop: '0px', marginBottom: '3px' }}
+                >
+                  {validationMsg.tp}
+                </FormHelperText>
+              </span>
+            )}
           </Box>
           <Box>
             <InputLabel className="sub_formLabel">
@@ -450,6 +512,28 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
                 height: '270px',
               }}
             />
+            {dataValid.opItem && (
+              <span>
+                <FormHelperText
+                  error
+                  id="prdGrpNm-error"
+                  sx={{ marginTop: '0px', marginBottom: '3px' }}
+                >
+                  {validationMsg.opItem}
+                </FormHelperText>
+              </span>
+            )}
+            {dataValid.ItemNum && (
+              <span>
+                <FormHelperText
+                  error
+                  id="prdGrpNm-error"
+                  sx={{ marginTop: '0px', marginBottom: '3px' }}
+                >
+                  {validationMsg.ItemNum}
+                </FormHelperText>
+              </span>
+            )}
             <Button
               fullWidth
               className="sub_button_white"
@@ -515,7 +599,7 @@ const OptionForm = (props: { open: any; onClose: Function }) => {
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button
             onClick={() => {
-              props.onClose();
+              onClose();
             }}
             sx={{ fontSize: '14px' }}
             className="sub_button_white_none"

@@ -126,8 +126,10 @@ const DatatableOptions = (props: {
   rows: any;
   changeDataGridUE: Function;
   statusValue: any;
+  uppId: any;
+  selectId: any;
 }) => {
-  const { rows, changeDataGridUE, statusValue } = props;
+  const { rows, changeDataGridUE, statusValue, uppId, selectId } = props;
 
   const [selectModel, setSelectModel] = React.useState(Array);
   const [status, setStatus] = React.useState('32767');
@@ -215,6 +217,8 @@ const DatatableOptions = (props: {
                 postStatus={statusChangeArray}
                 statusChange={statusChange}
                 status={status}
+                uppId={uppId}
+                selectId={selectId}
               />
             );
           },
