@@ -14,7 +14,7 @@ import ServiceMenu from './components/MenuCommon/service';
 import TermsMenu from './components/MenuCommon/terms';
 import AllProdMenu from './components/MenuProd/allprod';
 //상품관리 메뉴
-import GroupMngMenu from './components/MenuProd/GroupMng';
+import ItemMenu from './components/MenuProd/item';
 import OptionMenu from './components/MenuProd/option';
 import ProdMenu from './components/MenuProd/prod';
 import Empty from './container/Empty';
@@ -46,7 +46,7 @@ const Subscription = () => {
         <Route path="pay" element={<PayMenu />}></Route>
       </Route>
       <Route path="/admin/prod">
-        <Route path="itemgrp" element={<GroupMngMenu />}></Route>
+        <Route path="itemgrp" element={<ItemMenu />}></Route>
         <Route path="option" element={<OptionMenu />}></Route>
         <Route path="prod" element={<ProdMenu />}></Route>
         <Route path="allprod" element={<AllProdMenu />}></Route>

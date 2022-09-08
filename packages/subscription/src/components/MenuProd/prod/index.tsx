@@ -9,7 +9,6 @@ import AlertPopup from '../../Common/AlertPopup';
 import DataTableProd from './components/DataTableProd';
 import PrdGrpInfo from './components/PrdGrpInfo';
 import SidebarRcTree from './components/SidebarRcTree';
-import PrdUpdatePopup from './components/PrdUpdatePopup';
 
 const Prod = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -45,7 +44,6 @@ const Prod = () => {
               <DataTableProd />
             </Box>
           </Box>
-          <PrdUpdatePopup />
         </>
       </AppFrame>
     </>

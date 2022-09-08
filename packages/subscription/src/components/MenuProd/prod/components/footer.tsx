@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState, useMemo } from 'react';
 import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
+import PrdUpdatePopup from './PrdUpdatePopup';
 
 export const Footer = () => {
   const [sharingData, setSharingData] = useAtom(PrdMng);
@@ -26,6 +27,7 @@ export const Footer = () => {
 
   return (
     <Box className="sub_pagination_wrapper" component="div">
+      {/* {<PrdUpdatePopup />} */}
       <Box component="div" className="sub_pagination_outer">
         <Select
           fullWidth={false}
