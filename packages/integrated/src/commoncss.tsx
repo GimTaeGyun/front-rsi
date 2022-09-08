@@ -669,6 +669,15 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium !important',
           letterSpacing: '-0.33px !important',
           marginLeft: '8px !important',
+          '&.disabled': {
+            color: '#00000042 !important',
+            backgroundColor: '#0000001F !important',
+            fontFamily: 'NotoSansKRMedium !important',
+            fontSize: '14px !important',
+            border: '0 !important',
+            letterSpacing: '0.01px !important',
+            boxShadow: '0px 3px 3px #0000002E !important',
+          },
         },
         '& .sub_btn_footer_add': {
           width: '107px',

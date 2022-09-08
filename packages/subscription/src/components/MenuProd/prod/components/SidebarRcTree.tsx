@@ -436,20 +436,23 @@ const SidebarRcTree = () => {
                 </>
               )}
             </IconButton>
-            <Button
-              variant="outlined"
-              className="sub_btn_primary_outline_common sub_btn_footer_save"
-              onClick={onDel}
-            >
-              그룹 삭제
-            </Button>
-            <Button
-              variant="contained"
-              className="sub_btn_primary_fill_common sub_btn_footer_save"
-              onClick={onEdit}
-            >
-              그룹 등록
-            </Button>
+            <Box>
+              <Button
+                variant="outlined"
+                className="sub_btn_primary_outline_common sub_btn_footer_save"
+                sx={{ marginLeft: '80px !important' }}
+                onClick={onDel}
+              >
+                그룹 삭제
+              </Button>
+              <Button
+                variant="contained"
+                className="sub_btn_primary_fill_common sub_btn_footer_save"
+                onClick={onEdit}
+              >
+                그룹 등록
+              </Button>
+            </Box>
           </Box>
         </Card>
       </Box>

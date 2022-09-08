@@ -7,6 +7,26 @@ import { axios } from '../../../../utils/axios';
 export const Footer = () => {
   const [sharingData, setSharingData] = useAtom(PrdMng);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [allStatusSelect, setAllStatusSelect] = useState(null); // 상태 일괄 변경 셀렉트옵션 배열
+  const [allStatus, setAllStatus] = useState('status');
+
+  // 컴포넌트 초기화
+  useEffect(() => {
+    axios
+      .post('/management/subscription/admin/codeset', {
+        code_grp: 'pm.product',
+        code: 'status',
+      })
+      .then(res => {
+        if (res.data.code === '0000') {
+          res.data.result.codeSetItems = res.data.result.codeSetItems.filter(
+            (item: any) => item.value !== '32767',
+          );
+          setAllStatusSelect(res.data.result);
+        }
+      })
+      .catch();
+  }, []);
 
   const onDeleteClick = () => {
     setAlertPopup({
@@ -24,21 +44,48 @@ export const Footer = () => {
     });
   };
 
+  // 상태 일관 변경 변경하기 클릭이벤트
+  const onAllClick = () => {
+    if (sharingData.row.length > 0)
+      setAlertPopup({
+        ...alertPopup,
+        visible: true,
+        message: '해당리스트 상태를 변경하시겠습니까?',
+        leftText: '확인',
+        rightText: '취소',
+        rightCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+      });
+  };
+
   return (
     <Box className="sub_pagination_wrapper" component="div">
       <Box component="div" className="sub_pagination_outer">
         <Select
           fullWidth={false}
-          id="btn_batch"
-          name="btn_batch"
-          defaultValue="상태 일괄 변경"
           className="sub_select_common sub_select_batch"
+          value={allStatus}
+          onChange={(e: any) => {
+            setAllStatus(e.target.value);
+          }}
         >
-          <MenuItem value="상태 일괄 변경">상태 일괄 변경</MenuItem>
+          <MenuItem value="status">상태 일괄 변경</MenuItem>
+          {allStatusSelect != null
+            ? (allStatusSelect as any).codeSetItems.map((item: any) => (
+                <MenuItem value={item.value}>{item.label}</MenuItem>
+              ))
+            : ''}
         </Select>
         <Button
           variant="contained"
-          className="sub_btn_primary_fill_common sub_btn_footer_save"
+          className={`sub_btn_primary_fill_common sub_btn_footer_save ${
+            sharingData.row.length == 0 ? 'disabled' : ''
+          }`}
+          onClick={onAllClick}
         >
           변경하기
         </Button>
@@ -55,12 +102,6 @@ export const Footer = () => {
           onClick={onDeleteClick}
         >
           상품 삭제
-        </Button>
-        <Button
-          variant="outlined"
-          className="sub_btn_primary_outline_common sub_btn_footer_save"
-        >
-          상품 수정
         </Button>
         <Button
           variant="contained"
