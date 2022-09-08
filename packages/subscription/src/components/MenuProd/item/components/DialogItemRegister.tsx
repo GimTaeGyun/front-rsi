@@ -20,8 +20,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemButton,
-  ListItemIcon,
+  Tooltip,
 } from '@mui/material';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -66,6 +65,7 @@ const DialogItemRegister = (props: {
   handleClose: Function;
 }) => {
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
+  const [searchResult, setSearchResult] = React.useState(false);
 
   /*
   const handleChange =
@@ -215,8 +215,55 @@ const DialogItemRegister = (props: {
                       value=""
                       placeholder="Search"
                       className="sub_input_common sub_multitable_search"
+                      onFocus={() => setSearchResult(true)}
                     />
                   </Box>
+                  {searchResult && (
+                    <Box className="sub_multitable_search_list">
+                      <List>
+                        <ListItem disablePadding>
+                          <Tooltip
+                            title="Searchresult 1"
+                            arrow
+                            placement="bottom"
+                          >
+                            <FormControlLabel
+                              label="Searchresult 1"
+                              control={<Checkbox checked={false} />}
+                            />
+                          </Tooltip>
+                        </ListItem>
+                      </List>
+                      <List>
+                        <ListItem disablePadding>
+                          <Tooltip
+                            title="Searchresult 2"
+                            arrow
+                            placement="bottom"
+                          >
+                            <FormControlLabel
+                              label="Searchresult 2"
+                              control={<Checkbox checked={false} />}
+                            />
+                          </Tooltip>
+                        </ListItem>
+                      </List>
+                      <List>
+                        <ListItem disablePadding>
+                          <Tooltip
+                            title="Searchresult 2"
+                            arrow
+                            placement="bottom"
+                          >
+                            <FormControlLabel
+                              label="Searchresult 3"
+                              control={<Checkbox checked={false} />}
+                            />
+                          </Tooltip>
+                        </ListItem>
+                      </List>
+                    </Box>
+                  )}
                   <Box
                     component="div"
                     className="sub_multitable_body"
