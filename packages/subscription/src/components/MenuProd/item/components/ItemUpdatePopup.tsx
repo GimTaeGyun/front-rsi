@@ -10,14 +10,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
 import MuiMenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import MuiSelect from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import MuiTextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import cryptojs from 'crypto-js';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
-import { isConstructorDeclaration } from 'typescript';
 import * as Yup from 'yup';
 
 import { AlertPopupData } from '../../../../data/atoms';
@@ -42,7 +38,7 @@ const PrdUpdatePopup = () => {
         }}
       >
         <DialogTitle className="sub_dialog_title_outer">
-          <Typography>상품 수정</Typography>
+          <Typography>아이템 수정</Typography>
           <IconButton color="primary" component="label">
             <CloseOutlined className="sub_dialog_icon_close" />
           </IconButton>
@@ -51,10 +47,10 @@ const PrdUpdatePopup = () => {
         <DialogContent sx={{ padding: '10px 30px 30px 30px' }}>
           <Box>
             <InputLabel className="sub_formLabel" sx={{ marginTop: '0' }}>
-              상품명 <Typography className="sub_cust_label_dot">•</Typography>{' '}
+              아이템명 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
-              placeholder=""
+              placeholder="아이템명을 입력해 주세요."
               className="sub_formText"
               sx={{
                 '& .MuiOutlinedInput-root': {
@@ -72,7 +68,7 @@ const PrdUpdatePopup = () => {
             </InputLabel>
             <TextField
               fullWidth
-              placeholder="이름"
+              placeholder="단위가격을 입력해 주세요."
               className="sub_formText"
               sx={{
                 '& .MuiOutlinedInput-root': {
