@@ -29,7 +29,7 @@ const AppFrame = (props: {
     ) {
       console.log('usrId 이상함');
       console.log(localStorage.getItem('usrId'));
-      //navigate('/admin/login');
+      navigate('/admin/login');
     }
   }, []);
 
