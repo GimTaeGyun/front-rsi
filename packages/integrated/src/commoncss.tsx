@@ -1771,9 +1771,7 @@ const css = createTheme({
             width: '100%',
             overflowY: 'scroll',
             overflowX: 'hidden',
-            '& .sub_multitable_summary': {
-              /*borderLeft: '1px solid #0000001F',*/
-            },
+
             '& .sub_multitable_summary.level1': {
               paddingLeft: '35px',
             },
@@ -1798,10 +1796,29 @@ const css = createTheme({
               marginLeft: '0',
             },
             '& .sub_multitable_checkboxlist': {
-              paddingLeft: '35px !important',
-              '&.level1': { paddingLeft: '70px !important' },
-              '&.level2': { paddingLeft: '105px !important' },
-              '&.level3': { paddingLeft: '140px !important' },
+              '& .MuiListItem-root': {
+                borderBottom: '1px solid #0000001F',
+              },
+              '&.level0': {
+                '& .MuiListItem-root': {
+                  paddingLeft: '35px !important',
+                },
+              },
+              '&.level1': {
+                '& .MuiListItem-root': {
+                  paddingLeft: '70px !important',
+                },
+              },
+              '&.level2': {
+                '& .MuiListItem-root': {
+                  paddingLeft: '105px !important',
+                },
+              },
+              '&.level3': {
+                '& .MuiListItem-root': {
+                  paddingLeft: '140px !important',
+                },
+              },
             },
             '& .MuiAccordionDetails-root .MuiFormControlLabel-root': {
               margin: '0',

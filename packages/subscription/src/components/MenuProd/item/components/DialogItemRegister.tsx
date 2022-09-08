@@ -67,10 +67,13 @@ const DialogItemRegister = (props: {
 }) => {
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
 
+  /*
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      event;
       setExpanded(newExpanded ? panel : false);
     };
+    */
 
   return (
     <>
@@ -223,11 +226,11 @@ const DialogItemRegister = (props: {
                       maxHeight: '380px',
                     }}
                   >
-                    <Accordion>
+                    <Accordion className="sub_multitable_accordion_wrapper level0">
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
+                        aria-controls="panel3a-content"
+                        id="panel3a-header"
                       >
                         <FormControlLabel
                           label="Accordion 1"
@@ -236,7 +239,7 @@ const DialogItemRegister = (props: {
                       </AccordionSummary>
                       <AccordionDetails>
                         <List
-                          className="sub_multitable_checkboxlist"
+                          className="sub_multitable_checkboxlist level0"
                           sx={{
                             width: '100%',
                             bgcolor: 'background.paper',
@@ -276,11 +279,11 @@ const DialogItemRegister = (props: {
                       </AccordionDetails>
                     </Accordion>
 
-                    <Accordion>
+                    <Accordion className="sub_multitable_accordion_wrapper level0">
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
+                        aria-controls="panel4a-content"
+                        id="panel4a-header"
                       >
                         <FormControlLabel
                           label="Accordion 1"
@@ -289,7 +292,7 @@ const DialogItemRegister = (props: {
                       </AccordionSummary>
                       <AccordionDetails>
                         <List
-                          className="sub_multitable_checkboxlist"
+                          className="sub_multitable_checkboxlist level0"
                           sx={{
                             width: '100%',
                             bgcolor: 'background.paper',
