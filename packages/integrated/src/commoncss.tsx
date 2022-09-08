@@ -148,6 +148,10 @@ const css = createTheme({
           '& .sub_formText_dataGrid': {
             maxHeight: '28px !important',
             color: '##000000DE',
+            '& input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button':
+              {
+                display: 'none',
+              },
             '& input::placeholder': { color: '#00000099' },
             '& .MuiOutlinedInput-input': {
               padding: '11px 10px',

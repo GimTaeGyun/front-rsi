@@ -93,24 +93,7 @@ const SidebarRcTree = (props: {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [updateGrp, setUpdateGrp] = React.useState(Object);
   const [showAll, setShowAll] = React.useState(false);
-  const [isChild, setIsChild] = React.useState(false);
-
-  const del = {
-    actor: localStorage.getItem('usrId'),
-    dataset: [
-      {
-        description: '',
-        itemTp: 'MEDIA',
-        prdItemGrpId: Number(prdItemGrpId),
-        prdItemGrpNm: prdItemGrpNm,
-        sort: 1,
-        status: 1,
-        uppPrdItemGrpId: Number(uppPrdItemGrpId),
-      },
-    ],
-    status: status,
-    paramType: 'del',
-  };
+  const [isChild, setIsChild] = React.useState(Object);
 
   const defaultAlertPopup = {
     visible: true,
@@ -143,12 +126,21 @@ const SidebarRcTree = (props: {
 
   const api = async (key: any) => {
     const res = await axios.post(
+      '/management/manager/product/item/group/detail/inquiry',
+      {
+        itemNm: 'string',
+        itemStatus: [32767],
+        prdItemgrpId: Number(key),
+      },
+    );
+    const resChild = await axios.post(
       '/management/manager/product/item/group/inquiry',
       {
         p_prd_itemgrp_id: Number(key),
       },
     );
     setUpdateGrp(res.data.result);
+    setIsChild(resChild.data.result);
   };
 
   const onClickShowAll = () => {
@@ -242,7 +234,23 @@ const SidebarRcTree = (props: {
   };
 
   const deleteGrp = () => {
-    if (selKey === '0') {
+    const del = {
+      actor: localStorage.getItem('usrId'),
+      dataset: [
+        {
+          description: updateGrp.itemGrpDesc ? updateGrp.itemGrpDesc : '',
+          itemTp: updateGrp.itemTp.value,
+          prdItemGrpId: Number(updateGrp.itemGrpId),
+          prdItemGrpNm: updateGrp.itemGrpNm,
+          sort: 1,
+          status: updateGrp.status.value,
+          uppPrdItemGrpId: Number(uppPrdItemGrpId),
+        },
+      ],
+      status: updateGrp.status.value,
+      paramType: 'del',
+    };
+    if (isChild.key === 0) {
       setAlertPopup({
         ...defaultAlertPopup,
         leftCallback: () => {
@@ -253,7 +261,7 @@ const SidebarRcTree = (props: {
         leftText: '확인',
       });
     } else {
-      if (updateGrp.childrens !== undefined) {
+      if (isChild.childrens !== undefined) {
         setAlertPopup({
           ...defaultAlertPopup,
           leftCallback: () => {

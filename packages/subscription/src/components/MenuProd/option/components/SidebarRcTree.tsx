@@ -91,6 +91,7 @@ const SidebarRcTree = (props: {
     props.isAdd(false);
     props.setUppId(split[split.length - 2] ? split[split.length - 2] : '0');
     api(selectedKeys);
+    Ischild(selectedKeys);
   };
 
   const onEdit = () => {
@@ -112,7 +113,7 @@ const SidebarRcTree = (props: {
       paramType: 'del',
       status: updateGrp.status.value,
     };
-    if (Number(selKey) === 0) {
+    if (isChild.optCatId === 0) {
       setAlertPopup({
         ...defaultAlertPopup,
         leftCallback: () => {

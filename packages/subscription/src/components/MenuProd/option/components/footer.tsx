@@ -9,6 +9,8 @@ export const Footer = (props: {
   statusValue: any;
   status: any;
   rowNull: boolean;
+  uppId: any;
+  selectId: any;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -119,7 +121,12 @@ export const Footer = (props: {
           </Button>
         </Box>
       </Box>
-      <OptionForm open={open} onClose={onClose} />
+      <OptionForm
+        open={open}
+        onClose={onClose}
+        uppId={props.uppId}
+        selectId={props.selectId}
+      />
     </>
   );
 };

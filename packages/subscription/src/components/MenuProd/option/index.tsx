@@ -194,6 +194,8 @@ const Option = () => {
                   rows={itemTable}
                   changeDataGridUE={changeDataGridUE}
                   statusValue={statusValue}
+                  uppId={uppId}
+                  selectId={selectGroupKey}
                 />
               </Card>
             </Box>
