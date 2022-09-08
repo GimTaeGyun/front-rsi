@@ -37,6 +37,7 @@ const Option = () => {
   const [changeDataGrid, setChangeDataGrid] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [uppId, setUppId] = useState('');
+  const [total, setTotal] = useState(Number);
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -47,17 +48,18 @@ const Option = () => {
       const res = await axios.post(
         '/management/manager/option/category/search/inquiry',
         {
-          searchValue: 'string',
-          status: [32767],
+          searchValue: '',
+          status: [32767, 1, -1],
           grpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
+      setTotal(res.data.result.itemList.total);
       const arr = [] as any;
       if (res.data.result.itemList.dataRows) {
         res.data.result.itemList.dataRows.map((item: any) => {
           const row = {
             ...item,
-            id: item.optCatId,
+            id: item.optId,
           };
           arr.push(row);
         });
@@ -185,7 +187,7 @@ const Option = () => {
                       justifyContent="space-between"
                     >
                       <Typography className="sub_tbl_header_text_common">
-                        전체 (6)
+                        전체 ({total})
                       </Typography>
                     </Box>
                   }
@@ -194,7 +196,6 @@ const Option = () => {
                   rows={itemTable}
                   changeDataGridUE={changeDataGridUE}
                   statusValue={statusValue}
-                  uppId={uppId}
                   selectId={selectGroupKey}
                 />
               </Card>

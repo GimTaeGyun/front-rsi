@@ -35,21 +35,21 @@ import { axios } from '../../../../utils/axios';
 import * as Yup from 'yup';
 
 const defaultFormValidation = {
-  operatorNm: false,
+  operNm: false,
   tp: false,
   opItem: false,
   ItemNum: false,
 };
 
 const validationMsg = {
-  operatorNm: '옵션명을 입력해 주세요.',
+  operNm: '옵션명을 입력해 주세요.',
   tp: '옵션유형을 선택해 주세요.',
   opItem: '옵션 아이템을 입력해 주세요',
   ItemNum: '값을 입력해 주세요.',
 };
 
 const validationSchema = Yup.object().shape({
-  operatorNm: Yup.string().nullable(false).required(),
+  operNm: Yup.string().nullable(false).required(),
   tp: Yup.string().nullable(false).required(),
   opItem: Yup.string().nullable(false).required(),
   ItemNum: Yup.string().nullable(false).required(),
@@ -58,10 +58,21 @@ const validationSchema = Yup.object().shape({
 const OptionForm = (props: {
   open: any;
   onClose: Function;
-  uppId: any;
   selectId: any;
+  changeDataGridUE: Function;
+  isUpdate: any;
+  setIsUpp: Function;
+  rowDeT: any;
 }) => {
-  const { uppId, selectId, open, onClose } = props;
+  const {
+    selectId,
+    open,
+    onClose,
+    changeDataGridUE,
+    isUpdate,
+    setIsUpp,
+    rowDeT,
+  } = props;
   const [rows, setRows] = React.useState([
     {
       id: 0,
@@ -74,13 +85,30 @@ const OptionForm = (props: {
   const [tpVal, setTpVal] = useState([]);
   const [statusVal, setStatusVal] = useState([]);
   const [operUnitVal, setOperUnitVal] = useState([]);
-  const [operatorNm, setOperatorNm] = useState('');
+  const [operNm, setOperNm] = useState('');
   const [operator, setOperator] = useState('PRD');
   const [tp, setTp] = useState('DATE');
   const [status, setStatus] = useState('1');
+  const [postRows, setPostRows] = useState(Array<Object>);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [opId, setOpId] = useState(Number);
   const [dataValid, setDataValid] = useState(defaultFormValidation);
   const ref = React.useRef(1);
+
+  useEffect(() => {
+    let rowData = rows;
+    const post = rowData.map((item: any) => {
+      return {
+        default: true,
+        description: '',
+        itemNm: item.itemNm,
+        itemVal: Number(item.itemVal),
+        operatorUnit: item.operatorUnit,
+        sort: 1,
+      };
+    });
+    setPostRows(post);
+  }, [rows]);
 
   const defaultows = {
     id: ref.current,
@@ -88,6 +116,16 @@ const OptionForm = (props: {
     operatorUnit: '+',
     itemVal: '',
   };
+
+  useEffect(() => {
+    if (isUpdate) {
+      setOperNm(rowDeT.optNm);
+      setOperator(rowDeT.optScope.value);
+      setTp(rowDeT.optTp.value);
+      setStatus(rowDeT.status.value);
+      setOpId(rowDeT.optId);
+    }
+  }, [isUpdate]);
 
   const defaultAlertPopup = {
     visible: true,
@@ -101,44 +139,63 @@ const OptionForm = (props: {
   };
 
   const onClickAdd = async () => {
-    const param = {
-      actor: localStorage.getItem('usrId'),
-      dataset: [
-        {
-          description: '동시접속사용자수',
-          optCatId: 2,
-          optId: 0,
-          optItems: [
+    const param = isUpdate
+      ? {
+          actor: localStorage.getItem('usrId'),
+          dataset: [
             {
-              default: true,
-              description: '단일 접속 사용자',
-              itemNm: '1User',
-              itemVal: 1,
-              operatorUnit: '*',
+              description: '',
+              optCatId: Number(selectId),
+              optId: opId,
+              optItems: postRows,
+              optNm: operNm,
+              optScope: operator,
+              optTp: tp,
               sort: 1,
+              status: Number(status),
             },
           ],
-          optNm: operatorNm,
-          optScope: operator,
-          optTp: tp,
-          sort: 1,
-        },
-      ],
-      paramType: 'add',
-    };
-    const res = await axios.post('/management/manager/option/product/update', {
+          paramType: 'mod',
+        }
+      : {
+          actor: localStorage.getItem('usrId'),
+          dataset: [
+            {
+              description: '',
+              optCatId: Number(selectId),
+              optId: null,
+              optItems: postRows,
+              optNm: operNm,
+              optScope: operator,
+              optTp: tp,
+              sort: 1,
+              status: Number(status),
+            },
+          ],
+          paramType: 'add',
+        };
+    const res = await axios.post(
+      '/management/manager/option/product/update',
       param,
-    });
+    );
     res.data.code === '0000'
       ? setAlertPopup({
           ...defaultAlertPopup,
           message: '저장되었습니다.',
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
-            onClose();
+            onClose(false);
+            changeDataGridUE();
           },
         })
-      : '';
+      : setAlertPopup({
+          ...defaultAlertPopup,
+          message: res.data.msg,
+          leftCallback: () => {
+            setAlertPopup({ ...alertPopup, visible: false });
+            onClose(false);
+          },
+        });
   };
 
   useEffect(() => {
@@ -388,9 +445,9 @@ const OptionForm = (props: {
   return (
     <Box component="div" sx={{ width: '700px' }}>
       <Dialog
-        open={open}
+        open={!open}
         onClose={() => {
-          onClose();
+          onClose(false);
         }}
         sx={{
           '& .MuiPaper-root': {
@@ -404,7 +461,7 @@ const OptionForm = (props: {
             color="primary"
             component="label"
             onClick={() => {
-              onClose();
+              onClose(false);
             }}
           >
             <CloseOutlined className="sub_dialog_icon_close" />
@@ -420,21 +477,21 @@ const OptionForm = (props: {
               id="opNm"
               placeholder="옵션명을 입력해 주세요"
               className="sub_formText"
-              error={dataValid.operatorNm}
+              error={dataValid.operNm}
               name="opNm"
-              value={operatorNm}
+              value={operNm}
               onChange={e => {
-                setOperatorNm(e.target.value);
+                setOperNm(e.target.value);
               }}
             />
-            {dataValid.operatorNm && (
+            {dataValid.operNm && (
               <span>
                 <FormHelperText
                   error
                   id="prdGrpNm-error"
                   sx={{ marginTop: '0px', marginBottom: '3px' }}
                 >
-                  {validationMsg.operatorNm}
+                  {validationMsg.operNm}
                 </FormHelperText>
               </span>
             )}
@@ -599,7 +656,7 @@ const OptionForm = (props: {
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button
             onClick={() => {
-              onClose();
+              onClose(false);
             }}
             sx={{ fontSize: '14px' }}
             className="sub_button_white_none"
@@ -609,6 +666,7 @@ const OptionForm = (props: {
           <Button
             variant="contained"
             className="sub_button_blue"
+            onClick={onClickAdd}
             sx={{ width: '57px', height: '36px', fontSize: '14px' }}
           >
             저장

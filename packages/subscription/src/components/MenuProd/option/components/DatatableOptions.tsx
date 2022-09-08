@@ -51,6 +51,9 @@ const columns: GridColDef[] = [
         {params.colDef.headerName}
       </Typography>
     ),
+    renderCell: params => {
+      return <Typography>{params.value.label}</Typography>;
+    },
   },
   {
     align: 'center',
@@ -85,7 +88,7 @@ const columns: GridColDef[] = [
     ),
     renderCell: params => {
       let str_class = 'sub_td_status sub_td_status_color1';
-      switch (params.value) {
+      switch (params.value.value) {
         case '사용가능':
           str_class = 'sub_td_status sub_td_status_color1';
           break;
@@ -98,7 +101,7 @@ const columns: GridColDef[] = [
       }
       return (
         <Box component="span" className={str_class}>
-          {params.value}
+          {params.value.label}
         </Box>
       );
     },
@@ -126,15 +129,17 @@ const DatatableOptions = (props: {
   rows: any;
   changeDataGridUE: Function;
   statusValue: any;
-  uppId: any;
   selectId: any;
 }) => {
-  const { rows, changeDataGridUE, statusValue, uppId, selectId } = props;
+  const { rows, changeDataGridUE, statusValue, selectId } = props;
 
   const [selectModel, setSelectModel] = React.useState(Array);
   const [status, setStatus] = React.useState('32767');
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [rowNull, setRowNull] = React.useState(Boolean);
+  const [rowDeT, setRowDeT] = React.useState(Object);
+  const [open, setOpen] = React.useState(false);
+  const [isUpdate, setIsUpdate] = React.useState(false);
 
   React.useEffect(() => {
     rows[0] ? setRowNull(false) : setRowNull(true);
@@ -155,9 +160,26 @@ const DatatableOptions = (props: {
     setSelectModel(data);
   };
 
+  const changeIsUp = () => {
+    setIsUpdate(false);
+  };
+
   const statusChange = (data: any) => {
     setStatus(data);
   };
+
+  const onClickCell = async (data: any) => {
+    if (data.field !== '__check__') {
+      const res = await axios.post('/management/manager/option/item/inquiry', {
+        optId: data.row.optId,
+      });
+      setRowDeT(res.data.result);
+      setIsUpdate(true);
+      setOpen(true);
+    }
+  };
+
+  console.log(rowDeT);
 
   const statusChangeArray = async () => {
     if (selectModel[0]) {
@@ -181,7 +203,17 @@ const DatatableOptions = (props: {
           },
         );
 
-        res.data.code === '0000' ? changeDataGridUE() : '';
+        res.data.code === '0000'
+          ? setAlertPopup({
+              ...defaultAlertPopup,
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+                changeDataGridUE();
+              },
+              message: '상태를 변경했습니다.',
+              leftText: '확인',
+            })
+          : '';
       }
     } else {
       setAlertPopup({
@@ -193,6 +225,12 @@ const DatatableOptions = (props: {
         leftText: '확인',
       });
     }
+  };
+
+  console.log(open);
+
+  const onClickOpen = (data: any) => {
+    setOpen(data);
   };
 
   return (
@@ -208,6 +246,7 @@ const DatatableOptions = (props: {
         checkboxSelection
         rowCount={rows.length}
         onSelectionModelChange={select}
+        onCellClick={onClickCell}
         components={{
           Footer: () => {
             return (
@@ -217,8 +256,13 @@ const DatatableOptions = (props: {
                 postStatus={statusChangeArray}
                 statusChange={statusChange}
                 status={status}
-                uppId={uppId}
                 selectId={selectId}
+                changeDataGridUE={changeDataGridUE}
+                isUpdate={isUpdate}
+                open={open}
+                onClickOpen={onClickOpen}
+                setIsUpp={changeIsUp}
+                rowDeT={rowDeT}
               />
             );
           },
