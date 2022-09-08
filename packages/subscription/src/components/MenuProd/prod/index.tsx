@@ -6,7 +6,7 @@ import AppFrame from '../../../container/AppFrame';
 import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../data/atoms';
 import { axios } from '../../../utils/axios';
 import AlertPopup from '../../Common/AlertPopup';
-import DataTableProd from './components/DatatableProd';
+import DataTableProd from './components/DataTableProd';
 import PrdGrpInfo from './components/PrdGrpInfo';
 import SidebarRcTree from './components/SidebarRcTree';
 
