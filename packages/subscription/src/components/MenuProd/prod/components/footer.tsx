@@ -1,7 +1,29 @@
 import { Box, Button, MenuItem, Select } from '@mui/material';
-import React from 'react';
+import { useAtom } from 'jotai';
+import React, { useEffect, useState, useMemo } from 'react';
+import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../../data/atoms';
+import { axios } from '../../../../utils/axios';
 
 export const Footer = () => {
+  const [sharingData, setSharingData] = useAtom(PrdMng);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+
+  const onDeleteClick = () => {
+    setAlertPopup({
+      ...alertPopup,
+      visible: true,
+      message: '선택한 상품을 삭제하시겠습니까?',
+      leftText: '확인',
+      rightText: '취소',
+      rightCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+      },
+      leftCallback: () => {
+        setAlertPopup({ ...alertPopup, visible: false });
+      },
+    });
+  };
+
   return (
     <Box className="sub_pagination_wrapper" component="div">
       <Box component="div" className="sub_pagination_outer">
@@ -30,6 +52,7 @@ export const Footer = () => {
         <Button
           variant="outlined"
           className="sub_btn_primary_outline_common sub_btn_footer_save"
+          onClick={onDeleteClick}
         >
           상품 삭제
         </Button>
