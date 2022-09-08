@@ -113,7 +113,7 @@ const SidebarRcTree = (props: {
       paramType: 'del',
       status: updateGrp.status.value,
     };
-    if (Number(selKey) === 0) {
+    if (isChild.optCatId === 0) {
       setAlertPopup({
         ...defaultAlertPopup,
         leftCallback: () => {

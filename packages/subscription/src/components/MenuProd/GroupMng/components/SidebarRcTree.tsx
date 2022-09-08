@@ -250,7 +250,7 @@ const SidebarRcTree = (props: {
       status: updateGrp.status.value,
       paramType: 'del',
     };
-    if (selKey === '0') {
+    if (isChild.key === 0) {
       setAlertPopup({
         ...defaultAlertPopup,
         leftCallback: () => {
@@ -315,8 +315,6 @@ const SidebarRcTree = (props: {
       }
     }
   };
-
-  console.log(isChild);
 
   const arrayloop = (data: any, pos: any) => {
     if (data.childrens) {
