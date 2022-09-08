@@ -27,6 +27,7 @@ import DatatableItems from './components/DatatableItems';
 import GrpForm from './components/GrpForm';
 import SearchDataTable from './components/SearchDataTable';
 import SidebarRcTree from './components/SidebarRcTree';
+import DialogItemRegister from './components/DialogItemRegister';
 
 const Items = () => {
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
@@ -37,6 +38,7 @@ const Items = () => {
   const [changeDataGrid, setChangeDataGrid] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [uppId, setUppId] = useState('');
+  const [showDialogItemRegister, setShowDialogItemRegister] = useState(true);
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -148,6 +150,14 @@ const Items = () => {
               rightButtonText={alertPopup.rightText}
               rightCallback={alertPopup.rightCallback}
               leftCallback={alertPopup.leftCallback}
+            />
+          ) : undefined}
+          {showDialogItemRegister ? (
+            <DialogItemRegister
+              open={showDialogItemRegister}
+              handleClose={() => {
+                setShowDialogItemRegister(!showDialogItemRegister);
+              }}
             />
           ) : undefined}
           <Box
