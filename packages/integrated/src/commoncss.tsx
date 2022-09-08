@@ -669,6 +669,15 @@ const css = createTheme({
           fontFamily: 'NotoSansKRMedium !important',
           letterSpacing: '-0.33px !important',
           marginLeft: '8px !important',
+          '&.disabled': {
+            color: '#00000042 !important',
+            backgroundColor: '#0000001F !important',
+            fontFamily: 'NotoSansKRMedium !important',
+            fontSize: '14px !important',
+            border: '0 !important',
+            letterSpacing: '0.01px !important',
+            boxShadow: '0px 3px 3px #0000002E !important',
+          },
         },
         '& .sub_btn_footer_add': {
           width: '107px',
@@ -1708,6 +1717,162 @@ const css = createTheme({
 
         '& .sub_divider_1px': {
           height: '1px',
+        },
+        '& .sub_multitable_container': {
+          width: '100%',
+          height: '450px',
+          border: '1px solid #0000001F',
+          '& .MuiGrid-root': {
+            borderRight: '1px solid #0000001F',
+          },
+          '& .MuiGrid-root:last-child': {
+            borderRight: 'unset',
+          },
+          '& .sub_multitable_title': {
+            display: 'flex',
+            alignItems: 'center',
+            height: '34px',
+            padding: '0 10px',
+            borderBottom: '1px solid #0000001F',
+            '& .sub_multitable_header': {
+              color: '#000000DE',
+              fontSize: '13px',
+              lineHeight: '13px',
+              fontFamily: 'NotoSansKRMedium',
+              paddingLeft: '8px',
+              borderLeft: '3px solid #284AD5',
+              '& .sub_multitable_headerinfo': {
+                color: '#888888',
+                fontFamily: 'NotoSansKRRegular',
+              },
+            },
+          },
+          '& .sub_multitable_list': {
+            '& .MuiListItem-root': {
+              height: '35px',
+              width: '100%',
+              borderBottom: '1px solid #0000001F',
+              paddingLeft: '10px',
+              '& .MuiListItemText-root .MuiTypography-root': {
+                color: '#000000DE',
+                fontSize: '12px',
+                fontFamily: 'NotoSansKRRegular',
+              },
+            },
+          },
+          '& .sub_multitable_search': {
+            width: '100px',
+            height: '35px',
+            '& fieldset': {
+              border: 'unset',
+            },
+          },
+          '& .sub_multitable_body': {
+            width: '100%',
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            '& .sub_multitable_summary': {
+              /*borderLeft: '1px solid #0000001F',*/
+            },
+            '& .sub_multitable_summary.level1': {
+              paddingLeft: '35px',
+            },
+            '& .sub_multitable_summary.level2': {
+              paddingLeft: '70px',
+            },
+            '& .sub_multitable_summary.level3': {
+              paddingLeft: '105px',
+            },
+            '& .MuiAccordionSummary-content .MuiFormControlLabel-root': {
+              margin: '0',
+              padding: '0',
+              marginLeft: '0',
+              '& .MuiTypography-root': {
+                color: '#555',
+                fontSize: '12px',
+                fontFamily: 'NotoSansKRRegular',
+                letterSpacing: '-0.3px',
+              },
+            },
+            '& .MuiAccordion-region > .MuiAccordionDetails-root': {
+              marginLeft: '0',
+            },
+            '& .sub_multitable_checkboxlist': {
+              paddingLeft: '35px !important',
+              '&.level1': { paddingLeft: '70px !important' },
+              '&.level2': { paddingLeft: '105px !important' },
+              '&.level3': { paddingLeft: '140px !important' },
+            },
+            '& .MuiAccordionDetails-root .MuiFormControlLabel-root': {
+              margin: '0',
+              padding: '0',
+              borderLeft: '1px solid #fff',
+              '& .MuiTypography-root': {
+                color: '#555',
+                fontSize: '12px',
+                fontFamily: 'NotoSansKRRegular',
+                letterSpacing: '-0.3px',
+                padding: '0',
+              },
+            },
+            '& .MuiButtonBase-root MuiCheckbox-root': {
+              minWidth: 'unset',
+              width: '35px',
+              height: '35px',
+              justifyContent: 'center',
+            },
+            '& > .MuiPaper-root': {
+              height: 'fit-content',
+              width: 'auto',
+              boxShadow: 'none',
+            },
+            '& .MuiAccordionSummary-root': {
+              padding: '0',
+              minHeight: '35px',
+              color: '#000000DE',
+              fontSize: '12px',
+              fontFamily: 'NotoSansKRMedium',
+              borderBottom: '1px solid #0000001F',
+            },
+            '& .MuiAccordionSummary-root.level1 .sub_multitable_summary': {
+              paddingLeft: '35px',
+            },
+            '& .MuiAccordionSummary-expandIconWrapper': {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '35px',
+              height: '42px',
+              textAlign: 'center',
+              border: '1px solid #0000001F',
+              borderTop: 'unset',
+              borderBottom: 'unset',
+            },
+            '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+              width: '35px',
+              height: '42px',
+              borderTop: '1px',
+              borderBottom: '1px',
+            },
+            '& .MuiAccordionSummary-content': {
+              display: 'flex',
+              alignItems: 'center',
+              margin: '0',
+              /*borderLeft: '1px solid #0000001F',*/
+              '& .MuiTypography-root': {
+                paddingLeft: '8px',
+                lineHeight: '35px',
+                color: '#000000DE',
+                fontSize: '12px',
+                fontFamily: 'NotoSansKRMedium',
+                letterSpacing: '-0.3px',
+              },
+            },
+            '& .MuiButtonBase-root-MuiAccordionSummary-root': {},
+            '& .MuiAccordionDetails-root': {
+              padding: '0',
+            },
+          },
         },
       },
     },

@@ -25,7 +25,7 @@ const DialogFormTemplate = (props: {
         onClose={() => props.handleClose()}
         className="sub_dialog_main"
         sx={{
-          '& .MuiPaper-root': {
+          '& .MuiPaper-root.MuiDialog-paper': {
             width: props.width,
             height: props.height,
           },

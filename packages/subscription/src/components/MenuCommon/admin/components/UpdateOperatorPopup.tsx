@@ -143,6 +143,7 @@ const UpdateOperatorPopup = (props: {
               className="sub_formText"
               sx={{
                 '& .MuiOutlinedInput-root': {
+                  backgroundColor: '#F9F9F9',
                   '& fieldset': { border: '1px dashed #0000003B !important' },
                 },
               }}

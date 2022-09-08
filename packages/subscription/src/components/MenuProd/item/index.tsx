@@ -1,3 +1,4 @@
+import { SettingsOverscanOutlined } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -27,6 +28,7 @@ import DatatableItems from './components/DatatableItems';
 import GrpForm from './components/GrpForm';
 import SearchDataTable from './components/SearchDataTable';
 import SidebarRcTree from './components/SidebarRcTree';
+import DialogItemRegister from './components/DialogItemRegister';
 
 const Items = () => {
   const [selectGroupKey, setSelectGroupKey] = React.useState(Number);
@@ -37,6 +39,8 @@ const Items = () => {
   const [changeDataGrid, setChangeDataGrid] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [uppId, setUppId] = useState('');
+  const [showDialogItemRegister, setShowDialogItemRegister] = useState(true);
+  const [total, setTotal] = useState(0);
 
   const changeDataGridUE = () => {
     setChangeDataGrid(!changeDataGrid);
@@ -88,8 +92,10 @@ const Items = () => {
         arr.push(row);
       });
       setItemTable(arr);
+      setTotal(res.data.result.itemList.total);
     } else {
       setItemTable([]);
+      setTotal(0);
     }
   };
 
@@ -150,6 +156,14 @@ const Items = () => {
               leftCallback={alertPopup.leftCallback}
             />
           ) : undefined}
+          {showDialogItemRegister ? (
+            <DialogItemRegister
+              open={showDialogItemRegister}
+              handleClose={() => {
+                setShowDialogItemRegister(!showDialogItemRegister);
+              }}
+            />
+          ) : undefined}
           <Box
             display="flex"
             sx={{
@@ -185,7 +199,7 @@ const Items = () => {
                       justifyContent="space-between"
                     >
                       <Typography className="sub_tbl_header_text_common">
-                        전체 (300)
+                        전체 ({total})
                       </Typography>
                     </Box>
                   }

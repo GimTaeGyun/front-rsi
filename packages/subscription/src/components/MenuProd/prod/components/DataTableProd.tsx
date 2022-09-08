@@ -17,7 +17,7 @@ import { DataGridPro } from '@mui/x-data-grid-pro';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState, useMemo } from 'react';
 
-import { AlertPopupData, DefaultGrpInfo, PrdMng } from '../../../../data/atoms';
+import { AlertPopupData, PrdMng } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import Column from './ColDef';
 import { Footer } from './footer';
@@ -80,6 +80,7 @@ const DataTableProd = () => {
   const [searchSelect, setSearchSelect] = useState('ALL');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [sharingData, setSharingData] = useAtom(PrdMng);
+  const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [total, setTotal] = useState(0);
 
   // 컴포넌트 초기화
@@ -146,7 +147,26 @@ const DataTableProd = () => {
         status: getCheckedStatusArr,
       })
       .then(res => {
-        console.log(res);
+        if (res.data.code === '0000') {
+          if (res.data.result.prdList.dataRows === null)
+            res.data.result.prdList.dataRows = [];
+          setSharingData({
+            ...sharingData,
+            row: res.data.result.prdList.dataRows,
+          });
+          setTotal(res.data.result.prdList.total);
+        } else {
+          setAlertPopup({
+            ...alertPopup,
+            visible: true,
+            message: res.data.msg,
+            leftText: '확인',
+            rightText: '',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+            },
+          });
+        }
       })
       .catch();
   };
@@ -400,10 +420,10 @@ const DataTableProd = () => {
             headerHeight={57}
             disableSelectionOnClick
             rowHeight={52}
-            rows={rows}
+            rows={sharingData.row}
             columns={Column}
             pagination={true}
-            rowCount={rows.length}
+            rowCount={sharingData.row.length}
             checkboxSelection={true}
             components={{
               Footer: () => {
