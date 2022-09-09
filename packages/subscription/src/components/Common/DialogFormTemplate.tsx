@@ -7,6 +7,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import { DialogProps } from '@mui/material/Dialog';
 import React from 'react';
 
 const DialogFormTemplate = (props: {
@@ -17,10 +18,15 @@ const DialogFormTemplate = (props: {
   title: string;
   children: any;
   footer: any;
+  scroll?: DialogProps['scroll'] | 'paper';
 }) => {
+  const [scroll, setScroll] = React.useState<DialogProps['scroll']>(
+    props.scroll,
+  );
   return (
     <>
       <Dialog
+        scroll={scroll}
         open={props.open}
         onClose={() => props.handleClose()}
         className="sub_dialog_main"

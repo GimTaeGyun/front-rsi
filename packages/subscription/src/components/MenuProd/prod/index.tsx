@@ -9,9 +9,11 @@ import AlertPopup from '../../Common/AlertPopup';
 import DataTableProd from './components/DataTableProd';
 import PrdGrpInfo from './components/PrdGrpInfo';
 import SidebarRcTree from './components/SidebarRcTree';
+import DialogProductRegister from './components/DialogProductRegister';
 
 const Prod = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
+  const [showDialogRegister, setShowDialogRegister] = useState(true);
 
   return (
     <>
@@ -23,6 +25,14 @@ const Prod = () => {
         ]}
       >
         <>
+          {showDialogRegister ? (
+            <DialogProductRegister
+              open={showDialogRegister}
+              handleClose={() => {
+                setShowDialogRegister(!showDialogRegister);
+              }}
+            />
+          ) : undefined}
           {alertPopup.visible ? (
             <AlertPopup
               message={alertPopup.message}
