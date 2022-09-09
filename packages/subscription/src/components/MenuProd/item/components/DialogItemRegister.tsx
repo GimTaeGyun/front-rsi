@@ -119,6 +119,13 @@ const DialogItemRegister = (props: {
                       카테고리별 매체
                     </Box>
                   </Box>
+                  <Box component="div" className="sub_multitable_title">
+                    <FormControlLabel
+                      className="sub_multitable_chk_label sub_multitable_selectall"
+                      label="전체"
+                      control={<Checkbox checked={false} />}
+                    />
+                  </Box>
                   <Box
                     component="div"
                     className="sub_multitable_body"
@@ -223,12 +230,12 @@ const DialogItemRegister = (props: {
                       <List>
                         <ListItem disablePadding>
                           <Tooltip
-                            title="Searchresult 1"
+                            title="보스니아 체르체고비나 공화국 조선 공화국 조선"
                             arrow
                             placement="bottom"
                           >
                             <FormControlLabel
-                              label="Searchresult 1"
+                              label="보스니아 체르체고비나 공화국 조선 공화국 조선"
                               control={<Checkbox checked={false} />}
                             />
                           </Tooltip>
@@ -381,28 +388,42 @@ const DialogItemRegister = (props: {
                   </Box>
                 </Grid>
                 <Grid item md={4} lg={4} xl={4}>
-                  <Box component="div" className="sub_multitable_title">
-                    <Box component="span" className="sub_multitable_header">
-                      선택된 매체{' '}
-                      <Box
-                        component="span"
-                        className="sub_multitable_headerinfo"
-                      >
-                        (14)
+                  <Box component="div" className="sub_multitable_lastouter">
+                    <Box component="div" className="sub_multitable_lastinner">
+                      <Box component="div" className="sub_multitable_title">
+                        <Box component="span" className="sub_multitable_header">
+                          선택된 매체{' '}
+                          <Box
+                            component="span"
+                            className="sub_multitable_headerinfo"
+                          >
+                            (14)
+                          </Box>
+                        </Box>
                       </Box>
+                      {true && (
+                        <List className="sub_multitable_list">
+                          <ListItem>
+                            <ListItemText primary="경향신문 (조간/중앙)" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="경향신문 (조간/중앙)" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="경향신문 (조간/중앙)" />
+                          </ListItem>
+                        </List>
+                      )}
+                      {false && (
+                        <Box
+                          component="div"
+                          className="sub_multitable_selectmedium"
+                        >
+                          매체를 선택해 주세요.
+                        </Box>
+                      )}
                     </Box>
                   </Box>
-                  <List className="sub_multitable_list">
-                    <ListItem>
-                      <ListItemText primary="경향신문 (조간/중앙)" />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText primary="경향신문 (조간/중앙)" />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText primary="경향신문 (조간/중앙)" />
-                    </ListItem>
-                  </List>
                 </Grid>
               </Grid>
             </Box>

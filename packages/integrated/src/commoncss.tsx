@@ -1722,11 +1722,13 @@ const css = createTheme({
           width: '100%',
           height: '450px',
           border: '1px solid #0000001F',
+          position: 'relative',
           '& .MuiGrid-root': {
             borderRight: '1px solid #0000001F',
           },
           '& .MuiGrid-root:last-child': {
             borderRight: 'unset',
+            position: 'relative',
           },
           '& .sub_multitable_title': {
             display: 'flex',
@@ -1766,20 +1768,79 @@ const css = createTheme({
             '& fieldset': {
               border: 'unset',
             },
+            '& .MuiInputBase-input': {
+              paddingLeft: '5px',
+            },
+          },
+          '& .sub_multitable_search_list': {
+            position: 'absolute',
+            width: '250px',
+            height: 'fit-content',
+            backgroundColor: '#fff',
+            zIndex: '999',
+            border: '1px solid #0000001F',
+            borderRadius: '0 0 6px 6px',
+            '& .MuiListItem-root': {
+              width: '100%',
+            },
+            '& .MuiListItem-root:hover': {
+              backgroundColor: '#00000014',
+            },
+            '& .MuiFormControlLabel-root': {
+              margin: '0',
+            },
+            '& .MuiTypography-root': {
+              color: '#000000DE',
+              fontSize: '12px',
+              fontFamily: 'NotoSansKRRegular',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '190px',
+            },
+          },
+          '& .sub_multitable_selectmedium': {
+            color: '#999999',
+            fontFamily: 'NotoSansKRRegular',
+            fontSize: '14px',
+            letterSpacing: '-0.35px',
+            textAlign: 'center',
+            width: '100%',
+            height: '415px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          '& .sub_multitable_selectall .MuiTypography-root': {
+            color: '#000000DE',
+            fontSize: '13px',
+            fontFamily: 'NotoSansKRMedium',
+            letterSpacing: '-0.33px',
+          },
+          '& .sub_multitable_lastouter': {
+            width: '249px',
+            height: '448px',
+            backgroundColor: '#F4F5F7',
+          },
+          '& .sub_multitable_lastinner': {
+            width: '244px',
+            height: '448px',
+            backgroundColor: '#fff',
+            marginLeft: '5px',
+            borderLeft: '1px solid #0000001F',
           },
           '& .sub_multitable_body': {
-            width: '100%',
+            width: '252px',
             overflowY: 'scroll',
             overflowX: 'hidden',
-
             '& .sub_multitable_summary.level1': {
-              paddingLeft: '35px',
+              paddingLeft: '34px',
             },
             '& .sub_multitable_summary.level2': {
-              paddingLeft: '70px',
+              paddingLeft: '68px',
             },
             '& .sub_multitable_summary.level3': {
-              paddingLeft: '105px',
+              paddingLeft: '103px',
             },
             '& .MuiAccordionSummary-content .MuiFormControlLabel-root': {
               margin: '0',
@@ -1846,10 +1907,12 @@ const css = createTheme({
             '& .MuiAccordionSummary-root': {
               padding: '0',
               minHeight: '35px',
+              height: '34px',
               color: '#000000DE',
               fontSize: '12px',
               fontFamily: 'NotoSansKRMedium',
               borderBottom: '1px solid #0000001F',
+              overflow: 'hidden',
             },
             '& .MuiAccordionSummary-root.level1 .sub_multitable_summary': {
               paddingLeft: '35px',
@@ -1859,15 +1922,16 @@ const css = createTheme({
               alignItems: 'center',
               justifyContent: 'center',
               width: '35px',
-              height: '42px',
+              height: '34px',
               textAlign: 'center',
               border: '1px solid #0000001F',
               borderTop: 'unset',
               borderBottom: 'unset',
+              transitionDuration: '0s!important',
             },
             '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
               width: '35px',
-              height: '42px',
+              height: '34px',
               borderTop: '1px',
               borderBottom: '1px',
             },
