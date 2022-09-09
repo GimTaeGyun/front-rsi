@@ -1857,8 +1857,10 @@ const css = createTheme({
               marginLeft: '0',
             },
             '& .sub_multitable_checkboxlist': {
+              overflow: 'hidden',
               '& .MuiListItem-root': {
                 borderBottom: '1px solid #0000001F',
+                height: '34px',
               },
               '&.level0': {
                 '& .MuiListItem-root': {
