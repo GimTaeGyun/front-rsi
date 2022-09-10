@@ -1651,6 +1651,22 @@ const css = createTheme({
           border: 'none !important',
           textDecoration: 'none',
         },
+        '& .rc-tree-checkbox': {
+          width: '16px !important',
+          height: '16px !important',
+          backgroundImage: 'url(/checkbox_unchecked.png) !important',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'auto',
+          backgroundPosition: 'center',
+        },
+        '& .rc-tree-checkbox.rc-tree-checkbox-checked': {
+          backgroundImage: 'url(/checkbox_checked.png) !important',
+          backgroundPosition: 'center !important',
+        },
+        '& .rc-tree-checkbox-indeterminate': {
+          backgroundImage: 'url(/checkbox_indeterminate.png) !important',
+          backgroundPosition: 'center !important',
+        },
         //드래그 시작시 css
         '& .rc-tree .rc-tree-treenode.dragging': {},
 
@@ -2023,6 +2039,11 @@ const css = createTheme({
                 fontSize: '14px',
                 borderBottom: '1px solid #0000001F',
               },
+              '& .sub_dialog_chk_row_wrapper': {
+                width: '100%',
+                maxHeight: '330px',
+                overflowY: 'scroll',
+              },
               '& .sub_dialog_chk_row': {
                 width: '100%',
                 height: '45px',
@@ -2070,6 +2091,7 @@ const css = createTheme({
             fontFamily: 'NotoSansKRRegular',
             lineHeight: '20px',
             letterSpacing: '-0.33px',
+            textAlign: 'center',
           },
           '& .sub_dialog_btn_upload': {
             width: '89px',

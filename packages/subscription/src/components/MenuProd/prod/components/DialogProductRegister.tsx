@@ -105,12 +105,14 @@ const DialogProductRegister = (props: {
                         </Box>
                       }
                     ></CardHeader>
-                    <Box component="div" className="sub_dialog_chk_row">
-                      <FormControlLabel
-                        className="sub_dialog_chk_row_frmlabel"
-                        label="EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사"
-                        control={<Checkbox disabled checked size="small" />}
-                      />
+                    <Box component="div" className="sub_dialog_chk_row_wrapper">
+                      <Box component="div" className="sub_dialog_chk_row">
+                        <FormControlLabel
+                          className="sub_dialog_chk_row_frmlabel"
+                          label="EyeSurfer / EyeSurfer NS / 개인 / 스크랩 / 조간신문 / 신탁사"
+                          control={<Checkbox disabled checked size="small" />}
+                        />
+                      </Box>
                     </Box>
                   </Card>
                 </Box>
