@@ -202,18 +202,10 @@ const GrpForm = (props: {
                   }}
                   error={dataValid.prdGrpNm}
                   className="sub_input_common sub_items_filter_input"
-                  sx={{
-                    marginTop: '12px !important',
-                    marginBottom: errorMargins + ' !important',
-                  }}
                 />
                 {dataValid.prdGrpNm && (
-                  <span>
-                    <FormHelperText
-                      error
-                      id="prdGrpNm-error"
-                      sx={{ marginTop: '0px', marginBottom: '3px' }}
-                    >
+                  <span className="sub_items_filter_error">
+                    <FormHelperText error id="prdGrpNm-error">
                       {validationMsg.prdGrpNm}
                     </FormHelperText>
                   </span>
@@ -286,21 +278,13 @@ const GrpForm = (props: {
                       : setItemTp(e.target.value);
                   }}
                   error={dataValid.itemTp}
-                  sx={{
-                    marginTop: '12px !important',
-                    marginBottom: errorMargins + ' !important',
-                  }}
                 >
                   <MenuItem value="SELECT">선택</MenuItem>
                   <MenuItem value="MEDIA">매체</MenuItem>
                 </Select>
                 {dataValid.itemTp && (
-                  <span>
-                    <FormHelperText
-                      error
-                      id="itemTp-error"
-                      sx={{ marginTop: '0', marginBottom: '3px' }}
-                    >
+                  <span className="sub_items_filter_error">
+                    <FormHelperText error id="itemTp-error">
                       {validationMsg.itemTp}
                     </FormHelperText>
                   </span>

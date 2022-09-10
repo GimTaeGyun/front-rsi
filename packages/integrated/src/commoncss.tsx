@@ -1426,11 +1426,12 @@ const css = createTheme({
           '& .sub_items_filter_row': {
             width: '100%',
             height: '56px',
-            display: 'flex',
+            display: 'flex !important',
             alignItems: 'center',
             justifyContent: 'space-between',
             borderBottom: '1px solid #eee',
             paddingRight: '10px',
+            position: 'relative',
           },
           '& .sub_items_filter_label': {
             marginLeft: '20px',
@@ -1443,6 +1444,11 @@ const css = createTheme({
             '@media (min-width: 1921px)': {
               width: '80%',
             },
+          },
+          '& .sub_items_filter_error': {
+            position: 'absolute',
+            right: '35px',
+            top: '15px',
           },
           '& .sub_items_filter_list': {
             width: '415px',
@@ -2154,9 +2160,9 @@ const css = createTheme({
           color: '#000000DE',
           fontFamily: 'NotoSansKRRegular',
         },
-        '& .MuiButtonBase-root.Mui-selected':{
-          backgroundColor:'#EBEBEB !important'
-        }
+        '& .MuiButtonBase-root.Mui-selected': {
+          backgroundColor: '#EBEBEB !important',
+        },
       },
     },
   },
