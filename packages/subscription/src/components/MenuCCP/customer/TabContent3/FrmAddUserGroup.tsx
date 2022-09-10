@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridColumnHeaderParams } from '@mui/x-data-grid';
 import { useAtom } from 'jotai';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 import {

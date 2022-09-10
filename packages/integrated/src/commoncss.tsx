@@ -2142,6 +2142,13 @@ const css = createTheme({
             padding: '0 30px',
           },
         },
+        '& .sub_table_sqr_small': {
+          minWidth: '23px !important',
+          width: '23px',
+          height: '23px',
+          padding: '0 !important',
+          margin: '0 4px !important',
+        },
       },
     },
   },

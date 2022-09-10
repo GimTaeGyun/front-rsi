@@ -10,10 +10,12 @@ import DataTableProd from './components/DataTableProd';
 import PrdGrpInfo from './components/PrdGrpInfo';
 import SidebarRcTree from './components/SidebarRcTree';
 import DialogProductRegister from './components/DialogProductRegister';
+import DialogGNBList from './components/DialogGNBList';
 
 const Prod = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-  const [showDialogRegister, setShowDialogRegister] = useState(true);
+  const [showDialogRegister, setShowDialogRegister] = useState(false);
+  const [showDialogGNBList, setShowDialogGNBList] = useState(true);
 
   return (
     <>
@@ -30,6 +32,14 @@ const Prod = () => {
               open={showDialogRegister}
               handleClose={() => {
                 setShowDialogRegister(!showDialogRegister);
+              }}
+            />
+          ) : undefined}
+          {showDialogGNBList ? (
+            <DialogGNBList
+              open={showDialogGNBList}
+              handleClose={() => {
+                setShowDialogGNBList(!showDialogGNBList);
               }}
             />
           ) : undefined}
