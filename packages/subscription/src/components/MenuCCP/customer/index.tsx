@@ -498,11 +498,11 @@ const Index = () => {
           <Card
             className={
               filterDropdown
-                ? 'sub_listpage_filter_dropdown_section'
-                : 'sub_listpage_filter_dropdown_section active'
+                ? 'sub_listpage_filter_dropdown_section full-length'
+                : 'sub_listpage_filter_dropdown_section full-length active'
             }
             sx={{
-              width: '1470px',
+              width: '1490px',
               zIndex: '1',
             }}
           >
