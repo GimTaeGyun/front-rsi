@@ -43,7 +43,7 @@ const GrpForm = (props: {
   const { selectGroupKey, setIsPost, isAdd } = props;
   const [prdGrpNm, setPrdGrpNm] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const [status, setStatus] = React.useState(1);
+  const [status, setStatus] = React.useState(0);
   const [itemTp, setItemTp] = React.useState('');
   const [dataValid, setDataValid] = React.useState(defaultFormValidation);
   const [errorMargin, setErrorMargin] = React.useState('12px');
@@ -66,7 +66,7 @@ const GrpForm = (props: {
     const api = async () => {
       if (isAdd) {
         setPrdGrpNm('');
-        setStatus(1);
+        setStatus(0);
         setDescription('');
       } else {
         const res = await axios.post(
@@ -253,6 +253,7 @@ const GrpForm = (props: {
                     setStatus(e.target.value as number);
                   }}
                 >
+                  <MenuItem value={0}>전체</MenuItem>
                   <MenuItem value={1}>사용가능</MenuItem>
                   <MenuItem value={-1}>사용불가</MenuItem>
                 </Select>
