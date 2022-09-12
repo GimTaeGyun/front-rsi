@@ -19,6 +19,7 @@ import {
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 import RcTreeList from '../components/RcTreeList';
 import MyDatePicker from '../../../Common/MyDatePicker';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 
 const DialogProductRegister = (props: {
   open: boolean;
@@ -137,7 +138,14 @@ const DialogProductRegister = (props: {
             <Box component="div" className="sub_dialog_input_outer mt-25">
               <InputLabel className="sub_dialog_formLabel">
                 상품 이미지 등록{' '}
-                <Typography className="sub_label_dot">•</Typography>
+                <Typography className="sub_label_dot">•</Typography>{' '}
+                <IconButton
+                  color="primary"
+                  component="label"
+                  sx={{ marginLeft: '6px' }}
+                >
+                  <HelpOutlineOutlinedIcon className="sub_dialog_icon_inquiry" />
+                </IconButton>
               </InputLabel>
               <List className="sub_dialog_upload_list">
                 <ListItem className="sub_dialog_upload_area">
@@ -191,6 +199,13 @@ const DialogProductRegister = (props: {
               <InputLabel className="sub_dialog_formLabel">
                 판매방식 설정{' '}
                 <Typography className="sub_label_dot">•</Typography>
+                <IconButton
+                  color="primary"
+                  component="label"
+                  sx={{ marginLeft: '6px' }}
+                >
+                  <HelpOutlineOutlinedIcon className="sub_dialog_icon_inquiry" />
+                </IconButton>
               </InputLabel>
               <Box component="div" className="sub_dialg_checkbox_list">
                 <FormControlLabel label="전체" control={<Checkbox />} />

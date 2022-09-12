@@ -2081,6 +2081,12 @@ const css = createTheme({
             },
           },
         },
+        '& .sub_dialog_icon_inquiry': {
+          '&.MuiSvgIcon-root': {
+            fontSize: '15px',
+            color: '#ABABAB',
+          },
+        },
         '& .sub_dialog_upload_list': {
           width: 'fit-content',
           display: 'flex',

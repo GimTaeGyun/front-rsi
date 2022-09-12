@@ -14,8 +14,8 @@ import DialogGNBList from './components/DialogGNBList';
 
 const Prod = () => {
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
-  const [showDialogRegister, setShowDialogRegister] = useState(false);
-  const [showDialogGNBList, setShowDialogGNBList] = useState(true);
+  const [showDialogRegister, setShowDialogRegister] = useState(true);
+  const [showDialogGNBList, setShowDialogGNBList] = useState(false);
 
   return (
     <>
