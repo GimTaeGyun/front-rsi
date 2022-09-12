@@ -663,7 +663,7 @@ const css = createTheme({
           },
         },
         '& .sub_btn_footer_save': {
-          width: '80px',
+          width: '70px',
           height: '30px',
           fontSize: '13px !important',
           padding: '0 !important',
