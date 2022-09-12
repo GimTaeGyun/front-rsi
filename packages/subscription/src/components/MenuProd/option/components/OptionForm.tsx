@@ -470,7 +470,7 @@ const OptionForm = (props: {
         <DialogContent sx={{ padding: '30px' }}>
           <Box>
             <InputLabel className="sub_formLabel">
-              이름 <Typography className="sub_cust_label_dot">•</Typography>{' '}
+              옵션명 <Typography className="sub_cust_label_dot">•</Typography>{' '}
             </InputLabel>
             <TextField
               fullWidth
