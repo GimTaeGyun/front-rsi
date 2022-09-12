@@ -141,6 +141,8 @@ const DialogItemRegister = (props: {
                         id="panel2a-header"
                       >
                         <FormControlLabel
+                          onClick={event => event.stopPropagation()}
+                          onFocus={event => event.stopPropagation()}
                           className="sub_multitable_chk_label"
                           label="Accordion 1"
                           control={
@@ -157,6 +159,8 @@ const DialogItemRegister = (props: {
                             id="panel2a-header"
                           >
                             <FormControlLabel
+                              onClick={event => event.stopPropagation()}
+                              onFocus={event => event.stopPropagation()}
                               className="sub_multitable_chk_label"
                               label="Accordion 1"
                               control={
@@ -176,6 +180,8 @@ const DialogItemRegister = (props: {
                             >
                               <ListItem disablePadding>
                                 <FormControlLabel
+                                  onClick={event => event.stopPropagation()}
+                                  onFocus={event => event.stopPropagation()}
                                   label="Child 1"
                                   control={
                                     <Checkbox
@@ -186,6 +192,8 @@ const DialogItemRegister = (props: {
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
+                                  onClick={event => event.stopPropagation()}
+                                  onFocus={event => event.stopPropagation()}
                                   label="Child 2"
                                   control={
                                     <Checkbox
@@ -196,6 +204,8 @@ const DialogItemRegister = (props: {
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
+                                  onClick={event => event.stopPropagation()}
+                                  onFocus={event => event.stopPropagation()}
                                   label="Child 3"
                                   control={
                                     <Checkbox
@@ -206,6 +216,8 @@ const DialogItemRegister = (props: {
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
+                                  onClick={event => event.stopPropagation()}
+                                  onFocus={event => event.stopPropagation()}
                                   label="Child 4"
                                   control={
                                     <Checkbox
@@ -216,6 +228,8 @@ const DialogItemRegister = (props: {
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
+                                  onClick={event => event.stopPropagation()}
+                                  onFocus={event => event.stopPropagation()}
                                   label="Child 5"
                                   control={
                                     <Checkbox
