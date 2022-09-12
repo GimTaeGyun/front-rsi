@@ -123,7 +123,9 @@ const DialogItemRegister = (props: {
                     <FormControlLabel
                       className="sub_multitable_chk_label sub_multitable_selectall"
                       label="전체"
-                      control={<Checkbox checked={false} />}
+                      control={
+                        <Checkbox onClick={evt => evt.stopPropagation()} />
+                      }
                     />
                   </Box>
                   <Box
@@ -141,7 +143,9 @@ const DialogItemRegister = (props: {
                         <FormControlLabel
                           className="sub_multitable_chk_label"
                           label="Accordion 1"
-                          control={<Checkbox checked={false} />}
+                          control={
+                            <Checkbox onClick={evt => evt.stopPropagation()} />
+                          }
                         />
                       </AccordionSummary>
                       <AccordionDetails>
@@ -155,7 +159,11 @@ const DialogItemRegister = (props: {
                             <FormControlLabel
                               className="sub_multitable_chk_label"
                               label="Accordion 1"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </AccordionSummary>
                           <AccordionDetails>
@@ -169,31 +177,51 @@ const DialogItemRegister = (props: {
                               <ListItem disablePadding>
                                 <FormControlLabel
                                   label="Child 1"
-                                  control={<Checkbox checked={false} />}
+                                  control={
+                                    <Checkbox
+                                      onClick={evt => evt.stopPropagation()}
+                                    />
+                                  }
                                 />
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
                                   label="Child 2"
-                                  control={<Checkbox checked={false} />}
+                                  control={
+                                    <Checkbox
+                                      onClick={evt => evt.stopPropagation()}
+                                    />
+                                  }
                                 />
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
                                   label="Child 3"
-                                  control={<Checkbox checked={false} />}
+                                  control={
+                                    <Checkbox
+                                      onClick={evt => evt.stopPropagation()}
+                                    />
+                                  }
                                 />
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
                                   label="Child 4"
-                                  control={<Checkbox checked={false} />}
+                                  control={
+                                    <Checkbox
+                                      onClick={evt => evt.stopPropagation()}
+                                    />
+                                  }
                                 />
                               </ListItem>
                               <ListItem disablePadding>
                                 <FormControlLabel
                                   label="Child 5"
-                                  control={<Checkbox checked={false} />}
+                                  control={
+                                    <Checkbox
+                                      onClick={evt => evt.stopPropagation()}
+                                    />
+                                  }
                                 />
                               </ListItem>
                             </List>
@@ -236,7 +264,11 @@ const DialogItemRegister = (props: {
                           >
                             <FormControlLabel
                               label="보스니아 체르체고비나 공화국 조선 공화국 조선"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </Tooltip>
                         </ListItem>
@@ -250,7 +282,11 @@ const DialogItemRegister = (props: {
                           >
                             <FormControlLabel
                               label="Searchresult 2"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </Tooltip>
                         </ListItem>
@@ -264,7 +300,11 @@ const DialogItemRegister = (props: {
                           >
                             <FormControlLabel
                               label="Searchresult 3"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </Tooltip>
                         </ListItem>
@@ -288,7 +328,9 @@ const DialogItemRegister = (props: {
                       >
                         <FormControlLabel
                           label="Accordion 1"
-                          control={<Checkbox checked={false} />}
+                          control={
+                            <Checkbox onClick={evt => evt.stopPropagation()} />
+                          }
                         />
                       </AccordionSummary>
                       <AccordionDetails>
@@ -302,31 +344,51 @@ const DialogItemRegister = (props: {
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 1"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 2"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 3"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 4"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 5"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                         </List>
@@ -341,7 +403,9 @@ const DialogItemRegister = (props: {
                       >
                         <FormControlLabel
                           label="Accordion 1"
-                          control={<Checkbox checked={false} />}
+                          control={
+                            <Checkbox onClick={evt => evt.stopPropagation()} />
+                          }
                         />
                       </AccordionSummary>
                       <AccordionDetails>
@@ -355,31 +419,51 @@ const DialogItemRegister = (props: {
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 1"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 2"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 3"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 4"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                           <ListItem disablePadding>
                             <FormControlLabel
                               label="Child 5"
-                              control={<Checkbox checked={false} />}
+                              control={
+                                <Checkbox
+                                  onClick={evt => evt.stopPropagation()}
+                                />
+                              }
                             />
                           </ListItem>
                         </List>
