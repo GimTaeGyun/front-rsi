@@ -494,6 +494,15 @@ const css = createTheme({
           justifyContent: 'stretch',
           paddingLeft: '20px',
           paddingRight: '10px',
+          '& .sub_items_btn_dropdown': {
+            border: '0 solid #000',
+            color: '#666',
+            fontSize: '14px ',
+            fontFamily: 'NotoSansKRRegular',
+            letterSpacing: '-0.35px',
+            paddingRight: '0',
+            marginRight: '8px',
+          },
         },
         '& .sub_listpage_filter_topsection_sub.last': {
           justifyContent: 'end',

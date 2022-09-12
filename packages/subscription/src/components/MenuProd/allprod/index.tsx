@@ -405,14 +405,18 @@ const AllProd = () => {
               >
                 <Button
                   variant="text"
-                  className="sub_filter_btn_iconlink"
+                  className="sub_items_btn_dropdown"
                   onClick={showDropdownList}
                 >
                   상세검색
                   <Box
-                    className="btn_add_icon"
                     component="img"
-                    src={filterDropdown ? '/icon_add.png' : '/icon_sub.png'}
+                    src={
+                      filterDropdown
+                        ? '/btn_dropdown.png'
+                        : '/btn_dropdown_down.png'
+                    }
+                    sx={{ marginLeft: '5px' }}
                   ></Box>
                 </Button>
                 <Button
