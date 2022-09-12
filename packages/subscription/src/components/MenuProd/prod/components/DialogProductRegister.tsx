@@ -391,7 +391,7 @@ const DialogProductRegister = (props: {
 
             <Box component="div" className="sub_dialog_input_outer mt-25">
               <InputLabel className="sub_dialog_formLabel">
-                상품 상태 <Typography className="sub_label_dot">•</Typography>
+                상품상태 <Typography className="sub_label_dot">•</Typography>
               </InputLabel>
               <Select
                 fullWidth={true}
