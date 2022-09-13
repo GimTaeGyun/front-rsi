@@ -64,15 +64,7 @@ const OptionForm = (props: {
   setIsUpp: Function;
   rowDeT: any;
 }) => {
-  const {
-    selectId,
-    open,
-    onClose,
-    changeDataGridUE,
-    isUpdate,
-    setIsUpp,
-    rowDeT,
-  } = props;
+  const { selectId, open, changeDataGridUE, isUpdate, rowDeT } = props;
   const [rows, setRows] = React.useState([
     {
       id: 0,
@@ -116,16 +108,6 @@ const OptionForm = (props: {
     operatorUnit: '+',
     itemVal: '',
   };
-
-  useEffect(() => {
-    if (isUpdate) {
-      setOperNm(rowDeT.optNm);
-      setOperator(rowDeT.optScope.value);
-      setTp(rowDeT.optTp.value);
-      setStatus(rowDeT.status.value);
-      setOpId(rowDeT.optId);
-    }
-  }, [isUpdate]);
 
   const defaultAlertPopup = {
     visible: true,
@@ -184,7 +166,7 @@ const OptionForm = (props: {
           message: '저장되었습니다.',
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
-            onClose(false);
+            props.onClose(false);
             changeDataGridUE();
           },
         })
@@ -193,7 +175,6 @@ const OptionForm = (props: {
           message: res.data.msg,
           leftCallback: () => {
             setAlertPopup({ ...alertPopup, visible: false });
-            onClose(false);
           },
         });
   };
@@ -236,6 +217,13 @@ const OptionForm = (props: {
           setOperUnitVal(operatorUnit.data.result.codeSetItems);
         };
         Api();
+      }
+      if (isUpdate) {
+        setOperNm(rowDeT.optNm);
+        setOperator(rowDeT.optScope.value);
+        setTp(rowDeT.optTp.value);
+        setStatus(rowDeT.status.value);
+        setOpId(rowDeT.optId);
       }
     }
   }, [open]);
@@ -445,9 +433,9 @@ const OptionForm = (props: {
   return (
     <Box component="div" sx={{ width: '700px' }}>
       <Dialog
-        open={!open}
+        open={open}
         onClose={() => {
-          onClose(false);
+          props.onClose(false);
         }}
         sx={{
           '& .MuiPaper-root': {
@@ -461,7 +449,7 @@ const OptionForm = (props: {
             color="primary"
             component="label"
             onClick={() => {
-              onClose(false);
+              props.onClose(false);
             }}
           >
             <CloseOutlined className="sub_dialog_icon_close" />
@@ -656,7 +644,7 @@ const OptionForm = (props: {
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
           <Button
             onClick={() => {
-              onClose(false);
+              props.onClose(false);
             }}
             sx={{ fontSize: '14px' }}
             className="sub_button_white_none"
