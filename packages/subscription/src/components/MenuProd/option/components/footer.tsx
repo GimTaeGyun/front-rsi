@@ -16,6 +16,7 @@ export const Footer = (props: {
   onClickOpen: Function;
   setIsUpp: Function;
   rowDeT: Object;
+  deletAll: Function;
 }) => {
   const { open, isUpdate, setIsUpp, rowDeT } = props;
 
@@ -69,6 +70,9 @@ export const Footer = (props: {
           <Button
             variant="outlined"
             className="sub_btn_primary_outline_common sub_btn_footer_save"
+            onClick={() => {
+              props.deletAll();
+            }}
           >
             옵션 삭제
           </Button>

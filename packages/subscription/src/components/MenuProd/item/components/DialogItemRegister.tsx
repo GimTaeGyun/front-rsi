@@ -24,6 +24,7 @@ import {
 } from '@mui/material';
 import DialogFormTemplate from '../../../Common/DialogFormTemplate';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { axios } from '../../../../utils/axios';
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -63,9 +64,15 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 const DialogItemRegister = (props: {
   open: boolean;
   handleClose: Function;
+  statusValue: any;
+  chooseVal: any;
 }) => {
+  const { chooseVal } = props;
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
   const [searchResult, setSearchResult] = React.useState(false);
+  const [itemNm, setItemNm] = React.useState('');
+  const [cost, setCost] = React.useState('');
+  const [status, setStatus] = React.useState('');
 
   /*
   const handleChange =
@@ -74,12 +81,19 @@ const DialogItemRegister = (props: {
       setExpanded(newExpanded ? panel : false);
     };
     */
+  console.log(
+    chooseVal.group.childrens.map((item: any) => {
+      return item;
+    }),
+  );
 
   return (
     <>
       <DialogFormTemplate
         open={props.open}
-        handleClose={props.handleClose}
+        handleClose={() => {
+          props.handleClose(false);
+        }}
         title="아이템 등록"
         width="810px"
         height="923px"
@@ -91,8 +105,11 @@ const DialogItemRegister = (props: {
               </InputLabel>
               <OutlinedInput
                 fullWidth
-                value="아이템명을 입력해 주세요."
-                placeholder=""
+                value={itemNm}
+                onChange={e => {
+                  setItemNm(e.target.value);
+                }}
+                placeholder="아이템명을 입력해 주세요."
                 className="sub_input_common sub_card_dialog_input"
                 readOnly
               />
@@ -103,8 +120,11 @@ const DialogItemRegister = (props: {
               </InputLabel>
               <OutlinedInput
                 fullWidth
-                value="200,000"
-                placeholder=""
+                value={cost}
+                onChange={e => {
+                  setCost(e.target.value);
+                }}
+                placeholder="단위가격을 입력해 주세요."
                 className="sub_input_common sub_card_dialog_input"
               />
             </Box>
@@ -133,6 +153,29 @@ const DialogItemRegister = (props: {
                     className="sub_multitable_body"
                     sx={{ maxHeight: '405px' }}
                   >
+                    <Accordion className="sub_multitable_accordion_wrapper level0">
+                      {chooseVal.group.childrens.map((item: any) => {
+                        <AccordionSummary
+                          className="sub_multitable_summary level0"
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <FormControlLabel
+                            onClick={event => event.stopPropagation()}
+                            onFocus={event => event.stopPropagation()}
+                            className="sub_multitable_chk_label"
+                            label={item.medCatNm}
+                            control={
+                              <Checkbox
+                                onClick={evt => evt.stopPropagation()}
+                              />
+                            }
+                          />
+                        </AccordionSummary>;
+                      })}
+                    </Accordion>
+                    {/* 
                     <Accordion className="sub_multitable_accordion_wrapper level0">
                       <AccordionSummary
                         className="sub_multitable_summary level0"
@@ -243,6 +286,7 @@ const DialogItemRegister = (props: {
                         </Accordion>
                       </AccordionDetails>
                     </Accordion>
+                     */}
                   </Box>
                 </Grid>
                 <Grid item md={4} lg={4} xl={4}>
@@ -531,10 +575,15 @@ const DialogItemRegister = (props: {
               </InputLabel>
               <Select
                 fullWidth={true}
-                value="사용가능"
+                value={status}
+                onChange={e => {
+                  setStatus(e.target.value);
+                }}
                 className="sub_select_common sub_card_formcontrol_list"
               >
-                <MenuItem value="사용가능">사용가능</MenuItem>
+                {props.statusValue.map((item: any) => (
+                  <MenuItem value={item.value}>{item.label}</MenuItem>
+                ))}
               </Select>
             </Box>
           </>
@@ -544,7 +593,7 @@ const DialogItemRegister = (props: {
             <Button
               className="sub_button_white_none"
               onClick={() => {
-                props.handleClose();
+                props.handleClose(false);
               }}
             >
               취소

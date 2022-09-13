@@ -39,7 +39,6 @@ const Items = () => {
   const [changeDataGrid, setChangeDataGrid] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [uppId, setUppId] = useState('');
-  const [showDialogItemRegister, setShowDialogItemRegister] = useState(true);
   const [total, setTotal] = useState(0);
 
   const changeDataGridUE = () => {
@@ -52,7 +51,7 @@ const Items = () => {
         '/management/manager/product/item/group/detail/inquiry',
         {
           itemNm: '',
-          itemStatus: [32767],
+          itemStatus: [32767, 1, -1],
           prdItemgrpId: selectGroupKey ? selectGroupKey : 0,
         },
       );
@@ -154,14 +153,6 @@ const Items = () => {
               rightButtonText={alertPopup.rightText}
               rightCallback={alertPopup.rightCallback}
               leftCallback={alertPopup.leftCallback}
-            />
-          ) : undefined}
-          {showDialogItemRegister ? (
-            <DialogItemRegister
-              open={showDialogItemRegister}
-              handleClose={() => {
-                setShowDialogItemRegister(!showDialogItemRegister);
-              }}
             />
           ) : undefined}
           <Box
