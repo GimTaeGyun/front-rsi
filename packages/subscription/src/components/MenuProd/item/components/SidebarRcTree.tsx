@@ -308,7 +308,7 @@ const SidebarRcTree = (props: {
             setAlertPopup({ ...alertPopup, visible: false });
             setIsDel(false);
           },
-          message: '지정된 그룹을 삭제 하시겠습니까?',
+          message: '선택한 그룹을 삭제 하시겠습니까?',
           leftText: '확인',
           rightText: '취소',
         });
