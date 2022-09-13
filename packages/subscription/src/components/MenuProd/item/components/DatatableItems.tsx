@@ -119,10 +119,21 @@ const DatatableItems = (props: {
   const [rowNull, setRowNull] = React.useState(Boolean);
   const [openAdd, setOpenAdd] = React.useState(false);
   const [openUpd, setOpenUpd] = React.useState(false);
+  const [chooseVal, setChooseVal] = React.useState(Object);
 
   React.useEffect(() => {
     rows[0] ? setRowNull(false) : setRowNull(true);
   }, [rows]);
+
+  React.useEffect(() => {
+    const api = async () => {
+      const res = await axios.post('/management/common/media/inquiry', {
+        medCatId: 0,
+      });
+      setChooseVal(res.data.result);
+    };
+    api();
+  }, []);
 
   const defaultAlertPopup = {
     visible: true,
@@ -134,6 +145,8 @@ const DatatableItems = (props: {
     rightText: '',
     message: '',
   };
+
+  console.log(chooseVal);
 
   const select = (data: any) => {
     setSelectModel(data);
@@ -217,7 +230,16 @@ const DatatableItems = (props: {
           },
         }}
       />
-      <DialogItemRegister open={openAdd} handleClose={OpenAddSet} />
+      {openAdd ? (
+        <DialogItemRegister
+          open={openAdd}
+          chooseVal={chooseVal}
+          handleClose={OpenAddSet}
+          statusValue={statusValue}
+        />
+      ) : (
+        <></>
+      )}
       <ItemUpdatePopup open={openUpd} handleClose={OpenUpdSet} />
     </div>
   );

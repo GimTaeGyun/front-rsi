@@ -144,55 +144,24 @@ const OptionForm = (props: {
   };
 
   const onClickAdd = async () => {
-    const valid = {
-      operNm: !(await validationSchema.fields.operNm.isValid(operNm)),
-      tp: !(await validationSchema.fields.tp.isValid(tp)),
-      opItem: opItemT,
-      ItemNum: itemNumT,
-    };
-    setDataValid(valid);
-
-    const param = isUpdate
-      ? {
-          actor: localStorage.getItem('usrId'),
-          dataset: [
-            {
-              description: '',
-              optCatId: Number(selectId),
-              optId: opId,
-              optItems: postRows,
-              optNm: operNm,
-              optScope: operator,
-              optTp: tp,
-              sort: 1,
-              status: Number(status),
-            },
-          ],
-          paramType: 'mod',
-        }
-      : {
-          actor: localStorage.getItem('usrId'),
-          dataset: [
-            {
-              description: '',
-              optCatId: Number(selectId),
-              optId: null,
-              optItems: postRows,
-              optNm: operNm,
-              optScope: operator,
-              optTp: tp,
-              sort: 1,
-              status: Number(status),
-            },
-          ],
-          paramType: 'add',
-        };
-    if (
-      dataValid.ItemNum &&
-      dataValid.opItem &&
-      dataValid.operNm &&
-      dataValid.tp
-    ) {
+    if (isUpdate) {
+      const param = {
+        actor: localStorage.getItem('usrId'),
+        dataset: [
+          {
+            description: '',
+            optCatId: Number(selectId),
+            optId: opId,
+            optItems: postRows,
+            optNm: operNm,
+            optScope: operator,
+            optTp: tp,
+            sort: 1,
+            status: Number(status),
+          },
+        ],
+        paramType: 'mod',
+      };
       const res = await axios.post(
         '/management/manager/option/product/update',
         param,
@@ -219,6 +188,64 @@ const OptionForm = (props: {
               setOpItemT(false);
             },
           });
+    } else {
+      const param = {
+        actor: localStorage.getItem('usrId'),
+        dataset: [
+          {
+            description: '',
+            optCatId: Number(selectId),
+            optId: opId,
+            optItems: postRows,
+            optNm: operNm,
+            optScope: operator,
+            optTp: tp,
+            sort: 1,
+            status: Number(status),
+          },
+        ],
+        paramType: 'add',
+      };
+      const valid = {
+        operNm: !(await validationSchema.fields.operNm.isValid(operNm)),
+        tp: !(await validationSchema.fields.tp.isValid(tp)),
+        opItem: opItemT,
+        ItemNum: itemNumT,
+      };
+      setDataValid(valid);
+      if (
+        !dataValid.ItemNum &&
+        !dataValid.opItem &&
+        !dataValid.opItem &&
+        !dataValid.ItemNum
+      ) {
+        const res = await axios.post(
+          '/management/manager/option/product/update',
+          param,
+        );
+        res.data.code === '0000'
+          ? setAlertPopup({
+              ...defaultAlertPopup,
+              message: '저장되었습니다.',
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+                props.onClose(false);
+                props.setIsUpp(false);
+                setItemNumT(false);
+                setOpItemT(false);
+                changeDataGridUE();
+              },
+            })
+          : setAlertPopup({
+              ...defaultAlertPopup,
+              message: res.data.msg,
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+                setItemNumT(false);
+                setOpItemT(false);
+              },
+            });
+      }
     }
   };
 
@@ -598,10 +625,10 @@ const OptionForm = (props: {
             <Select
               fullWidth
               id="category"
-              value={tp}
+              value={tp ? tp : 'SELECT'}
               error={dataValid.tp}
               onChange={e => {
-                setTp(e.target.value);
+                setTp(e.target.value === 'SELECT' ? '' : e.target.value);
               }}
               name="category"
               className="sub_select_form"
@@ -610,6 +637,7 @@ const OptionForm = (props: {
               {tpVal.map((item: any) => (
                 <MenuItem value={item.value}>{item.label}</MenuItem>
               ))}
+              <MenuItem value="SELECT">선택</MenuItem>
             </Select>
             {dataValid.tp && (
               <span>
