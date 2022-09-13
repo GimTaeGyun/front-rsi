@@ -146,7 +146,7 @@ const GrpForm = (props: {
             setAlertPopup({ ...alertPopup, visible: false });
             setIsPost(false);
           },
-          message: '저장되었습니다.',
+          message: '아이템 그룹 등록이 완료되었습니다.',
           leftText: '확인',
         });
       } else {
