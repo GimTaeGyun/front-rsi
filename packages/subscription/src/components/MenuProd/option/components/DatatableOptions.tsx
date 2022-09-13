@@ -133,7 +133,6 @@ const DatatableOptions = (props: {
   selectId: any;
 }) => {
   const { rows, changeDataGridUE, statusValue, selectId } = props;
-
   const [selectModel, setSelectModel] = React.useState(Array);
   const [status, setStatus] = React.useState('32767');
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
@@ -141,6 +140,7 @@ const DatatableOptions = (props: {
   const [rowDeT, setRowDeT] = React.useState(Object);
   const [open, setOpen] = React.useState(false);
   const [isUpdate, setIsUpdate] = React.useState(false);
+  const [delMod, setDelMod] = React.useState(Array);
 
   React.useEffect(() => {
     rows[0] ? setRowNull(false) : setRowNull(true);
@@ -169,6 +169,32 @@ const DatatableOptions = (props: {
     setStatus(data);
   };
 
+  React.useEffect(() => {
+    const delet = () => {
+      setDelMod([]);
+      let row = [] as any;
+      selectModel.map(async (item: any) => {
+        const res = await axios.post(
+          '/management/manager/option/item/inquiry',
+          {
+            optId: item,
+          },
+        );
+        row.push({
+          optCatId: selectId,
+          optId: res.data.result.optId,
+          optNm: res.data.result.optNm,
+          optScope: res.data.result.optScope.value,
+          optTp: res.data.result.optTp.value,
+          sort: 1,
+          status: res.data.result.status.value,
+        });
+      });
+      setDelMod(row);
+    };
+    delet();
+  }, [selectModel]);
+
   const onClickCell = async (data: any) => {
     if (data.field !== '__check__') {
       const res = await axios.post('/management/manager/option/item/inquiry', {
@@ -180,7 +206,37 @@ const DatatableOptions = (props: {
     }
   };
 
-  console.log(rowDeT);
+  const deletAll = async () => {
+    const param = {
+      actor: 'user_adm1',
+      dataset: delMod,
+      paramType: 'del',
+    };
+    const res = await axios.post(
+      '/management/manager/option/product/update',
+      param,
+    );
+    if (res.data.code === '0000') {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+          changeDataGridUE();
+        },
+        message: '삭제되었습니다.',
+        leftText: '확인',
+      });
+    } else {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+        },
+        message: res.data.msg,
+        leftText: '확인',
+      });
+    }
+  };
 
   const statusChangeArray = async () => {
     if (selectModel[0]) {
@@ -228,8 +284,6 @@ const DatatableOptions = (props: {
     }
   };
 
-  console.log(open);
-
   const onClickOpen = (data: boolean) => {
     setOpen(data);
   };
@@ -266,6 +320,7 @@ const DatatableOptions = (props: {
                   onClickOpen={onClickOpen}
                   setIsUpp={changeIsUp}
                   rowDeT={rowDeT}
+                  deletAll={deletAll}
                 />
               );
             },

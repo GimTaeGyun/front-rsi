@@ -17,7 +17,9 @@ import React from 'react';
 
 import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
+import DialogItemRegister from './DialogItemRegister';
 import { Footer } from './footer';
+import ItemUpdatePopup from './ItemUpdatePopup';
 
 const columns: GridColDef[] = [
   {
@@ -115,6 +117,8 @@ const DatatableItems = (props: {
   const [status, setStatus] = React.useState('32767');
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [rowNull, setRowNull] = React.useState(Boolean);
+  const [openAdd, setOpenAdd] = React.useState(false);
+  const [openUpd, setOpenUpd] = React.useState(false);
 
   React.useEffect(() => {
     rows[0] ? setRowNull(false) : setRowNull(true);
@@ -137,6 +141,14 @@ const DatatableItems = (props: {
 
   const statusChange = (data: any) => {
     setStatus(data);
+  };
+
+  const OpenAddSet = (data: any) => {
+    setOpenAdd(data);
+  };
+
+  const OpenUpdSet = (data: any) => {
+    setOpenUpd(data);
   };
 
   const statusChangeArray = async () => {
@@ -176,13 +188,14 @@ const DatatableItems = (props: {
   };
 
   return (
-    <div style={{ height: '426px', width: '100%' }}>
+    <div style={{ width: '100%' }}>
       <DataGridPro
         className="sub_tbl_outer_common"
         headerHeight={57}
         disableSelectionOnClick
         rowHeight={52}
         rows={rows ? rows : []}
+        sx={{ height: '426px' }}
         columns={columns}
         pagination={true}
         rowCount={rows.length}
@@ -197,11 +210,15 @@ const DatatableItems = (props: {
                 postStatus={statusChangeArray}
                 statusChange={statusChange}
                 status={status}
+                openAdd={OpenAddSet}
+                openUpd={OpenUpdSet}
               />
             );
           },
         }}
       />
+      <DialogItemRegister open={openAdd} handleClose={OpenAddSet} />
+      <ItemUpdatePopup open={openUpd} handleClose={OpenUpdSet} />
     </div>
   );
 };

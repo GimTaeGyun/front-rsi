@@ -79,7 +79,9 @@ const DialogItemRegister = (props: {
     <>
       <DialogFormTemplate
         open={props.open}
-        handleClose={props.handleClose}
+        handleClose={() => {
+          props.handleClose(false);
+        }}
         title="아이템 등록"
         width="810px"
         height="923px"
@@ -544,7 +546,7 @@ const DialogItemRegister = (props: {
             <Button
               className="sub_button_white_none"
               onClick={() => {
-                props.handleClose();
+                props.handleClose(false);
               }}
             >
               취소

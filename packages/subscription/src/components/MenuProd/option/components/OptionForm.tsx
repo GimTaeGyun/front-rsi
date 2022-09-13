@@ -84,10 +84,15 @@ const OptionForm = (props: {
   const [postRows, setPostRows] = useState(Array<Object>);
   const [alertPopup, setAlertPopup] = useAtom(AlertPopupData);
   const [opId, setOpId] = useState(Number);
+  const [opItemT, setOpItemT] = useState(false);
+  const [itemNumT, setItemNumT] = useState(false);
   const [dataValid, setDataValid] = useState(defaultFormValidation);
+  const [delAler, setDelAler] = useState(false);
   const ref = React.useRef(1);
 
   useEffect(() => {
+    setOpItemT(false);
+    setItemNumT(false);
     let rowData = rows;
     const post = rowData.map((item: any) => {
       return {
@@ -100,7 +105,25 @@ const OptionForm = (props: {
       };
     });
     setPostRows(post);
+    rows.map((item: any) => {
+      item.itemNm === '' ? setOpItemT(true) : '';
+      item.itemVal === '' ? setItemNumT(true) : '';
+    });
   }, [rows]);
+
+  useEffect(() => {
+    if (delAler === true) {
+      setAlertPopup({
+        ...defaultAlertPopup,
+        leftCallback: () => {
+          setAlertPopup({ ...alertPopup, visible: false });
+          setDelAler(false);
+        },
+        message: '삭제 하였습니다.',
+        leftText: '확인',
+      });
+    }
+  }, [delAler]);
 
   const defaultows = {
     id: ref.current,
@@ -121,6 +144,14 @@ const OptionForm = (props: {
   };
 
   const onClickAdd = async () => {
+    const valid = {
+      operNm: !(await validationSchema.fields.operNm.isValid(operNm)),
+      tp: !(await validationSchema.fields.tp.isValid(tp)),
+      opItem: opItemT,
+      ItemNum: itemNumT,
+    };
+    setDataValid(valid);
+
     const param = isUpdate
       ? {
           actor: localStorage.getItem('usrId'),
@@ -156,30 +187,45 @@ const OptionForm = (props: {
           ],
           paramType: 'add',
         };
-    const res = await axios.post(
-      '/management/manager/option/product/update',
-      param,
-    );
-    res.data.code === '0000'
-      ? setAlertPopup({
-          ...defaultAlertPopup,
-          message: '저장되었습니다.',
-          leftCallback: () => {
-            setAlertPopup({ ...alertPopup, visible: false });
-            props.onClose(false);
-            changeDataGridUE();
-          },
-        })
-      : setAlertPopup({
-          ...defaultAlertPopup,
-          message: res.data.msg,
-          leftCallback: () => {
-            setAlertPopup({ ...alertPopup, visible: false });
-          },
-        });
+    if (
+      dataValid.ItemNum &&
+      dataValid.opItem &&
+      dataValid.operNm &&
+      dataValid.tp
+    ) {
+      const res = await axios.post(
+        '/management/manager/option/product/update',
+        param,
+      );
+      res.data.code === '0000'
+        ? setAlertPopup({
+            ...defaultAlertPopup,
+            message: '저장되었습니다.',
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+              props.onClose(false);
+              props.setIsUpp(false);
+              setItemNumT(false);
+              setOpItemT(false);
+              changeDataGridUE();
+            },
+          })
+        : setAlertPopup({
+            ...defaultAlertPopup,
+            message: res.data.msg,
+            leftCallback: () => {
+              setAlertPopup({ ...alertPopup, visible: false });
+              setItemNumT(false);
+              setOpItemT(false);
+            },
+          });
+    }
   };
 
   useEffect(() => {
+    setDataValid(defaultFormValidation);
+    setOpItemT(false);
+    setItemNumT(false);
     if (open === true) {
       if (!operatorVal[0] || !tpVal[0] || !statusVal[0] || !operUnitVal[0]) {
         const Api = async () => {
@@ -224,6 +270,32 @@ const OptionForm = (props: {
         setTp(rowDeT.optTp.value);
         setStatus(rowDeT.status.value);
         setOpId(rowDeT.optId);
+        let rowDeTs = rowDeT.optList.dataRows;
+
+        const rowrow = rowDeTs.map((item: any) => {
+          return {
+            id: item.optId,
+            itemNm: item.itemNm,
+            operatorUnit: item.operatorUnit.value,
+            itemVal: item.itemVal.toString(),
+          };
+        });
+
+        setRows(rowrow);
+      } else {
+        setOperNm('');
+        setOperator('PRD');
+        setTp('DATE');
+        setStatus('1');
+        setOpId(0);
+        setRows([
+          {
+            id: 0,
+            itemNm: '',
+            operatorUnit: '+',
+            itemVal: '',
+          },
+        ]);
       }
     }
   }, [open]);
@@ -406,15 +478,28 @@ const OptionForm = (props: {
       renderCell: (params: GridRenderCellParams<string>) => (
         <Button
           onClick={() => {
-            let row = rows;
-            const delet = row.filter((item: any) => {
-              if (item.id !== params.row.id) {
-                return true;
-              } else {
-                return false;
-              }
+            setAlertPopup({
+              ...defaultAlertPopup,
+              leftCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+                let row = rows;
+                const delet = row.filter((item: any) => {
+                  if (item.id !== params.row.id) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                });
+                setRows(delet);
+                setDelAler(true);
+              },
+              rightCallback: () => {
+                setAlertPopup({ ...alertPopup, visible: false });
+              },
+              message: '해당 리스트를 삭제하시겠습니까?',
+              leftText: '확인',
+              rightText: '취소',
             });
-            setRows(delet);
           }}
           sx={{
             color: '#666666',
@@ -436,6 +521,7 @@ const OptionForm = (props: {
         open={open}
         onClose={() => {
           props.onClose(false);
+          props.setIsUpp(false);
         }}
         sx={{
           '& .MuiPaper-root': {
@@ -450,6 +536,7 @@ const OptionForm = (props: {
             component="label"
             onClick={() => {
               props.onClose(false);
+              props.setIsUpp(false);
             }}
           >
             <CloseOutlined className="sub_dialog_icon_close" />
@@ -645,6 +732,7 @@ const OptionForm = (props: {
           <Button
             onClick={() => {
               props.onClose(false);
+              props.setIsUpp(false);
             }}
             sx={{ fontSize: '14px' }}
             className="sub_button_white_none"

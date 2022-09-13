@@ -73,10 +73,10 @@ const Option = () => {
 
   const onClickSearchItem = async (searchItemNm: any, postStatus: any) => {
     const res = await axios.post(
-      '/management/manager/product/item/group/detail/inquiry',
+      '/management/manager/option/category/search/inquiry',
       {
         searchValue: searchItemNm ? searchItemNm : '',
-        status: [postStatus],
+        status: postStatus === 32767 ? [32767, 1, -1] : [postStatus],
         grpId: selectGroupKey ? selectGroupKey : 0,
       },
     );
@@ -85,7 +85,7 @@ const Option = () => {
       res.data.result.itemList.dataRows.map((item: any) => {
         const row = {
           ...item,
-          id: item.itemId,
+          id: item.optId,
         };
         arr.push(row);
       });

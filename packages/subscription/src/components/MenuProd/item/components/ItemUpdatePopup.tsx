@@ -26,11 +26,14 @@ const MenuItem = styled(MuiMenuItem)({
   },
 });
 
-const PrdUpdatePopup = () => {
+const PrdUpdatePopup = (props: { open: any; handleClose: Function }) => {
   return (
     <Box component="div" sx={{ width: '500px' }}>
       <Dialog
-        open={true}
+        open={props.open}
+        onClose={() => {
+          props.handleClose(false);
+        }}
         sx={{
           '& .MuiPaper-root': {
             minWidth: '500px',
@@ -96,7 +99,13 @@ const PrdUpdatePopup = () => {
         </DialogContent>
         <Divider />
         <DialogActions sx={{ justifyContent: 'center', padding: '16px 0' }}>
-          <Button sx={{ fontSize: '14px' }} className="sub_button_white_none">
+          <Button
+            sx={{ fontSize: '14px' }}
+            className="sub_button_white_none"
+            onClick={() => {
+              props.handleClose(false);
+            }}
+          >
             취소
           </Button>
           <Button

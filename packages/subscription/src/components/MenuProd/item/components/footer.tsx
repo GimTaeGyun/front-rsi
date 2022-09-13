@@ -7,6 +7,8 @@ export const Footer = (props: {
   statusValue: any;
   status: any;
   rowNull: boolean;
+  openAdd: Function;
+  openUpd: Function;
 }) => {
   return (
     <Box className="sub_pagination_wrapper" component="div">
@@ -63,12 +65,18 @@ export const Footer = (props: {
         <Button
           variant="outlined"
           className="sub_btn_primary_outline_common sub_btn_footer_save"
+          onClick={() => {
+            props.openUpd(true);
+          }}
         >
           아이템 수정
         </Button>
         <Button
           variant="contained"
           className="sub_btn_primary_fill_common sub_btn_footer_save"
+          onClick={() => {
+            props.openAdd(true);
+          }}
         >
           아이템 등록
         </Button>
