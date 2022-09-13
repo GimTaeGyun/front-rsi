@@ -168,7 +168,7 @@ const GrpForm = (props: {
   return (
     <Card
       className="sub_items_filter_card"
-      sx={{ marginBottom: '20px', maxHeight: '323px' }}
+      sx={{ marginBottom: '20px', minHeight: '232px' }}
     >
       <Box>
         <CardHeader
@@ -184,106 +184,88 @@ const GrpForm = (props: {
         sx={{ padding: '0 !important' }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={0}>
-            <Grid item xs={6} md={6} lg={6}>
-              <Box
-                component="div"
-                className="sub_items_filter_row"
-                sx={{ display: '-webkit-box !important' }}
-              >
+          <Grid container spacing={0} alignItems="stretch">
+            <Grid item xs={6} md={6} lg={6} className="sub_items_filter_outer">
+              <Box component="div" className="sub_items_filter_row">
                 <Box component="div" className="sub_items_filter_label">
                   그룹명{' '}
                   <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
-                <OutlinedInput
-                  fullWidth={false}
-                  placeholder="그룹명을 입력해 주세요."
-                  value={prdGrpNm ? prdGrpNm : ''}
-                  onChange={e => {
-                    setPrdGrpNm(e.target.value);
-                  }}
-                  error={dataValid.prdGrpNm}
-                  className="sub_input_common sub_items_filter_input"
-                  sx={{
-                    marginTop: '12px !important',
-                    marginBottom: errorMargins + ' !important',
-                  }}
-                />
-                {dataValid.prdGrpNm && (
-                  <span>
-                    <FormHelperText
-                      error
-                      id="prdGrpNm-error"
-                      sx={{ marginTop: '0px', marginBottom: '3px' }}
-                    >
-                      {validationMsg.prdGrpNm}
-                    </FormHelperText>
-                  </span>
-                )}
+                <Box component="div" className="sub_items_filter_input_wrapper">
+                  <OutlinedInput
+                    fullWidth={false}
+                    placeholder="그룹명을 입력해 주세요."
+                    value={prdGrpNm ? prdGrpNm : ''}
+                    onChange={e => {
+                      setPrdGrpNm(e.target.value);
+                    }}
+                    error={dataValid.prdGrpNm}
+                    className="sub_input_common sub_items_filter_input"
+                  />
+                  {dataValid.prdGrpNm && (
+                    <span className="sub_items_filter_error">
+                      <FormHelperText error id="prdGrpNm-error">
+                        {validationMsg.prdGrpNm}
+                      </FormHelperText>
+                    </span>
+                  )}
+                </Box>
               </Box>
             </Grid>
-            <Grid item xs={6} md={6} lg={6}>
+            <Grid item xs={6} md={6} lg={6} className="sub_items_filter_outer">
               <Box component="div" className="sub_items_filter_row">
                 <Box component="div" className="sub_items_filter_label">
                   그룹 설명{' '}
                 </Box>
-                <OutlinedInput
-                  fullWidth={false}
-                  placeholder="그룹 설명을 입력해 주세요."
-                  value={description ? description : ''}
-                  sx={{
-                    marginTop: '12px !important',
-                    marginBottom: errorMargin + ' !important',
-                  }}
-                  className="sub_input_common sub_items_filter_input"
-                  onChange={e => {
-                    setDescription(e.target.value);
-                  }}
-                />
+                <Box component="div" className="sub_items_filter_input_wrapper">
+                  <OutlinedInput
+                    fullWidth={false}
+                    placeholder="그룹 설명을 입력해 주세요."
+                    value={description ? description : ''}
+                    className="sub_input_common sub_items_filter_input"
+                    onChange={e => {
+                      setDescription(e.target.value);
+                    }}
+                  />
+                </Box>
               </Box>
             </Grid>
           </Grid>
 
-          <Grid container spacing={0}>
-            <Grid item xs={6} md={6} lg={6}>
+          <Grid container spacing={0} alignItems="stretch">
+            <Grid item xs={6} md={6} lg={6} className="sub_items_filter_outer">
               <Box component="div" className="sub_items_filter_row">
                 <Box component="div" className="sub_items_filter_label">
                   그룹 상태{' '}
                   <Typography className="sub_cust_label_dot">•</Typography>{' '}
                 </Box>
-                <Select
-                  fullWidth={false}
-                  value={status}
-                  sx={{
-                    marginTop: '12px !important',
-                    marginBottom: errorMargin + ' !important',
-                  }}
-                  className="sub_select_common sub_items_filter_list"
-                  onChange={e => {
-                    setStatus(Number(e.target.value));
-                  }}
-                >
-                  {statusValue.map((item: any) => (
-                    <MenuItem value={item.value}>{item.label}</MenuItem>
-                  ))}
-                </Select>
+                <Box component="div" className="sub_items_filter_list_wrapper">
+                  <Select
+                    fullWidth={false}
+                    value={status}
+                    className="sub_select_common sub_items_filter_list"
+                    onChange={e => {
+                      setStatus(Number(e.target.value));
+                    }}
+                  >
+                    {statusValue.map((item: any) => (
+                      <MenuItem value={item.value}>{item.label}</MenuItem>
+                    ))}
+                  </Select>
+                </Box>
               </Box>
             </Grid>
-            <Grid item xs={6} md={6} lg={6}>
-              <Box
-                component="div"
-                className="sub_items_filter_row"
-                sx={{ display: '-webkit-box !important' }}
-              >
-                {!dataValid.prdGrpNm ? (
-                  <Box sx={{ height: '60px' }} />
-                ) : (
-                  <Box sx={{ height: '75px' }} />
-                )}
-              </Box>
+            <Grid item xs={6} md={6} lg={6} className="sub_items_filter_outer">
+              <Box component="div" className="sub_items_filter_row"></Box>
             </Grid>
 
-            <Grid item xs={12} md={12} lg={12}>
+            <Grid
+              item
+              xs={12}
+              md={12}
+              lg={12}
+              className="sub_items_filter_outer"
+            >
               <Box component="div" className="sub_items_filter_footer">
                 <Button
                   variant="contained"

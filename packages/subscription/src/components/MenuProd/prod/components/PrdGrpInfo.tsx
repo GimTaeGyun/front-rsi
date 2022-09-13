@@ -172,7 +172,7 @@ const PrdGrpInfo = () => {
     <>
       <Card
         className="sub_items_filter_card"
-        sx={{ marginBottom: '20px', maxHeight: '336px' }}
+        sx={{ marginBottom: '20px', minHeight: '336px' }}
       >
         <Box>
           <CardHeader
@@ -188,67 +188,106 @@ const PrdGrpInfo = () => {
           sx={{ padding: '0 !important' }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={0}>
-              <Grid item xs={6} md={6} lg={6}>
+            <Grid container spacing={0} alignItems="stretch">
+              <Grid
+                item
+                xs={6}
+                md={6}
+                lg={6}
+                className="sub_items_filter_outer"
+              >
                 <Box component="div" className="sub_items_filter_row">
                   <Box component="div" className="sub_items_filter_label">
                     그룹명{' '}
                     <Typography className="sub_cust_label_dot">•</Typography>{' '}
                   </Box>
-                  <OutlinedInput
-                    ref={grpNmInputRef}
-                    fullWidth={false}
-                    placeholder="그룹명을 입력해 주세요."
-                    value={grpInfo.prdGrpNm}
-                    name="prdGrpNm"
-                    onChange={onInputChanged}
-                    className="sub_input_common sub_items_filter_input"
-                  />
+                  <Box
+                    component="div"
+                    className="sub_items_filter_input_wrapper"
+                  >
+                    <OutlinedInput
+                      ref={grpNmInputRef}
+                      fullWidth={false}
+                      placeholder="그룹명을 입력해 주세요."
+                      value={grpInfo.prdGrpNm}
+                      name="prdGrpNm"
+                      onChange={onInputChanged}
+                      className="sub_input_common sub_items_filter_input"
+                    />
+                  </Box>
                 </Box>
               </Grid>
-              <Grid item xs={6} md={6} lg={6}>
+              <Grid
+                item
+                xs={6}
+                md={6}
+                lg={6}
+                className="sub_items_filter_outer"
+              >
                 <Box component="div" className="sub_items_filter_row">
                   <Box component="div" className="sub_items_filter_label">
                     그룹 설명{' '}
                   </Box>
-                  <OutlinedInput
-                    fullWidth={false}
-                    placeholder="그룹 설명을 입력해 주세요."
-                    name="description"
-                    value={grpInfo.description}
-                    onChange={onInputChanged}
-                    className="sub_input_common sub_items_filter_input"
-                  />
+                  <Box
+                    component="div"
+                    className="sub_items_filter_input_wrapper"
+                  >
+                    <OutlinedInput
+                      fullWidth={false}
+                      placeholder="그룹 설명을 입력해 주세요."
+                      name="description"
+                      value={grpInfo.description}
+                      onChange={onInputChanged}
+                      className="sub_input_common sub_items_filter_input"
+                    />
+                  </Box>
                 </Box>
               </Grid>
             </Grid>
-            <Grid container spacing={0}>
-              <Grid item xs={6} md={6} lg={6}>
+            <Grid container spacing={0} alignItems="stretch">
+              <Grid
+                item
+                xs={6}
+                md={6}
+                lg={6}
+                className="sub_items_filter_outer"
+              >
                 <Box component="div" className="sub_items_filter_row">
                   <Box component="div" className="sub_items_filter_label">
                     그룹 상태{' '}
                     <Typography className="sub_cust_label_dot">•</Typography>{' '}
                   </Box>
-                  <Select
-                    fullWidth={false}
-                    name="status"
-                    value={grpInfo.status}
-                    className="sub_select_common sub_items_filter_list"
-                    onChange={onInputChanged}
+                  <Box
+                    component="div"
+                    className="sub_items_filter_list_wrapper"
                   >
-                    {grpStatusSelect ? (
-                      grpStatusSelect.codeSetItems.map((item: any) => (
-                        <MenuItem key={item.value} value={item.value}>
-                          {item.label}
-                        </MenuItem>
-                      ))
-                    ) : (
-                      <MenuItem value={1}>사용가능</MenuItem>
-                    )}
-                  </Select>
+                    <Select
+                      fullWidth={false}
+                      name="status"
+                      value={grpInfo.status}
+                      className="sub_select_common sub_items_filter_list"
+                      onChange={onInputChanged}
+                    >
+                      {grpStatusSelect ? (
+                        grpStatusSelect.codeSetItems.map((item: any) => (
+                          <MenuItem key={item.value} value={item.value}>
+                            {item.label}
+                          </MenuItem>
+                        ))
+                      ) : (
+                        <MenuItem value={1}>사용가능</MenuItem>
+                      )}
+                    </Select>
+                  </Box>
                 </Box>
               </Grid>
-              <Grid item xs={6} md={6} lg={6}>
+              <Grid
+                item
+                xs={6}
+                md={6}
+                lg={6}
+                className="sub_items_filter_outer"
+              >
                 <Box component="div" className="sub_items_filter_row">
                   <Box component="div" className="sub_items_filter_label">
                     GNB 노출{' '}
@@ -281,7 +320,13 @@ const PrdGrpInfo = () => {
                   </Box>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={12} lg={12}>
+              <Grid
+                item
+                xs={12}
+                md={12}
+                lg={12}
+                className="sub_items_filter_outer"
+              >
                 <Box
                   component="div"
                   className="sub_items_filter_row sub_items_filter_textarea d_flex align-items-center justify-content-between"
@@ -293,16 +338,21 @@ const PrdGrpInfo = () => {
                   >
                     상품 그룹 소개{' '}
                   </Box>
-                  <OutlinedInput
-                    multiline={true}
-                    minRows={4}
-                    fullWidth={false}
-                    name="introduction"
-                    placeholder="HTML TEXT AREA (※ 추후 에디터 삽입)"
-                    value={grpInfo.introduction}
-                    onChange={onInputChanged}
-                    className="sub_input_common sub_items_filter_textarea_input"
-                  />
+                  <Box
+                    component="div"
+                    className="sub_items_filter_textarea_outer"
+                  >
+                    <OutlinedInput
+                      multiline={true}
+                      minRows={4}
+                      fullWidth={false}
+                      name="introduction"
+                      placeholder="HTML TEXT AREA (※ 추후 에디터 삽입)"
+                      value={grpInfo.introduction}
+                      onChange={onInputChanged}
+                      className="sub_input_common sub_items_filter_textarea_input"
+                    />
+                  </Box>
                 </Box>
               </Grid>
               <Grid item xs={12} md={12} lg={12}>

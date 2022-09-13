@@ -1432,13 +1432,15 @@ const css = createTheme({
           '& .sub_items_filter_content': {
             padding: '0',
           },
+          '& .sub_items_filter_outer': {
+            borderBottom: '1px solid #eee',
+          },
           '& .sub_items_filter_row': {
             width: '100%',
-            height: '56px',
+            minHeight: '56px',
             display: 'flex !important',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid #eee',
             paddingRight: '10px',
             position: 'relative',
           },
@@ -1448,22 +1450,25 @@ const css = createTheme({
             letterSpacing: '-0.33px',
           },
           '& .sub_items_filter_input': {
-            width: '415px',
+            width: '100%',
             height: '36px',
-            '@media (min-width: 1921px)': {
-              width: '80%',
+            '&.Mui-error': {
+              marginTop: '11px',
             },
           },
-          '& .sub_items_filter_error': {
-            position: 'absolute',
-            right: '35px',
-            top: '15px',
+          '& .sub_items_filter_error': {},
+          '& .sub_items_filter_list_wrapper': {
+            width: '100%',
+            maxWidth: '415px',
+            '@media (min-width: 1921px)': {
+              maxWidth: '690px',
+            },
           },
           '& .sub_items_filter_list': {
-            width: '415px',
+            width: '100%',
             height: '36px',
-            '@media (min-width: 1921px)': {
-              width: '80%',
+            '&.Mui-error': {
+              marginTop: '11px',
             },
           },
           '& .sub_items_filter_footer': {
@@ -1477,14 +1482,29 @@ const css = createTheme({
             height: '104px',
             borderBottom: '1px solid #eee',
           },
+          '& .sub_items_filter_textarea_outer': {
+            width: '100%',
+            maxWidth: '970px',
+            '@media (min-width: 1921px)': {
+              maxWidth: '1567px',
+            },
+          },
           '& .sub_items_filter_textarea_input': {
-            width: '970px',
+            width: '100%',
+            maxWidth: '970px',
             height: '93px',
             '& .MuiInputBase-input': {
               lineHeight: '24px',
             },
             '@media (min-width: 1921px)': {
-              width: '90%',
+              maxWidth: 'unset',
+            },
+          },
+          '& .sub_items_filter_input_wrapper': {
+            width: '100%',
+            maxWidth: '415px',
+            '@media (min-width: 1921px)': {
+              maxWidth: '690px',
             },
           },
         },
