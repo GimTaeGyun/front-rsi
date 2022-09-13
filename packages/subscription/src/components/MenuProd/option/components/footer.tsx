@@ -17,7 +17,7 @@ export const Footer = (props: {
   setIsUpp: Function;
   rowDeT: Object;
 }) => {
-  const { open, isUpdate, onClickOpen, setIsUpp, rowDeT } = props;
+  const { open, isUpdate, setIsUpp, rowDeT } = props;
 
   return (
     <>
@@ -75,21 +75,14 @@ export const Footer = (props: {
           <Button
             variant="contained"
             className="sub_btn_primary_fill_common sub_btn_footer_save"
-            onClick={onClickOpen(true)}
+            onClick={() => {
+              props.onClickOpen(true);
+            }}
           >
             옵션 등록
           </Button>
         </Box>
       </Box>
-      <OptionForm
-        open={open}
-        onClose={onClickOpen}
-        selectId={props.selectId}
-        changeDataGridUE={props.changeDataGridUE}
-        isUpdate={isUpdate}
-        setIsUpp={setIsUpp}
-        rowDeT={rowDeT}
-      />
     </>
   );
 };

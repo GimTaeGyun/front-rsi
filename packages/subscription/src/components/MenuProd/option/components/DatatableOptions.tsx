@@ -18,6 +18,7 @@ import * as React from 'react';
 import { AlertPopupData } from '../../../../data/atoms';
 import { axios } from '../../../../utils/axios';
 import { Footer } from './footer';
+import OptionForm from './OptionForm';
 
 const columns: GridColDef[] = [
   {
@@ -229,46 +230,58 @@ const DatatableOptions = (props: {
 
   console.log(open);
 
-  const onClickOpen = (data: any) => {
+  const onClickOpen = (data: boolean) => {
     setOpen(data);
   };
 
   return (
-    <div style={{ height: '426px', width: '100%' }}>
-      <DataGridPro
-        className="sub_tbl_outer_common"
-        headerHeight={57}
-        disableSelectionOnClick
-        rowHeight={52}
-        rows={rows ? rows : []}
-        columns={columns}
-        pagination={true}
-        checkboxSelection
-        rowCount={rows.length}
-        onSelectionModelChange={select}
-        onCellClick={onClickCell}
-        components={{
-          Footer: () => {
-            return (
-              <Footer
-                rowNull={rowNull}
-                statusValue={statusValue}
-                postStatus={statusChangeArray}
-                statusChange={statusChange}
-                status={status}
-                selectId={selectId}
-                changeDataGridUE={changeDataGridUE}
-                isUpdate={isUpdate}
-                open={open}
-                onClickOpen={onClickOpen}
-                setIsUpp={changeIsUp}
-                rowDeT={rowDeT}
-              />
-            );
-          },
-        }}
-      />
-    </div>
+    <>
+      <div style={{ height: '426px', width: '100%' }}>
+        <DataGridPro
+          className="sub_tbl_outer_common"
+          headerHeight={57}
+          disableSelectionOnClick
+          rowHeight={52}
+          rows={rows ? rows : []}
+          sx={{ height: '426px' }}
+          columns={columns}
+          pagination={true}
+          checkboxSelection
+          rowCount={rows.length}
+          onSelectionModelChange={select}
+          onCellClick={onClickCell}
+          components={{
+            Footer: () => {
+              return (
+                <Footer
+                  rowNull={rowNull}
+                  statusValue={statusValue}
+                  postStatus={statusChangeArray}
+                  statusChange={statusChange}
+                  status={status}
+                  selectId={selectId}
+                  changeDataGridUE={changeDataGridUE}
+                  isUpdate={isUpdate}
+                  open={open}
+                  onClickOpen={onClickOpen}
+                  setIsUpp={changeIsUp}
+                  rowDeT={rowDeT}
+                />
+              );
+            },
+          }}
+        />
+        <OptionForm
+          open={open}
+          onClose={onClickOpen}
+          selectId={selectId}
+          changeDataGridUE={changeDataGridUE}
+          isUpdate={isUpdate}
+          setIsUpp={changeIsUp}
+          rowDeT={rowDeT}
+        />
+      </div>
+    </>
   );
 };
 export default DatatableOptions;
