@@ -85,76 +85,69 @@ export const columns: GridColDef[] = [
   },
   {
     field: 'funds',
-    headerName: '정산 금액',
-    minWidth: 180,
-    maxWidth: 292,
+    headerName: '정산금액',
+    minWidth: 80,
+    maxWidth: 130,
     flex: 1,
     headerAlign: 'center',
+    align: 'center',
+    sortable: false,
+    disableColumnMenu: true,
+    renderHeader: (params: GridColumnHeaderParams) => (
+      <Typography className="sub_tbl_th_common">
+        {params.colDef.headerName}
+      </Typography>
+    ),
+    renderCell: (params: GridRenderCellParams<string>) => (
+      <Typography
+        fontSize="14px"
+        sx={{
+          ...((params.value as any) == 1 && { color: '#284AD5' }),
+          ...((params.value as any) != 1 && {
+            color: '#999999',
+            fontFamily: 'NotoSansKRReguler',
+          }),
+        }}
+      >
+        {(params.value as any) == 1 ? '사용' : '종료'}
+      </Typography>
+    ),
+  },
+  {
+    field: 'description',
+    headerName: '추가 내용',
+    minWidth: 140,
+    maxWidth: 227,
+    flex: 1,
+    headerAlign: 'center',
+    sortable: false,
+    disableColumnMenu: true,
+    renderHeader: (params: GridColumnHeaderParams) => (
+      <Typography className="sub_tbl_th_common">
+        {params.colDef.headerName}
+      </Typography>
+    ),
+  },
+  {
+    field: 'modifiedDate',
+    headerName: '최종 수정일',
+    minWidth: 245,
+    maxWidth: 397,
+    flex: 1,
+    headerAlign: 'center',
+    align: 'center',
+    sortable: false,
     disableColumnMenu: false,
+    headerClassName: 'lastcolumnSeparator',
     renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
+      <>
+        <Typography className="sub_tbl_th_common">
+          {params.colDef.headerName}
+        </Typography>
+        {/*<IconButton color="primary" component="label">
+          <Box component="img" src="/filter_list.png"></Box>
+        </IconButton>*/}
+      </>
     ),
   },
-  {
-    field: 'ror',
-    headerName: '손익률',
-    minWidth: 140,
-    maxWidth: 227,
-    flex: 1,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'revenue',
-    headerName: '손익금',
-    minWidth: 140,
-    maxWidth: 227,
-    flex: 1,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'created_at',
-    headerName: '거래 일시',
-    minWidth: 140,
-    maxWidth: 227,
-    flex: 1,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  },
-  {
-    field: 'col_date',
-    headerName: '수집 일자',
-    minWidth: 140,
-    maxWidth: 227,
-    flex: 1,
-    headerAlign: 'center',
-    sortable: false,
-    disableColumnMenu: true,
-    renderHeader: (params: GridColumnHeaderParams) => (
-      <Typography className="sub_tbl_th_common">
-        {params.colDef.headerName}
-      </Typography>
-    ),
-  }  
 ];

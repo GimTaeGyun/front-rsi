@@ -279,20 +279,29 @@ const Admin = () => {
   // 테이블 데이터 가져오기
   React.useEffect(() => {
     axios
-      .post('/management/subscription/admin/user/inquiry', {
+      .post('/rsiupbit/rsi/inquiry', {
         status: null,
         usrId: null,
         usrNm: null,
       })
       .then(res => {
         if (res.data.code === '0000') {
+          console.log('test');
+          console.log(res);
           setRows(
             res.data.result.map((item: any) => {
               return {
                 ...item,
-                id: item.usrId,
-                name: item.usrNm,
-                modifiedDate: item.modAt,
+                id: item.uuid_order,
+                name: item.uuid_trade,
+                price: item.price,
+                volume: item.volume,
+                funds: item.funds,
+                ror: item.ror,
+                revenue: item.revenue,
+                created_at: item.created_at,
+                col_date: item.col_date,
+                modifiedDate: item.COLDATE,
               };
             }),
           );
@@ -416,10 +425,10 @@ const Admin = () => {
   return (
     <>
       <AppFrame
-        title="운영자 관리"
+        title="거래내역"
         breadcrumbs={[
           { name: '공통관리', link: '/admin/common/admin' },
-          { name: '운영자 관리', link: '/admin/common/admin' },
+          { name: '거래내역', link: '/admin/common/admin' },
         ]}
       >
         <>

@@ -11,6 +11,7 @@ import TabContent1 from '../customer/TabContent1';
 import TabContent2 from '../customer/TabContent2';
 import TabContent3 from '../customer/TabContent3';
 import TabContent4 from '../customer/TabContent4';
+import AdminMenu from '../../MenuCommon/admin';
 import TabButton from './components/TopButton';
 
 const CustomerTabData = [
@@ -47,6 +48,24 @@ const CustomerTabData = [
     child: (
       <>
         <TabContent4 />
+      </>
+    ),
+  },
+  {
+    title: '거래내역',
+    index: 5,
+    child: (
+      <>
+        <AdminMenu />
+      </>
+    ),
+  },
+  {
+    title: '미체결내역',
+    index: 6,
+    child: (
+      <>
+        <AdminMenu />
       </>
     ),
   },

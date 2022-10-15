@@ -29,8 +29,9 @@ export { default as AppFrame } from './container/AppFrame';
 const Subscription = () => {
   return (
     <Routes>
-      <Route path="/admin/login" element={<AdminLogin />}></Route>
+      {/* <Route path="/admin/login" element={<AdminLogin />}></Route> */}
       <Route path="/admin/common">
+        <Route path="tab" element={<CustomerTab />} />
         <Route path="admin" element={<AdminMenu />}></Route>
         <Route path="service" element={<ServiceMenu />}></Route>
         <Route path="media" element={<MediaMenu />}></Route>
