@@ -279,7 +279,7 @@ const Admin = () => {
   // 테이블 데이터 가져오기
   React.useEffect(() => {
     axios
-      .post('/rsiupbit/rsi/inquiry', {
+      .post('/rsiupbit/trade/inquiry', {
         status: null,
         usrId: null,
         usrNm: null,
@@ -425,10 +425,10 @@ const Admin = () => {
   return (
     <>
       <AppFrame
-        title="거래내역"
+        title="RSI"
         breadcrumbs={[
           { name: '공통관리', link: '/admin/common/admin' },
-          { name: '거래내역', link: '/admin/common/admin' },
+          { name: 'RSI', link: '/admin/common/rsi' },
         ]}
       >
         <>

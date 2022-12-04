@@ -13,10 +13,12 @@ import { axios } from '../../utils/axios';
 import LeftMenuMenuItem from './LeftMenuItem';
 const menuLink = [
   '###', // 0 root
+  '/admin/common/admin', // 4 운영자 관리
+  '/admin/common/rsi', // 4 운영자 관리
+  '/admin/trade', // 1 거래 내역
   '/admin/common', // 1 공통관리
   '/admin/ccp', // 2 고객/계약/결제 관리
   '/admin/prod', // 3 상품관리
-  '/admin/common/admin', // 4 운영자 관리
   '/admin/common/service', // 5 서비스 관리
   '/admin/common/media', // 6 매체 관리
   '/admin/common/notice', // 7 공지사항 관리
@@ -41,7 +43,8 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
     const callMenuApi = async () => {
       try {
         const menuResult = await axios.post(
-          '/management/subscription/admin/menu/inquiry',
+          // '/management/subscription/admin/menu/inquiry',
+          '/rsiupbit/menu',
           {
             appId: 1,
             menuId: 0,
@@ -49,12 +52,14 @@ const LeftMenu = (props: { drawerWidth: number; open: boolean }) => {
           },
         );
         const tempMenuItems = [] as any;
-        for (const menu of menuResult.data.result.subMenu) {
+        console.log('usrId 이상함222'+ menuResult.data.result);
+        // for (const menu of menuResult.data.result.subMenu) {
+        for (const menu of menuResult.data.result) {
           const menuItem = {
-            title: menu.menuNm,
+            title: menu.menu_nm,
             icon: <></>,
             items: [] as any,
-            menuId: menu.menuId,
+            menuId: menu.menu_id,
           };
 
           switch (menu.menuId) {

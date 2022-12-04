@@ -7,6 +7,7 @@ import CustomerMenu from './components/MenuCCP/customer';
 import CustomerTab from './components/MenuCCP/customer/customertab';
 import PayMenu from './components/MenuCCP/pay';
 import AdminMenu from './components/MenuCommon/admin';
+import RsiMenu from './components/MenuCommon/rsi';
 import MediaMenu from './components/MenuCommon/media';
 import NoticeMenu from './components/MenuCommon/notice';
 // 공통관리 메뉴
@@ -33,6 +34,7 @@ const Subscription = () => {
       <Route path="/admin/common">
         <Route path="tab" element={<CustomerTab />} />
         <Route path="admin" element={<AdminMenu />}></Route>
+        <Route path="rsi" element={<RsiMenu />}></Route>
         <Route path="service" element={<ServiceMenu />}></Route>
         <Route path="media" element={<MediaMenu />}></Route>
         <Route path="notice" element={<NoticeMenu />}></Route>
