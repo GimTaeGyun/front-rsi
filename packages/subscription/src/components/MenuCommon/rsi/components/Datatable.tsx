@@ -103,6 +103,15 @@ const DataTable = (props: any) => {
           className="sub_tbl_outer_common"
           rows={rowData}
           columns={columns}
+           // getCellClassName={(params: GridCellParams<number>) => {
+          //   if (params.field === 'col_date' || params.value == null) {
+          //     return '';
+          //   }
+          //   return params.value >= 15 ? 'hot' : 'cold';
+          // }}
+          // getCellClassName={(params) => {
+          //   return params.row.rsi >= 20 ? 'hot' : 'cold';
+          // }}
           pageSize={rowData.length}
           rowCount={rowNum}
           disableSelectionOnClick
@@ -110,10 +119,22 @@ const DataTable = (props: any) => {
           isRowSelectable={isRow}
           onSortModelChange={sortModelChanged}
           apiRef={dataGridApiRef}
+          // sx={{
+          //   borderRadius: 0,
+          //   fontSize: '14px',
+          //   fontFamily: 'NotoSansKRRagular',
+          // }}
           sx={{
-            borderRadius: 0,
-            fontSize: '14px',
-            fontFamily: 'NotoSansKRRagular',
+            '& .orange': {
+              borderRadius: 0,
+              fontSize: '14px',
+              fontFamily: 'NotoSansKRRagular',
+              backgroundColor: '#ff943975'
+            },
+          }}
+          getCellClassName={(params) => {
+            // return params.row.completed === true ? 'orange' : ''
+            return params.row.rsi < 30 ? 'orange' : ''
           }}
           components={{
             Footer: DatatableFooter,
@@ -155,7 +176,8 @@ const styles = {
     border: '0px important',
     width: '194px',
     height: '37px',
-    bgcolor: '#0000000A',
+    bgcolor: '#cd853f',
+    // bgcolor: '#0000000A',
     borderRadius: '4px',
     pl: 0,
     '& input::placeholder': {

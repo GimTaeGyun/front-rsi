@@ -90,7 +90,7 @@ export const columns: GridColDef[] = [
     maxWidth: 227,
     flex: 1,
     headerAlign: 'center',
-    sortable: false,
+    sortable: true,
     disableColumnMenu: true,
     renderHeader: (params: GridColumnHeaderParams) => (
       <Typography className="sub_tbl_th_common">
